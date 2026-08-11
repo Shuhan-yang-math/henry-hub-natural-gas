@@ -1,0 +1,19 @@
+name,peak_legacy_weather,peak_wind,peak_fundamental,shoulder_legacy_weather,shoulder_wind,shoulder_fundamental,allocation_source,eligible_for_development_selection
+no_wind_original,0.6,0.0,0.4,0.3,0.0,0.7,original seasonal score without GDEX wind,False
+embedded_shoulder_7p5,0.45,0.15,0.4,0.225,0.075,0.7,current four-component weather block,False
+independent_shoulder_10pct,0.45,0.15,0.4,0.225,0.1,0.675,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_12p5pct,0.45,0.15,0.4,0.225,0.125,0.65,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_15pct,0.45,0.15,0.4,0.225,0.15,0.625,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_17p5pct,0.45,0.15,0.4,0.225,0.175,0.6,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_20pct,0.45,0.15,0.4,0.225,0.2,0.575,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_22p5pct,0.45,0.15,0.4,0.225,0.225,0.55,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_25pct,0.45,0.15,0.4,0.225,0.25,0.525,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_27p5pct,0.45,0.15,0.4,0.225,0.275,0.5,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_30pct,0.45,0.15,0.4,0.225,0.3,0.475,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_32p5pct,0.45,0.15,0.4,0.225,0.325,0.45,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_35pct,0.45,0.15,0.4,0.225,0.35,0.425,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_37p5pct,0.45,0.15,0.4,0.225,0.375,0.4,increase shoulder wind at the expense of fundamentals,True
+independent_shoulder_40pct,0.45,0.15,0.4,0.225,0.4,0.375,increase shoulder wind at the expense of fundamentals,True
+weather_reallocation_shoulder_10pct,0.45,0.15,0.4,0.2,0.1,0.7,increase shoulder wind at the expense of legacy weather,False
+weather_reallocation_shoulder_12p5pct,0.45,0.15,0.4,0.175,0.125,0.7,increase shoulder wind at the expense of legacy weather,False
+weather_reallocation_shoulder_15pct,0.45,0.15,0.4,0.15,0.15,0.7,increase shoulder wind at the expense of legacy weather,False

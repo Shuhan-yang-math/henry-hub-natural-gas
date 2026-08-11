@@ -1,0 +1,111 @@
+config_version: 1
+config_id: ng_multisignal_panel_2026-07-13
+formal_strategy_cutoff: "2026-07-13"
+handoff_base_commit: dbf0cd309a64762fc3aae74e4e4b4fcaad6831ba
+builder_source_identity: "the repository commit containing this config"
+
+panel:
+  artifact_id: ng_multisignal_panel
+  input_manifest: manifests/master_panel_inputs_2026-07-13.json
+  approved_artifact_manifest: manifests/input_artifacts_2026-07-13.json
+  artifact_coverage_end: "2026-07-17"
+  formal_selection:
+    date_lte: "2026-07-13"
+    required_input_complete: true
+  schema_contract: schemas/input_schemas_2026-07-13.json
+
+formal_evaluator:
+  entrypoint: naturalgas/evaluate_south_central_storage_strategy.py
+  strategy_start: "2017-07-01"
+  through_date: "2026-07-13"
+  local_artifact_ids:
+    - ng_multisignal_panel
+    - capacity_weighted_wind_features_daily
+    - capacity_weighted_solar_signals
+    - capacity_weighted_location_leads
+  pinned_local_snapshot_artifact_ids:
+    - storage_weekly
+    - fundamentals_monthly
+    - eia_country_monthly
+
+wind:
+  feature_artifact_id: capacity_weighted_wind_features_daily
+  selected_signal_column: sig_capacity_cf
+  selected_forecast_cycle_hour_utc: 0
+  processed_artifact_cycles_utc:
+    - 0
+  timing_note: >-
+    The checked-in manifest artifact contains only 00Z initializations. The
+    upstream raw archive contains the 00Z, 06Z, 12Z, and 18Z cycles; those
+    additional cycles are not rows in the selected daily wind artifact.
+  raw_weather_source:
+    dataset: "NCAR GDEX d084001 / NCEP GFS 0.25 degree"
+    uri_glob: "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=*/month=*/data.parquet"
+    layer: raw_point_weather
+    representative_locations: 28
+    lead_days:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    valid_hours_utc:
+      - 0
+      - 6
+      - 12
+      - 18
+  provenance_note: >-
+    The capacity-weighted wind builder reads raw wind_points partitions. The
+    processed weather/.../wind_daily partitions are a separate intermediate
+    product and are not the direct source of this selected artifact.
+  capacity_source:
+    dataset: USWTDB turbine snapshot
+    point_in_time_policy: "issue year y uses turbines commissioned by y-1"
+  notebook_audit_inputs:
+    annual_location_weights:
+      path: inputs/audit/wind/annual_location_weights.csv
+      sha256: 677cdabc8f3f051514f3ad3ed29e24332c6755dc9902bd8361b35dddd8ff23db
+    annual_fleet_diagnostics:
+      path: inputs/audit/wind/annual_fleet_diagnostics.csv
+      sha256: 57fdd655c5b2e5c21c060d71e6ceb6d1884ad803f15ed484308e48c8920f596e
+    complete_factor_ic:
+      path: results/experiments/wind/complete_wind_factor_ic.csv
+      sha256: 93a1faf2e1d73618b0cde4b95eb572801adebd6953bcdae9fd39c4fd9080a930
+
+solar:
+  signal_artifact_id: capacity_weighted_solar_signals
+  lead_artifact_id: capacity_weighted_location_leads
+  selected_forecast_cycle_hour_utc: 0
+
+weather_rebuild:
+  input_manifest: manifests/weather_factor_inputs_2026-07-28.json
+  frozen_wind_capacity_snapshot: inputs/audit/wind/annual_location_weights.parquet
+  frozen_solar_capacity_snapshot: inputs/audit/solar/monthly_location_weights.parquet
+
+fundamentals:
+  storage_artifact_id: storage_weekly
+  monthly_artifact_id: fundamentals_monthly
+  lng_trade_artifact_id: eia_country_monthly
+  weekly_release_alignment: "week ending Friday plus 6 days"
+  monthly_release_alignment: "reference month M available at M+3"
+
+execution:
+  signal_lag_trading_sessions: 1
+  roll_advance_trading_sessions: 5
+  transaction_cost_bps_per_unit_turnover: 2.5
+  position_bounds:
+    - -1.0
+    - 1.0
+
+reproducibility_boundary:
+  supported: >-
+    Recompute the formal 2017-07-03 through 2026-07-13 strategy from immutable
+    internal base objects. The full pipeline rebuilds the master panel from 72
+    generation-pinned direct inputs, rebuilds wind and solar from 254 pinned
+    NCAR/GDEX partitions plus two frozen capacity snapshots, and routes the
+    three EIA reads through a read-only local snapshot filesystem.
+  not_supported: >-
+    Re-query current public APIs and claim byte-identical historical output.
+    Those sources can revise and may not expose complete first-release
+    archives; a new download is a data refresh rather than reproduction of the
+    approved 2026-07-13 model.

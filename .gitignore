@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Local credentials and secret-bearing environment files.
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*service-account*.json
+credentials*.json
+
+# Large model inputs are downloaded from GCS; final shipped result artifacts
+# under naturalgas/processed/south_central_storage_strategy remain tracked.
+naturalgas/processed/ng_multisignal_score/
+naturalgas/processed/ncar_gdex_complete_wind_factor/
+naturalgas/processed/ncar_gdex_capacity_weighted_solar/
+naturalgas/processed/native_frequency_fundamentals/
+naturalgas/processed/no_consumption_fundamental_weights/
+naturalgas/processed/south_central_storage/
+
+# Generation-pinned downloads and local rebuild outputs.  Their immutable
+# identities live in manifests/ and the files remain in private GCS.
+inputs/gcs/
+reproduced/

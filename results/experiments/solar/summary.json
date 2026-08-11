@@ -1,0 +1,253 @@
+{
+  "baseline_metrics": {
+    "development": {
+      "cagr": 0.07607516994701458,
+      "maximum_drawdown": -0.05388131676482433,
+      "sharpe": 1.1973761734492092,
+      "trading_days": 1130,
+      "win_rate": 0.5221238938053098
+    },
+    "first_look_holdout": {
+      "cagr": 0.07849172207967192,
+      "maximum_drawdown": -0.05858316036195432,
+      "sharpe": 1.0623473000736778,
+      "trading_days": 634,
+      "win_rate": 0.5283911671924291
+    },
+    "full": {
+      "cagr": 0.09236556118685102,
+      "maximum_drawdown": -0.05858316036195399,
+      "sharpe": 1.2753885787219488,
+      "trading_days": 2515,
+      "win_rate": 0.5248508946322068
+    },
+    "validation": {
+      "cagr": 0.13022889978916452,
+      "maximum_drawdown": -0.04370519237845538,
+      "sharpe": 1.5506785964589835,
+      "trading_days": 751,
+      "win_rate": 0.525965379494008
+    }
+  },
+  "capacity_policy": "EIA utility-scale SUN capacity by month and nearest of 28 GFS locations, lagged two months",
+  "conservative_metrics": {
+    "development": {
+      "cagr": 0.07991483969906987,
+      "maximum_drawdown": -0.054842989616461724,
+      "sharpe": 1.283831016189888,
+      "trading_days": 1130,
+      "win_rate": 0.5238938053097345
+    },
+    "first_look_holdout": {
+      "cagr": 0.08807367523662957,
+      "maximum_drawdown": -0.05548083982411822,
+      "sharpe": 1.1680878499670362,
+      "trading_days": 634,
+      "win_rate": 0.5236593059936908
+    },
+    "full": {
+      "cagr": 0.09849244436114146,
+      "maximum_drawdown": -0.05548083982411878,
+      "sharpe": 1.3582511141887645,
+      "trading_days": 2515,
+      "win_rate": 0.5216699801192843
+    },
+    "validation": {
+      "cagr": 0.13695658634147634,
+      "maximum_drawdown": -0.044380126530402686,
+      "sharpe": 1.618239290354568,
+      "trading_days": 751,
+      "win_rate": 0.5166444740346205
+    }
+  },
+  "conservative_neutral_slot_control": {
+    "development": {
+      "cagr": 0.07435801099389416,
+      "maximum_drawdown": -0.05028256306388201,
+      "sharpe": 1.2244694006025136,
+      "trading_days": 1130,
+      "win_rate": 0.5212389380530974
+    },
+    "first_look_holdout": {
+      "cagr": 0.07857438327218236,
+      "maximum_drawdown": -0.05911061019371999,
+      "sharpe": 1.088294077240064,
+      "trading_days": 634,
+      "win_rate": 0.5205047318611987
+    },
+    "full": {
+      "cagr": 0.09090259306226134,
+      "maximum_drawdown": -0.05911061019371955,
+      "sharpe": 1.2990388683649314,
+      "trading_days": 2515,
+      "win_rate": 0.5208747514910537
+    },
+    "validation": {
+      "cagr": 0.12778647940586496,
+      "maximum_drawdown": -0.04374946193725959,
+      "sharpe": 1.57168301350683,
+      "trading_days": 751,
+      "win_rate": 0.5206391478029294
+    }
+  },
+  "conservative_nominal_weight": 0.05,
+  "development_selected_metrics": {
+    "development": {
+      "cagr": 0.08682726959646003,
+      "maximum_drawdown": -0.05680090897431744,
+      "sharpe": 1.3721928620860786,
+      "trading_days": 1130,
+      "win_rate": 0.5150442477876106
+    },
+    "first_look_holdout": {
+      "cagr": 0.10669491497423755,
+      "maximum_drawdown": -0.05665740911874895,
+      "sharpe": 1.2797942848443893,
+      "trading_days": 634,
+      "win_rate": 0.526813880126183
+    },
+    "full": {
+      "cagr": 0.11001881727890295,
+      "maximum_drawdown": -0.05680090897431744,
+      "sharpe": 1.4192820733863332,
+      "trading_days": 2515,
+      "win_rate": 0.5224652087475149
+    },
+    "validation": {
+      "cagr": 0.14963376335268186,
+      "maximum_drawdown": -0.05444146747382428,
+      "sharpe": 1.6253363289602627,
+      "trading_days": 751,
+      "win_rate": 0.5299600532623169
+    }
+  },
+  "execution": {
+    "front_month_roll": "five trading days before official LTD",
+    "missing_signal_policy": "fixed solar slot is neutral zero",
+    "signal_lag": "one trading session",
+    "transaction_cost_bps": 2.5
+  },
+  "experiment": "capacity_weighted_gdex_solar_factor",
+  "factor_definition": "tanh(causal_z60[-capacity-weighted 1-5d PV availability] / 2) with deterministic extraterrestrial-daylight slot scaling",
+  "gcs_objects_modified": false,
+  "intermediate_metrics": {
+    "development": {
+      "cagr": 0.0834422766039995,
+      "maximum_drawdown": -0.055815757377906006,
+      "sharpe": 1.3422881742069799,
+      "trading_days": 1130,
+      "win_rate": 0.5176991150442478
+    },
+    "first_look_holdout": {
+      "cagr": 0.09753743988903052,
+      "maximum_drawdown": -0.05508670457125697,
+      "sharpe": 1.2406934198993118,
+      "trading_days": 634,
+      "win_rate": 0.5331230283911672
+    },
+    "full": {
+      "cagr": 0.10436420272490388,
+      "maximum_drawdown": -0.055815757377906006,
+      "sharpe": 1.405655097390899,
+      "trading_days": 2515,
+      "win_rate": 0.5228628230616302
+    },
+    "validation": {
+      "cagr": 0.14341545785789545,
+      "maximum_drawdown": -0.04642663248491996,
+      "sharpe": 1.6413099237284638,
+      "trading_days": 751,
+      "win_rate": 0.521970705725699
+    }
+  },
+  "intermediate_neutral_slot_control": {
+    "development": {
+      "cagr": 0.07248459509620453,
+      "maximum_drawdown": -0.047208106524706084,
+      "sharpe": 1.24763244757667,
+      "trading_days": 1130,
+      "win_rate": 0.5185840707964602
+    },
+    "first_look_holdout": {
+      "cagr": 0.07863925919048564,
+      "maximum_drawdown": -0.0596391649853073,
+      "sharpe": 1.1124348890455924,
+      "trading_days": 634,
+      "win_rate": 0.5205047318611987
+    },
+    "full": {
+      "cagr": 0.08935931541181241,
+      "maximum_drawdown": -0.059639164985306636,
+      "sharpe": 1.3197539311995108,
+      "trading_days": 2515,
+      "win_rate": 0.5176938369781312
+    },
+    "validation": {
+      "cagr": 0.1253306037269779,
+      "maximum_drawdown": -0.04379494810555973,
+      "sharpe": 1.590772714924105,
+      "trading_days": 751,
+      "win_rate": 0.5139813581890812
+    }
+  },
+  "intermediate_nominal_weight": 0.1,
+  "limitations": [
+    "EIA capacity excludes distributed solar below the utility-scale threshold",
+    "plants are mapped to the nearest of only 28 weather locations",
+    "capacity history is revised data rather than archived publication vintages",
+    "GFS shortwave radiation is not a full plane-of-array PV model",
+    "curtailment, snow, tracking geometry, and plant outages are not modeled"
+  ],
+  "primary_factor": "pv_daylight",
+  "production_panel_modified": false,
+  "sample_end": "2026-07-13T00:00:00",
+  "sample_start": "2016-07-06T00:00:00",
+  "selected_at_upper_grid_boundary": true,
+  "selected_neutral_slot_control": {
+    "development": {
+      "cagr": 0.0705975594781647,
+      "maximum_drawdown": -0.04429563663997149,
+      "sharpe": 1.268754702804946,
+      "trading_days": 1130,
+      "win_rate": 0.5123893805309735
+    },
+    "first_look_holdout": {
+      "cagr": 0.07871320293702477,
+      "maximum_drawdown": -0.06011311906998962,
+      "sharpe": 1.1346519883593997,
+      "trading_days": 634,
+      "win_rate": 0.5173501577287066
+    },
+    "full": {
+      "cagr": 0.08780736229321673,
+      "maximum_drawdown": -0.06011311906999006,
+      "sharpe": 1.3380842926949867,
+      "trading_days": 2515,
+      "win_rate": 0.5145129224652087
+    },
+    "validation": {
+      "cagr": 0.12286107447107342,
+      "maximum_drawdown": -0.04414033515417226,
+      "sharpe": 1.6073437384888078,
+      "trading_days": 751,
+      "win_rate": 0.5153129161118508
+    }
+  },
+  "selected_nominal_weight": 0.15000000000000002,
+  "selected_upstream_wind_allocation": {
+    "allocation_source": "increase shoulder wind at the expense of fundamentals",
+    "eligible_for_development_selection": true,
+    "name": "independent_shoulder_22p5pct",
+    "peak_fundamental": 0.4,
+    "peak_legacy_weather": 0.45,
+    "peak_wind": 0.15,
+    "shoulder_fundamental": 0.55,
+    "shoulder_legacy_weather": 0.225,
+    "shoulder_wind": 0.225
+  },
+  "selection_rule": "highest 2.5 bps net development Sharpe (2016-07-06 through 2020-12-31); ties choose smaller nominal weight",
+  "solar_complete_trading_days": 2511,
+  "solar_missing_or_incomplete_trading_days": 4,
+  "status": "research_only",
+  "trading_days": 2515
+}

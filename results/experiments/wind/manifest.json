@@ -1,0 +1,75 @@
+{
+  "experiment": "independent_seasonal_gdex_wind_weight",
+  "status": "research_only",
+  "production_panel_modified": false,
+  "gcs_objects_modified": false,
+  "common_sample_start": "2016-07-06 00:00:00",
+  "common_sample_end": "2026-07-13 00:00:00",
+  "common_trading_days": 2515,
+  "signal": "capacity-weighted nonlinear capacity-factor shortfall",
+  "signal_transform": "tanh(signal / 2)",
+  "peak_months": [
+    11,
+    12,
+    1,
+    2,
+    6,
+    7,
+    8
+  ],
+  "shoulder_months": [
+    3,
+    4,
+    5,
+    9,
+    10
+  ],
+  "selection_rule": "highest 2.5 bps net Sharpe in 2016-07-06 through 2020-12-31 among candidates that hold legacy shoulder weather at 22.5% and reallocate fundamentals to wind",
+  "selected_allocation": {
+    "name": "independent_shoulder_35pct",
+    "peak_legacy_weather": 0.45,
+    "peak_wind": 0.15,
+    "peak_fundamental": 0.4,
+    "shoulder_legacy_weather": 0.225,
+    "shoulder_wind": 0.35,
+    "shoulder_fundamental": 0.425,
+    "allocation_source": "increase shoulder wind at the expense of fundamentals",
+    "eligible_for_development_selection": true
+  },
+  "selected_period_results": {
+    "full": {
+      "baseline_sharpe": 0.8953080570653209,
+      "selected_sharpe": 1.1093163891894484,
+      "baseline_cagr": 0.09972671405170619,
+      "selected_cagr": 0.13766551101105118
+    },
+    "development": {
+      "baseline_sharpe": 0.9394552325805281,
+      "selected_sharpe": 1.065129270040687,
+      "baseline_cagr": 0.07626443928697713,
+      "selected_cagr": 0.09273823394169933
+    },
+    "validation": {
+      "baseline_sharpe": 0.9953364788980551,
+      "selected_sharpe": 1.1334790401262387,
+      "baseline_cagr": 0.13729138408286623,
+      "selected_cagr": 0.17463669851968056
+    },
+    "first_look_holdout": {
+      "baseline_sharpe": 0.7923056630046262,
+      "selected_sharpe": 1.2346530946370688,
+      "baseline_cagr": 0.09913656836106943,
+      "selected_cagr": 0.17807818940692788
+    }
+  },
+  "execution": {
+    "position_lag": "one trading day",
+    "transaction_cost_bps_for_selection": 2.5,
+    "transaction_cost_sensitivity_bps": [
+      0.0,
+      2.5,
+      5.0
+    ]
+  },
+  "caution": "The allocation grid is a research sensitivity analysis, not a production parameter. Historical USWTDB weights are reconstructed from a current turbine snapshot rather than archived vintages."
+}

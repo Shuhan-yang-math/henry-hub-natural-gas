@@ -1,0 +1,681 @@
+{
+  "manifest_version": 1,
+  "strategy_as_of": "2026-07-13",
+  "builder": "naturalgas/build_multisignal_panel.py",
+  "purpose": "Generation-pinned contract for the eight direct inputs consumed by the master panel builder.",
+  "promotion_status": "direct_inputs_generation_pinned",
+  "input_count": 8,
+  "inputs": [
+    {
+      "id": "daily_features",
+      "default_uri": "gs://bcli-natgas-data-497807/features/daily_features.parquet",
+      "generation": "1785380693145730",
+      "partitioned": false,
+      "required_columns": [
+        "date",
+        "hh_spot",
+        "ret_21d",
+        "obs_hdd7_anom",
+        "obs_cdd7_anom",
+        "storage_dev",
+        "storage_chg_surprise",
+        "prod_yoy",
+        "lng_exp_yoy",
+        "usd_ret_5d",
+        "sp500_ret_5d",
+        "term_spread_10y_3m",
+        "gpr_shock"
+      ],
+      "generation_pinned_uri": "gs://bcli-natgas-data-497807/features/daily_features.parquet#1785380693145730",
+      "size_bytes": 234939,
+      "sha256": "1e13bd26566c8d7ba6283e5746be6dbfad3e6dfcc51965dc4977b090e8922824"
+    },
+    {
+      "id": "fundamentals_monthly",
+      "default_uri": "gs://bcli-natgas-data-497807/processed/fundamentals_monthly.parquet",
+      "generation": "1784674813059617",
+      "partitioned": false,
+      "required_columns": [
+        "month",
+        "dry_prod",
+        "total_cons",
+        "exports",
+        "imports"
+      ],
+      "generation_pinned_uri": "gs://bcli-natgas-data-497807/processed/fundamentals_monthly.parquet#1784674813059617",
+      "size_bytes": 9379,
+      "sha256": "72eff5123d9fcf0d48b8af52621b01d31323b3b00c5982bcec34cd430c645e4b"
+    },
+    {
+      "id": "storage_weekly",
+      "default_uri": "gs://bcli-natgas-data-497807/processed/storage_weekly.parquet",
+      "generation": "1784674812651746",
+      "partitioned": false,
+      "required_columns": [
+        "week_ending",
+        "lower48"
+      ],
+      "generation_pinned_uri": "gs://bcli-natgas-data-497807/processed/storage_weekly.parquet#1784674812651746",
+      "size_bytes": 17485,
+      "sha256": "05e1374211246577a175a58179cf05fe53b7ade8817140d598e0f2e7a9d3cd60"
+    },
+    {
+      "id": "lng_trade",
+      "default_uri": "gs://bcli-natgas-data-497807/raw/eia/trade_detail/country_monthly.parquet",
+      "generation": "1784765115754980",
+      "partitioned": false,
+      "required_columns": [
+        "dataset",
+        "is_us_aggregate",
+        "process-name",
+        "metric",
+        "month",
+        "value"
+      ],
+      "generation_pinned_uri": "gs://bcli-natgas-data-497807/raw/eia/trade_detail/country_monthly.parquet#1784765115754980",
+      "size_bytes": 66448,
+      "sha256": "7329fba8573d4e1c706e8737a3562b298d543c2ff7b921f36e7b6f591624fe3c"
+    },
+    {
+      "id": "cpc_features",
+      "default_uri": "gs://bcli-natgas-data-497807/processed/ng_weather_signals/ng_hdd_cdd_features.parquet",
+      "generation": "1785200834008281",
+      "partitioned": false,
+      "required_columns": [
+        "issue_date",
+        "signal_available_date",
+        "hdd_6d",
+        "cdd_6d",
+        "gdd_6d",
+        "hdd_revision_5d",
+        "cdd_revision_5d",
+        "gdd_revision_5d",
+        "hdd_revision_5d_z",
+        "cdd_revision_5d_z",
+        "gdd_revision_5d_z",
+        "gdd_6d_z"
+      ],
+      "generation_pinned_uri": "gs://bcli-natgas-data-497807/processed/ng_weather_signals/ng_hdd_cdd_features.parquet#1785200834008281",
+      "size_bytes": 305500,
+      "sha256": "eb59f38c9b068c34a8f43cd28f760a4490184c05303bb447264edc3ebcf2c787"
+    },
+    {
+      "id": "futures_daily",
+      "default_uri": "gs://bcli-natgas-data-497807/processed/ng_hh_futures/ng_hh_futures_daily.parquet",
+      "generation": "1785380689705361",
+      "partitioned": false,
+      "required_columns": [
+        "date",
+        "c1",
+        "c2",
+        "c4",
+        "c2_c1_log_spread",
+        "front_spot_log_basis",
+        "return_20d",
+        "roll_adjusted_return",
+        "is_roll_switch"
+      ],
+      "generation_pinned_uri": "gs://bcli-natgas-data-497807/processed/ng_hh_futures/ng_hh_futures_daily.parquet#1785380689705361",
+      "size_bytes": 1488505,
+      "sha256": "18edce93d72706aedf612e5199ff59e3fe3dad88c1f9b7090ecc9314d2976381"
+    },
+    {
+      "id": "gfs_daily",
+      "default_uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=*/month=*/data.parquet",
+      "partitioned": true,
+      "partition_count": 65,
+      "required_columns": [
+        "location_id",
+        "target_date",
+        "lead_days",
+        "hdd65_f",
+        "cdd65_f",
+        "wind_speed_80m_mean_kmh",
+        "cloud_cover_mean_pct"
+      ],
+      "objects": [
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=03/data.parquet",
+          "generation": "1785190525990853",
+          "size_bytes": 32704,
+          "crc32c": "K35ODA==",
+          "md5_base64": "KqRf3N6RktSRAfci5wEBbw==",
+          "sha256": "ae276bf41fc836b93d8fdd13867b6934ecd17e661bc51adebc092566c6514671"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=04/data.parquet",
+          "generation": "1785190526537070",
+          "size_bytes": 78892,
+          "crc32c": "q9T/TA==",
+          "md5_base64": "z2mg70TO0wdBadiMPvE5Bg==",
+          "sha256": "5d2ab315a5ebbf568770af95493b3a40b96af8f53a632e096ce8b32bcb1f726f"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=05/data.parquet",
+          "generation": "1785190527104280",
+          "size_bytes": 79722,
+          "crc32c": "oU7O9w==",
+          "md5_base64": "KpHyXVv3iYFsbXSN8pyTJQ==",
+          "sha256": "081098ae3cbececea7ff35bd9f7252c4b1c13591371ab0fdac57e87f98292626"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=06/data.parquet",
+          "generation": "1785190527702543",
+          "size_bytes": 74096,
+          "crc32c": "YCROGQ==",
+          "md5_base64": "hThGpPXhVRy0+hzeuRufYg==",
+          "sha256": "18005f0fe9b87741b1567d3f430a23cc1cd5e134be6a95c6a1a3bbd699492f29"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=07/data.parquet",
+          "generation": "1785190528318491",
+          "size_bytes": 73544,
+          "crc32c": "zhv9fA==",
+          "md5_base64": "JFvXgxffSnWlHA/GoENkSQ==",
+          "sha256": "c3fc0299d085dc5b5359fc6bf43fdfcf3ada050553b0f573b56f7ad03dc2d414"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=08/data.parquet",
+          "generation": "1785190528896967",
+          "size_bytes": 71891,
+          "crc32c": "3W3bPQ==",
+          "md5_base64": "4wkzMWSPt+tnVvMGAda0sA==",
+          "sha256": "a6afc3a367d2625ef7b55a7e9f8dcf9ccd900ce501cd18c144f3029028b86fc1"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=09/data.parquet",
+          "generation": "1785190529500804",
+          "size_bytes": 75275,
+          "crc32c": "M8k1Uw==",
+          "md5_base64": "HslTkKkGCCqO/bsE4Y7Ndw==",
+          "sha256": "5dc6a783a17f7c6d192a8299ff2f0706a1124320a1df01c2a444f4a911cd990a"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=10/data.parquet",
+          "generation": "1785190530073513",
+          "size_bytes": 77972,
+          "crc32c": "dZFF9g==",
+          "md5_base64": "Ae9KCxXcy84/kYmd8vf8WA==",
+          "sha256": "fbfbd38f1fe991f403734cb80aa82b9720d5722284e5f0fcbec81399a558af23"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=11/data.parquet",
+          "generation": "1785190530636719",
+          "size_bytes": 77964,
+          "crc32c": "STMX+w==",
+          "md5_base64": "naCtmbpR1awbKFTxgK+kCg==",
+          "sha256": "626244d238f1db59c22515bd0dc04e5879c9a90dd2557eddecc7caf6ab66ca60"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2021/month=12/data.parquet",
+          "generation": "1785190531197019",
+          "size_bytes": 81938,
+          "crc32c": "iIiahw==",
+          "md5_base64": "nibVL0vE3P0OUhaiZE6sTQ==",
+          "sha256": "214f333900e9097d8e476327ca481c836b05c9bfa5e41ac599e3472b7892fdbe"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=01/data.parquet",
+          "generation": "1785190531755925",
+          "size_bytes": 83312,
+          "crc32c": "trXLHw==",
+          "md5_base64": "iPtXy4QLSklShBypKps7+g==",
+          "sha256": "e7801e740fe5e6fc45dea992f3dba993b371ef1d3138babe8b179e691c2131ca"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=02/data.parquet",
+          "generation": "1785190532279422",
+          "size_bytes": 78588,
+          "crc32c": "tVZSOg==",
+          "md5_base64": "NM2Mkbvh4aYkgNCXWcGQIA==",
+          "sha256": "c03f9bb5841e7cbf5c43b83a27afc370007cb2f2e812b89cb653d0e415c421a7"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=03/data.parquet",
+          "generation": "1785190532840329",
+          "size_bytes": 82761,
+          "crc32c": "Au4usw==",
+          "md5_base64": "gYXejzPh7T6KQsJ/jF4sLQ==",
+          "sha256": "919546026b279a0b85265684c75ee01501a4ec211684d4876414615e2104bd81"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=04/data.parquet",
+          "generation": "1785190533393609",
+          "size_bytes": 78677,
+          "crc32c": "v42+5w==",
+          "md5_base64": "0QVEm9pf4mvrAi8SAb3g/A==",
+          "sha256": "c5a647e177d1eb0e8bdba3ef6666fac6ed48d18baa226d8acfc6c61d1670e4bb"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=05/data.parquet",
+          "generation": "1785190533945921",
+          "size_bytes": 80281,
+          "crc32c": "P9V0pw==",
+          "md5_base64": "+G6SotUyB9nITI0DCljytg==",
+          "sha256": "4c333e45abbd965f3ae2de142d2b6f8cbabb64611a38e5309f6b1e587342619f"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=06/data.parquet",
+          "generation": "1785190534488444",
+          "size_bytes": 77126,
+          "crc32c": "+IT2Vw==",
+          "md5_base64": "cOAq1ZRHQjA/WTXDvuzdZA==",
+          "sha256": "00700db0c3965b4531cf7e30910d6ccdd8f897e8e7e06fca1ce25235e6a30b66"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=07/data.parquet",
+          "generation": "1785190535092832",
+          "size_bytes": 74365,
+          "crc32c": "484Dag==",
+          "md5_base64": "KhIYFdTHZYj3fJ6Q+EkSiQ==",
+          "sha256": "312164a49d8681917a246987a116c9077121c604c05afe205f3bf722a003a4c6"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=08/data.parquet",
+          "generation": "1785190535683937",
+          "size_bytes": 71913,
+          "crc32c": "w0FmlA==",
+          "md5_base64": "ZSKtZzatLIUNYKtlUD+eKA==",
+          "sha256": "827bcdc3a82a6e28a2180f2db8f9de10525c9d1b755e73f9013f11cca469123a"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=09/data.parquet",
+          "generation": "1785190536214756",
+          "size_bytes": 75832,
+          "crc32c": "VakNCw==",
+          "md5_base64": "opxBvknanN/tc56f1PiYbA==",
+          "sha256": "c75b60720a0f4067d7b13fd2cfe105d2411bb6d6f10858d13d9d561de64c0c67"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=10/data.parquet",
+          "generation": "1785190536783388",
+          "size_bytes": 79570,
+          "crc32c": "SlH7Tw==",
+          "md5_base64": "+s5NJRfcAPvG4hN5+jhx1w==",
+          "sha256": "3d058e0c313cf9ff258fa5257192f410d98312b31e0e42529321b7513eb10216"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=11/data.parquet",
+          "generation": "1785190537323232",
+          "size_bytes": 80008,
+          "crc32c": "9n7g6w==",
+          "md5_base64": "HSwlLu4VVWbSdtOGxnRsJw==",
+          "sha256": "53d32f3d763f491a6fcd5c796f8f13110df41054e58ba39ba4d69dd8d908d9d5"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2022/month=12/data.parquet",
+          "generation": "1785190537935779",
+          "size_bytes": 82667,
+          "crc32c": "ySC4aA==",
+          "md5_base64": "a7dSG/2nG1j80v33SdqptQ==",
+          "sha256": "231baca39278659a8d4da2de043a32203e6f70b4d0f58a139b075f0c538f0115"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=01/data.parquet",
+          "generation": "1785190538547775",
+          "size_bytes": 81283,
+          "crc32c": "2RZA/Q==",
+          "md5_base64": "h7Wx2D67YB0TcuvmK+aCxA==",
+          "sha256": "bbd6261e0ff2f79b7bcfece1d2eaef8c00d9aaa651e34269557af8c2d585bd11"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=02/data.parquet",
+          "generation": "1785190539077523",
+          "size_bytes": 77036,
+          "crc32c": "yTaOlg==",
+          "md5_base64": "C7+F0FrezK+fAPHe17x0Cw==",
+          "sha256": "7b856c7387caf7ca2d51b40258caa37c2776cbcd62c40fc7707af4a4db8ca453"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=03/data.parquet",
+          "generation": "1785190539637581",
+          "size_bytes": 81237,
+          "crc32c": "sd1vDg==",
+          "md5_base64": "UIwbDOmQvwvRL8k1Kaf4EA==",
+          "sha256": "409ca30dd80f3cafd18ee4052ad9aeb2f4334c3c173bc1fe05af371bd7dfbb5c"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=04/data.parquet",
+          "generation": "1785190540240064",
+          "size_bytes": 78472,
+          "crc32c": "dvKTWw==",
+          "md5_base64": "oVh4RMgnBfEv2vPUtFj2cg==",
+          "sha256": "e9b0af518395f755fd3deaaff69af937723eb109bbb5e5338c94a41cb25552b2"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=05/data.parquet",
+          "generation": "1785190540805921",
+          "size_bytes": 78873,
+          "crc32c": "n+28IQ==",
+          "md5_base64": "ippRyRlECH4PjFuMfXnZrQ==",
+          "sha256": "4a095d095a0dd1124fce5528131df3df77ba97bd11949e9b5aaa106d2afacb90"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=06/data.parquet",
+          "generation": "1785190541355837",
+          "size_bytes": 75766,
+          "crc32c": "1xZKAQ==",
+          "md5_base64": "tVumnR3kKFmsI5bNEE0ZrA==",
+          "sha256": "04c3dfc0e003042bf2bbb8a1c3b12aff7ebbaa4d37dab1a63b788247b7551aff"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=07/data.parquet",
+          "generation": "1785190542004363",
+          "size_bytes": 76012,
+          "crc32c": "yXJ3qw==",
+          "md5_base64": "mJjUCZAiH/MEwWRFp80/wg==",
+          "sha256": "88980617af1ae2ff917d077527e540f4f9048662734f12660b032f616e526645"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=08/data.parquet",
+          "generation": "1785190542611908",
+          "size_bytes": 77443,
+          "crc32c": "VyEI1Q==",
+          "md5_base64": "pnL0nc+W8mx5kL51xwOFSw==",
+          "sha256": "6d42f276f214471f2d7a9d872dda206fb9c1ae50b79fdbd8fc9f60462fc803b3"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=09/data.parquet",
+          "generation": "1785190543152670",
+          "size_bytes": 76938,
+          "crc32c": "Q6qvGw==",
+          "md5_base64": "8m7+LLqfK7EIArdLpo9BQw==",
+          "sha256": "291abe15a097605f0125d8f3c8e16d01d64efe3c75b5f619f4a8cc9da5830fda"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=10/data.parquet",
+          "generation": "1785190543715185",
+          "size_bytes": 80236,
+          "crc32c": "bUDPtA==",
+          "md5_base64": "iM8oyvxEbOB0KK1tQmCQQA==",
+          "sha256": "017495367e65f58ed7ce7569b0cf4f0156e8717dd81d8f3d6f1599ed3b3f431f"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=11/data.parquet",
+          "generation": "1785190544292858",
+          "size_bytes": 78602,
+          "crc32c": "jhUCzg==",
+          "md5_base64": "sgnd1OsFJE6kThFo+Z009g==",
+          "sha256": "8113b095d9b82c323eb3aa03edcf9911d7034b2fa17d4198029912a7422f1f40"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2023/month=12/data.parquet",
+          "generation": "1785190544845315",
+          "size_bytes": 74715,
+          "crc32c": "olSiOw==",
+          "md5_base64": "gZi/eGUxbL/2X4v3ELpa6A==",
+          "sha256": "cd599de22cbc778051c86772e0782e88e2863d7661e26b99ca96e4227f55a8e6"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=01/data.parquet",
+          "generation": "1785190545153034",
+          "size_bytes": 58513,
+          "crc32c": "uQHAWA==",
+          "md5_base64": "6rPmk0gAl9Jf7MkM/+sMOw==",
+          "sha256": "251ecf75154bedb82a870e722340166add1a4a3bee7927e52b9fe1ac2328f58b"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=02/data.parquet",
+          "generation": "1785190545667338",
+          "size_bytes": 120708,
+          "crc32c": "OGKm6w==",
+          "md5_base64": "ZIcX41VmTcQVJaTis4NY0g==",
+          "sha256": "d727d137c4ad25ac988fc05ec851dd08538d3aebc65a7e164ccce9fd5fa5bf54"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=03/data.parquet",
+          "generation": "1785190546221066",
+          "size_bytes": 140526,
+          "crc32c": "ZdiNZA==",
+          "md5_base64": "00ySN66uIUDQYqwnwLLdkg==",
+          "sha256": "8427302c832ee8001f84924372bbf47479c8554bd0405946c0dc2116c5c1cd08"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=04/data.parquet",
+          "generation": "1785190546737390",
+          "size_bytes": 136644,
+          "crc32c": "Oy6vMg==",
+          "md5_base64": "PMwr9hbAeMbjV9RTrZB6Rw==",
+          "sha256": "7a7d20c1ab31e56e89192d66978b5964a01ffcc03d5b0fb856b348e530929a61"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=05/data.parquet",
+          "generation": "1785190547269067",
+          "size_bytes": 137452,
+          "crc32c": "8yn8Vg==",
+          "md5_base64": "1Go/lVVYldnHIB5ykS2Lkw==",
+          "sha256": "99d8f539424846db1db86410dc300279e2920c0bb5e7c0265b7339547e4fa83f"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=06/data.parquet",
+          "generation": "1785190547783125",
+          "size_bytes": 132256,
+          "crc32c": "lCHGBg==",
+          "md5_base64": "rFzYjpxnCvKzj1okXXwHlA==",
+          "sha256": "6623af385e028dc6836f8c83824177cb3a00f89172bb178ee82b35570b7a560f"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=07/data.parquet",
+          "generation": "1785190548286942",
+          "size_bytes": 130802,
+          "crc32c": "1bryvw==",
+          "md5_base64": "gSOahMy0kThTPCKiIoSKYw==",
+          "sha256": "0507348aade2fad5dc4447bc5d384ce4a1506970c3591624ca6571370cb2c07b"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=08/data.parquet",
+          "generation": "1785190548820330",
+          "size_bytes": 133124,
+          "crc32c": "/su7dA==",
+          "md5_base64": "MGNlI8l9/1d8+Jc4eYpOhw==",
+          "sha256": "3ebb66abb0b371003d3a72fa2eda1f92d852d5f55a2f529d4c9f73cd4c22d189"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=09/data.parquet",
+          "generation": "1785190549327171",
+          "size_bytes": 129164,
+          "crc32c": "hIBexA==",
+          "md5_base64": "qf71yOkx7URDQPW92CLu3g==",
+          "sha256": "1044a6ca51cb669a87123e5fb85701aa59b2ac8336aa74dc45debeb7ac2022e4"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=10/data.parquet",
+          "generation": "1785190549848572",
+          "size_bytes": 137395,
+          "crc32c": "akjSsg==",
+          "md5_base64": "zG5Cta0lP0awzyhBqsfKqg==",
+          "sha256": "e068b4aa63ce0d75b0ad4bb67eabd0656489c3acb693530dbd1c9cf71daf1f4f"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=11/data.parquet",
+          "generation": "1785190550340004",
+          "size_bytes": 137833,
+          "crc32c": "fxqiWw==",
+          "md5_base64": "puRwsE+LW9w2rncyXVtdBw==",
+          "sha256": "1f2d816c2b3659ee0c5402a1eb124efcc396e4c98044a73187c77e20b4a67e24"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2024/month=12/data.parquet",
+          "generation": "1785190550841906",
+          "size_bytes": 142095,
+          "crc32c": "RECJtg==",
+          "md5_base64": "EEkcauL+secg91qeifUYGA==",
+          "sha256": "b50e1b9c8e6c6f87c8a6b7521c2c6e3276dc4c1611e7996d5830918c4d32aeda"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=01/data.parquet",
+          "generation": "1785190551363182",
+          "size_bytes": 143079,
+          "crc32c": "b5T2Dw==",
+          "md5_base64": "ig9TfXeSrvTsn/U/Qmni3w==",
+          "sha256": "a2c05a35b7c754417e979f7a7410afa4fa77d2b758d04684335b777e217b4a14"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=02/data.parquet",
+          "generation": "1785190551818865",
+          "size_bytes": 134893,
+          "crc32c": "bS9kRw==",
+          "md5_base64": "/ugPBKfLGWDQcZrGs8RVcg==",
+          "sha256": "55f4b7f6dffe69ccf2c42ccb2212e935d874c9fa9cfa23faee12977b29cd4853"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=03/data.parquet",
+          "generation": "1785190552306166",
+          "size_bytes": 143038,
+          "crc32c": "rE6CdQ==",
+          "md5_base64": "YVKwNHbKbJJXVZDDUoSQUA==",
+          "sha256": "1f69f8b93e23290e0b5b164f972b49603eb47585d38320dc91dea4912d2bc1ef"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=04/data.parquet",
+          "generation": "1785190552846728",
+          "size_bytes": 138517,
+          "crc32c": "Urqx3Q==",
+          "md5_base64": "wCeJvzdp3dCb9aKFpKEq/Q==",
+          "sha256": "f5175281656c6180df49c30e50f1778ff341e4ad2634cf76b07690f986b8ffb0"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=05/data.parquet",
+          "generation": "1785190553415441",
+          "size_bytes": 137990,
+          "crc32c": "CMtgjw==",
+          "md5_base64": "glxLft3k5WrFkM9Qcaa9Pw==",
+          "sha256": "6081930d6cf4e517c5c6a5f7774ef127aa329df92dd37a26e0c261c0e1962a5e"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=06/data.parquet",
+          "generation": "1785190553933962",
+          "size_bytes": 132019,
+          "crc32c": "C4se4g==",
+          "md5_base64": "m4eK68lnAHKHdyeRzu0T5g==",
+          "sha256": "69cbd7e30413987ac202148edd3ffebd45193b8fcea233f2e4e1e66ff9659c46"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=07/data.parquet",
+          "generation": "1785190554455835",
+          "size_bytes": 128110,
+          "crc32c": "w0lZ5g==",
+          "md5_base64": "+o/tbYU58r2GX+wvGpVJoA==",
+          "sha256": "227e79aceb92ac54da7aa33d889fab1ba0a1b08c2279b01b78ec57d5a03fec1d"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=08/data.parquet",
+          "generation": "1785190555087735",
+          "size_bytes": 130710,
+          "crc32c": "QFsDfA==",
+          "md5_base64": "xRfLYKNZzYjRJuaHbv5gxA==",
+          "sha256": "bb2a95a4e380829096b1e444beb4ed6988e1ccf95592948176512d66a2fed71d"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=09/data.parquet",
+          "generation": "1785190555643319",
+          "size_bytes": 126476,
+          "crc32c": "Gw7G5Q==",
+          "md5_base64": "LHPxKv/QYaq3tN6P/KSOnA==",
+          "sha256": "307226654a99d9f6ac5b03886135abb8fa6ec8b785c145cd8d138117286f5c76"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=10/data.parquet",
+          "generation": "1785190556186129",
+          "size_bytes": 138512,
+          "crc32c": "nf2aTw==",
+          "md5_base64": "r4//fuDEca2DxkGxkvfakw==",
+          "sha256": "5789a3c30d231bba2cd8d78dccefce38144847db072f77fcee85bb84a1c93065"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=11/data.parquet",
+          "generation": "1785190556705709",
+          "size_bytes": 138623,
+          "crc32c": "3rVLlw==",
+          "md5_base64": "XWRqeCo5srllEakIG+F7Xw==",
+          "sha256": "b177a170ef848c99ea94c10382fa950c92b87756f3532f8322adc1f20b60b553"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2025/month=12/data.parquet",
+          "generation": "1785190557365151",
+          "size_bytes": 145066,
+          "crc32c": "fA4U5Q==",
+          "md5_base64": "OogRx544wyOajmvGTG/1KQ==",
+          "sha256": "5796159a4200236c8b6bba421a96a1b09510824dc785debe95ead0b62a240ad9"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2026/month=01/data.parquet",
+          "generation": "1785190557937680",
+          "size_bytes": 146133,
+          "crc32c": "U06ejg==",
+          "md5_base64": "BFqSKSM3WWubaJJEKL1kYw==",
+          "sha256": "349b60f05db6bc0bda9af75d0b539bf131ac6152fec86e5ac1566b0da5f23beb"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2026/month=02/data.parquet",
+          "generation": "1785190558483753",
+          "size_bytes": 134567,
+          "crc32c": "+tzk2g==",
+          "md5_base64": "mbrJjDc8Kiqf7cBl623ioA==",
+          "sha256": "05e2bedce101d4a9b4e2f5c7ae982ebd6ddf5e65d6b1f4e0f9b21ec21963db37"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2026/month=03/data.parquet",
+          "generation": "1785190559022811",
+          "size_bytes": 144917,
+          "crc32c": "hMzDxw==",
+          "md5_base64": "CWlGLbklr8zVEIlWtGu7sw==",
+          "sha256": "df32e7dd136e36ce97c52a8824de19e2a76f1b74119eac8e015de8bde4e5eee3"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2026/month=04/data.parquet",
+          "generation": "1785190559626601",
+          "size_bytes": 136861,
+          "crc32c": "27t0/A==",
+          "md5_base64": "N1dQkqc+SM43L7lfZt5LSQ==",
+          "sha256": "5be5b50725feb8490b2e95f6827c148b2093cd077876495c1d0816fc45580734"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2026/month=05/data.parquet",
+          "generation": "1785190560161229",
+          "size_bytes": 138183,
+          "crc32c": "HCbuGA==",
+          "md5_base64": "AOq16rQlGzcYWxquRBI6Xw==",
+          "sha256": "a7f8a094f5942437d1ef0f32f72cf9288b05259cf36eba9ab684fafbf8b6ca78"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2026/month=06/data.parquet",
+          "generation": "1785190560929514",
+          "size_bytes": 131608,
+          "crc32c": "LEAuqg==",
+          "md5_base64": "VQIzKZvYe4UrtBMzNcnbJA==",
+          "sha256": "63aee81232590f61283c02706421353b412e8cdf378c409ec957cb2c74871eeb"
+        },
+        {
+          "uri": "gs://bcli-natgas-data-497807/processed/weather/open_meteo/previous_runs/model=ncep_gfs_seamless/daily/year=2026/month=07/data.parquet",
+          "generation": "1785190561423585",
+          "size_bytes": 119677,
+          "crc32c": "qAuq8g==",
+          "md5_base64": "/RWJXIzssppj0KHyAQ8rbw==",
+          "sha256": "cce0e1b4a200ef0b1ebfa9dfcd133e9d6ca43814309292e78f9e03bfdc326d0d"
+        }
+      ]
+    },
+    {
+      "id": "freezeoff_factors",
+      "default_uri": "gs://bcli-natgas-data-497807/processed/weather/production_freezeoff_factors/model=ncep_gfs_seamless/production_freezeoff_factors_daily.parquet",
+      "generation": "1785282106011088",
+      "partitioned": false,
+      "required_columns": [
+        "factor_date",
+        "prod_freeze_local_continuous_score",
+        "prod_freeze_local_level_score",
+        "prod_freeze_local_revision_score",
+        "prod_freeze_local_level_5d_continuous",
+        "prod_freeze_local_revision_4d_continuous"
+      ],
+      "generation_pinned_uri": "gs://bcli-natgas-data-497807/processed/weather/production_freezeoff_factors/model=ncep_gfs_seamless/production_freezeoff_factors_daily.parquet#1785282106011088",
+      "size_bytes": 449970,
+      "sha256": "54831a02752ef603fda880efc851f413d755bd1e61cd880cde8e38c972f4c9a4"
+    }
+  ],
+  "limitations": [
+    "This is a direct-input-to-panel contract, not proof that every direct input can be regenerated from raw sources in this repo.",
+    "The fundamentals and freeze-off production weights use current revised/backcast EIA histories; conservative availability lags do not eliminate historical revision-vintage leakage."
+  ]
+}

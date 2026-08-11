@@ -1,0 +1,1364 @@
+{
+  "schema_manifest_version": 1,
+  "as_of": "2026-07-13",
+  "fingerprint_canonical_form": "UTF-8 JSON array of Arrow fields with keys name, nullable, and type; keys sorted and compact separators",
+  "schemas": [
+    {
+      "id": "ng_multisignal_panel",
+      "arrow_fields": [
+        {
+          "name": "date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "c1",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "c2",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "c4",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "c2_c1_log_spread",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "front_spot_log_basis",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "return_20d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "roll_adjusted_return",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "is_roll_switch",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "hh_spot",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "ret_1d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "ret_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "ret_21d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "vol_21d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "obs_hdd7_anom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "obs_cdd7_anom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "fcst_hdd7_anom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "fcst_cdd7_anom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "fcst_hdd_rev",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "fcst_cdd_rev",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "storage_dev",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "storage_chg_surprise",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gpr_ma7_log",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gpr_shock",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "usd_ret_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sp500_ret_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "term_spread_10y_3m",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "prod_yoy",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "lng_exp_yoy",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "season_sin",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "season_cos",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "issue_date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "signal_available_date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "hdd_6d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "cdd_6d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gdd_6d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "hdd_revision_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "cdd_revision_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gdd_revision_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "hdd_revision_5d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "cdd_revision_5d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gdd_revision_5d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gdd_6d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "cpc_weather_age_days",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "nominal_issue_date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "gfs_gdd_5d",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "gfs_wind80_5d",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "gfs_cloud_5d",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "gfs_lead_count",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_min_locations",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_gdd_revision_4d",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "gfs_revision_count",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_gdd_5d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_wind80_5d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_cloud_5d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_gdd_revision_4d_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_available_date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "gfs_weather_age_days",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "freezeoff_available_date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "prod_freeze_local_continuous_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "prod_freeze_local_level_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "prod_freeze_local_revision_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "prod_freeze_local_level_5d_continuous",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "prod_freeze_local_revision_4d_continuous",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "freezeoff_weather_age_days",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "storage_4w_available_date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "storage_4w_change_bcf",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "storage_4w_change_normal_bcf",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "storage_4w_change_surprise_bcf",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "storage_4w_change_issue_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "fundamentals_reference_month",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "fundamentals_release_date_proxy",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "fundamentals_available_date",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "total_cons_yoy",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "net_import_ratio",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "dry_prod_mom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_cons_mom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "lng_exp_mom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "net_import_ratio_mom_change",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "dry_prod_mom_issue_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_cons_mom_issue_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "lng_exp_mom_issue_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "net_import_ratio_mom_change_issue_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "c4_c1_log_spread",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "required_input_cutoff",
+          "type": "timestamp[ns]",
+          "nullable": true
+        },
+        {
+          "name": "is_after_required_input_cutoff",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "obs_hdd7_anom_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "obs_cdd7_anom_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "storage_dev_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "storage_chg_surprise_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "prod_yoy_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "lng_exp_yoy_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_cons_yoy_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "net_import_ratio_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "return_20d_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "c2_c1_log_spread_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "c4_c1_log_spread_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "front_spot_log_basis_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "ret_21d_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "usd_ret_5d_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sp500_ret_5d_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "term_spread_10y_3m_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gpr_shock_causal_z",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_cpc_revision",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_cpc_seasonal_revision",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_cpc_level",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_observed_weather",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_gfs_revision",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_gfs_wind",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_gfs_cloud",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_production_freezeoff",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_low_storage",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_storage_change",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_storage_4w_change",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_low_production_growth",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_lng_export_growth",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_consumption_growth",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_net_import_supply",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_production_mom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_lng_export_mom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_consumption_mom",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_net_import_change",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_futures_momentum",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_backwardation_carry",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_long_curve_carry",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_front_spot_basis",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_spot_momentum",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_usd_weakness",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_equity_growth",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_term_spread",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_geopolitical_risk",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "weather_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "weather_score_component_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "weather_score_coverage_ratio",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "weather_score_full_coverage",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "fundamental_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "fundamental_score_component_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "market_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "market_score_component_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "macro_risk_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "macro_risk_score_component_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "weather_score_without_freezeoff",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "mixed_weather_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "mixed_fundamental_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "mixed_wf_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "confidence_multiplier",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "confidence_scaled_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "composite_score_without_freezeoff",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "composite_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "freezeoff_control_active",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "freezeoff_control_multiplier",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "composite_freezeoff_control_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "composite_threshold_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "always_long_score",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "required_input_complete",
+          "type": "bool",
+          "nullable": true
+        }
+      ],
+      "fingerprint_sha256": "0c0a4883d35dc3585b3c9e38c62cfa6695fdc9a54a56b0d8e5e0602f69b95fd1"
+    },
+    {
+      "id": "capacity_weighted_wind_features_daily",
+      "arrow_fields": [
+        {
+          "name": "forecast_reference_time_utc",
+          "type": "timestamp[us, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "forecast_cycle_hour_utc",
+          "type": "int8",
+          "nullable": true
+        },
+        {
+          "name": "issue_year",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "fleet_cutoff_year",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "sample_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "capacity_mw_sum_repeated",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "equal_weight_denominator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "wind_speed_hub_mps_equal_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "power_cf_no_cutout_equal_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "effective_power_cf_equal_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_wind_shortfall_cf_equal_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "high_wind_cutout_loss_cf_equal_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_shortfall_cf_equal_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "front_weight_denominator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "wind_speed_hub_mps_front_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "power_cf_no_cutout_front_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "effective_power_cf_front_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_wind_shortfall_cf_front_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "high_wind_cutout_loss_cf_front_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_shortfall_cf_front_weight_numerator",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "fleet_capacity_mw",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "wind_speed_hub_mps_equal",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "power_cf_no_cutout_equal",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "effective_power_cf_equal",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_wind_shortfall_cf_equal",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "high_wind_cutout_loss_cf_equal",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_shortfall_cf_equal",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "wind_speed_hub_mps_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "power_cf_no_cutout_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "effective_power_cf_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_wind_shortfall_cf_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "high_wind_cutout_loss_cf_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_shortfall_cf_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "shortfall_mw_equal",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "shortfall_mw_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "previous_reference_time",
+          "type": "timestamp[us, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "shortfall_mw_front_revision",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_capacity_cf",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_capacity_mw",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_capacity_mw_front",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_capacity_revision",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_complete_wind",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "timestamp[us]",
+          "nullable": true
+        }
+      ],
+      "fingerprint_sha256": "39d1cd05fd1e98c8e56fc5b2ee1ac00b92eb9d71873ad188e94fe095807261d9"
+    },
+    {
+      "id": "capacity_weighted_solar_signals",
+      "arrow_fields": [
+        {
+          "name": "forecast_reference_time_utc",
+          "type": "timestamp[us, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "nominal_issue_date",
+          "type": "date32[day]",
+          "nullable": true
+        },
+        {
+          "name": "clearness_index_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "pv_availability_index_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "cloud_cover_5d_pct",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "pv_revision_5d",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "lead_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "min_locations",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "min_intervals",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "all_leads_complete",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "forecast_cycle_hour_utc",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "input_complete",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "sig_solar_radiation",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_solar_pv",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_solar_cloud",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "sig_solar_revision",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "timestamp[ms]",
+          "nullable": true
+        }
+      ],
+      "fingerprint_sha256": "45b782f71941c2cbaee7bab3bc3704e68ef92f2c62914ed84079c57581a931d6"
+    },
+    {
+      "id": "capacity_weighted_location_leads",
+      "arrow_fields": [
+        {
+          "name": "forecast_reference_time_utc",
+          "type": "timestamp[us, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "nominal_issue_date",
+          "type": "date32[day]",
+          "nullable": true
+        },
+        {
+          "name": "target_date",
+          "type": "timestamp[ms]",
+          "nullable": true
+        },
+        {
+          "name": "lead_days",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "capacity_period",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "gfs_dswrf_wm2",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_shortwave_energy_kwh_m2_day",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_total_cloud_cover_pct",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "gfs_temperature_2m_c",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "extraterrestrial_kwh_m2_day",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "location_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "min_interval_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "total_solar_capacity_mw",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "capacity_coverage",
+          "type": "double",
+          "nullable": true
+        }
+      ],
+      "fingerprint_sha256": "7f25e94fa486eb12736e5209a0126a0916e3c48400cd6a468240de00ef86783c"
+    },
+    {
+      "id": "storage_weekly",
+      "arrow_fields": [
+        {
+          "name": "week_ending",
+          "type": "date32[day]",
+          "nullable": true
+        },
+        {
+          "name": "nonsalt",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "lower48",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "pacific",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "mountain",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "south_central",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "midwest",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "east",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "salt",
+          "type": "int64",
+          "nullable": true
+        }
+      ],
+      "fingerprint_sha256": "dcb8a4393b43888664c7ad4caaea6ddd5780d26973f390363fb3077498f82ec4"
+    },
+    {
+      "id": "fundamentals_monthly",
+      "arrow_fields": [
+        {
+          "name": "month",
+          "type": "date32[day]",
+          "nullable": true
+        },
+        {
+          "name": "dry_prod",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "total_cons",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "exports",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "imports",
+          "type": "double",
+          "nullable": true
+        }
+      ],
+      "fingerprint_sha256": "172a208de69804e4fe2874fa16cc340fe2605843fb78a4312d9239e1f17e06f2"
+    },
+    {
+      "id": "eia_country_monthly",
+      "arrow_fields": [
+        {
+          "name": "dataset",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "flow",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "period",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "duoarea",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "area-name",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "product",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "product-name",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "process",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "process-name",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "series",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "series-description",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "value",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "units",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "month",
+          "type": "timestamp[us]",
+          "nullable": true
+        },
+        {
+          "name": "metric",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "location_code",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "counterparty_code",
+          "type": "large_string",
+          "nullable": true
+        },
+        {
+          "name": "is_us_aggregate",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "retrieved_at_utc",
+          "type": "timestamp[us, tz=UTC]",
+          "nullable": true
+        }
+      ],
+      "fingerprint_sha256": "e3699a0784cc820cc2d650ab401258435f72c5a9970f98375522f0e9ebb02f64"
+    }
+  ]
+}

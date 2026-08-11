@@ -1,0 +1,62 @@
+{
+  "caution": "This holds strategy weights fixed and is not a parameter search, but it still uses revised historical EIA data rather than archived first-release vintages.",
+  "changed_components": [
+    "sig_low_storage",
+    "sig_storage_change",
+    "sig_low_production_growth",
+    "sig_lng_export_growth",
+    "sig_consumption_growth",
+    "sig_net_import_supply"
+  ],
+  "experiment": "native_frequency_fundamental_standardization",
+  "fixed_strategy_policy": {
+    "cpc_level_direct_slot": 0.0,
+    "front_month_roll": "five trading days before official LTD",
+    "observed_weather_direct_slot": 0.0,
+    "signal_lag_sessions": 1,
+    "solar_factor": "pv_daylight",
+    "solar_nominal_weight": 0.1,
+    "transaction_cost_bps": 2.5,
+    "wind_allocation": "independent_shoulder_22p5pct"
+  },
+  "full_metrics": {
+    "legacy_daily_z": {
+      "cagr": 0.1183696882163967,
+      "maximum_drawdown": -0.05508670457125675,
+      "mean_absolute_position": 0.09787899595085908,
+      "sharpe_zero_rf": 1.5522207239067636,
+      "total_turnover": 148.32199415361936,
+      "win_rate": 0.5293080652269723
+    },
+    "native_frequency_z": {
+      "cagr": 0.1220999531139535,
+      "maximum_drawdown": -0.05673760500575109,
+      "mean_absolute_position": 0.09683714836838372,
+      "sharpe_zero_rf": 1.6682494921751438,
+      "total_turnover": 147.89890184978952,
+      "win_rate": 0.5376817981489643
+    }
+  },
+  "gcs_objects_modified": false,
+  "production_panel_modified": false,
+  "sample_end": "2026-07-13T00:00:00",
+  "sample_start": "2017-07-03T00:00:00",
+  "sharpe_change": 0.11602876826838027,
+  "standardization": {
+    "alignment": "z-score first, then merge_asof/forward-fill",
+    "causal_reference": "current release excluded by shift(1)",
+    "monthly_min_periods": 36,
+    "monthly_window": 60,
+    "weekly_min_periods": 52,
+    "weekly_window": 104
+  },
+  "status": "research_only",
+  "trading_days": 2269,
+  "unchanged_components": [
+    "sig_storage_4w_change",
+    "sig_production_mom",
+    "sig_lng_export_mom",
+    "sig_consumption_mom",
+    "sig_net_import_change"
+  ]
+}

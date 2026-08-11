@@ -1,0 +1,266 @@
+# Henry Hub weather and fundamental strategy
+
+This folder is a reproducible model-development handoff for my 2026 research
+on a directional NYMEX Henry Hub natural-gas futures model. It contains the
+model implementation, factor and panel builders, hypothesis tests, notebooks,
+an audit-oriented report, and small result artifacts. Large inputs remain in
+Google Cloud Storage; dated manifests pin their object generations, SHA-256
+checksums, dimensions, and schemas.
+
+## Executive result
+
+The current fixed version combines CPC forecast revisions, capacity-weighted
+nonlinear wind and solar availability, South Central natural-gas storage, and
+lagged U.S. gas fundamentals. The backtest uses one-session signal lag, a
+five-trading-day early front-month roll, and 2.5 bps of cost per unit of
+turnover.
+
+| Metric | Current fixed version |
+|---|---:|
+| Sample | 2017-07-03 to 2026-07-13 |
+| Trading days | 2,269 |
+| Net Sharpe (zero RF) | **1.673** |
+| Net CAGR | **14.61%** |
+| Annualized volatility | 8.17% |
+| Maximum drawdown | -6.07% |
+| Daily win rate | 52.49% |
+| Total net return | 242.47% |
+
+These are historical research results, not an estimate of live performance.
+The EIA histories used here may contain revisions, and some source datasets do
+not have archived first-release vintages.
+
+![Net equity curve](results/formal/formal_equity_curve.png)
+
+The year-by-year table and chart are available in
+[`results/formal/`](results/formal/).
+
+### Selected EIA-930 enhancement
+
+The latest selected research version preserves the nine-factor fundamental
+block and adds two post-score controls: a fixed 10% EIA-930 sleeve and a
+one-sided BSEE/Sabine event veto.  The EIA sleeve is 40% Central
+(ERCOT/MISO/SPP total non-gas shortfall) and 60% Florida (coal, nuclear, and
+water shortfall relative to demand).  It is funded from fundamentals, so it
+does not add leverage or change the gross seasonal budget.  The event
+controller can cancel a conflicting short but cannot create or amplify a
+position.
+
+The EIA-930 comparison begins when the checked-in generation panel becomes
+available. All rows in both columns use the same dates, futures returns, roll,
+one-session signal lag, and 2.5 bps turnover cost.
+
+| Common-overlap metric | Weather, fundamentals, and event veto | Previous 10% Central sleeve | Selected Central 40% / Florida 60% |
+|---|---:|---:|---:|
+| Sample | 2019-07-25 to 2026-07-13 | same | same |
+| Trading days | 1,737 | 1,737 | 1,737 |
+| Net Sharpe | 1.875 | 1.992 | **2.115** |
+| Net Sortino | 3.195 | 3.329 | **3.643** |
+| Net CAGR | 18.03% | 19.36% | **19.38%** |
+| Maximum drawdown | -5.59% | -6.07% | **-5.27%** |
+| Total net return | 217.35% | 243.11% | **243.70%** |
+
+Relative to the Central sleeve, the selected blend improves Sharpe by 0.122,
+Sortino by 0.314, and maximum drawdown by 0.80 percentage points.  Its simple
+sum of daily incremental net returns is -0.13 percentage points, so the
+benefit is downside diversification rather than unconditional return
+expansion.  It is an incremental research enhancement, not a rewrite of the
+approved 2017 full-history baseline.
+
+![Selected EIA-930 strategy dashboard](results/experiments/eia930_selected/latest_strategy_dashboard.png)
+
+## Where to start
+
+1. [`MODEL_CARD.md`](MODEL_CARD.md) — signal definitions, weights, timing,
+   execution assumptions, splits, and limitations.
+2. [`notebooks/01_final_south_central_strategy.ipynb`](notebooks/01_final_south_central_strategy.ipynb)
+   — approved historical baseline and earlier selected-enhancement context.
+3. [`notebooks/06_eia930_central_florida_40_60.ipynb`](notebooks/06_eia930_central_florida_40_60.ipynb)
+   — selected 40/60 EIA-930 sleeve, weight stability, loss-day attribution,
+   and current dashboard.
+4. [`RESEARCH_LOG.md`](RESEARCH_LOG.md) — what was tested, accepted, rejected,
+   and deliberately excluded from the formal model.
+5. [`reports/comprehensive_strategy_report.md`](reports/comprehensive_strategy_report.md)
+   — detailed English-language strategy and causality report.
+6. [`reports/eia930_central_florida_40_60_brief.md`](reports/eia930_central_florida_40_60_brief.md)
+   — concise selected-version decision record.
+7. [`DATA_MANIFEST.md`](DATA_MANIFEST.md) — exact GCS objects and local paths.
+
+## Repository layout
+
+```text
+henry-hub-natural-gas/
+├── README.md
+├── MODEL_CARD.md
+├── DATA_MANIFEST.md
+├── RESEARCH_LOG.md
+├── requirements.txt
+├── requirements-build.lock     # exact verified Python package versions
+├── .python-version             # Python 3.13.5
+├── config/                     # frozen formal-model policy
+├── manifests/                  # immutable input generations and checksums
+├── schemas/                    # exact Arrow input schemas
+├── inputs/audit/               # EIA-930 and event-controller audit inputs
+├── notebooks/
+│   ├── 01_final_south_central_strategy.ipynb
+│   ├── 02_capacity_weighted_wind.ipynb
+│   ├── 03_capacity_weighted_solar.ipynb
+│   ├── 04_native_frequency_fundamentals.ipynb
+│   ├── 05_fundamental_weight_selection.ipynb
+│   └── 06_eia930_central_florida_40_60.ipynb
+├── naturalgas/                 # final evaluator and dependency modules
+├── reports/                    # detailed Markdown and XeLaTeX report
+├── results/experiments/        # selected dashboard and experiment audits
+└── tests/
+```
+
+## Reproduce the approved model
+
+The verified environment is Python 3.13.5 with the exact package versions in
+`requirements-build.lock`:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-build.lock
+```
+
+`requirements.txt` contains wider compatibility ranges for development, but it
+is not the approved byte-reproduction environment.
+
+With Braeswood GCS read credentials available, run the supported full build:
+
+```bash
+python -m naturalgas.pipelines.rebuild_all --overwrite
+```
+
+This validates 72 master-panel input objects, 254 NCAR/GDEX weather
+partitions, and two frozen capacity-weight snapshots. It then rebuilds the
+155-column master panel, all three selected wind/solar artifacts, and the
+formal strategy. The panel and three weather-factor parquets are checked
+against their approved SHA-256 values; the formal strategy is checked against
+its approved headline metrics and summary hash before the verified output
+directory is published.
+
+For a quicker panel-to-strategy audit that downloads the already-approved
+weather factors, use:
+
+```bash
+python -m naturalgas.pipelines.rebuild_all \
+  --use-approved-weather-artifacts --overwrite
+```
+
+The narrowest processed-input reproduction remains available as:
+
+```bash
+python -m naturalgas.pipelines.rebuild_final_backtest --overwrite
+```
+
+This downloads the seven exact GCS object generations in the manifest,
+validates their byte hashes, sizes, row/column counts, and Arrow schemas, then
+runs the evaluator using only those local snapshots. It writes results and a
+verification receipt under:
+
+```text
+reproduced/final_backtest/
+```
+
+The pipeline checks the rebuilt trading-day count, Sharpe, CAGR, maximum
+drawdown, and win rate, then requires the complete rebuilt summary file to
+match the SHA-256 of `results/formal/summary.json`. After the seven inputs have
+been downloaded once, add `--offline` to rerun without contacting GCS.
+
+To verify the shipped result after reproduction:
+
+```bash
+pytest -q
+```
+
+The selected EIA-930 enhancement is reproduced entirely from checked-in audit
+inputs and the checked-in formal daily artifact:
+
+```bash
+python naturalgas/evaluate_eia930_selected_enhancement.py
+```
+
+This command refreshes the selected daily series, annual metrics, event
+registry, summary, and English dashboard under
+`results/experiments/eia930_selected/`.
+
+Networked integration tests are opt-in because ordinary CI may not have access
+to the private bucket:
+
+```bash
+RUN_HENRY_HUB_INTEGRATION=1 pytest -q tests/test_rebuild_final_backtest.py
+RUN_GCS_PANEL_PARITY=1 pytest -q tests/test_build_multisignal_panel.py
+RUN_HENRY_HUB_WEATHER_CHAIN=1 pytest -q tests/test_rebuild_weather_factors.py
+RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
+```
+
+### Notebook clean-run requirements
+
+| Notebook | Clean-run inputs and behavior |
+|---|---|
+| `01_final_south_central_strategy.ipynb` | Preserves the historical full-sample baseline and the earlier Central-only EIA-930 research snapshot. Use notebook 06 for the current selected enhancement. |
+| `02_capacity_weighted_wind.ipynb` | Needs the manifest panel and 00Z wind parquet plus the checked-in files under `inputs/audit/wind/`; the nonlinear power-curve helper is source code in `naturalgas/`. |
+| `03_capacity_weighted_solar.ipynb` | Reads its summary, IC, annual, and cost tables from tracked `results/experiments/solar/`. Weight-grid and daily-equity cells are optional and report a clear skip unless generated with `python naturalgas/evaluate_ncar_gdex_complete_solar_factor.py`. |
+| `04_native_frequency_fundamentals.ipynb` | Recomputes immediately and needs the four model parquets plus access to the three EIA inputs. It is a research notebook, not the strict final-rebuild entry point. |
+| `05_fundamental_weight_selection.ipynb` | Has `RUN_BACKTEST=True` and later perfect-information cells that access EIA data. It requires all model inputs and Braeswood GCS read credentials and is not part of the strict formal reproduction guarantee. |
+| `06_eia930_central_florida_40_60.ipynb` | Rebuilds from the checked-in formal daily artifact, Central/Florida overlay, and event registry; no network access is required. |
+
+The notebooks retain historical rendered outputs. A dependency audit must
+execute them from a fresh kernel; the presence of saved output is not evidence
+that the current checkout has all required inputs.
+
+## Wind provenance
+
+The selected capacity-weighted wind parquet contains **00Z initializations
+only** (`forecast_cycle_hour_utc == 0`); it is not a four-cycle output. Its
+direct weather source is the NCAR GDEX raw point archive under
+`raw/weather/ncar_gdex/d084001/wind_points/`. The upstream archive includes
+00Z, 06Z, 12Z, and 18Z forecasts, but the formal wind signal selects 00Z before
+the daily artifact is written. The separate `processed/.../wind_daily/`
+partitions belong to an intermediate/equal-location path and are not the
+direct input to the selected capacity-weighted artifact.
+
+The complete weather-factor inventory is
+[`manifests/weather_factor_inputs_2026-07-28.json`](manifests/weather_factor_inputs_2026-07-28.json).
+It enumerates all 127 wind and 127 solar partitions and the frozen wind/solar
+capacity-weight snapshots. The factor-only command is also available for
+separate audits:
+
+```bash
+python -m naturalgas.pipelines.rebuild_weather_factors wind \
+  --input-manifest manifests/weather_factor_inputs_2026-07-28.json \
+  --output-dir reproduced/weather
+python -m naturalgas.pipelines.rebuild_weather_factors solar \
+  --input-manifest manifests/weather_factor_inputs_2026-07-28.json \
+  --output-dir reproduced/weather
+```
+
+## Reproducibility boundary
+
+The supported guarantee starts from immutable internal base objects. It
+rebuilds raw archived weather partitions into the selected wind/solar factors,
+72 fixed direct inputs into the master panel, and those outputs into the formal
+result through 2026-07-13.
+
+It does not claim that re-querying current public APIs will reproduce history.
+The upstream `daily_features`, CPC, futures, freeze-off, and EIA base tables are
+frozen direct inputs because their public sources can revise and complete
+first-release archives are unavailable. Re-downloading NCAR jobs, USWTDB, EIA,
+Open-Meteo, FRED, or GPR today is therefore a data refresh, not a bit-exact
+reproduction of the approved model.
+
+## Model-version boundary
+
+The approved historical result remains the fixed 1.673-Sharpe formal baseline.
+The selected EIA-930 enhancement is versioned separately because its common
+history begins in 2019. It includes only the fixed Central 40% / Florida 60%
+EIA-930 sleeve and the one-sided BSEE/Sabine event veto described above. It
+does **not** include generic EBB pipeline alpha, geopolitical or
+macro price overlays, weekend/holiday reopen trades, CPC forecast level,
+observed-weather direct positioning, or the perfect-information experiment
+that removes EIA production/consumption publication lags. Those items are
+documented as exploratory or rejected tests, not silently mixed into the
+reported results.

@@ -1,0 +1,12 @@
+component,internal_fundamental_weight,internal_fundamental_weight_pct,source,removed
+sig_low_storage,0.18181818181818182,18.181818181818183,South Central Total level vs same-week 5-year normal,False
+sig_storage_change,0.09090909090909091,9.090909090909092,South Central Total 1-week change vs seasonal normal,False
+sig_storage_4w_change,0.09090909090909091,9.090909090909092,South Central Total 4-week change vs seasonal normal,False
+sig_low_production_growth,0.09090909090909091,9.090909090909092,unchanged,False
+sig_lng_export_growth,0.09090909090909091,9.090909090909092,unchanged,False
+sig_consumption_growth,0.0,0.0,unchanged,True
+sig_net_import_supply,0.09090909090909091,9.090909090909092,unchanged,False
+sig_production_mom,0.09090909090909091,9.090909090909092,unchanged,False
+sig_lng_export_mom,0.18181818181818182,18.181818181818183,unchanged,False
+sig_consumption_mom,0.0,0.0,unchanged,True
+sig_net_import_change,0.09090909090909091,9.090909090909092,unchanged,False

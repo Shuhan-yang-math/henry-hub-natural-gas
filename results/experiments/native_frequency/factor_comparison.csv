@@ -1,0 +1,13 @@
+component,version,observations,pearson_next_return,standalone_sharpe_zero_rf
+sig_low_storage,legacy_daily_z,2263,0.029351524768447296,0.46984330218415193
+sig_low_storage,native_frequency_z,2263,0.03555186320621106,0.567587586663749
+sig_storage_change,legacy_daily_z,2263,-0.013097065852423019,-0.1785049596947594
+sig_storage_change,native_frequency_z,2263,-0.009357905710290127,-0.128581371602139
+sig_low_production_growth,legacy_daily_z,2268,-0.024386657883792878,-0.4237821989980594
+sig_low_production_growth,native_frequency_z,2268,-0.0022874743948333044,-0.02081901484619458
+sig_lng_export_growth,legacy_daily_z,2205,-0.004435071766297963,-0.06928501080089362
+sig_lng_export_growth,native_frequency_z,1574,0.01241147244863238,0.16570765239446902
+sig_consumption_growth,legacy_daily_z,2268,-0.011802082458201708,-0.1963028449158973
+sig_consumption_growth,native_frequency_z,2268,-0.019627929628766208,-0.3418099270643233
+sig_net_import_supply,legacy_daily_z,2268,0.024065133618135948,0.2924449998287124
+sig_net_import_supply,native_frequency_z,2268,0.020376907855959137,0.023539518096689183

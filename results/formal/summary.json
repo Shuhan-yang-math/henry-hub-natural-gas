@@ -1,0 +1,38 @@
+{
+  "baseline_candidate": "current_lower48",
+  "caution": "South Central was promoted at the user's direction after a research comparison. The improvement is small and not statistically decisive; the EIA history is revised rather than first-release vintage data.",
+  "change_vs_lower48": {
+    "cagr": 0.005263412750092095,
+    "maximum_drawdown": -0.004513164846612801,
+    "sharpe_zero_rf": 0.03995979532070071
+  },
+  "fixed_policy": {
+    "parameter_selection": "none",
+    "release_alignment": "week ending Friday plus 6 days (Thursday)",
+    "seasonal_normal": "same ISO week, prior five observations, min 3",
+    "strategy_signal_lag_sessions": 1,
+    "transaction_cost_bps": 2.5,
+    "weight_policy": "reallocate__low_storage__lng_export_mom",
+    "zscore": "causal rolling 104 weekly values, min 52, current excluded"
+  },
+  "gcs_objects_modified": false,
+  "other_factors": "unchanged",
+  "sample_end": "2026-07-13T00:00:00",
+  "sample_start": "2017-07-03T00:00:00",
+  "selected_candidate": "replace_all_storage__south_central_total",
+  "selected_full_metrics": {
+    "cagr": 0.1461095885946306,
+    "maximum_drawdown": -0.0607334525264015,
+    "sharpe_zero_rf": 1.6725505124930824,
+    "total_turnover": 149.9379152025871,
+    "win_rate": 0.5249008373732922
+  },
+  "status": "current_notebook_strategy",
+  "storage_replacement": {
+    "sig_low_storage": "South Central Total level vs same-week 5-year normal",
+    "sig_storage_4w_change": "South Central Total 4-week change vs seasonal normal",
+    "sig_storage_change": "South Central Total 1-week change vs seasonal normal"
+  },
+  "strategy_version": "south_central_total_storage",
+  "trading_days": 2269
+}

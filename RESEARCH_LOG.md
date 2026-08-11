@@ -1,0 +1,92 @@
+# Research log and model decisions
+
+This document separates accepted model changes from informative but rejected
+experiments. It is intended to prevent full-sample discoveries from being
+mistaken for predeclared live rules.
+
+## Accepted research steps
+
+| Research question | Decision | Evidence retained here |
+|---|---|---|
+| Should weekly/monthly variables be standardized after daily forward-fill? | No. Standardize at native frequency first. | Full Sharpe increased from 1.552 to 1.668 with fixed top-level policy. |
+| Is nonlinear capacity-weighted wind useful? | Yes, as a separate seasonal component. | Shoulder wind allocation fixed at 22.5%; peak wind at 15%. |
+| Is shortwave/PV availability more useful than cloud alone? | Yes. | Use the capacity-weighted PV-availability signal with 10% nominal daylight-scaled weight. |
+| Should consumption variables directly drive the daily position? | No in the current version. | Both consumption slots are zero; freed slots went to low storage and LNG MoM. |
+| Is regional storage preferable to Lower 48? | Use South Central Total, cautiously. | Full Sharpe improved from 1.633 to 1.673; holdout improvement was small. |
+| Should the strategy roll at official expiry? | No. | Use the fixed five-trading-session early roll. |
+| Should realized power data replace the GFS wind and solar forecasts? | No. | Keep GFS for future availability; use realized EIA-930 Central and Florida states in a separate 10% sleeve. |
+| How should offshore shut-ins enter the strategy? | Use a one-sided event veto. | The controller can cancel a conflicting short but cannot create or amplify exposure. |
+| Does the selected EIA-930 sleeve improve the matched sample? | Yes, as downside diversification. | On 2019-07-25–2026-07-13, the 40/60 blend reaches 2.115 Sharpe and 3.643 Sortino versus 1.992 and 3.329 for Central only. |
+| What Central/Florida mix should be retained? | 40% Central / 60% Florida inside the fixed 10% slot. | It has the highest 2021–2023 validation Sharpe and lies inside a stable 60%–80% Florida plateau; the ex-post 80% Florida full-sample maximum was not selected. |
+
+## Deliberately excluded experiments
+
+- **Observed weather direct factor:** removed from direct positioning; it is
+  better viewed as an explanatory input to demand/inventory models.
+- **CPC forecast level:** direct level signal was unstable and is fixed at
+  zero; only forecast revision remains active.
+- **Weekend/holiday 18Z reopen trading:** the risk-only flattening rule helped
+  an older model but reduced the current South Central full Sharpe from 1.673
+  to 1.648. It is not formal.
+- **EBB Henry Hub/Sabine pipeline overlay:** short-history results were regime
+  dependent, especially around 2020. No EBB factor is in the formal model.
+- **Macro/geopolitical/market-price overlays:** no stable incremental signal
+  was established, so they are excluded.
+- **No-lag EIA production and consumption:** aligning final month-M values to
+  month M is a perfect-information upper bound. With robust `tanh(z/2)`
+  compression it raised current South Central full Sharpe to approximately
+  1.781, but it is impossible to trade with the current delayed EIA source.
+
+## Parameter-selection discipline
+
+- Wind shoulder weights were evaluated on a declared grid and development
+  period; validation and first-look periods were reported separately.
+- The solar development optimum reached the 15% grid boundary. To reduce
+  overfitting risk, the formal research version uses 10%, not the boundary.
+- Consumption-slot reallocation was selected from development-period
+  candidates within 0.01 Sharpe of the best, using lower turnover as the
+  tiebreaker.
+- South Central replacement was a later research decision and should be
+  monitored as a model change, not treated as an untouched holdout result.
+
+## Notebook map
+
+| Notebook | Purpose |
+|---|---|
+| `01_final_south_central_strategy.ipynb` | current fixed strategy and final performance |
+| `02_capacity_weighted_wind.ipynb` | wind power curve, capacity weighting, and seasonal allocation |
+| `03_capacity_weighted_solar.ipynb` | radiation/PV factor, weight grid, and controls |
+| `04_native_frequency_fundamentals.ipynb` | weekly/monthly causal standardization correction |
+| `05_fundamental_weight_selection.ipynb` | remove consumption and reallocate fixed slots |
+| `06_eia930_central_florida_40_60.ipynb` | selected EIA-930 regional blend, stability, and loss-day attribution |
+
+## August 11, 2026 selected enhancement
+
+The latest selected version retains the nine-factor fundamental block and the
+GFS wind/solar forecasts.  It allocates a fixed 10% EIA-930 sleeve 40% to the
+ERCOT/MISO/SPP total non-gas shortfall and 60% to Florida firm non-gas
+generation relative to demand.  It also keeps the BSEE/Sabine controller as a
+pure short veto.
+
+On the exact 1,737-day EIA-930 overlap, the selected version records 2.115 net
+Sharpe, 3.643 Sortino, 19.38% CAGR, and -5.27% maximum drawdown.  The previous
+Central-only sleeve records 1.992 Sharpe, 3.329 Sortino, 19.36% CAGR, and
+-6.07% maximum drawdown.  The simple daily incremental net return versus
+Central is -0.13 percentage points: the improvement is a smoother loss path,
+not return expansion.
+
+The Central sleeve has 801 loss days.  The selected blend improves 541 of
+them, turns 73 nonnegative, and recovers 31.88 percentage points on those
+dates.  It gives back 32.01 points on Central non-loss days, which explains why
+Sharpe and Sortino improve while unconditional cumulative return is nearly
+unchanged.
+
+The implementation and output are isolated from the approved full-history
+artifact:
+
+- `naturalgas/evaluate_eia930_selected_enhancement.py`
+- `results/experiments/eia930_selected/`
+- `inputs/audit/eia930/selected_overlay_inputs.parquet`
+- `inputs/audit/events/event_reports_aligned.parquet`
+- `notebooks/06_eia930_central_florida_40_60.ipynb`
+- `reports/eia930_central_florida_40_60_brief.md`

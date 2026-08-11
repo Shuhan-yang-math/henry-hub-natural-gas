@@ -1,0 +1,121 @@
+{
+  "baseline_metrics": {
+    "annualized_downside_deviation": 0.052442751005449005,
+    "cagr": 0.18026228180191128,
+    "end": "2026-07-13T00:00:00",
+    "maximum_drawdown": -0.055883789920674776,
+    "mean_absolute_position": 0.11498687680810295,
+    "sharpe": 1.8750072860084992,
+    "sortino": 3.1947758189516606,
+    "start": "2019-07-25T00:00:00",
+    "total_return": 2.173543578728534,
+    "total_turnover": 118.2406146278036,
+    "trading_days": 1737,
+    "win_rate": 0.5302245250431779
+  },
+  "central_respondents": [
+    "ERCO",
+    "MISO",
+    "SWPP"
+  ],
+  "central_share_within_slot": 0.4,
+  "change_vs_baseline": {
+    "cagr": 0.01358635715089851,
+    "cumulative_incremental_net_return": 0.07699562952297406,
+    "sharpe": 0.23993459666892525,
+    "sortino": 0.44786500269187046
+  },
+  "change_vs_current_central": {
+    "cagr": 0.00029652406255453734,
+    "cumulative_incremental_net_return": -0.0013098544038598753,
+    "sharpe": 0.12248924860661825,
+    "sortino": 0.31355419456722
+  },
+  "current_central_metrics": {
+    "annualized_downside_deviation": 0.05372704911022081,
+    "cagr": 0.19355211489025526,
+    "end": "2026-07-13T00:00:00",
+    "maximum_drawdown": -0.060728347435169416,
+    "mean_absolute_position": 0.11726891628699065,
+    "sharpe": 1.9924526340708062,
+    "sortino": 3.329086627076311,
+    "start": "2019-07-25T00:00:00",
+    "total_return": 2.431063320614338,
+    "total_turnover": 124.84149477252178,
+    "trading_days": 1737,
+    "win_rate": 0.5365572826712723
+  },
+  "dashboard": "results/experiments/eia930_selected/latest_strategy_dashboard.png",
+  "eia930_slot_weight": 0.1,
+  "florida_respondents": [
+    "FMPP",
+    "FPC",
+    "FPL",
+    "GVL",
+    "HST",
+    "JEA",
+    "SEC",
+    "TAL",
+    "TEC"
+  ],
+  "florida_share_within_slot": 0.6,
+  "loss_day_diagnostics": {
+    "central_loss_day_net_return": -2.4087826841509403,
+    "central_loss_days": 801,
+    "cost_increment_on_loss_days": 0.0006808417972414295,
+    "gross_position_increment_on_loss_days": 0.3181093831815329,
+    "improved_loss_days": 541,
+    "loss_day_incremental_net_return": 0.31879022497877435,
+    "loss_days_flipped_nonnegative": 73,
+    "mean_absolute_position_on_loss_days": {
+      "central": 0.10929385737398674,
+      "selected": 0.10097871433831156
+    },
+    "nonloss_day_incremental_net_return": -0.32010007938263424,
+    "position_change_contribution": {
+      "direction_flipped": {
+        "days": 73,
+        "incremental_net_return": 0.10915267342233319
+      },
+      "other_or_zero": {
+        "days": 10,
+        "incremental_net_return": 0.0033813239112464115
+      },
+      "same_direction_increased": {
+        "days": 260,
+        "incremental_net_return": -0.1769155297037877
+      },
+      "same_direction_reduced": {
+        "days": 458,
+        "incremental_net_return": 0.38317175734898246
+      }
+    },
+    "selected_on_central_loss_day_net_return": -2.089992459172166,
+    "worsened_loss_days": 260
+  },
+  "sample_end": "2026-07-13T00:00:00",
+  "sample_start": "2019-07-25T00:00:00",
+  "selected_event_veto_days": 7,
+  "selected_metrics": {
+    "annualized_downside_deviation": 0.04917122603879618,
+    "cagr": 0.1938486389528098,
+    "end": "2026-07-13T00:00:00",
+    "maximum_drawdown": -0.05270656800006157,
+    "mean_absolute_position": 0.10799372594759303,
+    "sharpe": 2.1149418826774244,
+    "sortino": 3.642640821643531,
+    "start": "2019-07-25T00:00:00",
+    "total_return": 2.437007278715229,
+    "total_turnover": 118.65967322864064,
+    "trading_days": 1737,
+    "win_rate": 0.540587219343696
+  },
+  "signals": {
+    "central": "continuous total non-gas generation shortfall / demand",
+    "florida": "continuous coal+nuclear+water shortfall / demand"
+  },
+  "strategy_version": "eia930_central40_florida60_10pct_with_event_veto",
+  "trading_days": 1737,
+  "transaction_cost_bps": 2.5,
+  "weight_sweep_chart": "results/experiments/eia930_selected/central_florida_weight_sweep.png"
+}

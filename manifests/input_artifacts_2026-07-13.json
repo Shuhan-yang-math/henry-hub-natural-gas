@@ -1,0 +1,126 @@
+{
+  "manifest_version": 1,
+  "strategy_as_of": "2026-07-13",
+  "generated_from_gcs_metadata_at": "2026-08-06",
+  "schema_fingerprint": {
+    "algorithm": "sha256",
+    "canonical_form": "UTF-8 JSON array of Arrow fields with keys name, nullable, and type; keys sorted and compact separators"
+  },
+  "artifacts": [
+    {
+      "id": "ng_multisignal_panel",
+      "uri": "gs://bcli-natgas-data-497807/processed/ng_multisignal_score/ng_multisignal_panel.parquet",
+      "generation": "1785435608499104",
+      "sha256": "9231ba79695fb0551e2d2dc6e60067332d05da202a13d86d3c6fc1cfc7c60fab",
+      "local_path": "naturalgas/processed/ng_multisignal_score/ng_multisignal_panel.parquet",
+      "size_bytes": 3504429,
+      "rows": 8149,
+      "columns": 155,
+      "date_range": {
+        "column": "date",
+        "min": "1994-01-13T00:00:00",
+        "max": "2026-07-17T00:00:00"
+      },
+      "schema_fingerprint_sha256": "0c0a4883d35dc3585b3c9e38c62cfa6695fdc9a54a56b0d8e5e0602f69b95fd1"
+    },
+    {
+      "id": "capacity_weighted_wind_features_daily",
+      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v1/inputs/capacity_weighted_wind_features_daily.parquet",
+      "generation": "1785904479037568",
+      "sha256": "95f21e375f0b18eed4cb748cb764957778773e9630e445c325184520f5d55081",
+      "local_path": "naturalgas/processed/ncar_gdex_complete_wind_factor/capacity_weighted_wind_features_daily.parquet",
+      "size_bytes": 1107227,
+      "rows": 3857,
+      "columns": 43,
+      "date_range": {
+        "column": "forecast_reference_time_utc",
+        "min": "2016-01-01T00:00:00Z",
+        "max": "2026-07-28T00:00:00Z"
+      },
+      "schema_fingerprint_sha256": "39d1cd05fd1e98c8e56fc5b2ee1ac00b92eb9d71873ad188e94fe095807261d9"
+    },
+    {
+      "id": "capacity_weighted_solar_signals",
+      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v1/inputs/capacity_weighted_solar_signals.parquet",
+      "generation": "1785904479034390",
+      "sha256": "38a13027ab4a937e7a13caadc13af627d558a147773255d528d56779a41061c0",
+      "local_path": "naturalgas/processed/ncar_gdex_capacity_weighted_solar/capacity_weighted_solar_signals.parquet",
+      "size_bytes": 1419003,
+      "rows": 15448,
+      "columns": 17,
+      "date_range": {
+        "column": "forecast_reference_time_utc",
+        "min": "2016-01-01T00:00:00Z",
+        "max": "2026-07-28T18:00:00Z"
+      },
+      "schema_fingerprint_sha256": "45b782f71941c2cbaee7bab3bc3704e68ef92f2c62914ed84079c57581a931d6"
+    },
+    {
+      "id": "capacity_weighted_location_leads",
+      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v1/inputs/capacity_weighted_location_leads.parquet",
+      "generation": "1785904479072012",
+      "sha256": "27b7a7cfdfe4af525b65da9e208099eca2c035d5d3e9bedcd625fbbe2d5b46e9",
+      "local_path": "naturalgas/processed/ncar_gdex_capacity_weighted_solar/capacity_weighted_location_leads.parquet",
+      "size_bytes": 3553329,
+      "rows": 77225,
+      "columns": 14,
+      "date_range": {
+        "column": "forecast_reference_time_utc",
+        "min": "2016-01-01T00:00:00Z",
+        "max": "2026-07-28T18:00:00Z"
+      },
+      "schema_fingerprint_sha256": "7f25e94fa486eb12736e5209a0126a0916e3c48400cd6a468240de00ef86783c"
+    },
+    {
+      "id": "storage_weekly",
+      "uri": "gs://bcli-natgas-data-497807/processed/storage_weekly.parquet",
+      "generation": "1784674812651746",
+      "sha256": "05e1374211246577a175a58179cf05fe53b7ade8817140d598e0f2e7a9d3cd60",
+      "local_path": "inputs/gcs/processed/storage_weekly.parquet",
+      "consumer_mode": "generation-pinned local snapshot used by the formal rebuild; legacy CLI may read the same pinned GCS generation",
+      "size_bytes": 17485,
+      "rows": 862,
+      "columns": 9,
+      "date_range": {
+        "column": "week_ending",
+        "min": "2010-01-01",
+        "max": "2026-07-03"
+      },
+      "schema_fingerprint_sha256": "dcb8a4393b43888664c7ad4caaea6ddd5780d26973f390363fb3077498f82ec4"
+    },
+    {
+      "id": "fundamentals_monthly",
+      "uri": "gs://bcli-natgas-data-497807/processed/fundamentals_monthly.parquet",
+      "generation": "1784674813059617",
+      "sha256": "72eff5123d9fcf0d48b8af52621b01d31323b3b00c5982bcec34cd430c645e4b",
+      "local_path": "inputs/gcs/processed/fundamentals_monthly.parquet",
+      "consumer_mode": "generation-pinned local snapshot used by the formal rebuild; legacy CLI may read the same pinned GCS generation",
+      "size_bytes": 9379,
+      "rows": 640,
+      "columns": 5,
+      "date_range": {
+        "column": "month",
+        "min": "1973-01-01",
+        "max": "2026-04-01"
+      },
+      "schema_fingerprint_sha256": "172a208de69804e4fe2874fa16cc340fe2605843fb78a4312d9239e1f17e06f2"
+    },
+    {
+      "id": "eia_country_monthly",
+      "uri": "gs://bcli-natgas-data-497807/raw/eia/trade_detail/country_monthly.parquet",
+      "generation": "1784765115754980",
+      "sha256": "7329fba8573d4e1c706e8737a3562b298d543c2ff7b921f36e7b6f591624fe3c",
+      "local_path": "inputs/gcs/raw/eia/trade_detail/country_monthly.parquet",
+      "consumer_mode": "generation-pinned local snapshot used by the formal rebuild; legacy CLI may read the same pinned GCS generation",
+      "size_bytes": 66448,
+      "rows": 21735,
+      "columns": 20,
+      "date_range": {
+        "column": "month",
+        "min": "2016-01-01T00:00:00",
+        "max": "2026-04-01T00:00:00"
+      },
+      "schema_fingerprint_sha256": "e3699a0784cc820cc2d650ab401258435f72c5a9970f98375522f0e9ebb02f64"
+    }
+  ]
+}

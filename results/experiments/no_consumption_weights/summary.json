@@ -1,0 +1,96 @@
+{
+  "best_development_sharpe": 1.7080577869486067,
+  "caution": "Selection uses revised historical fundamentals rather than archived first-release vintages. The selected weights must be judged mainly on validation and first-look holdout, not full-sample Sharpe.",
+  "development_sharpe_tolerance": 0.01,
+  "experiment": "remove_consumption_and_reallocate_two_fixed_slots",
+  "full_metrics": {
+    "current_all_11_equal": {
+      "cagr": 0.12209995311395327,
+      "maximum_drawdown": -0.05673760500575187,
+      "sharpe_zero_rf": 1.6682494921751434,
+      "total_turnover": 147.89890184978952,
+      "win_rate": 0.5376817981489643
+    },
+    "no_consumption_equal_9": {
+      "cagr": 0.13589317862438222,
+      "maximum_drawdown": -0.05704001244486989,
+      "sharpe_zero_rf": 1.5573738310542995,
+      "total_turnover": 150.41268995105065,
+      "win_rate": 0.5160863816659321
+    },
+    "reallocate__low_storage__lng_export_mom": {
+      "cagr": 0.1408461758445385,
+      "maximum_drawdown": -0.056220287679788705,
+      "sharpe_zero_rf": 1.6325907171723815,
+      "total_turnover": 149.80056409310563,
+      "win_rate": 0.5191714411635081
+    }
+  },
+  "gcs_objects_modified": false,
+  "period_sharpes": {
+    "current_all_11_equal": {
+      "development": 1.885929527856544,
+      "first_look_holdout": 1.326476005088215,
+      "full": 1.6682494921751434,
+      "validation": 1.8002439758824529
+    },
+    "no_consumption_equal_9": {
+      "development": 1.6057238357972972,
+      "first_look_holdout": 1.3203434582071292,
+      "full": 1.5573738310542995,
+      "validation": 1.7405355063278765
+    },
+    "reallocate__low_storage__lng_export_mom": {
+      "development": 1.6998854762550109,
+      "first_look_holdout": 1.3993187384496635,
+      "full": 1.6325907171723815,
+      "validation": 1.8123758392535734
+    }
+  },
+  "remaining_components": [
+    "sig_low_storage",
+    "sig_storage_change",
+    "sig_storage_4w_change",
+    "sig_low_production_growth",
+    "sig_lng_export_growth",
+    "sig_net_import_supply",
+    "sig_production_mom",
+    "sig_lng_export_mom",
+    "sig_net_import_change"
+  ],
+  "removed_components": [
+    "sig_consumption_growth",
+    "sig_consumption_mom"
+  ],
+  "sample_end": "2026-07-13T00:00:00",
+  "sample_start": "2017-07-03T00:00:00",
+  "selected_candidate": "reallocate__low_storage__lng_export_mom",
+  "selected_weights": {
+    "sig_lng_export_growth": 0.09090909090909091,
+    "sig_lng_export_mom": 0.18181818181818182,
+    "sig_low_production_growth": 0.09090909090909091,
+    "sig_low_storage": 0.18181818181818182,
+    "sig_net_import_change": 0.09090909090909091,
+    "sig_net_import_supply": 0.09090909090909091,
+    "sig_production_mom": 0.09090909090909091,
+    "sig_storage_4w_change": 0.09090909090909091,
+    "sig_storage_change": 0.09090909090909091
+  },
+  "selection_period": {
+    "end": "2020-12-31T00:00:00",
+    "start": "2017-07-03T00:00:00",
+    "trading_days": 884
+  },
+  "selection_rule": "among 45 unordered assignments of two fixed 1/11 slots, retain candidates within 0.01 of the best 2.5-bps development Sharpe, then select lowest development turnover; validation and holdout excluded",
+  "status": "research_only",
+  "trading_days": 2269,
+  "unchanged_policy": {
+    "front_month_roll": "five trading days before official LTD",
+    "signal_lag_sessions": 1,
+    "solar_factor": "pv_daylight",
+    "solar_nominal_weight": 0.1,
+    "top_level_fundamental_allocation": "unchanged seasonal allocation",
+    "transaction_cost_bps": 2.5,
+    "wind_allocation": "independent_shoulder_22p5pct"
+  }
+}
