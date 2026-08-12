@@ -31,7 +31,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{Henry Hub Natural-Gas Strategy}
-\fancyhead[R]{Research Report -- August 11, 2026}
+\fancyhead[R]{Research Report -- August 12, 2026}
 \fancyfoot[C]{\thepage}
 \setlength{\headheight}{14pt}
 
@@ -42,7 +42,7 @@
 \title{\textbf{Henry Hub Natural-Gas Futures Strategy}\\
 \large Comprehensive Research Report}
 \author{Braeswood Carbon Research}
-\date{August 11, 2026}
+\date{August 12, 2026}
 
 \begin{document}
 \maketitle
@@ -50,7 +50,7 @@
 \begin{center}
 \begin{tabularx}{0.96\textwidth}{>{\bfseries}p{3.3cm}Y}
 Historical formal version: & \code{south\_central\_total\_storage}\\
-Selected research version: & \code{eia930\_central40\_florida60\_10pct\_with\_event\_veto}\\
+Selected research version: & \code{d1\_3\_wind\_storage\_amplified\_guard}\\
 Sample: & July 3, 2017--July 13, 2026; 2,269 trading days\\
 Instrument: & NYMEX Henry Hub natural-gas futures\\
 Components: & CPC forecast revisions, capacity-weighted wind and solar,
@@ -95,38 +95,38 @@ Daily win rate & 52.49\% & 52.84\%\\
 \end{tabular}
 \end{table}
 
-The selected EIA-930 version can be compared on a common 1,737-day overlap
-from July 25, 2019 through July 13, 2026. The matched baseline already includes
-the event veto, so the difference below isolates the fixed 10\% EIA-930 sleeve.
+The selected D1--3 version can be compared on a common 1,737-day overlap from
+July 25, 2019 through July 13, 2026. Every row retains the selected Central
+40\% / Florida 60\% EIA-930 sleeve and event veto.
 
 \begin{table}[h]
 \centering
-\caption{Selected EIA-930 common-overlap performance}
+\caption{Selected D1--3 common-overlap performance}
 \begin{tabular}{lrrr}
 \toprule
-Metric & Matched baseline & Central 100\% & Central 40\% / Florida 60\%\\
+Metric & Current D1--5 & D1--3, no guard & Selected D1--3 + amplifier\\
 \midrule
-Net Sharpe & 1.875 & 1.992 & \textbf{2.115}\\
-Net Sortino & 3.195 & 3.329 & \textbf{3.643}\\
-Net CAGR & 18.03\% & 19.36\% & \textbf{19.38\%}\\
-Maximum drawdown & -5.59\% & -6.07\% & \textbf{-5.27\%}\\
-Daily win rate & 53.02\% & 53.66\% & \textbf{54.06\%}\\
-Total net return & 217.35\% & 243.11\% & \textbf{243.70\%}\\
+Net Sharpe & 2.149 & 2.198 & \textbf{2.245}\\
+Net Sortino & 3.726 & 3.827 & \textbf{3.922}\\
+Net CAGR & \textbf{19.33\%} & 18.76\% & 19.07\%\\
+Maximum drawdown & -5.29\% & \textbf{-4.15\%} & \textbf{-4.15\%}\\
+Daily win rate & \textbf{54.06\%} & 53.66\% & 52.22\%\\
+Total net return & \textbf{242.70\%} & 231.35\% & 237.44\%\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Relative to the previous Central sleeve, the selected blend raises Sharpe by
-0.122 and Sortino by 0.314 while reducing maximum drawdown by 0.80 percentage
-points. Its simple sum of daily incremental net returns is -0.13 percentage
-points, so the gain is mainly downside diversification rather than higher
-unconditional return. The approved 2017-start formal artifact remains
+Relative to current D1--5, the selected version raises Sharpe by 0.096 and
+Sortino by 0.196 while reducing maximum drawdown by 1.14 percentage points.
+Its simple sum of daily incremental net returns is -1.80 percentage points, so
+the choice explicitly prioritizes risk-adjusted performance and drawdown over
+maximum cumulative return. The approved 2017-start formal artifact remains
 unchanged and is reported separately because its history is longer.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{../results/experiments/eia930_selected/latest_strategy_dashboard.png}
-\caption{Selected EIA-930 strategy dashboard.}
+\includegraphics[width=\textwidth]{../results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png}
+\caption{Selected D1--3 strategy dashboard.}
 \end{figure}
 
 The strongest conclusions are that renewable-generation conditions contain
@@ -145,9 +145,10 @@ roll, and the 2.5 bps turnover cost.
 The selected research version adds a fixed 10\% EIA-930 sleeve funded from
 fundamentals: 40\% Central total non-gas generation shortfall and 60\% Florida
 coal, nuclear, and water generation shortfall relative to demand. It also adds
-a pure BSEE/Sabine short veto. The veto can cancel a conflicting short but
-cannot create or amplify a position. The nine internal fundamental signals
-remain unchanged.
+a pure BSEE/Sabine short veto. It replaces the wind average from forecast days
+1--5 with days 1--3 and adds a storage-amplified fast-shock direction guard.
+Neither control can create or amplify a position. The nine internal fundamental
+signals remain unchanged.
 
 It excludes EBB pipeline overlays, weekend reopen trades, perfect-information
 EIA experiments, direct observed weather, direct CPC forecast level, and macro
@@ -216,7 +217,8 @@ mechanically triple the surviving revision signal.
 \section{Wind Module}
 
 The factor uses GFS 80 m wind from the 00Z cycle at 28 representative
-locations and forecast days 1--5. Wind is adjusted to hub height with
+locations. The selected version aggregates forecast days 1--3; days 1--5 are
+retained as the prior comparator. Wind is adjusted to hub height with
 \begin{equation}
 v_h=v_{80}\left(\frac{h}{80}\right)^{0.14}.
 \end{equation}
@@ -237,6 +239,12 @@ Wind_t=\tanh\left(\frac{Z^{causal}_{60}(1-EstimatedWindCF_t)}{2}\right).
 USWTDB capacity is reconstructed using commissioning year and excludes the
 current issue year. The result is a regional availability proxy, not a
 plant-level dispatch forecast.
+
+The selected direction guard activates for a strong fast bullish shock or when
+low South Central inventory coincides with a moderate fast bullish shock. Low
+inventory cannot activate the guard alone. If the score without wind is
+positive and bearish D1--3 wind would reverse it below zero, the guarded score
+is set to zero. The guard cannot create or amplify exposure.
 
 \section{Solar Module}
 
@@ -321,7 +329,7 @@ replaces the forward GFS wind and solar signals.
 A worsening BSEE offshore shut-in accompanied by recent Sabine operational
 context can set a conflicting core short to zero. The controller cannot create
 a long, increase an existing long, or alter a non-conflicting position. The
-selected EIA overlap contains seven actual veto dates.
+selected D1--3 overlap contains six actual event-veto dates.
 
 \section{Futures Roll and Costs}
 
@@ -414,8 +422,8 @@ than add more parameters to maximize historical Sharpe.
 \begin{itemize}
   \item Historical baseline notebook:
         \path{notebooks/01_final_south_central_strategy.ipynb}
-  \item Selected EIA-930 notebook:
-        \path{notebooks/06_eia930_central_florida_40_60.ipynb}
+  \item Selected notebook:
+        \path{notebooks/07_d1_3_storage_amplified_strategy.ipynb}
   \item Evaluator: \path{naturalgas/evaluate_south_central_storage_strategy.py}
   \item Data manifest: \path{DATA_MANIFEST.md}
   \item Formal summary: \path{results/formal/summary.json}
@@ -423,13 +431,13 @@ than add more parameters to maximize historical Sharpe.
   \item Period results: \path{results/formal/period_comparison.csv}
   \item Annual results: \path{results/formal/annual_comparison.csv}
   \item Selected evaluator:
-        \path{naturalgas/evaluate_eia930_selected_enhancement.py}
+        \path{naturalgas/evaluate_d1_3_storage_amplified_strategy.py}
   \item Selected summary:
-        \path{results/experiments/eia930_selected/summary.json}
+        \path{results/experiments/d1_3_storage_amplified/summary.json}
   \item Selected dashboard:
-        \path{results/experiments/eia930_selected/latest_strategy_dashboard.png}
+        \path{results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png}
   \item Selected decision brief:
-        \path{reports/eia930_central_florida_40_60_brief.md}
+        \path{reports/d1_3_storage_amplified_strategy_brief.md}
 \end{itemize}
 
 The repository includes the factor builders, master-panel builder, pinned

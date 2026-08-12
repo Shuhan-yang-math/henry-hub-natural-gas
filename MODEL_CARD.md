@@ -51,7 +51,8 @@ discarded signals still add information.
 
 ## Wind factor
 
-The wind dataset starts from GFS 80 m wind and aggregates forecast leads 1–5.
+The wind dataset starts from GFS 80 m wind. The current selected research
+version aggregates forecast leads 1--3; the prior comparator uses leads 1--5.
 Locations are weighted by lagged U.S. wind capacity. Wind is converted to a
 capacity-factor proxy through hub-height adjustment and a nonlinear turbine
 power curve with approximate cut-in, rated, and cut-out speeds of 3, 12, and
@@ -106,6 +107,23 @@ In November–March, when both the local freeze level and revision scores meet
 the fixed freeze condition, the final raw score cannot be negative. This is a
 one-sided safety control against shorting during severe production disruption.
 
+## Storage-amplified wind direction guard
+
+The selected D1--3 version adds a one-sided score guard. Strong new bullish
+shocks can activate it directly: HDD forecast revision at or above +1 sigma;
+November--March local production-risk revision at or above +1 trailing-
+quantile scale unit while the risk level is positive; or Central/Florida firm
+non-gas generation shortfall at or above +2 sigma.
+
+Low South Central inventory at or above +1 sigma cannot activate the guard by
+itself. It only lowers the corresponding fast-shock thresholds to +0.5 sigma
+for HDD, +0.5 trailing-quantile scale unit for production revision, and +1
+sigma for firm non-gas generation shortfall.
+
+When the score without wind is positive, D1--3 wind is bearish, and wind would
+reverse the score below zero, the score is set to zero. The guard cannot create
+or amplify a long and cannot change a short already present without wind.
+
 ## EIA-930 regional power-system sleeve
 
 The Central component measures realized total non-gas generation shortfall
@@ -134,7 +152,7 @@ The event controller is applied after the core score. A worsening BSEE
 offshore shut-in report accompanied by recent relevant Sabine operating
 context can set a conflicting short position to zero. It cannot create a long,
 increase an existing long, or alter a non-conflicting position. The selected
-40/60 EIA overlap contains seven actual veto dates.
+D1--3 overlap contains six actual event-veto dates.
 
 ## Research splits
 
@@ -157,20 +175,23 @@ and not statistically decisive.
 | First-look holdout | 1.407 | 12.97% | -6.07% |
 | Full | **1.673** | **14.61%** | **-6.07%** |
 
-## Selected EIA-930 common-overlap performance
+## Selected common-overlap performance
 
-| Metric | Weather, fundamentals, and event veto | Previous Central sleeve | Selected Central 40% / Florida 60% |
+| Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
 | Dates | 2019-07-25–2026-07-13 | same | same |
-| Net Sharpe | 1.875 | 1.992 | **2.115** |
-| Net Sortino | 3.195 | 3.329 | **3.643** |
-| Net CAGR | 18.03% | 19.36% | **19.38%** |
-| Maximum drawdown | -5.59% | -6.07% | **-5.27%** |
-| Total net return | 217.35% | 243.11% | **243.70%** |
+| Net Sharpe | 2.149 | 2.198 | **2.245** |
+| Net Sortino | 3.726 | 3.827 | **3.922** |
+| Net CAGR | **19.33%** | 18.76% | 19.07% |
+| Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
+| Total net return | **242.70%** | 231.35% | 237.44% |
 
-These are common-overlap results. The 1.673 Sharpe above remains the approved
-2017-start historical baseline and should not be compared directly with a
-shorter sample without aligning dates.
+These are 1,737-day common-overlap results for the already-selected 40%
+Central / 60% Florida sleeve. The D1--3 choice raises risk-adjusted performance
+and reduces drawdown while accepting lower CAGR and cumulative return than the
+D1--5 comparator. The 1.673 Sharpe above remains the approved 2017-start
+historical baseline and should not be compared directly with the shorter
+sample without aligning dates.
 
 ## Principal limitations
 

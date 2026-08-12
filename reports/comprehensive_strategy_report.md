@@ -1,8 +1,8 @@
 # Henry Hub Natural-Gas Futures Strategy: Comprehensive Research Report
 
-**Report date:** August 11, 2026
+**Report date:** August 12, 2026
 **Historical formal version:** `south_central_total_storage`
-**Selected research version:** `eia930_central40_florida60_10pct_with_event_veto`
+**Selected research version:** `d1_3_wind_storage_amplified_guard`
 **Backtest sample:** July 3, 2017 through July 13, 2026
 **Instrument:** NYMEX Henry Hub natural-gas futures
 **Purpose:** Research documentation, causality audit, and risk review. This is not investment advice or a live-performance claim.
@@ -42,29 +42,30 @@ unit of position change.
 | Maximum drawdown | -6.07% | -5.69% |
 | Daily win rate | 52.49% | 52.84% |
 
-### 1.2 Selected EIA-930 common-overlap performance
+### 1.2 Selected D1--3 common-overlap performance
 
-The selected enhancement begins on July 25, 2019, when both checked-in EIA-930
-signals are available to the held position.  The comparison below aligns all
-versions to the same 1,737 trading days.  The baseline already includes the
-event veto.
+The selected enhancement begins on July 25, 2019, when the checked-in D1--3
+wind and EIA-930 signals are available to the held position. The comparison
+below aligns all versions to the same 1,737 trading days. Every version retains
+the selected Central 40% / Florida 60% sleeve and event veto.
 
-| Metric | Weather, fundamentals, and event veto | Previous Central sleeve | Selected Central 40% / Florida 60% |
+| Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
-| Net Sharpe | 1.875 | 1.992 | **2.115** |
-| Net Sortino | 3.195 | 3.329 | **3.643** |
-| Net CAGR | 18.03% | 19.36% | **19.38%** |
-| Maximum drawdown | -5.59% | -6.07% | **-5.27%** |
-| Daily win rate | 53.02% | 53.66% | **54.06%** |
-| Total net return | 217.35% | 243.11% | **243.70%** |
+| Net Sharpe | 2.149 | 2.198 | **2.245** |
+| Net Sortino | 3.726 | 3.827 | **3.922** |
+| Net CAGR | **19.33%** | 18.76% | 19.07% |
+| Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
+| Daily win rate | **54.06%** | 53.66% | 52.22% |
+| Total net return | **242.70%** | 231.35% | 237.44% |
 
-The selected blend improves Sharpe by 0.122 and Sortino by 0.314 versus the
-previous Central sleeve.  Its simple sum of daily incremental net returns is
--0.13 percentage points, so the benefit is downside diversification rather
-than unconditional return expansion.  The approved 2017-start formal artifact
-remains unchanged and is reported separately because its history is longer.
+The selected version improves Sharpe by 0.096 and Sortino by 0.196 versus the
+D1--5 comparator while reducing maximum drawdown by 1.14 percentage points.
+Its simple sum of daily incremental net returns is -1.80 percentage points, so
+the choice explicitly prioritizes risk-adjusted performance and drawdown over
+maximum cumulative return. The approved 2017-start formal artifact remains
+unchanged and is reported separately because its history is longer.
 
-![Selected EIA-930 strategy dashboard](../results/experiments/eia930_selected/latest_strategy_dashboard.png)
+![Selected D1--3 strategy dashboard](../results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
 
 The principal conclusions are:
 
@@ -97,7 +98,7 @@ South Central Total storage fundamentals
 + 2.5 bps position-turnover cost
 ```
 
-The selected research version adds two bounded overlays without changing the
+The selected research version adds bounded overlays without changing the
 nine internal fundamental signals:
 
 ```text
@@ -105,6 +106,8 @@ nine internal fundamental signals:
   60% Florida firm non-gas shortfall relative to demand, funded from
   the fundamental sleeve
 + BSEE/Sabine pure short veto, applied after the score
++ replace the wind average from forecast days 1--5 with days 1--3
++ apply a one-sided fast-shock guard; low storage acts only as an amplifier
 ```
 
 The event controller can cancel a conflicting short but cannot create a long,
@@ -277,8 +280,9 @@ directional positioning and can create lagged trend-following behavior.
 ### 8.1 Weather input
 
 The factor uses NCEP GFS 0.25 degree forecasts from the 00Z cycle, 28
-representative U.S. locations, forecast days 1--5, four daily valid intervals,
-and 80 m U/V wind components. Wind speed is
+representative U.S. locations, four daily valid intervals, and 80 m U/V wind
+components. The selected version aggregates forecast days 1--3; forecast days
+1--5 remain the prior comparator. Wind speed is
 
 $$
 v_{80}=\sqrt{u_{80}^2+v_{80}^2}.
@@ -336,6 +340,20 @@ Wind_t=\tanh\left(\frac{Z^{causal}_{60}(1-EstimatedWindCF_t)}{2}\right).
 $$
 
 Positive values indicate weak expected wind and bullish power-burn pressure.
+
+### 8.5 Storage-amplified direction guard
+
+Strong fast bullish shocks can prevent bearish D1--3 wind from reversing an
+otherwise positive score below zero. The strong triggers are HDD revision of
+at least +1 sigma, winter production-risk revision of at least +1 trailing-
+quantile scale unit while the risk level is positive, or Central/Florida firm
+non-gas generation shortfall of at least +2 sigma.
+
+Low South Central inventory cannot trigger the guard alone. When inventory is
+at least 1 sigma low, the corresponding moderate thresholds are +0.5 sigma for
+HDD, +0.5 trailing-quantile scale unit for production revision, and +1 sigma
+for firm non-gas shortfall. The guard sets only a wind-flipped negative score
+to zero; it cannot create or amplify exposure.
 
 ## 9. Capacity-weighted solar module
 
@@ -503,7 +521,7 @@ the realized multi-fuel system state.
 A worsening BSEE offshore shut-in accompanied by recent Sabine operational
 context can set a conflicting core short to zero. This design treats the event
 information as a risk constraint rather than a standalone bullish forecast.
-There are seven actual veto dates in the selected 40/60 EIA-930 overlap.
+There are six actual event-veto dates in the selected D1--3 overlap.
 
 ## 15. Futures construction and costs
 
@@ -557,6 +575,9 @@ research changes were layered sequentially:
 8. A continuous 10% EIA-930 sleeve was funded from fundamentals, with 40% of
    the slot assigned to Central and 60% to Florida, while retaining the GFS
    wind and solar forecasts.
+9. The selected research version shortened the wind forecast window from
+   days 1--5 to days 1--3 and added the storage-amplified fast-shock direction
+   guard described in Section 8.5.
 
 Because some later decisions were made after viewing validation diagnostics,
 the complete final model cannot claim a pristine untouched holdout. The report
@@ -684,12 +705,12 @@ Primary entry points are:
 - Weights: `results/formal/strategy_weights.csv`
 - Period results: `results/formal/period_comparison.csv`
 - Annual results: `results/formal/annual_comparison.csv`
-- Selected evaluator: `naturalgas/evaluate_eia930_selected_enhancement.py`
-- Selected notebook: `notebooks/06_eia930_central_florida_40_60.ipynb`
-- Selected brief: `reports/eia930_central_florida_40_60_brief.md`
-- Selected summary: `results/experiments/eia930_selected/summary.json`
+- Selected evaluator: `naturalgas/evaluate_d1_3_storage_amplified_strategy.py`
+- Selected notebook: `notebooks/07_d1_3_storage_amplified_strategy.ipynb`
+- Selected brief: `reports/d1_3_storage_amplified_strategy_brief.md`
+- Selected summary: `results/experiments/d1_3_storage_amplified/summary.json`
 - Selected dashboard:
-  `results/experiments/eia930_selected/latest_strategy_dashboard.png`
+  `results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png`
 
 The repository now includes the factor builders, master-panel builder, pinned
 generation manifests, and strict rebuild pipelines. Large source objects

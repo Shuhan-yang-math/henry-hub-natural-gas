@@ -35,9 +35,36 @@ not have archived first-release vintages.
 The year-by-year table and chart are available in
 [`results/formal/`](results/formal/).
 
-### Selected EIA-930 enhancement
+### Selected D1--3 wind and storage-amplified guard
 
-The latest selected research version preserves the nine-factor fundamental
+The latest selected research version retains the 40% Central / 60% Florida
+EIA-930 sleeve and changes the wind forecast window from days 1--5 to days
+1--3. A one-sided direction guard prevents bearish wind from reversing an
+otherwise bullish score only when a strong fast bullish shock is present, or
+when low South Central inventory coincides with a moderate fast bullish shock.
+Low inventory cannot trigger the guard by itself, and the guard cannot create
+or amplify exposure.
+
+| Common-overlap metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
+|---|---:|---:|---:|
+| Sample | 2019-07-25 to 2026-07-13 | same | same |
+| Trading days | 1,737 | 1,737 | 1,737 |
+| Net Sharpe | 2.149 | 2.198 | **2.245** |
+| Net Sortino | 3.726 | 3.827 | **3.922** |
+| Net CAGR | **19.33%** | 18.76% | 19.07% |
+| Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
+| Total net return | **242.70%** | 231.35% | 237.44% |
+
+This is an explicit risk-adjusted selection: Sharpe, Sortino, and drawdown
+improve, while CAGR and cumulative return remain below the D1--5 comparator.
+The guard changes 60 held-return dates and adds 1.80 percentage points versus
+unguarded D1--3 after costs.
+
+![Selected D1--3 strategy dashboard](results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
+
+### Prior EIA-930 enhancement
+
+The prior selected EIA-930 version preserves the nine-factor fundamental
 block and adds two post-score controls: a fixed 10% EIA-930 sleeve and a
 one-sided BSEE/Sabine event veto.  The EIA sleeve is 40% Central
 (ERCOT/MISO/SPP total non-gas shortfall) and 60% Florida (coal, nuclear, and
@@ -75,16 +102,20 @@ approved 2017 full-history baseline.
    execution assumptions, splits, and limitations.
 2. [`notebooks/01_final_south_central_strategy.ipynb`](notebooks/01_final_south_central_strategy.ipynb)
    — approved historical baseline and earlier selected-enhancement context.
-3. [`notebooks/06_eia930_central_florida_40_60.ipynb`](notebooks/06_eia930_central_florida_40_60.ipynb)
-   — selected 40/60 EIA-930 sleeve, weight stability, loss-day attribution,
-   and current dashboard.
-4. [`RESEARCH_LOG.md`](RESEARCH_LOG.md) — what was tested, accepted, rejected,
+3. [`notebooks/07_d1_3_storage_amplified_strategy.ipynb`](notebooks/07_d1_3_storage_amplified_strategy.ipynb)
+   — current selected D1--3 wind window, storage-amplified guard, performance,
+   intervention audit, and dashboard.
+4. [`notebooks/06_eia930_central_florida_40_60.ipynb`](notebooks/06_eia930_central_florida_40_60.ipynb)
+   — prior selected 40/60 EIA-930 sleeve and geographic weight audit.
+5. [`RESEARCH_LOG.md`](RESEARCH_LOG.md) — what was tested, accepted, rejected,
    and deliberately excluded from the formal model.
-5. [`reports/comprehensive_strategy_report.md`](reports/comprehensive_strategy_report.md)
+6. [`reports/comprehensive_strategy_report.md`](reports/comprehensive_strategy_report.md)
    — detailed English-language strategy and causality report.
-6. [`reports/eia930_central_florida_40_60_brief.md`](reports/eia930_central_florida_40_60_brief.md)
+7. [`reports/d1_3_storage_amplified_strategy_brief.md`](reports/d1_3_storage_amplified_strategy_brief.md)
+   — concise decision record for the current selected version.
+8. [`reports/eia930_central_florida_40_60_brief.md`](reports/eia930_central_florida_40_60_brief.md)
    — concise selected-version decision record.
-7. [`DATA_MANIFEST.md`](DATA_MANIFEST.md) — exact GCS objects and local paths.
+9. [`DATA_MANIFEST.md`](DATA_MANIFEST.md) — exact GCS objects and local paths.
 
 ## Repository layout
 
@@ -107,7 +138,8 @@ henry-hub-natural-gas/
 │   ├── 03_capacity_weighted_solar.ipynb
 │   ├── 04_native_frequency_fundamentals.ipynb
 │   ├── 05_fundamental_weight_selection.ipynb
-│   └── 06_eia930_central_florida_40_60.ipynb
+│   ├── 06_eia930_central_florida_40_60.ipynb
+│   └── 07_d1_3_storage_amplified_strategy.ipynb
 ├── naturalgas/                 # final evaluator and dependency modules
 ├── reports/                    # detailed Markdown and XeLaTeX report
 ├── results/experiments/        # selected dashboard and experiment audits
@@ -187,6 +219,17 @@ This command refreshes the selected daily series, annual metrics, event
 registry, summary, and English dashboard under
 `results/experiments/eia930_selected/`.
 
+The current selected D1--3 strategy is also reproduced entirely from
+checked-in audit inputs:
+
+```bash
+python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
+```
+
+This refreshes the selected daily series, full/period/annual metrics, event
+registry, summary, and English dashboard under
+`results/experiments/d1_3_storage_amplified/`.
+
 Networked integration tests are opt-in because ordinary CI may not have access
 to the private bucket:
 
@@ -201,12 +244,13 @@ RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 
 | Notebook | Clean-run inputs and behavior |
 |---|---|
-| `01_final_south_central_strategy.ipynb` | Preserves the historical full-sample baseline and the earlier Central-only EIA-930 research snapshot. Use notebook 06 for the current selected enhancement. |
+| `01_final_south_central_strategy.ipynb` | Preserves the historical full-sample baseline and the earlier Central-only EIA-930 research snapshot. Use notebook 07 for the current selected strategy. |
 | `02_capacity_weighted_wind.ipynb` | Needs the manifest panel and 00Z wind parquet plus the checked-in files under `inputs/audit/wind/`; the nonlinear power-curve helper is source code in `naturalgas/`. |
 | `03_capacity_weighted_solar.ipynb` | Reads its summary, IC, annual, and cost tables from tracked `results/experiments/solar/`. Weight-grid and daily-equity cells are optional and report a clear skip unless generated with `python naturalgas/evaluate_ncar_gdex_complete_solar_factor.py`. |
 | `04_native_frequency_fundamentals.ipynb` | Recomputes immediately and needs the four model parquets plus access to the three EIA inputs. It is a research notebook, not the strict final-rebuild entry point. |
 | `05_fundamental_weight_selection.ipynb` | Has `RUN_BACKTEST=True` and later perfect-information cells that access EIA data. It requires all model inputs and Braeswood GCS read credentials and is not part of the strict formal reproduction guarantee. |
 | `06_eia930_central_florida_40_60.ipynb` | Rebuilds from the checked-in formal daily artifact, Central/Florida overlay, and event registry; no network access is required. |
+| `07_d1_3_storage_amplified_strategy.ipynb` | Rebuilds the current selected D1--3 strategy from the checked-in formal daily artifact, frozen D1--3 score inputs, and event registry; no network access is required. |
 
 The notebooks retain historical rendered outputs. A dependency audit must
 execute them from a fresh kernel; the presence of saved output is not evidence
@@ -255,9 +299,10 @@ reproduction of the approved model.
 ## Model-version boundary
 
 The approved historical result remains the fixed 1.673-Sharpe formal baseline.
-The selected EIA-930 enhancement is versioned separately because its common
-history begins in 2019. It includes only the fixed Central 40% / Florida 60%
-EIA-930 sleeve and the one-sided BSEE/Sabine event veto described above. It
+The current selected research version is versioned separately because its
+common history begins in 2019. It includes the fixed Central 40% / Florida 60%
+EIA-930 sleeve, the one-sided BSEE/Sabine event veto, D1--3 wind, and the
+storage-amplified fast-shock direction guard described above. It
 does **not** include generic EBB pipeline alpha, geopolitical or
 macro price overlays, weekend/holiday reopen trades, CPC forecast level,
 observed-weather direct positioning, or the perfect-information experiment

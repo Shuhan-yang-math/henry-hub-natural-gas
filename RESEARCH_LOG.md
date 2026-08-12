@@ -18,6 +18,7 @@ mistaken for predeclared live rules.
 | How should offshore shut-ins enter the strategy? | Use a one-sided event veto. | The controller can cancel a conflicting short but cannot create or amplify exposure. |
 | Does the selected EIA-930 sleeve improve the matched sample? | Yes, as downside diversification. | On 2019-07-25–2026-07-13, the 40/60 blend reaches 2.115 Sharpe and 3.643 Sortino versus 1.992 and 3.329 for Central only. |
 | What Central/Florida mix should be retained? | 40% Central / 60% Florida inside the fixed 10% slot. | It has the highest 2021–2023 validation Sharpe and lies inside a stable 60%–80% Florida plateau; the ex-post 80% Florida full-sample maximum was not selected. |
+| Which wind horizon and direction guard should be retained? | Select forecast days 1--3 with the storage-amplified fast-shock guard. | On the matched 1,737-day sample, Sharpe is 2.245 and Sortino is 3.922 versus 2.149 and 3.726 for D1--5; maximum drawdown improves from -5.29% to -4.15%, with lower CAGR and total return. |
 
 ## Deliberately excluded experiments
 
@@ -58,7 +59,8 @@ mistaken for predeclared live rules.
 | `03_capacity_weighted_solar.ipynb` | radiation/PV factor, weight grid, and controls |
 | `04_native_frequency_fundamentals.ipynb` | weekly/monthly causal standardization correction |
 | `05_fundamental_weight_selection.ipynb` | remove consumption and reallocate fixed slots |
-| `06_eia930_central_florida_40_60.ipynb` | selected EIA-930 regional blend, stability, and loss-day attribution |
+| `06_eia930_central_florida_40_60.ipynb` | prior selected EIA-930 regional blend, stability, and loss-day attribution |
+| `07_d1_3_storage_amplified_strategy.ipynb` | current selected wind horizon, guard logic, performance, and intervention audit |
 
 ## August 11, 2026 selected enhancement
 
@@ -90,3 +92,29 @@ artifact:
 - `inputs/audit/events/event_reports_aligned.parquet`
 - `notebooks/06_eia930_central_florida_40_60.ipynb`
 - `reports/eia930_central_florida_40_60_brief.md`
+
+## August 12, 2026 selected wind enhancement
+
+The current selected research version keeps the 40% Central / 60% Florida
+EIA-930 sleeve and replaces the days 1--5 wind average with days 1--3. It also
+adds a one-sided storage-amplified fast-shock guard. Low storage cannot trigger
+the guard by itself; it only allows moderate HDD, production-risk revision, or
+firm non-gas shortfall shocks to prevent wind from reversing an otherwise
+bullish score into a short.
+
+On the exact 1,737-day overlap, current D1--5 records 2.149 net Sharpe, 3.726
+Sortino, 19.33% CAGR, and -5.29% maximum drawdown. The selected D1--3 version
+records 2.245 Sharpe, 3.922 Sortino, 19.07% CAGR, and -4.15% maximum drawdown.
+Its cumulative simple net-return difference versus D1--5 is -1.80 percentage
+points. The decision therefore prioritizes risk-adjusted performance and
+drawdown over maximum cumulative return.
+
+The guard changes 60 held-return dates, helps 35, hurts 25, and adds 1.80
+percentage points relative to unguarded D1--3. Its effect is not positive in
+every year, so the frozen rule remains subject to prospective monitoring.
+
+- `naturalgas/evaluate_d1_3_storage_amplified_strategy.py`
+- `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet`
+- `results/experiments/d1_3_storage_amplified/`
+- `notebooks/07_d1_3_storage_amplified_strategy.ipynb`
+- `reports/d1_3_storage_amplified_strategy_brief.md`

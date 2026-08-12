@@ -94,7 +94,7 @@ inputs/audit/wind/annual_fleet_diagnostics.csv
 These tables explain the historical capacity weighting and fleet diagnostics;
 they are not additional formal evaluator inputs.
 
-## Selected EIA-930 enhancement inputs
+## Selected strategy enhancement inputs
 
 The selected enhancement uses two compact, checked-in audit inputs. They are
 separate from the seven pinned inputs of the approved formal rebuild.
@@ -103,6 +103,7 @@ separate from the seven pinned inputs of the approved formal rebuild.
 |---|---:|---|---|---|
 | `inputs/audit/eia930/selected_overlay_inputs.parquet` | 1,738 | 2019-07-24–2026-07-13 score dates | `bbaa1b948df815842feaa6b11a42fdc7d92d099b5f001eeb26adb6bc2daa3fee` | Central total non-gas and Florida firm non-gas share shortfalls, production short-block state, and lineage |
 | `inputs/audit/events/event_reports_aligned.parquet` | 101 | 2017-08-24–2024-09-29 | `f1a99a286c1a2a5b7b03990edfec08786aa9a56e0b7f5ad88417450fb984fb1b` | BSEE/Sabine event-controller registry |
+| `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet` | 1,739 | 2019-07-24–2026-07-14 score dates | `6ef242635daa99bb3f6ba42506e49d2a47e9df131d90e0b2877ca29d2d42adbe` | D1--3/D1--5 scores, score without wind, fast-shock inputs, storage state, and recomputable selected guard flags |
 
 The selected evaluator reads these inputs together with
 `naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`
@@ -123,6 +124,25 @@ Rebuild those artifacts with:
 
 ```bash
 python naturalgas/evaluate_eia930_selected_enhancement.py
+```
+
+The current selected D1--3 strategy additionally reads the frozen wind/guard
+input above and writes:
+
+```text
+results/experiments/d1_3_storage_amplified/selected_strategy_daily.parquet
+results/experiments/d1_3_storage_amplified/strategy_metrics.csv
+results/experiments/d1_3_storage_amplified/period_metrics.csv
+results/experiments/d1_3_storage_amplified/annual_metrics.csv
+results/experiments/d1_3_storage_amplified/event_report_registry.parquet
+results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png
+results/experiments/d1_3_storage_amplified/summary.json
+```
+
+Rebuild the selected strategy artifacts with:
+
+```bash
+python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
 
 The byte-exact weather rebuild additionally uses the checked-in frozen

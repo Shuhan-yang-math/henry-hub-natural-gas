@@ -1,0 +1,70 @@
+{
+  "change_vs_current_d1_5": {
+    "cagr": -0.002642229267330043,
+    "cumulative_incremental_net_return": -0.018017411994381283,
+    "sharpe": 0.09635566102918958,
+    "sortino": 0.19577528386101628
+  },
+  "current_d1_5_metrics": {
+    "annualized_downside_deviation": 0.04795282919482008,
+    "cagr": 0.1933475004610099,
+    "end": "2026-07-13T00:00:00",
+    "maximum_drawdown": -0.05290246224136752,
+    "mean_absolute_position": 0.10680642136002497,
+    "sharpe": 2.1489602406612107,
+    "sortino": 3.72634289672959,
+    "start": "2019-07-25T00:00:00",
+    "total_return": 2.4269668681095298,
+    "total_turnover": 117.38676667052925,
+    "trading_days": 1737,
+    "win_rate": 0.540587219343696
+  },
+  "d1_3_no_guard_metrics": {
+    "annualized_downside_deviation": 0.04541910389581495,
+    "cagr": 0.18759601204370147,
+    "end": "2026-07-13T00:00:00",
+    "maximum_drawdown": -0.04151797069188734,
+    "mean_absolute_position": 0.10413787956147262,
+    "sharpe": 2.1981912594161512,
+    "sortino": 3.8266883785032424,
+    "start": "2019-07-25T00:00:00",
+    "total_return": 2.313520969486756,
+    "total_turnover": 123.50792148673935,
+    "trading_days": 1737,
+    "win_rate": 0.5365572826712723
+  },
+  "dashboard": "results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png",
+  "guard_action": "set a wind-flipped negative score to zero; never create or amplify exposure",
+  "intervention_summary": {
+    "helped_dates": 35,
+    "hurt_dates": 25,
+    "incremental_net_return_vs_d1_3": 0.017969849278843403,
+    "incremental_net_return_vs_d1_5": -0.018017411994381283,
+    "intervention_dates": 60,
+    "losses_avoided_or_reduced": 0.06620470838578117,
+    "profits_sacrificed": 0.04800690838476975
+  },
+  "sample_end": "2026-07-13T00:00:00",
+  "sample_start": "2019-07-25T00:00:00",
+  "selected_event_veto_days": 6,
+  "selected_metrics": {
+    "annualized_downside_deviation": 0.044987920690056686,
+    "cagr": 0.19070527119367986,
+    "end": "2026-07-13T00:00:00",
+    "maximum_drawdown": -0.04151797069188734,
+    "mean_absolute_position": 0.10186081613201509,
+    "sharpe": 2.2453159016904003,
+    "sortino": 3.9221181805906062,
+    "start": "2019-07-25T00:00:00",
+    "total_return": 2.3744436116038963,
+    "total_turnover": 124.488556588369,
+    "trading_days": 1737,
+    "win_rate": 0.5221646516983305
+  },
+  "selection_status": "selected by user on 2026-08-12",
+  "storage_role": "amplifier only; never a standalone trigger",
+  "strategy_version": "d1_3_wind_storage_amplified_guard",
+  "trading_days": 1737,
+  "transaction_cost_bps": 2.5,
+  "wind_horizon": "forecast days 1-3, equally weighted"
+}
