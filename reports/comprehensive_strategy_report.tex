@@ -52,7 +52,7 @@
 Historical formal version: & \code{south\_central\_total\_storage}\\
 Selected research version: & \code{d1\_3\_wind\_storage\_amplified\_guard}\\
 Historical formal sample: & July 3, 2017--July 13, 2026; 2,264 trading days\\
-Selected common sample: & July 25, 2019--July 13, 2026; 1,735 trading days\\
+Selected common sample: & July 25, 2019--July 13, 2026; 1,748 trading days\\
 Instrument: & NYMEX Henry Hub natural-gas futures\\
 Components: & CPC forecast revisions, capacity-weighted wind and solar,
 South Central storage, structural gas fundamentals, EIA-930 Central and
@@ -86,12 +86,12 @@ change.
 \toprule
 Metric & Net of costs & Before costs\\
 \midrule
-Total return & 241.17\% & 254.17\%\\
-CAGR & 14.56\% & 15.04\%\\
+Total return & 241.80\% & 254.83\%\\
+CAGR & 14.59\% & 15.06\%\\
 Annualized volatility & 8.20\% & 8.20\%\\
-Sharpe, zero risk-free rate & \textbf{1.667} & \textbf{1.717}\\
-Maximum drawdown & -6.07\% & -5.69\%\\
-Daily win rate & 52.65\% & 53.00\%\\
+Sharpe, zero risk-free rate & \textbf{1.667} & \textbf{1.718}\\
+Maximum drawdown & -6.14\% & -5.76\%\\
+Daily win rate & 52.61\% & 52.96\%\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -100,7 +100,7 @@ The 2017-start artifact is retained for provenance. It predates the EIA-930
 regional sleeve, event veto, D1--3 wind horizon, and storage-amplified
 direction guard, so its 1.667 Sharpe is not the current selected result.
 
-The selected D1--3 version can be compared on a common 1,735-day overlap from
+The selected D1--3 version can be compared on a common 1,748-day overlap from
 July 25, 2019 through July 13, 2026. Every row retains the selected Central
 40\% / Florida 60\% EIA-930 sleeve and event veto.
 
@@ -111,19 +111,19 @@ July 25, 2019 through July 13, 2026. Every row retains the selected Central
 \toprule
 Metric & Current D1--5 & D1--3, no guard & Selected D1--3 + amplifier\\
 \midrule
-Net Sharpe & 2.139 & 2.193 & \textbf{2.240}\\
-Net Sortino & 3.703 & 3.815 & \textbf{3.910}\\
-Net CAGR & \textbf{19.24\%} & 18.71\% & 19.02\%\\
-Maximum drawdown & -5.29\% & \textbf{-4.15\%} & \textbf{-4.15\%}\\
-Daily win rate & \textbf{54.06\%} & 53.66\% & 52.22\%\\
-Total net return & \textbf{240.87\%} & 230.31\% & 236.39\%\\
+Net Sharpe & 2.119 & 2.181 & \textbf{2.228}\\
+Net Sortino & 3.663 & 3.787 & \textbf{3.880}\\
+Net CAGR & \textbf{19.20\%} & 18.75\% & 19.06\%\\
+Maximum drawdown & -5.30\% & -4.51\% & \textbf{-4.16\%}\\
+Daily win rate & \textbf{54.06\%} & 53.78\% & 52.29\%\\
+Total net return & \textbf{240.11\%} & 231.09\% & 237.16\%\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Relative to current D1--5, the selected version raises Sharpe by 0.096 and
-Sortino by 0.196 while reducing maximum drawdown by 1.14 percentage points.
-Its simple sum of daily incremental net returns is -1.80 percentage points, so
+Relative to current D1--5, the selected version raises Sharpe by 0.108 and
+Sortino by 0.218 while reducing maximum drawdown by 1.14 percentage points.
+Its simple sum of daily incremental net returns is -1.13 percentage points, so
 the choice explicitly prioritizes risk-adjusted performance and drawdown over
 maximum cumulative return. The approved 2017-start formal artifact remains
 unchanged and is reported separately because its history is longer.
@@ -203,8 +203,10 @@ Weekly storage uses 104 releases with a 52-release minimum. Monthly production,
 LNG, and trade variables use 60 months with a 36-month minimum. The current
 observation is excluded from its own rolling reference distribution.
 
-Weekly EIA storage for a week ending Friday becomes usable the following
-Thursday. Monthly EIA reference month M becomes usable at the start of M+3 in
+Weekly EIA storage for a week ending Friday becomes usable at
+the actual official WNGSR publication timestamp (normally Thursday at 10:30
+a.m. Eastern, with audited holiday exceptions). Monthly EIA reference month M
+becomes usable at the start of M+3 in
 the conservative formal convention. GFS issue time is retained and the final
 model adds a one-session lag.
 
@@ -330,6 +332,14 @@ shortfall indicates less non-gas generation and a potentially greater
 requirement for gas-fired output. The fixed blend complements rather than
 replaces the forward GFS wind and solar signals.
 
+Florida is constructed from the Florida balancing authorities that are
+complete on each source gas day. A partial day is aggregated from the
+available respondents and standardized against the same continuous history,
+which usually contains all nine BAs; it then remains in that history for
+future rolling means and standard deviations. This removes the legacy
+cross-region completeness coupling and retains all five previously omitted
+Florida-outage return dates.
+
 \subsection{BSEE/Sabine Pure Short Veto}
 
 A worsening BSEE offshore shut-in accompanied by recent Sabine operational
@@ -357,10 +367,10 @@ artifact.
 \toprule
 Period & Sharpe & CAGR & Maximum drawdown\\
 \midrule
-Development, 2017--2020 & 1.700 & 12.42\% & -4.39\%\\
-Validation, 2021--2023 & 1.878 & 18.64\% & -5.12\%\\
-First-look holdout, 2024+ & 1.407 & 12.97\% & -6.07\%\\
-Full sample & \textbf{1.667} & \textbf{14.56\%} & \textbf{-6.07\%}\\
+Development, 2017--2020 & 1.693 & 12.41\% & -4.39\%\\
+Validation, 2021--2023 & 1.880 & 18.66\% & -5.15\%\\
+First-look holdout, 2024+ & 1.415 & 13.05\% & -6.14\%\\
+Full sample & \textbf{1.667} & \textbf{14.59\%} & \textbf{-6.14\%}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -380,16 +390,16 @@ before the storage-amplified guard is applied.
 \toprule
 Variant & Dev SR & Validation SR & First-look SR & Full SR & Full CAGR & Full DD\\
 \midrule
-Current D1--5 & \textbf{2.734} & 2.137 & 1.811 & 2.139 & \textbf{19.24\%} & -5.29\%\\
-D1--3, no guard & 2.693 & 2.223 & 1.859 & 2.193 & 18.71\% & \textbf{-4.15\%}\\
-\textbf{Selected D1--3 + amplifier} & 2.716 & \textbf{2.270} & \textbf{1.919} & \textbf{2.240} & 19.02\% & \textbf{-4.15\%}\\
+Current D1--5 & \textbf{2.785} & 2.145 & 1.718 & 2.119 & \textbf{19.20\%} & -5.30\%\\
+D1--3, no guard & 2.757 & 2.232 & 1.779 & 2.181 & 18.75\% & -4.51\%\\
+\textbf{Selected D1--3 + amplifier} & 2.781 & \textbf{2.279} & \textbf{1.835} & \textbf{2.228} & 19.06\% & \textbf{-4.16\%}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 The D1--3 horizon provides most of the drawdown improvement. Adding the
-storage amplifier raises full Sharpe from 2.193 to 2.240, validation Sharpe
-from 2.223 to 2.270, and first-look Sharpe from 1.859 to 1.919. The selected
+storage amplifier raises full Sharpe from 2.181 to 2.228, validation Sharpe
+from 2.232 to 2.279, and first-look Sharpe from 1.779 to 1.835. The selected
 version remains weaker than D1--5 in the short development overlap and accepts
 slightly lower full-sample CAGR.
 
@@ -401,10 +411,10 @@ slightly lower full-sample CAGR.
 \toprule
 Year & Net return & Sharpe & Year & Net return & Sharpe\\
 \midrule
-2019 partial & 7.87\% & 2.802 & 2023 & 12.22\% & 1.530\\
-2020 & 25.71\% & 2.755 & 2024 & 26.90\% & 3.217\\
-2021 & 10.00\% & 1.689 & 2025 & 2.40\% & 0.347\\
-2022 & 41.58\% & 3.280 & 2026 partial & 9.58\% & 2.229\\
+2019 partial & 7.83\% & 2.710 & 2023 & 12.00\% & 1.501\\
+2020 & 26.55\% & 2.828 & 2024 & 27.27\% & 3.265\\
+2021 & 10.66\% & 1.792 & 2025 & 1.63\% & 0.234\\
+2022 & 41.43\% & 3.270 & 2026 partial & 8.98\% & 1.981\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -415,11 +425,11 @@ annual dominance.
 
 \subsection{2025 Weakness Review}
 
-The historical formal artifact loses 3.60\% with a -0.533 Sharpe in 2025. On
-the current common-sample calculation, D1--5 earns 0.36\% with a 0.050 Sharpe,
-unguarded D1--3 earns 1.85\% with a 0.265 Sharpe, and the selected
-storage-amplified D1--3 version earns 2.40\% with a 0.347 Sharpe. Its 2025
-maximum drawdown is -3.69\%, versus -4.35\% for D1--5. The latest version
+The historical formal artifact loses 3.55\% with a -0.525 Sharpe in 2025. On
+the current common-sample calculation, D1--5 loses 0.43\% with a -0.060 Sharpe,
+unguarded D1--3 earns 1.08\% with a 0.154 Sharpe, and the selected
+storage-amplified D1--3 version earns 1.63\% with a 0.234 Sharpe. Its 2025
+maximum drawdown is -3.94\%, versus -4.57\% for D1--5. The latest version
 makes the year modestly positive, but 2025 remains weak rather than strong
 evidence of edge.
 
@@ -505,8 +515,8 @@ realized multi-fuel power generation, gas fundamentals, and bounded event-risk
 control, with positive results across development, validation, and the
 post-2024 period.
 
-The current selected storage-amplified D1--3 version records 2.240 net Sharpe,
-3.910 Sortino, 19.02\% CAGR, and -4.15\% maximum drawdown on the matched
+The current selected storage-amplified D1--3 version records 2.228 net Sharpe,
+3.880 Sortino, 19.06\% CAGR, and -4.16\% maximum drawdown on the matched
 2019--2026 sample. These figures supersede the earlier EIA-only selected
 version in this report. The 1.667 Sharpe remains only the longer 2017-start
 historical formal baseline.

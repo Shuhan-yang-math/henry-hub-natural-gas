@@ -41,5 +41,5 @@ def test_pinned_master_panel_through_formal_backtest(tmp_path: Path) -> None:
     summary = receipt["formal_rebuild"]["summary"]
     assert summary["trading_days"] == 2264
     assert summary["selected_full_metrics"]["sharpe_zero_rf"] == (
-        1.6665921813047666
+        1.667459455270079
     )

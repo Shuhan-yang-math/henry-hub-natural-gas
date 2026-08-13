@@ -30,6 +30,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from naturalgas.eia_storage_release_calendar import (  # noqa: E402
+    wngsr_release_calendar,
+)
+
 from naturalgas.evaluate_ncar_gdex_complete_solar_factor import (  # noqa: E402
     INTERMEDIATE_WEIGHT,
     PRIMARY_FACTOR,
@@ -161,9 +165,10 @@ def weekly_native_signals(
         window=WEEKLY_Z_WINDOW,
         min_periods=WEEKLY_Z_MIN,
     )
-    storage["native_storage_available_date"] = (
-        storage["week_ending"] + pd.Timedelta(days=6)
-    ).astype("datetime64[ns]")
+    release_calendar = wngsr_release_calendar(storage["week_ending"])
+    storage["native_storage_available_date"] = release_calendar[
+        "storage_available_date"
+    ]
     return storage[[
         "week_ending",
         "native_storage_available_date",

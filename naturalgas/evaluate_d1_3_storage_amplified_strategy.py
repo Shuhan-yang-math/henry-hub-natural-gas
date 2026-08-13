@@ -42,6 +42,9 @@ from naturalgas.nymex_session_calendar import (  # noqa: E402
     CONFIRMED_NON_SESSION_DATES,
     filter_confirmed_nymex_sessions,
 )
+from naturalgas.eia930_florida_availability import (  # noqa: E402
+    validate_score_history,
+)
 
 
 FORMAL_DAILY = (
@@ -51,6 +54,10 @@ FORMAL_DAILY = (
 SCORE_INPUTS = (
     PROJECT_ROOT
     / "inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet"
+)
+STORAGE_CALENDAR_CORRECTIONS = (
+    PROJECT_ROOT
+    / "inputs/audit/storage/wngsr_d1_3_score_corrections.parquet"
 )
 DEFAULT_OUTPUT_DIR = (
     PROJECT_ROOT / "results/experiments/d1_3_storage_amplified"
@@ -75,6 +82,7 @@ NET_D1_5 = "net_return__d1_5"
 NET_D1_3 = "net_return__d1_3"
 NET_SELECTED = "net_return__d1_3_storage_amplified"
 BLOCK = "wind_flip_blocked_d1_3_storage_amplifier"
+STORAGE_SCORE_DELTA = "wngsr_score_delta_before_production_control"
 
 PERIODS = {
     "development_2019_2020": ("1900-01-01", "2020-12-31"),
@@ -252,10 +260,94 @@ def validate_score_inputs(inputs: pd.DataFrame) -> pd.DataFrame:
     return states
 
 
+def apply_storage_calendar_corrections(
+    inputs: pd.DataFrame,
+    corrections: pd.DataFrame,
+) -> pd.DataFrame:
+    """Apply only the audited WNGSR timing delta and recompute the guard."""
+
+    required = {
+        "date",
+        STORAGE_SCORE_DELTA,
+        "legacy_south_central_total_level_signal",
+        "corrected_south_central_total_level_signal",
+        "production_short_block_active",
+    }
+    missing = required.difference(corrections.columns)
+    if missing:
+        raise ValueError(
+            f"Storage calendar correction input is missing: {sorted(missing)}"
+        )
+    if not corrections["date"].is_unique:
+        raise ValueError("Storage calendar correction input has duplicate dates")
+    unknown = set(corrections["date"]) - set(inputs["date"])
+    if unknown:
+        raise ValueError(
+            "Storage calendar correction dates are absent from score inputs: "
+            f"{sorted(unknown)}"
+        )
+
+    corrected = inputs.merge(
+        corrections,
+        on="date",
+        how="left",
+        validate="one_to_one",
+    )
+    applied = corrected[STORAGE_SCORE_DELTA].notna()
+    legacy_level_matches = np.isclose(
+        corrected.loc[applied, "south_central_total_level_signal"],
+        corrected.loc[applied, "legacy_south_central_total_level_signal"],
+        atol=1e-12,
+        rtol=0.0,
+        equal_nan=True,
+    )
+    if not legacy_level_matches.all():
+        raise AssertionError(
+            "WNGSR correction does not match the frozen legacy storage state"
+        )
+
+    corrected["storage_release_calendar_correction_applied"] = applied
+    corrected[STORAGE_SCORE_DELTA] = corrected[STORAGE_SCORE_DELTA].fillna(0.0)
+    production_block = corrected[
+        "production_short_block_active"
+    ].fillna(False).astype(bool)
+    for column in ("score_without_wind", SCORE_D1_5, SCORE_D1_3):
+        corrected[f"legacy_{column}"] = corrected[column]
+        adjusted = corrected[column] + corrected[STORAGE_SCORE_DELTA]
+        corrected[column] = adjusted.where(
+            ~production_block,
+            adjusted.clip(lower=0.0),
+        )
+    corrected["south_central_total_level_signal"] = corrected[
+        "corrected_south_central_total_level_signal"
+    ].where(
+        applied,
+        corrected["south_central_total_level_signal"],
+    )
+
+    states = recompute_guard_states(corrected)
+    for column in states:
+        corrected[f"fast_guard__{column}"] = states[column]
+    expected_block = (
+        states["fast_plus_storage_amplifier"]
+        & corrected["wind_signal__d1_3"].lt(0.0)
+        & corrected["score_without_wind"].gt(0.0)
+        & corrected[SCORE_D1_3].lt(0.0)
+    )
+    corrected[BLOCK] = expected_block
+    corrected[SCORE_SELECTED] = corrected[SCORE_D1_3].mask(
+        expected_block,
+        0.0,
+    )
+    validate_score_inputs(corrected)
+    return corrected
+
+
 def build_daily(
     *,
     formal_daily_path: Path,
     score_inputs_path: Path,
+    storage_calendar_corrections_path: Path,
     event_reports_path: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     formal = pd.read_parquet(
@@ -267,7 +359,15 @@ def build_daily(
         raise AssertionError("Formal daily input contains a non-session date")
     inputs = pd.read_parquet(score_inputs_path)
     inputs["date"] = pd.to_datetime(inputs["date"]).dt.normalize()
-    states = validate_score_inputs(inputs)
+    validate_score_history(inputs, signal_column="signal__firm__florida")
+    validate_score_inputs(inputs)
+    inputs["florida_available_ba_fallback_score_date"] = inputs[
+        "florida_available_ba_count"
+    ].lt(9)
+    corrections = pd.read_parquet(storage_calendar_corrections_path)
+    corrections["date"] = pd.to_datetime(corrections["date"]).dt.normalize()
+    inputs = apply_storage_calendar_corrections(inputs, corrections)
+    states = recompute_guard_states(inputs)
     for column in states:
         inputs[f"recomputed_guard__{column}"] = states[column]
 
@@ -305,6 +405,21 @@ def build_daily(
     selected["guard_blocked_position_date"] = daily[BLOCK].shift(
         1, fill_value=False
     ).loc[common].to_numpy()
+    selected["storage_release_calendar_corrected_position_date"] = daily[
+        "storage_release_calendar_correction_applied"
+    ].shift(1, fill_value=False).loc[common].to_numpy()
+    selected["florida_available_ba_fallback_position_date"] = daily[
+        "florida_available_ba_fallback_score_date"
+    ].shift(1, fill_value=False).loc[common].to_numpy()
+    selected["position_source_gas_day_florida"] = daily[
+        "source_gas_day_florida"
+    ].shift(1).loc[common].to_numpy()
+    selected["position_source_florida_available_ba_count"] = daily[
+        "florida_available_ba_count"
+    ].shift(1).loc[common].to_numpy()
+    selected["position_source_florida_respondents"] = daily[
+        "florida_respondents"
+    ].shift(1).loc[common].to_numpy()
     selected[NET_D1_5] = net_return(
         selected[POS_D1_5], selected["roll_adjusted_return"]
     )
@@ -488,12 +603,14 @@ def run(
     *,
     formal_daily_path: Path = FORMAL_DAILY,
     score_inputs_path: Path = SCORE_INPUTS,
+    storage_calendar_corrections_path: Path = STORAGE_CALENDAR_CORRECTIONS,
     event_reports_path: Path = DEFAULT_EVENT_REPORTS_PATH,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
 ) -> dict[str, Any]:
     daily, aligned_reports = build_daily(
         formal_daily_path=formal_daily_path,
         score_inputs_path=score_inputs_path,
+        storage_calendar_corrections_path=storage_calendar_corrections_path,
         event_reports_path=event_reports_path,
     )
     metrics, periods, annual = metrics_tables(daily)
@@ -531,6 +648,28 @@ def run(
         "transaction_cost_bps": TRANSACTION_COST_BPS,
         "wind_horizon": "forecast days 1-3, equally weighted",
         "storage_role": "amplifier only; never a standalone trigger",
+        "storage_release_alignment": (
+            "actual EIA WNGSR publication date with audited holiday exceptions"
+        ),
+        "storage_release_calendar_corrected_score_dates": int(
+            daily["storage_release_calendar_correction_applied"].sum()
+        ),
+        "storage_release_calendar_corrected_position_dates": int(
+            daily[
+                "storage_release_calendar_corrected_position_date"
+            ].sum()
+        ),
+        "florida_available_ba_policy": (
+            "aggregate the complete Florida BAs on each source day into one "
+            "continuous rolling history; partial-BA observations remain in "
+            "the reference history used by later dates"
+        ),
+        "florida_available_ba_fallback_position_dates": int(
+            daily["florida_available_ba_fallback_position_date"].sum()
+        ),
+        "florida_minimum_available_ba_count": int(
+            daily["position_source_florida_available_ba_count"].min()
+        ),
         "guard_action": (
             "set a wind-flipped negative score to zero; never create or amplify exposure"
         ),
@@ -549,7 +688,11 @@ def run(
         "selected_event_veto_days": int(
             daily["selected_event_veto_applied"].sum()
         ),
-        "dashboard": str(dashboard.relative_to(PROJECT_ROOT)),
+        "dashboard": str(
+            dashboard.relative_to(PROJECT_ROOT)
+            if dashboard.is_relative_to(PROJECT_ROOT)
+            else dashboard
+        ),
     }
     (output_dir / "summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True, default=json_default) + "\n",
@@ -563,6 +706,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--formal-daily", type=Path, default=FORMAL_DAILY)
     parser.add_argument("--score-inputs", type=Path, default=SCORE_INPUTS)
     parser.add_argument(
+        "--storage-calendar-corrections",
+        type=Path,
+        default=STORAGE_CALENDAR_CORRECTIONS,
+    )
+    parser.add_argument(
         "--event-reports", type=Path, default=DEFAULT_EVENT_REPORTS_PATH
     )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
@@ -574,6 +722,9 @@ if __name__ == "__main__":
     result = run(
         formal_daily_path=arguments.formal_daily,
         score_inputs_path=arguments.score_inputs,
+        storage_calendar_corrections_path=(
+            arguments.storage_calendar_corrections
+        ),
         event_reports_path=arguments.event_reports,
         output_dir=arguments.output_dir,
     )

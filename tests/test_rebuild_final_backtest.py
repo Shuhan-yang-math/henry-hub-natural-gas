@@ -82,6 +82,6 @@ def test_generation_pinned_formal_evaluator_rebuild(tmp_path: Path) -> None:
     assert str(summary["sample_end"]) == "2026-07-13 00:00:00"
     assert (
         abs(summary["selected_full_metrics"]["sharpe_zero_rf"]
-            - 1.6665921813047666)
+            - 1.667459455270079)
         < 1e-12
     )

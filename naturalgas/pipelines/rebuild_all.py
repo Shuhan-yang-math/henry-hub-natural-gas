@@ -41,7 +41,7 @@ DEFAULT_WEATHER_MANIFEST = (
     PROJECT_ROOT / "manifests/weather_factor_inputs_2026-07-28.json"
 )
 EXPECTED_CORRECTED_MASTER_PANEL_SHA256 = (
-    "abd94612836640ccefac9ab1dbc8b1503fd12823cdf9cb8a790bb917355a046d"
+    "da68649891fcfd913a6ac46e01cf14dac951c7c71d8ec5e2480bbc9da27057c4"
 )
 
 

@@ -401,14 +401,14 @@ forecast issue timestamps.
 
 ### 4.5 EIA storage and monthly gas fundamentals
 
-Storage for a week ending Friday becomes usable on the following Thursday,
-equivalent to the week-ending date plus six days. This approximates the EIA
-Weekly Natural Gas Storage Report release schedule and prevents the reported
-inventory from affecting returns earlier in the week it describes.
+Storage for a week ending Friday becomes usable at the actual official EIA
+Weekly Natural Gas Storage Report publication timestamp. The normal release is
+Thursday at 10:30 a.m. Eastern; the current implementation includes the audited
+Wednesday, Friday, and Monday holiday/special exceptions.
 
 The remaining problem is revision lineage. A current EIA historical download
 may contain corrected values that differ from the first value published on
-the original Thursday. Without a complete first-release archive, the backtest
+the actual release date. Without a complete first-release archive, the backtest
 can enforce the correct release day while still using a later revision.
 
 Production, LNG, imports, and exports are treated even more conservatively.

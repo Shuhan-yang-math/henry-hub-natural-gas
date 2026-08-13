@@ -36,6 +36,7 @@ from naturalgas.shutin_notice_event_controller import (
     apply_controller,
 )
 from naturalgas.nymex_session_calendar import filter_confirmed_nymex_sessions
+from naturalgas.eia930_florida_availability import validate_score_history
 
 
 FORMAL_DAILY = (
@@ -158,6 +159,13 @@ def build_daily(
     formal = filter_confirmed_nymex_sessions(formal).reset_index(drop=True)
     overlay = pd.read_parquet(overlay_inputs_path)
     overlay["date"] = pd.to_datetime(overlay["date"]).dt.normalize()
+    validate_score_history(
+        overlay,
+        signal_column=FLORIDA_SIGNAL,
+    )
+    overlay["florida_available_ba_fallback_score_date"] = overlay[
+        "florida_available_ba_count"
+    ].lt(9)
     for column in ("source_gas_day_central", "source_gas_day_florida"):
         overlay[column] = pd.to_datetime(overlay[column]).dt.normalize()
     reports = pd.read_parquet(event_reports_path)
@@ -242,6 +250,15 @@ def build_daily(
     ].shift(1).loc[common].to_numpy()
     selected["position_source_gas_day_florida"] = daily[
         "source_gas_day_florida"
+    ].shift(1).loc[common].to_numpy()
+    selected["florida_available_ba_fallback_position_date"] = daily[
+        "florida_available_ba_fallback_score_date"
+    ].shift(1, fill_value=False).loc[common].to_numpy()
+    selected["position_source_florida_available_ba_count"] = daily[
+        "florida_available_ba_count"
+    ].shift(1).loc[common].to_numpy()
+    selected["position_source_florida_respondents"] = daily[
+        "florida_respondents"
     ].shift(1).loc[common].to_numpy()
     selected[BASE_NET_RETURN] = net_return(
         selected[CONTROLLED_POSITION_COLUMN],
@@ -708,6 +725,16 @@ def run(
         "eia930_slot_weight": EIA930_SLOT_WEIGHT,
         "central_share_within_slot": CENTRAL_SHARE,
         "florida_share_within_slot": FLORIDA_SHARE,
+        "florida_available_ba_policy": (
+            "aggregate the complete Florida BAs on each source day into one "
+            "continuous rolling history"
+        ),
+        "florida_available_ba_fallback_position_dates": int(
+            daily["florida_available_ba_fallback_position_date"].sum()
+        ),
+        "florida_minimum_available_ba_count": int(
+            daily["position_source_florida_available_ba_count"].min()
+        ),
         "central_respondents": ["ERCO", "MISO", "SWPP"],
         "florida_respondents": [
             "FMPP", "FPC", "FPL", "GVL", "HST", "JEA", "SEC", "TAL", "TEC"

@@ -2,13 +2,13 @@
   "baseline_candidate": "current_lower48",
   "caution": "South Central was promoted at the user's direction after a research comparison. The improvement is small and not statistically decisive; the EIA history is revised rather than first-release vintage data.",
   "change_vs_lower48": {
-    "cagr": 0.005252219999516916,
-    "maximum_drawdown": -0.0045131648466121,
-    "sharpe_zero_rf": 0.03996621219927543
+    "cagr": 0.005310062839944507,
+    "maximum_drawdown": -0.004360968659753196,
+    "sharpe_zero_rf": 0.04097262090252807
   },
   "fixed_policy": {
     "parameter_selection": "none",
-    "release_alignment": "week ending Friday plus 6 days (Thursday)",
+    "release_alignment": "actual EIA WNGSR publication date, including audited holiday exceptions; normal release Thursday 10:30 a.m. Eastern",
     "seasonal_normal": "same ISO week, prior five observations, min 3",
     "strategy_signal_lag_sessions": 1,
     "transaction_cost_bps": 2.5,
@@ -21,11 +21,11 @@
   "sample_start": "2017-07-03T00:00:00",
   "selected_candidate": "replace_all_storage__south_central_total",
   "selected_full_metrics": {
-    "cagr": 0.1456269440167128,
-    "maximum_drawdown": -0.0607334525264011,
-    "sharpe_zero_rf": 1.6665921813047666,
-    "total_turnover": 149.6161780330474,
-    "win_rate": 0.5265017667844523
+    "cagr": 0.1458580504328515,
+    "maximum_drawdown": -0.0614180349792657,
+    "sharpe_zero_rf": 1.667459455270079,
+    "total_turnover": 149.75421824456123,
+    "win_rate": 0.526060070671378
   },
   "status": "current_notebook_strategy",
   "storage_replacement": {

@@ -16,9 +16,9 @@ mistaken for predeclared live rules.
 | Should the strategy roll at official expiry? | No. | Use the fixed five-trading-session early roll. |
 | Should realized power data replace the GFS wind and solar forecasts? | No. | Keep GFS for future availability; use realized EIA-930 Central and Florida states in a separate 10% sleeve. |
 | How should offshore shut-ins enter the strategy? | Use a one-sided event veto. | The controller can cancel a conflicting short but cannot create or amplify exposure. |
-| Does the selected EIA-930 sleeve improve the matched sample? | Yes, as downside diversification. | On 2019-07-25–2026-07-13, the 40/60 blend reaches 2.104 Sharpe and 3.618 Sortino versus 1.983 and 3.311 for Central only. |
+| Does the selected EIA-930 sleeve improve the matched sample? | Yes, as downside diversification. | On the 1,748-day overlap, the 40/60 blend reaches 2.084 Sharpe and 3.576 Sortino versus 1.951 and 3.252 for Central only. |
 | What Central/Florida mix should be retained? | 40% Central / 60% Florida inside the fixed 10% slot. | It has the highest 2021–2023 validation Sharpe and lies inside a stable 60%–80% Florida plateau; the ex-post 80% Florida full-sample maximum was not selected. |
-| Which wind horizon and direction guard should be retained? | Select forecast days 1--3 with the storage-amplified fast-shock guard. | On the holiday-corrected 1,735-day sample, Sharpe is 2.240 and Sortino is 3.910 versus 2.139 and 3.703 for D1--5; maximum drawdown improves from -5.29% to -4.15%, with lower CAGR and total return. |
+| Which wind horizon and direction guard should be retained? | Select forecast days 1--3 with the storage-amplified fast-shock guard. | On the calendar-corrected, daily-available-BA Florida 1,748-day sample, Sharpe is 2.228 and Sortino is 3.880 versus 2.119 and 3.663 for D1--5; maximum drawdown improves from -5.30% to -4.16%, with lower CAGR and total return. |
 
 ## Deliberately excluded experiments
 
@@ -71,16 +71,17 @@ ERCOT/MISO/SPP total non-gas shortfall and 60% to Florida firm non-gas
 generation relative to demand.  It also keeps the BSEE/Sabine controller as a
 pure short veto.
 
-On the holiday-corrected 1,735-day EIA-930 overlap, the selected version records
-2.104 net Sharpe, 3.618 Sortino, 19.28% CAGR, and -5.27% maximum drawdown. The
-previous Central-only sleeve records 1.983 Sharpe, 3.311 Sortino, 19.26% CAGR, and
--6.07% maximum drawdown.  The simple daily incremental net return versus
-Central is -0.13 percentage points: the improvement is a smoother loss path,
+On the calendar-corrected daily-available-BA 1,748-day EIA-930 overlap, the
+selected version records 2.084 net Sharpe, 3.576 Sortino, 19.24% CAGR, and
+-5.29% maximum drawdown. The previous Central-only sleeve records 1.951
+Sharpe, 3.252 Sortino, 19.07% CAGR, and
+-6.07% maximum drawdown. The simple daily incremental net return versus
+Central is +0.14 percentage points: the improvement is a smoother loss path,
 not return expansion.
 
-The Central sleeve has 799 loss days.  The selected blend improves 539 of
-them, turns 73 nonnegative, and recovers 31.88 percentage points on those
-dates.  It gives back 32.01 points on Central non-loss days, which explains why
+The Central sleeve has 808 loss days. The selected blend improves 544 of
+them, turns 74 nonnegative, and recovers 32.00 percentage points on those
+dates. It gives back 31.35 points on Central non-loss days, which explains why
 Sharpe and Sortino improve while unconditional cumulative return is nearly
 unchanged.
 
@@ -103,19 +104,21 @@ the guard by itself; it only allows moderate HDD, production-risk revision, or
 firm non-gas shortfall shocks to prevent wind from reversing an otherwise
 bullish score into a short.
 
-On the holiday-corrected 1,735-day overlap, current D1--5 records 2.139 net
-Sharpe, 3.703 Sortino, 19.24% CAGR, and -5.29% maximum drawdown. The selected
-D1--3 version records 2.240 Sharpe, 3.910 Sortino, 19.02% CAGR, and -4.15%
-maximum drawdown. Its cumulative simple net-return difference versus D1--5 is -1.58 percentage
+On the calendar-corrected daily-available-BA 1,748-day overlap, current D1--5
+records 2.119 net Sharpe, 3.663 Sortino, 19.20% CAGR, and -5.30% maximum
+drawdown. The selected D1--3 version records 2.228 Sharpe, 3.880 Sortino,
+19.06% CAGR, and -4.16% maximum drawdown. Its cumulative simple net-return
+difference versus D1--5 is -1.13 percentage
 points. The decision therefore prioritizes risk-adjusted performance and
 drawdown over maximum cumulative return.
 
-The guard changes 60 held-return dates, helps 35, hurts 25, and adds 1.80
+The guard changes 60 held-return dates, helps 34, hurts 26, and adds 1.79
 percentage points relative to unguarded D1--3. Its effect is not positive in
 every year, so the frozen rule remains subject to prospective monitoring.
 
 - `naturalgas/evaluate_d1_3_storage_amplified_strategy.py`
 - `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet`
+- `inputs/audit/storage/wngsr_d1_3_score_corrections.parquet`
 - `results/experiments/d1_3_storage_amplified/`
 - `notebooks/07_d1_3_storage_amplified_strategy.ipynb`
 - `reports/d1_3_storage_amplified_strategy_brief.md`

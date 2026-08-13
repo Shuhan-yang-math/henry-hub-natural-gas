@@ -1,7 +1,7 @@
 # Selected D1--3 Wind and Storage-Amplified Guard Strategy
 
 **Selection date:** August 12, 2026
-**Common sample:** July 25, 2019 through July 13, 2026; 1,735 trading days
+**Common sample:** July 25, 2019 through July 13, 2026; 1,748 trading days
 **Status:** selected research version
 
 ## Decision
@@ -15,9 +15,9 @@ production control, BSEE/Sabine pure short veto, one-session position lag, and
 
 The selection prioritizes risk-adjusted return and drawdown over the highest
 historical cumulative return. On the exact common sample, the selected version
-raises net Sharpe from 2.139 to 2.240, raises Sortino from 3.703 to 3.910, and
-reduces maximum drawdown from -5.29% to -4.15%. CAGR declines from 19.24% to
-19.02%, and the simple sum of incremental daily net return is -1.58 percentage
+raises net Sharpe from 2.119 to 2.228, raises Sortino from 3.663 to 3.880, and
+reduces maximum drawdown from -5.30% to -4.16%. CAGR declines from 19.24% to
+19.07%, and the simple sum of incremental daily net return is -1.26 percentage
 points versus the current D1--5 comparator.
 
 ## Rule
@@ -53,31 +53,36 @@ without wind.
 
 | Metric | Current D1--5 | D1--3, no guard | **Selected D1--3 + storage amplifier** |
 |---|---:|---:|---:|
-| Net Sharpe | 2.139 | 2.193 | **2.240** |
-| Sortino | 3.703 | 3.815 | **3.910** |
-| CAGR | **19.24%** | 18.71% | 19.02% |
-| Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
-| Total net return | **240.87%** | 230.31% | 236.39% |
-| Mean absolute position | 10.69% | 10.42% | **10.20%** |
+| Net Sharpe | 2.119 | 2.181 | **2.228** |
+| Sortino | 3.663 | 3.787 | **3.880** |
+| CAGR | **19.20%** | 18.75% | 19.06% |
+| Maximum drawdown | -5.30% | -4.51% | **-4.16%** |
+| Total net return | **240.11%** | 231.09% | 237.16% |
+| Mean absolute position | 10.69% | 10.43% | **10.20%** |
 
 The horizon change provides most of the drawdown reduction. Relative to the
-unguarded D1--3 strategy, the storage-amplified guard raises Sharpe by 0.047,
-Sortino by 0.095, and cumulative net return by 1.80 percentage points.
+unguarded D1--3 strategy, the storage-amplified guard raises Sharpe by 0.046,
+Sortino by 0.094, and the simple sum of daily net-return differences by 1.79
+percentage points.
 
-This refresh fixes the NYMEX holiday-session lag and early-roll path only. The
-separate missing-signal outage policy remains unresolved, so 13 return rows are
-still outside this common sample.
+This refresh fixes both the NYMEX holiday-session/early-roll path and the EIA
+WNGSR holiday release calendar. The D1--3 overlay changes 23 affected score
+dates and recomputes the production clamp and storage guard. Florida is
+rebuilt as one continuous rolling history from every complete BA
+on each source day. An eight-BA observation is compared with the ordinary
+preceding history and then remains in the history used by future dates. This
+removes the SCEG coupling and retains all five previously omitted returns.
 
 ## Intervention behavior
 
-The guard changes 60 held-return dates. It helps on 35 dates and hurts on 25.
-It avoids or reduces 6.62 percentage points of losses on helped dates and
-sacrifices 4.80 percentage points of profits on hurt dates, for a net gain of
-1.80 percentage points relative to unguarded D1--3.
+The guard changes 60 held-return dates. It helps on 34 dates and hurts on 26.
+It avoids or reduces 6.49 percentage points of losses on helped dates and
+sacrifices 4.68 percentage points of profits on hurt dates, for a net gain of
+1.79 percentage points relative to unguarded D1--3.
 
-The fixed validation-block Sharpe for 2021--2023 rises from 2.223 for
-unguarded D1--3 to 2.270 for the selected strategy. The 2024+ first-look block
-rises from 1.859 to 1.919. Annual results remain mixed: the guard helps in
+The fixed validation-block Sharpe for 2021--2023 rises from 2.232 for
+unguarded D1--3 to 2.279 for the selected strategy. The 2024+ first-look block
+rises from 1.779 to 1.835. Annual results remain mixed: the guard helps in
 2020, 2022, 2023, 2024, and 2025, but hurts in partial 2019, 2021, and 2026
 YTD. The rule therefore remains a research selection rather than a claim of
 uniform annual improvement.
@@ -95,7 +100,9 @@ score, one-session position, BSEE/Sabine veto, transaction cost, performance
 tables, and dashboard. It reads:
 
 - `naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`;
-- `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet`; and
+- `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet`;
+- `inputs/audit/eia930/florida_available_ba_signal_history.parquet`;
+- `inputs/audit/storage/wngsr_d1_3_score_corrections.parquet`; and
 - `inputs/audit/events/event_reports_aligned.parquet`.
 
 Outputs are written to `results/experiments/d1_3_storage_amplified/`.

@@ -29,6 +29,8 @@ import gcsfs
 import numpy as np
 import pandas as pd
 
+from naturalgas.eia_storage_release_calendar import wngsr_release_calendar
+
 try:
     from naturalgas.nymex_session_calendar import (
         CONFIRMED_NON_SESSION_DATES,
@@ -369,7 +371,7 @@ def build_gfs_features(gfs_raw: pd.DataFrame) -> pd.DataFrame:
 def build_storage_4w_features(
     storage_weekly: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Build storage changes available six days after week ending."""
+    """Build storage changes aligned to the actual WNGSR release calendar."""
     storage = storage_weekly.copy().sort_values("week_ending")
     storage["week_ending"] = pd.to_datetime(
         storage["week_ending"]
@@ -393,9 +395,10 @@ def build_storage_4w_features(
     storage["storage_4w_change_issue_z"] = causal_z(
         storage["storage_4w_change_surprise_bcf"], 104, 52
     )
-    storage["storage_4w_available_date"] = (
-        storage["week_ending"] + pd.Timedelta(days=6)
-    ).astype("datetime64[ns]")
+    release_calendar = wngsr_release_calendar(storage["week_ending"])
+    storage["storage_4w_available_date"] = release_calendar[
+        "storage_available_date"
+    ]
     return storage
 
 

@@ -4,7 +4,7 @@
 **Historical formal version:** `south_central_total_storage`
 **Selected research version:** `d1_3_wind_storage_amplified_guard`
 **Historical formal sample:** July 3, 2017 through July 13, 2026; 2,264 trading days
-**Selected common sample:** July 25, 2019 through July 13, 2026; 1,735 trading days
+**Selected common sample:** July 25, 2019 through July 13, 2026; 1,748 trading days
 **Instrument:** NYMEX Henry Hub natural-gas futures
 **Purpose:** Research documentation, causality audit, and risk review. This is not investment advice or a live-performance claim.
 
@@ -41,32 +41,32 @@ must not be presented as the current selected strategy.
 
 | Metric | Net of costs | Before costs |
 |---|---:|---:|
-| Total return | 241.17% | 254.17% |
-| CAGR | 14.56% | 15.04% |
+| Total return | 241.80% | 254.83% |
+| CAGR | 14.59% | 15.06% |
 | Annualized volatility | 8.20% | 8.20% |
-| Sharpe, zero risk-free rate | **1.667** | **1.717** |
-| Maximum drawdown | -6.07% | -5.69% |
-| Daily win rate | 52.65% | 53.00% |
+| Sharpe, zero risk-free rate | **1.667** | **1.718** |
+| Maximum drawdown | -6.14% | -5.76% |
+| Daily win rate | 52.61% | 52.96% |
 
 ### 1.2 Selected D1--3 common-overlap performance
 
 The selected enhancement begins on July 25, 2019, when the checked-in D1--3
 wind and EIA-930 signals are available to the held position. The comparison
-below aligns all versions to the same 1,735 trading days. Every version retains
+below aligns all versions to the same 1,748 trading days. Every version retains
 the selected Central 40% / Florida 60% sleeve and event veto.
 
 | Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
-| Net Sharpe | 2.139 | 2.193 | **2.240** |
-| Net Sortino | 3.703 | 3.815 | **3.910** |
-| Net CAGR | **19.24%** | 18.71% | 19.02% |
-| Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
-| Daily win rate | **54.12%** | 53.72% | 52.28% |
-| Total net return | **240.87%** | 230.31% | 236.39% |
+| Net Sharpe | 2.119 | 2.181 | **2.228** |
+| Net Sortino | 3.663 | 3.787 | **3.880** |
+| Net CAGR | **19.20%** | 18.75% | 19.06% |
+| Maximum drawdown | -5.30% | -4.51% | **-4.16%** |
+| Daily win rate | **54.06%** | 53.78% | 52.29% |
+| Total net return | **240.11%** | 231.09% | 237.16% |
 
-The selected version improves Sharpe by 0.101 and Sortino by 0.207 versus the
+The selected version improves Sharpe by 0.108 and Sortino by 0.218 versus the
 D1--5 comparator while reducing maximum drawdown by 1.14 percentage points.
-Its simple sum of daily incremental net returns is -1.58 percentage points, so
+Its simple sum of daily incremental net returns is -1.13 percentage points, so
 the choice explicitly prioritizes risk-adjusted performance and drawdown over
 maximum cumulative return. The 2017-start formal artifact is reported
 separately because its history is longer.
@@ -83,8 +83,8 @@ The principal conclusions are:
 - South Central Total storage is economically closer to Henry Hub than Lower
   48 storage, but its full-sample Sharpe improvement is only about 0.04 and is
   not decisive statistical evidence.
-- The historical formal baseline loses 3.60% in 2025, but the selected
-  storage-amplified D1--3 version earns 2.40% with a 0.347 Sharpe. The year
+- The historical formal baseline loses 3.55% in 2025, but the selected
+  storage-amplified D1--3 version earns 1.63% with a 0.234 Sharpe. The year
   remains the weakest complete year in the selected overlap.
 - Mechanical date look-ahead is substantially controlled, but revised EIA and
   installed-capacity histories remain the largest unresolved vintage risk.
@@ -231,7 +231,7 @@ $$
 | Wind capacity | USWTDB | turbine/project | only commissioning years before issue year | current snapshot reconstructed backward |
 | Solar weather | NCAR GDEX / NCEP GFS | 00Z; six-hour radiation intervals | after issue plus one-session lag | field definitions and model upgrades |
 | Solar capacity | EIA utility-scale solar | monthly | two-month lag in factor build | revised history; incomplete distributed PV |
-| South Central storage | EIA WNGSR | weekly | week-ending Friday plus six days | revised history, incomplete first-release archive |
+| South Central storage | EIA WNGSR | weekly | actual official release date/time, including audited holiday exceptions | revised history, incomplete first-release archive |
 | Production, LNG, trade | EIA | monthly | reference month M at start of M+3 | conservative proxy timing; revised values |
 | EIA-930 power generation | EIA balancing-authority fuel-type data | hourly observations aggregated daily | source gas day aligned to the strategy score date | reporting coverage and BA-to-pipeline mapping |
 | BSEE/Sabine events | BSEE shut-in reports and Sabine operating notices | event | first eligible strategy date after the event record | sparse event history and event classification |
@@ -522,6 +522,13 @@ The selected continuous signal is 40% Central and 60% Florida inside one fixed
 expresses expected future renewable availability, while EIA-930 summarizes
 the realized multi-fuel system state.
 
+Florida is constructed from the Florida BAs that are complete on each source
+gas day. A partial day is aggregated from the available respondents and is
+standardized against the same continuous history, which usually contains all
+nine BAs; it then remains in that history for future rolling means and
+standard deviations. This removes the legacy cross-region completeness
+coupling and retains all five previously omitted Florida-outage return dates.
+
 ### 14.2 BSEE/Sabine pure short veto
 
 A worsening BSEE offshore shut-in accompanied by recent Sabine operational
@@ -549,25 +556,25 @@ This table belongs only to the unchanged 2017-start historical artifact.
 
 | Period | Dates | Sharpe | CAGR | Maximum drawdown |
 |---|---|---:|---:|---:|
-| Development | 2017-07-03--2020-12-31 | 1.700 | 12.42% | -4.39% |
-| Validation | 2021-01-01--2023-12-31 | 1.878 | 18.64% | -5.12% |
-| First-look holdout | 2024-01-01--2026-07-13 | 1.407 | 12.97% | -6.07% |
-| Full | 2017-07-03--2026-07-13 | **1.667** | **14.56%** | **-6.07%** |
+| Development | 2017-07-03--2020-12-31 | 1.693 | 12.41% | -4.39% |
+| Validation | 2021-01-01--2023-12-31 | 1.880 | 18.66% | -5.15% |
+| First-look holdout | 2024-01-01--2026-07-13 | 1.415 | 13.05% | -6.14% |
+| Full | 2017-07-03--2026-07-13 | **1.667** | **14.59%** | **-6.14%** |
 
 Its calendar-year results are:
 
 | Year | Net return | Sharpe |
 |---:|---:|---:|
-| 2017 partial | 3.62% | 1.426 |
-| 2018 | 1.01% | 0.244 |
-| 2019 | 12.85% | 2.020 |
-| 2020 | 27.49% | 2.429 |
-| 2021 | 12.02% | 1.857 |
-| 2022 | 36.89% | 2.749 |
-| 2023 | 8.56% | 0.934 |
-| 2024 | 27.04% | 2.683 |
-| 2025 | -3.60% | -0.533 |
-| 2026 partial | 11.12% | 1.849 |
+| 2017 partial | 3.64% | 1.432 |
+| 2018 | 0.65% | 0.156 |
+| 2019 | 13.25% | 2.051 |
+| 2020 | 27.43% | 2.422 |
+| 2021 | 12.24% | 1.891 |
+| 2022 | 36.69% | 2.736 |
+| 2023 | 8.55% | 0.933 |
+| 2024 | 27.11% | 2.690 |
+| 2025 | -3.55% | -0.525 |
+| 2026 partial | 11.20% | 1.862 |
 
 ### 16.2 Current selected strategy on its common sample
 
@@ -579,14 +586,14 @@ effect before the storage-amplified guard is applied.
 
 | Variant | Development Sharpe | Validation Sharpe | First-look Sharpe | Full Sharpe | Full CAGR | Full max DD |
 |---|---:|---:|---:|---:|---:|---:|
-| Current D1--5 | **2.734** | 2.137 | 1.811 | 2.139 | **19.24%** | -5.29% |
-| D1--3, no guard | 2.693 | 2.223 | 1.859 | 2.193 | 18.71% | **-4.15%** |
-| **Selected D1--3 + storage amplifier** | 2.716 | **2.270** | **1.919** | **2.240** | 19.02% | **-4.15%** |
+| Current D1--5 | **2.785** | 2.145 | 1.718 | 2.119 | **19.20%** | -5.30% |
+| D1--3, no guard | 2.757 | 2.232 | 1.779 | 2.181 | 18.75% | -4.51% |
+| **Selected D1--3 + storage amplifier** | 2.781 | **2.279** | **1.835** | **2.228** | 19.06% | **-4.16%** |
 
 The D1--3 horizon provides most of the drawdown improvement and raises
 validation, first-look, and full-sample Sharpe relative to D1--5. Adding the
-storage amplifier then raises full Sharpe from 2.193 to 2.240, validation
-Sharpe from 2.223 to 2.270, and first-look Sharpe from 1.859 to 1.919. The
+storage amplifier then raises full Sharpe from 2.181 to 2.228, validation
+Sharpe from 2.232 to 2.279, and first-look Sharpe from 1.779 to 1.835. The
 selected version remains weaker than D1--5 in the short development overlap
 and accepts slightly lower full-sample CAGR.
 
@@ -594,14 +601,14 @@ and accepts slightly lower full-sample CAGR.
 
 | Year | Net return | Sharpe |
 |---:|---:|---:|
-| 2019 partial | 7.53% | 2.683 |
-| 2020 | 25.71% | 2.755 |
-| 2021 | 10.00% | 1.689 |
-| 2022 | 41.58% | 3.280 |
-| 2023 | 12.22% | 1.530 |
-| 2024 | 26.90% | 3.217 |
-| 2025 | 2.40% | 0.347 |
-| 2026 partial | 9.58% | 2.229 |
+| 2019 partial | 7.83% | 2.710 |
+| 2020 | 26.55% | 2.828 |
+| 2021 | 10.66% | 1.792 |
+| 2022 | 41.43% | 3.270 |
+| 2023 | 12.00% | 1.501 |
+| 2024 | 27.27% | 3.265 |
+| 2025 | 1.63% | 0.234 |
+| 2026 partial | 8.98% | 1.981 |
 
 All selected calendar years are positive in this revised-history backtest,
 but 2021 and 2026 YTD have lower Sharpe than the D1--5 comparator. The result
@@ -634,16 +641,16 @@ first-look rather than definitive out-of-sample proof.
 
 ## 18. 2025 weakness review
 
-The historical formal model's 2025 result is -3.60% with a -0.533 Sharpe.
+The historical formal model's 2025 result is -3.55% with a -0.525 Sharpe.
 The main pattern was not constant small losses. Several large market moves
 occurred while slow fundamental values and daily weather signals retained the
 prior direction. The model's low average position limited drawdown, but it did
 not adapt quickly enough to every reversal.
 
-On the current common-sample calculation, D1--5 earns 0.36% with a 0.050
+On the current common-sample calculation, D1--5 loses 0.43% with a -0.060
 Sharpe in 2025. Shortening wind to D1--3 without the guard raises return to
-1.85% and Sharpe to 0.265. The selected storage-amplified version reaches
-2.40% and a 0.347 Sharpe, with a -3.69% maximum drawdown versus -4.35% for
+1.08% and Sharpe to 0.154. The selected storage-amplified version reaches
+1.63% and a 0.234 Sharpe, with a -3.94% maximum drawdown versus -4.57% for
 D1--5. The latest version therefore repairs enough of the old loss to make the
 year modestly positive, but 2025 remains a weak result rather than strong
 evidence of edge.
@@ -660,7 +667,8 @@ Controls already implemented include:
 - causal rolling windows use `shift(1)` so the current value does not enter its
   own reference distribution;
 - weekly and monthly factors are standardized before forward-fill;
-- weekly storage becomes available no earlier than the following Thursday;
+- weekly storage becomes available no earlier than the actual official WNGSR
+  publication timestamp (normally Thursday 10:30 a.m. Eastern);
 - monthly production, trade, and LNG use a conservative M+3 convention;
 - capacity histories are lagged;
 - the final score is delayed by one trading session.
@@ -768,8 +776,8 @@ Its economic mechanism is plausible, the major timing assumptions are
 explicit, and results remain positive across development, validation, and the
 post-2024 period.
 
-The current selected storage-amplified D1--3 version records 2.240 net Sharpe,
-3.910 Sortino, 19.02% CAGR, and -4.15% maximum drawdown on the matched
+The current selected storage-amplified D1--3 version records 2.228 net Sharpe,
+3.880 Sortino, 19.06% CAGR, and -4.16% maximum drawdown on the matched
 2019--2026 sample. These figures supersede the earlier EIA-only selected
 version in this report. The 1.667 Sharpe remains only the longer 2017-start
 historical formal baseline.

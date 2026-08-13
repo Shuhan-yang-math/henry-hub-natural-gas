@@ -24,10 +24,11 @@ The default command performs five steps:
    155-column master-panel builder;
 2. validates and downloads 127 wind plus 127 solar NCAR/GDEX partitions and
    reads two checked-in capacity-weight snapshots;
-3. rebuilds the master panel with the audited NYMEX session filter (including
+3. rebuilds the master panel with the audited NYMEX session filter (removing
    the five 2019 settlement carry rows on January 21, February 18, May 27,
-   September 2, and December 25), verifies its corrected SHA-256, and rebuilds
-   the three selected wind/solar artifacts byte-for-byte;
+   September 2, and December 25) and the actual WNGSR holiday release calendar,
+   verifies its corrected SHA-256, and rebuilds the three selected wind/solar
+   artifacts byte-for-byte;
 4. routes the three EIA reads through immutable local snapshots rather than
    mutable live GCS keys; and
 5. rebuilds the formal result and verifies its headline metrics and complete
@@ -98,14 +99,23 @@ they are not additional formal evaluator inputs.
 
 ## Selected strategy enhancement inputs
 
-The selected enhancement uses two compact, checked-in audit inputs. They are
+The selected enhancement uses compact, checked-in audit inputs. They are
 separate from the seven pinned inputs of the approved formal rebuild.
 
 | Path | Rows | Coverage | SHA-256 | Use |
 |---|---:|---|---|---|
-| `inputs/audit/eia930/selected_overlay_inputs.parquet` | 1,738 | 2019-07-24–2026-07-13 score dates | `bbaa1b948df815842feaa6b11a42fdc7d92d099b5f001eeb26adb6bc2daa3fee` | Central total non-gas and Florida firm non-gas share shortfalls, production short-block state, and lineage |
+| `inputs/audit/eia930/eia930_southeast_daily_multifuel.parquet` | 49,518 | 2019-01-01–2026-07-13 respondent-days | `332bbf025b5f9536adf5148aa40be09cd80f596d49a39f058f1d7eea132542e4` | Frozen revised EIA-930 daily BA demand and generation source |
+| `inputs/audit/eia930/florida_available_ba_signal_history.parquet` | 1,752 | 2019-07-24–2026-07-14 score dates | `c34597ae140a9251c07e670649f2f8d5a1fd6d8ea8a80d4c8dc7e4b84616189b` | Deterministic daily-available-BA Florida signal and rolling lineage |
+| `inputs/audit/eia930/selected_overlay_inputs.parquet` | 1,751 | 2019-07-24–2026-07-13 score dates | `80118666e3c63062c87441435c78f729676560b08b77cfcee1c9afe8b969f155` | Central total non-gas and daily-available-BA Florida shortfalls, production short-block state, and lineage |
 | `inputs/audit/events/event_reports_aligned.parquet` | 101 | 2017-08-24–2024-09-29 | `f1a99a286c1a2a5b7b03990edfec08786aa9a56e0b7f5ad88417450fb984fb1b` | BSEE/Sabine event-controller registry |
-| `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet` | 1,739 | 2019-07-24–2026-07-14 score dates | `6ef242635daa99bb3f6ba42506e49d2a47e9df131d90e0b2877ca29d2d42adbe` | D1--3/D1--5 scores, score without wind, fast-shock inputs, storage state, and recomputable selected guard flags |
+| `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet` | 1,752 | 2019-07-24–2026-07-14 score dates | `a476153db3099a61632122b3f4b86e0f33cf657b06a71da61baea84794beb635` | D1--3/D1--5 scores, score without wind, fast-shock inputs, storage state, Florida BA coverage, and guard flags |
+| `inputs/audit/storage/legacy_week_ending_plus_six_formal_scores.parquet` | 2,264 | 2017-07-03–2026-07-13 | `ba0e107f9380075931cbf29d84ac6d2d135f77e4c2a7a373f049f0fbae2c8a0b` | Narrow pre-fix score baseline used only to isolate the release-calendar delta |
+| `inputs/audit/storage/wngsr_d1_3_score_corrections.parquet` | 23 | 2019-11-27–2025-12-31 affected score dates | `b68fe58589f8337be69e57a14011eefa83436fdd32a0b0b1d5c58e5af76b8a4a` | Actual-release-date score delta, corrected South Central state, and production-clamp audit fields |
+
+Florida is rebuilt from the BAs that are complete on each source gas day into
+one continuous past-only rolling history. Partial-BA observations remain in
+the reference history used by later dates. This removes the accidental SCEG
+coupling and retains all five previously omitted Florida-outage return dates.
 
 The selected evaluator reads these inputs together with
 `naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`
@@ -129,7 +139,8 @@ python naturalgas/evaluate_eia930_selected_enhancement.py
 ```
 
 The current selected D1--3 strategy additionally reads the frozen wind/guard
-input above and writes:
+input with embedded Florida BA coverage and the narrow WNGSR correction
+overlay above and writes:
 
 ```text
 results/experiments/d1_3_storage_amplified/selected_strategy_daily.parquet
@@ -144,6 +155,9 @@ results/experiments/d1_3_storage_amplified/summary.json
 Rebuild the selected strategy artifacts with:
 
 ```bash
+python naturalgas/build_wngsr_d1_3_corrections.py \
+  --corrected-formal \
+  naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
 

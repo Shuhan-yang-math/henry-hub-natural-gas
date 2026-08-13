@@ -97,9 +97,12 @@ its own rolling reference distribution. Weekly storage uses 104 releases with
 a 52-release minimum; monthly factors use 60 observations with a 36-month
 minimum.
 
-Weekly EIA storage for week-ending Friday becomes available the following
-Thursday (`week_ending + 6 days`). Monthly EIA values use the conservative
-research convention that reference month M becomes usable at the start of M+3.
+Weekly EIA storage becomes available at its actual WNGSR publication timestamp.
+The normal release is Thursday at 10:30 a.m. Eastern; the implementation uses
+the audited EIA holiday/special schedule, including Wednesday, Friday, and
+Monday exceptions. All releases in the backtest were before the 2:30 p.m.
+Eastern information cutoff. Monthly EIA values use the conservative research
+convention that reference month M becomes usable at the start of M+3.
 
 ## Freeze-off control
 
@@ -170,23 +173,23 @@ and not statistically decisive.
 
 | Period | Sharpe | CAGR | Maximum drawdown |
 |---|---:|---:|---:|
-| Development | 1.700 | 12.42% | -4.39% |
-| Validation | 1.878 | 18.64% | -5.12% |
-| First-look holdout | 1.407 | 12.97% | -6.07% |
-| Full | **1.667** | **14.56%** | **-6.07%** |
+| Development | 1.693 | 12.41% | -4.39% |
+| Validation | 1.880 | 18.66% | -5.15% |
+| First-look holdout | 1.415 | 13.05% | -6.14% |
+| Full | **1.667** | **14.59%** | **-6.14%** |
 
 ## Selected common-overlap performance
 
 | Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
 | Dates | 2019-07-25–2026-07-13 | same | same |
-| Net Sharpe | 2.139 | 2.193 | **2.240** |
-| Net Sortino | 3.703 | 3.815 | **3.910** |
-| Net CAGR | **19.24%** | 18.71% | 19.02% |
-| Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
-| Total net return | **240.87%** | 230.31% | 236.39% |
+| Net Sharpe | 2.119 | 2.181 | **2.228** |
+| Net Sortino | 3.663 | 3.787 | **3.880** |
+| Net CAGR | **19.20%** | 18.75% | 19.06% |
+| Maximum drawdown | -5.30% | **-4.16%** | **-4.16%** |
+| Total net return | **240.11%** | 231.09% | 237.16% |
 
-These are 1,735-day common-overlap results for the already-selected 40%
+These are 1,748-day common-overlap results for the already-selected 40%
 Central / 60% Florida sleeve. The D1--3 choice raises risk-adjusted performance
 and reduces drawdown while accepting lower CAGR and cumulative return than the
 D1--5 comparator. The 1.667 Sharpe above remains the approved 2017-start
@@ -205,5 +208,6 @@ sample without aligning dates.
 - The model has one complete losing calendar year, 2025, and its edge is not
   stable across every subperiod.
 - Results are sensitive to the chosen data-availability and roll conventions.
-- The selected common-sample evaluator still omits 13 return rows after missing
-  EIA-930 scores; a carry-versus-flat outage policy has not yet been promoted.
+- Florida uses every complete BA on each source day in one continuous rolling
+  history. This removes the SCEG cross-region coupling and retains the five
+  returns previously lost after partial Florida BA outages.

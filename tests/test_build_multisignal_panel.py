@@ -25,6 +25,7 @@ from naturalgas.build_multisignal_panel import (
 from naturalgas.build_production_freezeoff_factors import (
     build_parser as build_freezeoff_parser,
 )
+from naturalgas.eia_storage_release_calendar import wngsr_release_calendar
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -116,12 +117,19 @@ def test_storage_features_have_release_lag_and_no_future_feedback() -> None:
     )
     baseline = build_storage_4w_features(source)
 
-    expected_available = baseline["week_ending"] + pd.Timedelta(days=6)
+    expected_available = wngsr_release_calendar(
+        baseline["week_ending"]
+    )["storage_available_date"]
     pd.testing.assert_series_equal(
         baseline["storage_4w_available_date"],
         expected_available,
         check_names=False,
     )
+    delayed = baseline.loc[
+        baseline["week_ending"].eq(pd.Timestamp("2018-06-29")),
+        "storage_4w_available_date",
+    ]
+    assert delayed.iloc[0] == pd.Timestamp("2018-07-06")
 
     revised_future = source.copy()
     revised_future.loc[revised_future.index[-1], "lower48"] = 99_999.0
@@ -282,7 +290,7 @@ def test_direct_input_manifest_is_generation_pinned() -> None:
     os.environ.get("RUN_GCS_PANEL_PARITY") != "1",
     reason="set RUN_GCS_PANEL_PARITY=1 for the pinned-input panel rebuild",
 )
-def test_current_direct_inputs_build_holiday_corrected_panel(
+def test_current_direct_inputs_build_calendar_corrected_panel(
     tmp_path: Path,
 ) -> None:
     actual = build_from_manifest(DEFAULT_INPUT_MANIFEST)
@@ -301,5 +309,5 @@ def test_current_direct_inputs_build_holiday_corrected_panel(
         )
     ).any()
     assert hashlib.sha256(output.read_bytes()).hexdigest() == (
-        "abd94612836640ccefac9ab1dbc8b1503fd12823cdf9cb8a790bb917355a046d"
+        "da68649891fcfd913a6ac46e01cf14dac951c7c71d8ec5e2480bbc9da27057c4"
     )

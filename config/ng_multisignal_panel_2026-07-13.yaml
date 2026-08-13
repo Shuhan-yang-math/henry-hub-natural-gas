@@ -86,7 +86,7 @@ fundamentals:
   storage_artifact_id: storage_weekly
   monthly_artifact_id: fundamentals_monthly
   lng_trade_artifact_id: eia_country_monthly
-  weekly_release_alignment: "week ending Friday plus 6 days"
+  weekly_release_alignment: "actual EIA WNGSR publication timestamp with audited holiday exceptions"
   monthly_release_alignment: "reference month M available at M+3"
 
 execution:

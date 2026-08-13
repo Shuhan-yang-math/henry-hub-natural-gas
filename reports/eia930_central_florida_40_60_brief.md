@@ -1,7 +1,7 @@
 # EIA-930 Central 40% / Florida 60% Strategy Brief
 
 **Research date:** August 11, 2026
-**Common sample:** July 25, 2019 through July 13, 2026; 1,735 trading days
+**Common sample:** July 25, 2019 through July 13, 2026; 1,748 trading days
 **Status:** selected research version; not yet production-approved
 
 ## Decision
@@ -12,9 +12,9 @@ Central signal and 6% uses the Florida signal.  The change does not add
 leverage and leaves the GFS wind and solar factors, production-risk state,
 BSEE/Sabine short veto, and 2.5 bp turnover cost unchanged.
 
-The 40/60 version reaches net Sharpe 2.104 and Sortino 3.618, versus 1.983 and
-3.311 for the previous 100% Central sleeve on the exact common sample.  Its
-maximum drawdown is -5.27%, compared with -6.07% for Central.  The improvement
+The 40/60 version reaches net Sharpe 2.084 and Sortino 3.576, versus 1.951 and
+3.252 for the previous 100% Central sleeve on the exact common sample. Its
+maximum drawdown is -5.29%, compared with -6.07% for Central. The improvement
 is primarily a smoother loss and drawdown profile rather than higher
 cumulative return.
 
@@ -47,16 +47,17 @@ power-system state rather than duplicating the existing Central exposure.
 
 | Metric | Core weather, fundamentals, and veto | Previous 10% Central sleeve | Selected Central 40% / Florida 60% |
 |---|---:|---:|---:|
-| Net Sharpe | 1.864 | 1.983 | **2.104** |
-| Sortino | 3.172 | 3.311 | **3.618** |
-| CAGR | 17.92% | 19.26% | **19.28%** |
-| Maximum drawdown | -5.59% | -6.07% | **-5.27%** |
+| Net Sharpe | 1.856 | 1.951 | **2.084** |
+| Sortino | 3.157 | 3.252 | **3.576** |
+| CAGR | 17.99% | 19.07% | **19.24%** |
+| Maximum drawdown | -6.14% | -6.07% | **-5.29%** |
 | Mean absolute position | 11.51% | 11.73% | **10.81%** |
-| Final cumulative return | 215.35% | 241.15% | **241.69%** |
+| Final cumulative return | 216.61% | 237.47% | **240.73%** |
 
-Relative to the Central sleeve, the selected version raises Sharpe by 0.121
-and Sortino by 0.307.  The simple sum of daily incremental net returns is
--0.14 percentage points, while compounded final wealth is slightly higher.
+Relative to the Central sleeve, the selected version raises Sharpe by 0.125
+and Sortino by 0.313. The simple sum of daily incremental net returns is
++0.14 percentage points, while compounded final wealth is 1.51 percentage
+points higher.
 This combination confirms that the improvement comes from path and tail-risk
 diversification rather than a material increase in unconditional return.
 
@@ -67,11 +68,11 @@ The slot weight was evaluated on a fixed grid from 0% to 100% Florida in
 
 | Central / Florida | Full Sharpe | Sortino | Development Sharpe | Validation Sharpe | 2024+ Sharpe | Maximum drawdown |
 |---|---:|---:|---:|---:|---:|---:|
-| 100% / 0% | 1.983 | 3.311 | 2.736 | 2.030 | 1.536 | -6.07% |
-| 50% / 50% | 2.094 | 3.583 | 2.727 | 2.117 | 1.714 | -5.29% |
-| **40% / 60%** | **2.104** | **3.618** | 2.712 | **2.120** | 1.745 | -5.27% |
-| 20% / 80% | 2.110 | 3.655 | 2.669 | 2.109 | 1.796 | -5.23% |
-| 0% / 100% | 2.097 | 3.647 | 2.609 | 2.079 | **1.831** | **-5.18%** |
+| 100% / 0% | 1.951 | 3.252 | 2.776 | 2.025 | 1.438 | -6.07% |
+| 50% / 50% | 2.071 | 3.538 | 2.776 | 2.124 | 1.618 | -5.38% |
+| **40% / 60%** | **2.084** | **3.576** | 2.762 | **2.129** | 1.651 | -5.29% |
+| 20% / 80% | 2.096 | 3.624 | 2.723 | 2.123 | 1.707 | -5.24% |
+| 0% / 100% | 2.088 | 3.629 | 2.667 | 2.099 | **1.747** | **-5.20%** |
 
 The 80% Florida row has the highest ex-post full-sample Sharpe, and 90%
 Florida has the highest full-sample Sortino.  Neither is selected.  The 60%
@@ -86,18 +87,18 @@ then the selected strategy is compared on those same dates.
 
 | Diagnostic | Result |
 |---|---:|
-| Previous Central loss days | 799 |
-| Loss days improved by 40/60 | 539 (67.5%) |
-| Central loss days turned nonnegative | 73 |
-| Central loss-day net return | -241.33 pp |
-| Selected return on the same dates | -209.59 pp |
-| Loss-day improvement | **+31.73 pp** |
-| Giveback on Central non-loss days | -31.88 pp |
+| Previous Central loss days | 808 |
+| Loss days improved by 40/60 | 544 (67.3%) |
+| Central loss days turned nonnegative | 74 |
+| Central loss-day net return | -244.00 pp |
+| Selected return on the same dates | -212.00 pp |
+| Loss-day improvement | **+32.00 pp** |
+| Giveback on Central non-loss days | -31.35 pp |
 
-On Central loss days, mean absolute position falls from 10.94% to 10.11%.
-Reducing a same-direction position contributes +38.32 percentage points, and
+On Central loss days, mean absolute position falls from 10.92% to 10.08%.
+Reducing a same-direction position contributes +38.58 percentage points, and
 flipping direction contributes +10.92 points.  Increasing a same-direction
-position costs -17.84 points.  Gross position changes account for nearly all
+position costs -17.89 points.  Gross position changes account for nearly all
 of the improvement; transaction-cost differences contribute only about +0.07
 points.  The Florida signal therefore behaves like regional downside
 diversification, not a cost artifact.
@@ -108,6 +109,12 @@ Each EIA-930 source day maps to the first strictly later strategy score date,
 and the position retains the existing one-session lag.  Both Central and
 Florida position-source dates strictly precede the return date in the frozen
 daily output.
+
+The Florida signal is explicitly independent of the Carolinas group. On every
+source day it aggregates the Florida BAs whose daily inputs are complete. A
+partial-BA observation enters the same rolling history as ordinary nine-BA
+observations and remains available to future rolling references. This retains
+all five returns previously omitted after partial Florida outages.
 
 The historical EIA-930 bulk files can be revised, and generation by fuel is a
 next-day realized observation rather than a forecast.  Florida was identified
@@ -121,6 +128,7 @@ first-vintage capture confirms the historical result.
 - `notebooks/06_eia930_central_florida_40_60.ipynb`
 - `naturalgas/evaluate_eia930_selected_enhancement.py`
 - `inputs/audit/eia930/selected_overlay_inputs.parquet`
+- `inputs/audit/eia930/florida_available_ba_signal_history.parquet`
 - `results/experiments/eia930_selected/summary.json`
 - `results/experiments/eia930_selected/selected_strategy_daily.parquet`
 - `results/experiments/eia930_selected/central_florida_weight_sweep.csv`

@@ -61,6 +61,9 @@ from naturalgas.evaluate_ncar_gdex_independent_wind_weights import (  # noqa: E4
     LOCAL_PANEL,
     WIND_FEATURES,
 )
+from naturalgas.eia_storage_release_calendar import (  # noqa: E402
+    wngsr_release_calendar,
+)
 
 
 DEFAULT_OUTPUT_DIR = (
@@ -100,9 +103,10 @@ def regional_weekly_signals(
     storage["week_of_year"] = (
         storage["week_ending"].dt.isocalendar().week.astype(int)
     )
-    storage["storage_available_date"] = (
-        storage["week_ending"] + pd.Timedelta(days=6)
-    ).astype("datetime64[ns]")
+    release_calendar = wngsr_release_calendar(storage["week_ending"])
+    storage["storage_available_date"] = release_calendar[
+        "storage_available_date"
+    ]
 
     output_columns = ["week_ending", "storage_available_date"]
     for region, source in REGIONS.items():
@@ -349,7 +353,10 @@ def run(
                 f"causal rolling {WEEKLY_Z_WINDOW} weekly values, "
                 f"min {WEEKLY_Z_MIN}, current excluded"
             ),
-            "release_alignment": "week ending Friday plus 6 days (Thursday)",
+            "release_alignment": (
+                "actual EIA WNGSR publication date, including audited holiday "
+                "exceptions; normal release Thursday 10:30 a.m. Eastern"
+            ),
             "strategy_signal_lag_sessions": 1,
             "transaction_cost_bps": TRANSACTION_COST_BPS,
             "weight_policy": CURRENT_WEIGHT_CANDIDATE,

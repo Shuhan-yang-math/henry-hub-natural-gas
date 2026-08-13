@@ -9,5 +9,5 @@ def test_shipped_formal_summary() -> None:
     metrics = summary["selected_full_metrics"]
     assert summary["strategy_version"] == "south_central_total_storage"
     assert summary["trading_days"] == 2264
-    assert abs(metrics["sharpe_zero_rf"] - 1.6665921813047666) < 1e-12
-    assert abs(metrics["cagr"] - 0.1456269440167128) < 1e-12
+    assert abs(metrics["sharpe_zero_rf"] - 1.667459455270079) < 1e-12
+    assert abs(metrics["cagr"] - 0.1458580504328515) < 1e-12
