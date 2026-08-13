@@ -573,19 +573,22 @@ Its calendar-year results are:
 
 The current selected strategy is the D1--3 wind version with the
 storage-amplified fast-shock guard, 40% Central / 60% Florida EIA-930 sleeve,
-and BSEE/Sabine pure short veto. The table compares it with D1--5 on exactly
-the same dates and inputs.
+and BSEE/Sabine pure short veto. All three rows use exactly the same dates and
+inputs. Showing unguarded D1--3 separately identifies the forecast-horizon
+effect before the storage-amplified guard is applied.
 
-| Period | Dates | D1--5 Sharpe | Selected Sharpe | D1--5 CAGR | Selected CAGR | D1--5 max DD | Selected max DD |
-|---|---|---:|---:|---:|---:|---:|---:|
-| Development overlap | 2019-07-25--2020-12-31 | **2.788** | 2.742 | **24.31%** | 23.60% | **-2.97%** | -3.62% |
-| Validation | 2021-01-04--2023-12-29 | 2.137 | **2.270** | **20.62%** | 20.59% | -5.29% | **-4.15%** |
-| First-look | 2024-01-02--2026-07-13 | 1.811 | **1.919** | **15.30%** | 15.01% | -4.35% | **-3.69%** |
-| Full common sample | 2019-07-25--2026-07-13 | 2.149 | **2.245** | **19.33%** | 19.07% | -5.29% | **-4.15%** |
+| Variant | Development Sharpe | Validation Sharpe | First-look Sharpe | Full Sharpe | Full CAGR | Full max DD |
+|---|---:|---:|---:|---:|---:|---:|
+| Current D1--5 | **2.788** | 2.137 | 1.811 | 2.149 | **19.33%** | -5.29% |
+| D1--3, no guard | 2.719 | 2.223 | 1.859 | 2.198 | 18.76% | **-4.15%** |
+| **Selected D1--3 + storage amplifier** | 2.742 | **2.270** | **1.919** | **2.245** | 19.07% | **-4.15%** |
 
-The selected version improves the fixed validation and first-look Sharpe and
-drawdown. It is weaker than D1--5 in the short development overlap and accepts
-slightly lower CAGR over the full common sample.
+The D1--3 horizon provides most of the drawdown improvement and raises
+validation, first-look, and full-sample Sharpe relative to D1--5. Adding the
+storage amplifier then raises full Sharpe from 2.198 to 2.245, validation
+Sharpe from 2.223 to 2.270, and first-look Sharpe from 1.859 to 1.919. The
+selected version remains weaker than D1--5 in the short development overlap
+and accepts slightly lower full-sample CAGR.
 
 ### 16.3 Current selected calendar-year results
 
