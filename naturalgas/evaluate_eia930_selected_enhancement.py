@@ -35,6 +35,7 @@ from naturalgas.shutin_notice_event_controller import (
     DEFAULT_EVENT_REPORTS_PATH,
     apply_controller,
 )
+from naturalgas.nymex_session_calendar import filter_confirmed_nymex_sessions
 
 
 FORMAL_DAILY = (
@@ -154,6 +155,7 @@ def build_daily(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     formal = pd.read_parquet(formal_daily_path)
     formal["date"] = pd.to_datetime(formal["date"]).dt.normalize()
+    formal = filter_confirmed_nymex_sessions(formal).reset_index(drop=True)
     overlay = pd.read_parquet(overlay_inputs_path)
     overlay["date"] = pd.to_datetime(overlay["date"]).dt.normalize()
     for column in ("source_gas_day_central", "source_gas_day_florida"):

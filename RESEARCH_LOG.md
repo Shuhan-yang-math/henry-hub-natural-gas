@@ -12,13 +12,13 @@ mistaken for predeclared live rules.
 | Is nonlinear capacity-weighted wind useful? | Yes, as a separate seasonal component. | Shoulder wind allocation fixed at 22.5%; peak wind at 15%. |
 | Is shortwave/PV availability more useful than cloud alone? | Yes. | Use the capacity-weighted PV-availability signal with 10% nominal daylight-scaled weight. |
 | Should consumption variables directly drive the daily position? | No in the current version. | Both consumption slots are zero; freed slots went to low storage and LNG MoM. |
-| Is regional storage preferable to Lower 48? | Use South Central Total, cautiously. | Full Sharpe improved from 1.633 to 1.673; holdout improvement was small. |
+| Is regional storage preferable to Lower 48? | Use South Central Total, cautiously. | After the NYMEX holiday-calendar correction, full Sharpe is 1.667 versus 1.627 for Lower 48; holdout improvement remains small. |
 | Should the strategy roll at official expiry? | No. | Use the fixed five-trading-session early roll. |
 | Should realized power data replace the GFS wind and solar forecasts? | No. | Keep GFS for future availability; use realized EIA-930 Central and Florida states in a separate 10% sleeve. |
 | How should offshore shut-ins enter the strategy? | Use a one-sided event veto. | The controller can cancel a conflicting short but cannot create or amplify exposure. |
-| Does the selected EIA-930 sleeve improve the matched sample? | Yes, as downside diversification. | On 2019-07-25–2026-07-13, the 40/60 blend reaches 2.115 Sharpe and 3.643 Sortino versus 1.992 and 3.329 for Central only. |
+| Does the selected EIA-930 sleeve improve the matched sample? | Yes, as downside diversification. | On 2019-07-25–2026-07-13, the 40/60 blend reaches 2.104 Sharpe and 3.618 Sortino versus 1.983 and 3.311 for Central only. |
 | What Central/Florida mix should be retained? | 40% Central / 60% Florida inside the fixed 10% slot. | It has the highest 2021–2023 validation Sharpe and lies inside a stable 60%–80% Florida plateau; the ex-post 80% Florida full-sample maximum was not selected. |
-| Which wind horizon and direction guard should be retained? | Select forecast days 1--3 with the storage-amplified fast-shock guard. | On the matched 1,737-day sample, Sharpe is 2.245 and Sortino is 3.922 versus 2.149 and 3.726 for D1--5; maximum drawdown improves from -5.29% to -4.15%, with lower CAGR and total return. |
+| Which wind horizon and direction guard should be retained? | Select forecast days 1--3 with the storage-amplified fast-shock guard. | On the holiday-corrected 1,735-day sample, Sharpe is 2.240 and Sortino is 3.910 versus 2.139 and 3.703 for D1--5; maximum drawdown improves from -5.29% to -4.15%, with lower CAGR and total return. |
 
 ## Deliberately excluded experiments
 
@@ -26,9 +26,10 @@ mistaken for predeclared live rules.
   better viewed as an explanatory input to demand/inventory models.
 - **CPC forecast level:** direct level signal was unstable and is fixed at
   zero; only forecast revision remains active.
-- **Weekend/holiday 18Z reopen trading:** the risk-only flattening rule helped
-  an older model but reduced the current South Central full Sharpe from 1.673
-  to 1.648. It is not formal.
+- **Weekend/holiday 18Z reopen trading:** in the pre-calendar-correction audit,
+  the risk-only flattening rule reduced South Central full Sharpe from 1.673 to
+  1.648. It is not formal and those historical comparison values are retained
+  only as experiment provenance.
 - **EBB Henry Hub/Sabine pipeline overlay:** short-history results were regime
   dependent, especially around 2020. No EBB factor is in the formal model.
 - **Macro/geopolitical/market-price overlays:** no stable incremental signal
@@ -70,14 +71,14 @@ ERCOT/MISO/SPP total non-gas shortfall and 60% to Florida firm non-gas
 generation relative to demand.  It also keeps the BSEE/Sabine controller as a
 pure short veto.
 
-On the exact 1,737-day EIA-930 overlap, the selected version records 2.115 net
-Sharpe, 3.643 Sortino, 19.38% CAGR, and -5.27% maximum drawdown.  The previous
-Central-only sleeve records 1.992 Sharpe, 3.329 Sortino, 19.36% CAGR, and
+On the holiday-corrected 1,735-day EIA-930 overlap, the selected version records
+2.104 net Sharpe, 3.618 Sortino, 19.28% CAGR, and -5.27% maximum drawdown. The
+previous Central-only sleeve records 1.983 Sharpe, 3.311 Sortino, 19.26% CAGR, and
 -6.07% maximum drawdown.  The simple daily incremental net return versus
 Central is -0.13 percentage points: the improvement is a smoother loss path,
 not return expansion.
 
-The Central sleeve has 801 loss days.  The selected blend improves 541 of
+The Central sleeve has 799 loss days.  The selected blend improves 539 of
 them, turns 73 nonnegative, and recovers 31.88 percentage points on those
 dates.  It gives back 32.01 points on Central non-loss days, which explains why
 Sharpe and Sortino improve while unconditional cumulative return is nearly
@@ -102,10 +103,10 @@ the guard by itself; it only allows moderate HDD, production-risk revision, or
 firm non-gas shortfall shocks to prevent wind from reversing an otherwise
 bullish score into a short.
 
-On the exact 1,737-day overlap, current D1--5 records 2.149 net Sharpe, 3.726
-Sortino, 19.33% CAGR, and -5.29% maximum drawdown. The selected D1--3 version
-records 2.245 Sharpe, 3.922 Sortino, 19.07% CAGR, and -4.15% maximum drawdown.
-Its cumulative simple net-return difference versus D1--5 is -1.80 percentage
+On the holiday-corrected 1,735-day overlap, current D1--5 records 2.139 net
+Sharpe, 3.703 Sortino, 19.24% CAGR, and -5.29% maximum drawdown. The selected
+D1--3 version records 2.240 Sharpe, 3.910 Sortino, 19.02% CAGR, and -4.15%
+maximum drawdown. Its cumulative simple net-return difference versus D1--5 is -1.58 percentage
 points. The decision therefore prioritizes risk-adjusted performance and
 drawdown over maximum cumulative return.
 

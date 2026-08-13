@@ -18,13 +18,13 @@ turnover.
 | Metric | Current fixed version |
 |---|---:|
 | Sample | 2017-07-03 to 2026-07-13 |
-| Trading days | 2,269 |
-| Net Sharpe (zero RF) | **1.673** |
-| Net CAGR | **14.61%** |
-| Annualized volatility | 8.17% |
+| Trading days | 2,264 |
+| Net Sharpe (zero RF) | **1.667** |
+| Net CAGR | **14.56%** |
+| Annualized volatility | 8.20% |
 | Maximum drawdown | -6.07% |
-| Daily win rate | 52.49% |
-| Total net return | 242.47% |
+| Daily win rate | 52.65% |
+| Total net return | 241.17% |
 
 These are historical research results, not an estimate of live performance.
 The EIA histories used here may contain revisions, and some source datasets do
@@ -48,17 +48,21 @@ or amplify exposure.
 | Common-overlap metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
 | Sample | 2019-07-25 to 2026-07-13 | same | same |
-| Trading days | 1,737 | 1,737 | 1,737 |
-| Net Sharpe | 2.149 | 2.198 | **2.245** |
-| Net Sortino | 3.726 | 3.827 | **3.922** |
-| Net CAGR | **19.33%** | 18.76% | 19.07% |
+| Trading days | 1,735 | 1,735 | 1,735 |
+| Net Sharpe | 2.139 | 2.193 | **2.240** |
+| Net Sortino | 3.703 | 3.815 | **3.910** |
+| Net CAGR | **19.24%** | 18.71% | 19.02% |
 | Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
-| Total net return | **242.70%** | 231.35% | 237.44% |
+| Total net return | **240.87%** | 230.31% | 236.39% |
 
 This is an explicit risk-adjusted selection: Sharpe, Sortino, and drawdown
 improve, while CAGR and cumulative return remain below the D1--5 comparator.
 The guard changes 60 held-return dates and adds 1.80 percentage points versus
 unguarded D1--3 after costs.
+
+These figures include the NYMEX holiday-session correction. The separate
+missing-signal outage policy remains unresolved; the current common-sample
+evaluator still omits 13 return rows and is not yet a continuous live path.
 
 ![Selected D1--3 strategy dashboard](results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
 
@@ -80,15 +84,15 @@ one-session signal lag, and 2.5 bps turnover cost.
 | Common-overlap metric | Weather, fundamentals, and event veto | Previous 10% Central sleeve | Selected Central 40% / Florida 60% |
 |---|---:|---:|---:|
 | Sample | 2019-07-25 to 2026-07-13 | same | same |
-| Trading days | 1,737 | 1,737 | 1,737 |
-| Net Sharpe | 1.875 | 1.992 | **2.115** |
-| Net Sortino | 3.195 | 3.329 | **3.643** |
-| Net CAGR | 18.03% | 19.36% | **19.38%** |
+| Trading days | 1,735 | 1,735 | 1,735 |
+| Net Sharpe | 1.864 | 1.983 | **2.104** |
+| Net Sortino | 3.172 | 3.311 | **3.618** |
+| Net CAGR | 17.92% | 19.26% | **19.28%** |
 | Maximum drawdown | -5.59% | -6.07% | **-5.27%** |
-| Total net return | 217.35% | 243.11% | **243.70%** |
+| Total net return | 215.35% | 241.15% | **241.69%** |
 
-Relative to the Central sleeve, the selected blend improves Sharpe by 0.122,
-Sortino by 0.314, and maximum drawdown by 0.80 percentage points.  Its simple
+Relative to the Central sleeve, the selected blend improves Sharpe by 0.121,
+Sortino by 0.307, and maximum drawdown by 0.80 percentage points.  Its simple
 sum of daily incremental net returns is -0.13 percentage points, so the
 benefit is downside diversification rather than unconditional return
 expansion.  It is an incremental research enhancement, not a rewrite of the
@@ -298,7 +302,7 @@ reproduction of the approved model.
 
 ## Model-version boundary
 
-The approved historical result remains the fixed 1.673-Sharpe formal baseline.
+The approved historical result remains the fixed 1.667-Sharpe formal baseline.
 The current selected research version is versioned separately because its
 common history begins in 2019. It includes the fixed Central 40% / Florida 60%
 EIA-930 sleeve, the one-sided BSEE/Sabine event veto, D1--3 wind, and the

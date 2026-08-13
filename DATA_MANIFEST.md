@@ -24,8 +24,10 @@ The default command performs five steps:
    155-column master-panel builder;
 2. validates and downloads 127 wind plus 127 solar NCAR/GDEX partitions and
    reads two checked-in capacity-weight snapshots;
-3. rebuilds the master panel and the three selected wind/solar artifacts, then
-   verifies every derived parquet against its approved SHA-256;
+3. rebuilds the master panel with the audited NYMEX session filter (including
+   the five 2019 settlement carry rows on January 21, February 18, May 27,
+   September 2, and December 25), verifies its corrected SHA-256, and rebuilds
+   the three selected wind/solar artifacts byte-for-byte;
 4. routes the three EIA reads through immutable local snapshots rather than
    mutable live GCS keys; and
 5. rebuilds the formal result and verifies its headline metrics and complete

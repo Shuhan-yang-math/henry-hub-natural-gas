@@ -2,9 +2,10 @@
 
 The command verifies the 72 direct objects declared for the 155-column master
 panel plus 254 weather partitions and two frozen capacity-weight snapshots.
-It rebuilds the panel and three wind/solar artifacts byte-for-byte, then uses
-the pinned EIA inputs to recompute the approved strategy. All outputs are
-local; this entry point has no GCS write capability.
+It rebuilds the panel after applying the audited NYMEX session filter and
+rebuilds the three wind/solar artifacts byte-for-byte, then uses the pinned EIA
+inputs to recompute the approved strategy. All outputs are local; this entry
+point has no GCS write capability.
 """
 
 from __future__ import annotations
@@ -39,6 +40,9 @@ DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reproduced/full_chain"
 DEFAULT_WEATHER_MANIFEST = (
     PROJECT_ROOT / "manifests/weather_factor_inputs_2026-07-28.json"
 )
+EXPECTED_CORRECTED_MASTER_PANEL_SHA256 = (
+    "abd94612836640ccefac9ab1dbc8b1503fd12823cdf9cb8a790bb917355a046d"
+)
 
 
 def rebuild_all(
@@ -66,6 +70,12 @@ def rebuild_all(
         logical_panel_path = resolved_output / panel_path.name
         panel = build_from_manifest(panel_manifest)
         write_panel(panel, panel_path, overwrite=False)
+        panel_sha256 = sha256_file(panel_path)
+        if panel_sha256 != EXPECTED_CORRECTED_MASTER_PANEL_SHA256:
+            raise AssertionError(
+                "Holiday-corrected master panel hash differs: "
+                f"{panel_sha256} != {EXPECTED_CORRECTED_MASTER_PANEL_SHA256}"
+            )
 
         artifact_overrides = {"ng_multisignal_panel": panel_path}
         receipt_override_paths = {
@@ -137,6 +147,7 @@ def rebuild_all(
             artifact_overrides=artifact_overrides,
             receipt_output_dir=resolved_output / "final_backtest",
             receipt_override_paths=receipt_override_paths,
+            contract_only_override_ids={"ng_multisignal_panel"},
         )
         receipt = {
             "status": "verified",
@@ -147,7 +158,7 @@ def rebuild_all(
             "weather_factor_rebuilt": rebuild_weather,
             "weather_factor_rebuild": weather_receipt,
             "rebuilt_panel": str(logical_panel_path),
-            "rebuilt_panel_sha256": sha256_file(panel_path),
+            "rebuilt_panel_sha256": panel_sha256,
             "master_panel_objects": panel_object_count,
             "master_panel_rows": len(panel),
             "master_panel_columns": len(panel.columns),

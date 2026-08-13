@@ -8,6 +8,9 @@ row.  These classifications are the dates found by the 2026-07 data audit.
 Primary references:
 https://www.cmegroup.com/trading-hours.html
 https://www.cmegroup.com/tools-information/holiday-calendar/files/2015-thanksgiving-holiday-schedule.pdf
+https://www.cmegroup.com/tools-information/holiday-calendar/files/2019-mlk-day-advisory.pdf
+https://www.cmegroup.com/tools-information/holiday-calendar/files/2019-presidents-day-advisory.pdf
+https://www.cmegroup.com/tools-information/holiday-calendar/files/2019-memorial-day-advisory.pdf
 https://www.cmegroup.com/tools-information/lookups/advisories/market-data/Q2010-49.html
 """
 
@@ -37,10 +40,15 @@ AUDITED_NYMEX_SESSION_STATUS = {
     "2018-12-25": False,  # Christmas Day
     "2018-12-31": True,
     "2019-01-01": False,  # New Year's Day
+    "2019-01-21": False,  # Martin Luther King Jr. Day
+    "2019-02-18": False,  # Presidents Day
     "2019-04-19": False,  # Good Friday
+    "2019-05-27": False,  # Memorial Day
     "2019-07-04": False,  # Independence Day
     "2019-07-05": True,
+    "2019-09-02": False,  # Labor Day
     "2019-11-28": False,  # Thanksgiving
+    "2019-12-25": False,  # Christmas Day
     "2020-03-24": True,
     "2022-10-10": True,   # Columbus Day: valid Globex session
     "2023-10-09": True,   # Columbus Day: valid Globex session

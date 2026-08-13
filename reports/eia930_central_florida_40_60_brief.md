@@ -1,7 +1,7 @@
 # EIA-930 Central 40% / Florida 60% Strategy Brief
 
-**Research date:** August 11, 2026  
-**Common sample:** July 25, 2019 through July 13, 2026; 1,737 trading days  
+**Research date:** August 11, 2026
+**Common sample:** July 25, 2019 through July 13, 2026; 1,735 trading days
 **Status:** selected research version; not yet production-approved
 
 ## Decision
@@ -12,8 +12,8 @@ Central signal and 6% uses the Florida signal.  The change does not add
 leverage and leaves the GFS wind and solar factors, production-risk state,
 BSEE/Sabine short veto, and 2.5 bp turnover cost unchanged.
 
-The 40/60 version reaches net Sharpe 2.115 and Sortino 3.643, versus 1.992 and
-3.329 for the previous 100% Central sleeve on the exact common sample.  Its
+The 40/60 version reaches net Sharpe 2.104 and Sortino 3.618, versus 1.983 and
+3.311 for the previous 100% Central sleeve on the exact common sample.  Its
 maximum drawdown is -5.27%, compared with -6.07% for Central.  The improvement
 is primarily a smoother loss and drawdown profile rather than higher
 cumulative return.
@@ -47,16 +47,16 @@ power-system state rather than duplicating the existing Central exposure.
 
 | Metric | Core weather, fundamentals, and veto | Previous 10% Central sleeve | Selected Central 40% / Florida 60% |
 |---|---:|---:|---:|
-| Net Sharpe | 1.875 | 1.992 | **2.115** |
-| Sortino | 3.195 | 3.329 | **3.643** |
-| CAGR | 18.03% | 19.36% | **19.38%** |
+| Net Sharpe | 1.864 | 1.983 | **2.104** |
+| Sortino | 3.172 | 3.311 | **3.618** |
+| CAGR | 17.92% | 19.26% | **19.28%** |
 | Maximum drawdown | -5.59% | -6.07% | **-5.27%** |
-| Mean absolute position | 11.50% | 11.73% | **10.80%** |
-| Final cumulative return | 217.35% | 243.11% | **243.70%** |
+| Mean absolute position | 11.51% | 11.73% | **10.81%** |
+| Final cumulative return | 215.35% | 241.15% | **241.69%** |
 
-Relative to the Central sleeve, the selected version raises Sharpe by 0.122
-and Sortino by 0.314.  The simple sum of daily incremental net returns is
--0.13 percentage points, while compounded final wealth is slightly higher.
+Relative to the Central sleeve, the selected version raises Sharpe by 0.121
+and Sortino by 0.307.  The simple sum of daily incremental net returns is
+-0.14 percentage points, while compounded final wealth is slightly higher.
 This combination confirms that the improvement comes from path and tail-risk
 diversification rather than a material increase in unconditional return.
 
@@ -67,11 +67,11 @@ The slot weight was evaluated on a fixed grid from 0% to 100% Florida in
 
 | Central / Florida | Full Sharpe | Sortino | Development Sharpe | Validation Sharpe | 2024+ Sharpe | Maximum drawdown |
 |---|---:|---:|---:|---:|---:|---:|
-| 100% / 0% | 1.992 | 3.329 | 2.785 | 2.030 | 1.536 | -6.07% |
-| 50% / 50% | 2.104 | 3.607 | 2.784 | 2.117 | 1.714 | -5.29% |
-| **40% / 60%** | **2.115** | **3.643** | 2.770 | **2.120** | 1.745 | -5.27% |
-| 20% / 80% | 2.121 | 3.682 | 2.730 | 2.109 | 1.796 | -5.23% |
-| 0% / 100% | 2.108 | 3.676 | 2.672 | 2.079 | **1.831** | **-5.18%** |
+| 100% / 0% | 1.983 | 3.311 | 2.736 | 2.030 | 1.536 | -6.07% |
+| 50% / 50% | 2.094 | 3.583 | 2.727 | 2.117 | 1.714 | -5.29% |
+| **40% / 60%** | **2.104** | **3.618** | 2.712 | **2.120** | 1.745 | -5.27% |
+| 20% / 80% | 2.110 | 3.655 | 2.669 | 2.109 | 1.796 | -5.23% |
+| 0% / 100% | 2.097 | 3.647 | 2.609 | 2.079 | **1.831** | **-5.18%** |
 
 The 80% Florida row has the highest ex-post full-sample Sharpe, and 90%
 Florida has the highest full-sample Sortino.  Neither is selected.  The 60%
@@ -86,18 +86,18 @@ then the selected strategy is compared on those same dates.
 
 | Diagnostic | Result |
 |---|---:|
-| Previous Central loss days | 801 |
-| Loss days improved by 40/60 | 541 (67.5%) |
+| Previous Central loss days | 799 |
+| Loss days improved by 40/60 | 539 (67.5%) |
 | Central loss days turned nonnegative | 73 |
-| Central loss-day net return | -240.88 pp |
-| Selected return on the same dates | -209.00 pp |
-| Loss-day improvement | **+31.88 pp** |
-| Giveback on Central non-loss days | -32.01 pp |
+| Central loss-day net return | -241.33 pp |
+| Selected return on the same dates | -209.59 pp |
+| Loss-day improvement | **+31.73 pp** |
+| Giveback on Central non-loss days | -31.88 pp |
 
-On Central loss days, mean absolute position falls from 10.93% to 10.10%.
+On Central loss days, mean absolute position falls from 10.94% to 10.11%.
 Reducing a same-direction position contributes +38.32 percentage points, and
 flipping direction contributes +10.92 points.  Increasing a same-direction
-position costs -17.69 points.  Gross position changes account for nearly all
+position costs -17.84 points.  Gross position changes account for nearly all
 of the improvement; transaction-cost differences contribute only about +0.07
 points.  The Florida signal therefore behaves like regional downside
 diversification, not a cost artifact.
@@ -127,4 +127,3 @@ first-vintage capture confirms the historical result.
 - `results/experiments/eia930_selected/loss_day_yearly.csv`
 - `results/experiments/eia930_selected/latest_strategy_dashboard.png`
 - `results/experiments/eia930_selected/central_florida_weight_sweep.png`
-

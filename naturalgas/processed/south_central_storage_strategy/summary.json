@@ -2,9 +2,9 @@
   "baseline_candidate": "current_lower48",
   "caution": "South Central was promoted at the user's direction after a research comparison. The improvement is small and not statistically decisive; the EIA history is revised rather than first-release vintage data.",
   "change_vs_lower48": {
-    "cagr": 0.005263412750092095,
-    "maximum_drawdown": -0.004513164846612801,
-    "sharpe_zero_rf": 0.03995979532070071
+    "cagr": 0.005252219999516916,
+    "maximum_drawdown": -0.0045131648466121,
+    "sharpe_zero_rf": 0.03996621219927543
   },
   "fixed_policy": {
     "parameter_selection": "none",
@@ -21,11 +21,11 @@
   "sample_start": "2017-07-03T00:00:00",
   "selected_candidate": "replace_all_storage__south_central_total",
   "selected_full_metrics": {
-    "cagr": 0.1461095885946306,
-    "maximum_drawdown": -0.0607334525264015,
-    "sharpe_zero_rf": 1.6725505124930824,
-    "total_turnover": 149.9379152025871,
-    "win_rate": 0.5249008373732922
+    "cagr": 0.1456269440167128,
+    "maximum_drawdown": -0.0607334525264011,
+    "sharpe_zero_rf": 1.6665921813047666,
+    "total_turnover": 149.6161780330474,
+    "win_rate": 0.5265017667844523
   },
   "status": "current_notebook_strategy",
   "storage_replacement": {
@@ -34,5 +34,5 @@
     "sig_storage_change": "South Central Total 1-week change vs seasonal normal"
   },
   "strategy_version": "south_central_total_storage",
-  "trading_days": 2269
+  "trading_days": 2264
 }

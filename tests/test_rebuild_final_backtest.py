@@ -78,10 +78,10 @@ def test_generation_pinned_formal_evaluator_rebuild(tmp_path: Path) -> None:
         receipt["verified_summary_sha256"]
     )
     assert summary["strategy_version"] == "south_central_total_storage"
-    assert summary["trading_days"] == 2269
+    assert summary["trading_days"] == 2264
     assert str(summary["sample_end"]) == "2026-07-13 00:00:00"
     assert (
         abs(summary["selected_full_metrics"]["sharpe_zero_rf"]
-            - 1.6725505124930824)
+            - 1.6665921813047666)
         < 1e-12
     )

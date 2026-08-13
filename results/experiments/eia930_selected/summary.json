@@ -1,17 +1,17 @@
 {
   "baseline_metrics": {
-    "annualized_downside_deviation": 0.052442751005449005,
-    "cagr": 0.18026228180191128,
+    "annualized_downside_deviation": 0.05258678807600442,
+    "cagr": 0.17919015295331953,
     "end": "2026-07-13T00:00:00",
-    "maximum_drawdown": -0.055883789920674776,
-    "mean_absolute_position": 0.11498687680810295,
-    "sharpe": 1.8750072860084992,
-    "sortino": 3.1947758189516606,
+    "maximum_drawdown": -0.05588378992067622,
+    "mean_absolute_position": 0.11508521046850077,
+    "sharpe": 1.8643130225521927,
+    "sortino": 3.1722075900770443,
     "start": "2019-07-25T00:00:00",
-    "total_return": 2.173543578728534,
-    "total_turnover": 118.2406146278036,
-    "trading_days": 1737,
-    "win_rate": 0.5302245250431779
+    "total_return": 2.1535107454207285,
+    "total_turnover": 117.9861693793716,
+    "trading_days": 1735,
+    "win_rate": 0.5314121037463977
   },
   "central_respondents": [
     "ERCO",
@@ -20,30 +20,30 @@
   ],
   "central_share_within_slot": 0.4,
   "change_vs_baseline": {
-    "cagr": 0.01358635715089851,
-    "cumulative_incremental_net_return": 0.07699562952297406,
-    "sharpe": 0.23993459666892525,
-    "sortino": 0.44786500269187046
+    "cagr": 0.013653623370872392,
+    "cumulative_incremental_net_return": 0.07746531791217805,
+    "sharpe": 0.23972684489262663,
+    "sortino": 0.4454678500498215
   },
   "change_vs_current_central": {
-    "cagr": 0.00029652406255453734,
-    "cumulative_incremental_net_return": -0.0013098544038598753,
-    "sharpe": 0.12248924860661825,
-    "sortino": 0.31355419456722
+    "cagr": 0.0002694289509395098,
+    "cumulative_incremental_net_return": -0.0014485099149840544,
+    "sharpe": 0.12074784209647627,
+    "sortino": 0.30670671209963496
   },
   "current_central_metrics": {
-    "annualized_downside_deviation": 0.05372704911022081,
-    "cagr": 0.19355211489025526,
+    "annualized_downside_deviation": 0.05383281038989403,
+    "cagr": 0.1925743473732524,
     "end": "2026-07-13T00:00:00",
-    "maximum_drawdown": -0.060728347435169416,
-    "mean_absolute_position": 0.11726891628699065,
-    "sharpe": 1.9924526340708062,
-    "sortino": 3.329086627076311,
+    "maximum_drawdown": -0.06072834743516908,
+    "mean_absolute_position": 0.1173295103462677,
+    "sharpe": 1.983292025348343,
+    "sortino": 3.310968728027231,
     "start": "2019-07-25T00:00:00",
-    "total_return": 2.431063320614338,
-    "total_turnover": 124.84149477252178,
-    "trading_days": 1737,
-    "win_rate": 0.5365572826712723
+    "total_return": 2.411525867943077,
+    "total_turnover": 124.72955393761326,
+    "trading_days": 1735,
+    "win_rate": 0.5371757925072046
   },
   "dashboard": "results/experiments/eia930_selected/latest_strategy_dashboard.png",
   "eia930_slot_weight": 0.1,
@@ -60,18 +60,18 @@
   ],
   "florida_share_within_slot": 0.6,
   "loss_day_diagnostics": {
-    "central_loss_day_net_return": -2.4087826841509403,
-    "central_loss_days": 801,
-    "cost_increment_on_loss_days": 0.0006808417972414295,
-    "gross_position_increment_on_loss_days": 0.3181093831815329,
-    "improved_loss_days": 541,
-    "loss_day_incremental_net_return": 0.31879022497877435,
+    "central_loss_day_net_return": -2.4132618449175647,
+    "central_loss_days": 799,
+    "cost_increment_on_loss_days": 0.0006836494501396395,
+    "gross_position_increment_on_loss_days": 0.31664985669277246,
+    "improved_loss_days": 539,
+    "loss_day_incremental_net_return": 0.3173335061429121,
     "loss_days_flipped_nonnegative": 73,
     "mean_absolute_position_on_loss_days": {
-      "central": 0.10929385737398674,
-      "selected": 0.10097871433831156
+      "central": 0.10944342382095196,
+      "selected": 0.10106990158184101
     },
-    "nonloss_day_incremental_net_return": -0.32010007938263424,
+    "nonloss_day_incremental_net_return": -0.31878201605789613,
     "position_change_contribution": {
       "direction_flipped": {
         "days": 73,
@@ -82,40 +82,40 @@
         "incremental_net_return": 0.0033813239112464115
       },
       "same_direction_increased": {
-        "days": 260,
-        "incremental_net_return": -0.1769155297037877
+        "days": 258,
+        "incremental_net_return": -0.17837224853964995
       },
       "same_direction_reduced": {
         "days": 458,
         "incremental_net_return": 0.38317175734898246
       }
     },
-    "selected_on_central_loss_day_net_return": -2.089992459172166,
+    "selected_on_central_loss_day_net_return": -2.0959283387746526,
     "worsened_loss_days": 260
   },
   "sample_end": "2026-07-13T00:00:00",
   "sample_start": "2019-07-25T00:00:00",
   "selected_event_veto_days": 7,
   "selected_metrics": {
-    "annualized_downside_deviation": 0.04917122603879618,
-    "cagr": 0.1938486389528098,
+    "annualized_downside_deviation": 0.04933205764571286,
+    "cagr": 0.19284377632419192,
     "end": "2026-07-13T00:00:00",
-    "maximum_drawdown": -0.05270656800006157,
-    "mean_absolute_position": 0.10799372594759303,
-    "sharpe": 2.1149418826774244,
-    "sortino": 3.642640821643531,
+    "maximum_drawdown": -0.052706568000062015,
+    "mean_absolute_position": 0.10805135241605676,
+    "sharpe": 2.1040398674448193,
+    "sortino": 3.617675440126866,
     "start": "2019-07-25T00:00:00",
-    "total_return": 2.437007278715229,
-    "total_turnover": 118.65967322864064,
-    "trading_days": 1737,
-    "win_rate": 0.540587219343696
+    "total_return": 2.4168999802167117,
+    "total_turnover": 118.47299591948334,
+    "trading_days": 1735,
+    "win_rate": 0.5412103746397694
   },
   "signals": {
     "central": "continuous total non-gas generation shortfall / demand",
     "florida": "continuous coal+nuclear+water shortfall / demand"
   },
   "strategy_version": "eia930_central40_florida60_10pct_with_event_veto",
-  "trading_days": 1737,
+  "trading_days": 1735,
   "transaction_cost_bps": 2.5,
   "weight_sweep_chart": "results/experiments/eia930_selected/central_florida_weight_sweep.png"
 }

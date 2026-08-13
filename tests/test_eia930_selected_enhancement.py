@@ -32,27 +32,27 @@ def test_selected_overlay_reproduces_headline_metrics(tmp_path: Path) -> None:
         output_dir=tmp_path,
     )
 
-    assert summary["trading_days"] == 1737
+    assert summary["trading_days"] == 1735
     assert summary["sample_start"] == pd.Timestamp("2019-07-25")
     assert summary["sample_end"] == pd.Timestamp("2026-07-13")
     assert summary["baseline_metrics"]["sharpe"] == pytest.approx(
-        1.8750072860084992
+        1.8643130225521927
     )
     assert summary["current_central_metrics"]["sharpe"] == pytest.approx(
-        1.9924526340708062
+        1.983292025348343
     )
     assert summary["selected_metrics"]["sharpe"] == pytest.approx(
-        2.1149418826774244
+        2.1040398674448193
     )
     assert summary["selected_metrics"]["sortino"] == pytest.approx(
-        3.642640821643531
+        3.617675440126866
     )
     assert summary["change_vs_current_central"]["sortino"] == pytest.approx(
-        0.31355419456722
+        0.30670671209963496
     )
     assert summary["selected_event_veto_days"] == 7
-    assert summary["loss_day_diagnostics"]["central_loss_days"] == 801
-    assert summary["loss_day_diagnostics"]["improved_loss_days"] == 541
+    assert summary["loss_day_diagnostics"]["central_loss_days"] == 799
+    assert summary["loss_day_diagnostics"]["improved_loss_days"] == 539
     assert (tmp_path / "central_florida_weight_sweep.csv").exists()
     assert (tmp_path / "loss_day_yearly.csv").exists()
 
@@ -71,7 +71,7 @@ def test_selected_daily_contains_costed_return_series() -> None:
     assert daily[CURRENT_CENTRAL_NET_RETURN].notna().all()
     assert daily[SELECTED_NET_RETURN].notna().all()
     assert metrics["maximum_drawdown"] == pytest.approx(-0.05270656800006157)
-    assert metrics["total_turnover"] == pytest.approx(118.65967322864064)
+    assert metrics["total_turnover"] == pytest.approx(118.47299591948334)
 
 
 def test_selected_signal_weights_and_timing_are_fixed() -> None:
@@ -101,8 +101,8 @@ def test_weight_sweep_and_loss_day_diagnostics() -> None:
     assert sweep.loc[sweep["full_sharpe"].idxmax(), "florida_weight"] == 0.8
     validation = "validation_2021_2023__sharpe"
     assert sweep.loc[sweep[validation].idxmax(), "florida_weight"] == 0.6
-    assert loss_summary["central_loss_days"] == 801
-    assert loss_summary["improved_loss_days"] == 541
+    assert loss_summary["central_loss_days"] == 799
+    assert loss_summary["improved_loss_days"] == 539
     assert loss_summary["loss_day_incremental_net_return"] > 0.0
     assert loss_summary["nonloss_day_incremental_net_return"] < 0.0
     assert yearly["year"].tolist() == list(range(2019, 2027))

@@ -43,9 +43,15 @@ def test_shipped_selected_strategy_reproduces() -> None:
     )
     metrics = performance(daily[NET_SELECTED], daily["date"], daily[POS_SELECTED])
 
-    assert len(daily) == 1737
+    assert len(daily) == 1735
+    assert not daily["date"].isin(
+        pd.to_datetime(["2019-09-02", "2019-12-25"])
+    ).any()
+    assert daily.loc[
+        daily["date"].eq("2019-12-26"), "position_source_date"
+    ].item() == pd.Timestamp("2019-12-24")
     assert daily["guard_blocked_position_date"].notna().all()
     assert int(daily["guard_blocked_position_date"].sum()) == 60
-    assert np.isclose(metrics["sharpe"], 2.2453159016904003, atol=1e-12)
-    assert np.isclose(metrics["sortino"], 3.9221181805906062, atol=1e-12)
+    assert np.isclose(metrics["sharpe"], 2.2399508852521746, atol=1e-12)
+    assert np.isclose(metrics["sortino"], 3.9104199437025824, atol=1e-12)
     assert np.isclose(metrics["maximum_drawdown"], -0.04151797069188734, atol=1e-12)

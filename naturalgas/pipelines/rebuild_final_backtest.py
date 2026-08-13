@@ -34,6 +34,7 @@ from naturalgas.reproducibility import (
     publish_staging_directory,
     sha256_file,
     validate_artifact,
+    validate_artifact_contract,
 )
 
 
@@ -55,9 +56,20 @@ def artifact_paths(
     *,
     root: Path,
     overrides: Mapping[str, Path] | None = None,
+    contract_only_override_ids: set[str] | None = None,
 ) -> dict[str, Path]:
     artifacts = load_manifest(manifest_path)
     overrides = {} if overrides is None else dict(overrides)
+    contract_only_override_ids = (
+        set() if contract_only_override_ids is None
+        else set(contract_only_override_ids)
+    )
+    missing_contract_overrides = contract_only_override_ids - set(overrides)
+    if missing_contract_overrides:
+        raise ValueError(
+            "Contract-only validation requires an explicit artifact override: "
+            f"{sorted(missing_contract_overrides)}"
+        )
     found = {artifact.artifact_id for artifact in artifacts}
     missing = REQUIRED_IDS - found
     if missing:
@@ -70,7 +82,10 @@ def artifact_paths(
             artifact.artifact_id,
             local_artifact_path(artifact, root=root),
         )
-        validate_artifact(path, artifact)
+        if artifact.artifact_id in contract_only_override_ids:
+            validate_artifact_contract(path, artifact)
+        else:
+            validate_artifact(path, artifact)
         paths[artifact.artifact_id] = path
     return paths
 
@@ -115,6 +130,7 @@ def rebuild(
     artifact_overrides: Mapping[str, Path] | None = None,
     receipt_output_dir: Path | None = None,
     receipt_override_paths: Mapping[str, Path] | None = None,
+    contract_only_override_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     artifact_overrides = (
         {} if artifact_overrides is None else dict(artifact_overrides)
@@ -139,6 +155,7 @@ def rebuild(
             manifest_path,
             root=root,
             overrides=artifact_overrides,
+            contract_only_override_ids=contract_only_override_ids,
         )
         result = run(
             panel_path=paths["ng_multisignal_panel"],

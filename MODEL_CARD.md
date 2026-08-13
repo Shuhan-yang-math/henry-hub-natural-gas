@@ -170,26 +170,26 @@ and not statistically decisive.
 
 | Period | Sharpe | CAGR | Maximum drawdown |
 |---|---:|---:|---:|
-| Development | 1.721 | 12.55% | -4.39% |
+| Development | 1.700 | 12.42% | -4.39% |
 | Validation | 1.878 | 18.64% | -5.12% |
 | First-look holdout | 1.407 | 12.97% | -6.07% |
-| Full | **1.673** | **14.61%** | **-6.07%** |
+| Full | **1.667** | **14.56%** | **-6.07%** |
 
 ## Selected common-overlap performance
 
 | Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
 | Dates | 2019-07-25–2026-07-13 | same | same |
-| Net Sharpe | 2.149 | 2.198 | **2.245** |
-| Net Sortino | 3.726 | 3.827 | **3.922** |
-| Net CAGR | **19.33%** | 18.76% | 19.07% |
+| Net Sharpe | 2.139 | 2.193 | **2.240** |
+| Net Sortino | 3.703 | 3.815 | **3.910** |
+| Net CAGR | **19.24%** | 18.71% | 19.02% |
 | Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
-| Total net return | **242.70%** | 231.35% | 237.44% |
+| Total net return | **240.87%** | 230.31% | 236.39% |
 
-These are 1,737-day common-overlap results for the already-selected 40%
+These are 1,735-day common-overlap results for the already-selected 40%
 Central / 60% Florida sleeve. The D1--3 choice raises risk-adjusted performance
 and reduces drawdown while accepting lower CAGR and cumulative return than the
-D1--5 comparator. The 1.673 Sharpe above remains the approved 2017-start
+D1--5 comparator. The 1.667 Sharpe above remains the approved 2017-start
 historical baseline and should not be compared directly with the shorter
 sample without aligning dates.
 
@@ -205,3 +205,5 @@ sample without aligning dates.
 - The model has one complete losing calendar year, 2025, and its edge is not
   stable across every subperiod.
 - Results are sensitive to the chosen data-availability and roll conventions.
+- The selected common-sample evaluator still omits 13 return rows after missing
+  EIA-930 scores; a carry-versus-flat outage policy has not yet been promoted.

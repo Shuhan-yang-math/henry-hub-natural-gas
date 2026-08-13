@@ -122,6 +122,19 @@ def validate_artifact(path: Path, artifact: Artifact) -> None:
             f"SHA-256 mismatch for {artifact.artifact_id}: "
             f"expected {artifact.sha256}, got {actual_hash}"
         )
+    validate_artifact_contract(path, artifact, validate_rows=True)
+
+
+def validate_artifact_contract(
+    path: Path,
+    artifact: Artifact,
+    *,
+    validate_rows: bool = False,
+) -> None:
+    """Validate a derived override's file type and declared schema contract."""
+
+    if not path.is_file():
+        raise FileNotFoundError(path)
     if (
         path.suffix.lower() != ".parquet"
         and artifact.local_path.suffix.lower() != ".parquet"
@@ -129,7 +142,11 @@ def validate_artifact(path: Path, artifact: Artifact) -> None:
         return
     parquet = pq.ParquetFile(path)
     metadata = parquet.metadata
-    if artifact.rows is not None and metadata.num_rows != artifact.rows:
+    if (
+        validate_rows
+        and artifact.rows is not None
+        and metadata.num_rows != artifact.rows
+    ):
         raise ValueError(
             f"Row-count mismatch for {artifact.artifact_id}: "
             f"expected {artifact.rows}, got {metadata.num_rows}"

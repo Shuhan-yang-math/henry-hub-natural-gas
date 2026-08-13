@@ -3,8 +3,8 @@
 **Report date:** August 13, 2026
 **Historical formal version:** `south_central_total_storage`
 **Selected research version:** `d1_3_wind_storage_amplified_guard`
-**Historical formal sample:** July 3, 2017 through July 13, 2026; 2,269 trading days
-**Selected common sample:** July 25, 2019 through July 13, 2026; 1,737 trading days
+**Historical formal sample:** July 3, 2017 through July 13, 2026; 2,264 trading days
+**Selected common sample:** July 25, 2019 through July 13, 2026; 1,735 trading days
 **Instrument:** NYMEX Henry Hub natural-gas futures
 **Purpose:** Research documentation, causality audit, and risk review. This is not investment advice or a live-performance claim.
 
@@ -41,35 +41,35 @@ must not be presented as the current selected strategy.
 
 | Metric | Net of costs | Before costs |
 |---|---:|---:|
-| Total return | 242.47% | 255.55% |
-| CAGR | 14.61% | 15.09% |
-| Annualized volatility | 8.17% | 8.17% |
-| Sharpe, zero risk-free rate | **1.673** | **1.723** |
+| Total return | 241.17% | 254.17% |
+| CAGR | 14.56% | 15.04% |
+| Annualized volatility | 8.20% | 8.20% |
+| Sharpe, zero risk-free rate | **1.667** | **1.717** |
 | Maximum drawdown | -6.07% | -5.69% |
-| Daily win rate | 52.49% | 52.84% |
+| Daily win rate | 52.65% | 53.00% |
 
 ### 1.2 Selected D1--3 common-overlap performance
 
 The selected enhancement begins on July 25, 2019, when the checked-in D1--3
 wind and EIA-930 signals are available to the held position. The comparison
-below aligns all versions to the same 1,737 trading days. Every version retains
+below aligns all versions to the same 1,735 trading days. Every version retains
 the selected Central 40% / Florida 60% sleeve and event veto.
 
 | Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
-| Net Sharpe | 2.149 | 2.198 | **2.245** |
-| Net Sortino | 3.726 | 3.827 | **3.922** |
-| Net CAGR | **19.33%** | 18.76% | 19.07% |
+| Net Sharpe | 2.139 | 2.193 | **2.240** |
+| Net Sortino | 3.703 | 3.815 | **3.910** |
+| Net CAGR | **19.24%** | 18.71% | 19.02% |
 | Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
-| Daily win rate | **54.06%** | 53.66% | 52.22% |
-| Total net return | **242.70%** | 231.35% | 237.44% |
+| Daily win rate | **54.12%** | 53.72% | 52.28% |
+| Total net return | **240.87%** | 230.31% | 236.39% |
 
-The selected version improves Sharpe by 0.096 and Sortino by 0.196 versus the
+The selected version improves Sharpe by 0.101 and Sortino by 0.207 versus the
 D1--5 comparator while reducing maximum drawdown by 1.14 percentage points.
-Its simple sum of daily incremental net returns is -1.80 percentage points, so
+Its simple sum of daily incremental net returns is -1.58 percentage points, so
 the choice explicitly prioritizes risk-adjusted performance and drawdown over
-maximum cumulative return. The approved 2017-start formal artifact remains
-unchanged and is reported separately because its history is longer.
+maximum cumulative return. The 2017-start formal artifact is reported
+separately because its history is longer.
 
 ![Selected D1--3 strategy dashboard](../results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
 
@@ -549,10 +549,10 @@ This table belongs only to the unchanged 2017-start historical artifact.
 
 | Period | Dates | Sharpe | CAGR | Maximum drawdown |
 |---|---|---:|---:|---:|
-| Development | 2017-07-03--2020-12-31 | 1.721 | 12.55% | -4.39% |
+| Development | 2017-07-03--2020-12-31 | 1.700 | 12.42% | -4.39% |
 | Validation | 2021-01-01--2023-12-31 | 1.878 | 18.64% | -5.12% |
 | First-look holdout | 2024-01-01--2026-07-13 | 1.407 | 12.97% | -6.07% |
-| Full | 2017-07-03--2026-07-13 | **1.673** | **14.61%** | **-6.07%** |
+| Full | 2017-07-03--2026-07-13 | **1.667** | **14.56%** | **-6.07%** |
 
 Its calendar-year results are:
 
@@ -560,7 +560,7 @@ Its calendar-year results are:
 |---:|---:|---:|
 | 2017 partial | 3.62% | 1.426 |
 | 2018 | 1.01% | 0.244 |
-| 2019 | 13.28% | 2.120 |
+| 2019 | 12.85% | 2.020 |
 | 2020 | 27.49% | 2.429 |
 | 2021 | 12.02% | 1.857 |
 | 2022 | 36.89% | 2.749 |
@@ -579,13 +579,13 @@ effect before the storage-amplified guard is applied.
 
 | Variant | Development Sharpe | Validation Sharpe | First-look Sharpe | Full Sharpe | Full CAGR | Full max DD |
 |---|---:|---:|---:|---:|---:|---:|
-| Current D1--5 | **2.788** | 2.137 | 1.811 | 2.149 | **19.33%** | -5.29% |
-| D1--3, no guard | 2.719 | 2.223 | 1.859 | 2.198 | 18.76% | **-4.15%** |
-| **Selected D1--3 + storage amplifier** | 2.742 | **2.270** | **1.919** | **2.245** | 19.07% | **-4.15%** |
+| Current D1--5 | **2.734** | 2.137 | 1.811 | 2.139 | **19.24%** | -5.29% |
+| D1--3, no guard | 2.693 | 2.223 | 1.859 | 2.193 | 18.71% | **-4.15%** |
+| **Selected D1--3 + storage amplifier** | 2.716 | **2.270** | **1.919** | **2.240** | 19.02% | **-4.15%** |
 
 The D1--3 horizon provides most of the drawdown improvement and raises
 validation, first-look, and full-sample Sharpe relative to D1--5. Adding the
-storage amplifier then raises full Sharpe from 2.198 to 2.245, validation
+storage amplifier then raises full Sharpe from 2.193 to 2.240, validation
 Sharpe from 2.223 to 2.270, and first-look Sharpe from 1.859 to 1.919. The
 selected version remains weaker than D1--5 in the short development overlap
 and accepts slightly lower full-sample CAGR.
@@ -594,7 +594,7 @@ and accepts slightly lower full-sample CAGR.
 
 | Year | Net return | Sharpe |
 |---:|---:|---:|
-| 2019 partial | 7.87% | 2.802 |
+| 2019 partial | 7.53% | 2.683 |
 | 2020 | 25.71% | 2.755 |
 | 2021 | 10.00% | 1.689 |
 | 2022 | 41.58% | 3.280 |
@@ -768,10 +768,10 @@ Its economic mechanism is plausible, the major timing assumptions are
 explicit, and results remain positive across development, validation, and the
 post-2024 period.
 
-The current selected storage-amplified D1--3 version records 2.245 net Sharpe,
-3.922 Sortino, 19.07% CAGR, and -4.15% maximum drawdown on the matched
+The current selected storage-amplified D1--3 version records 2.240 net Sharpe,
+3.910 Sortino, 19.02% CAGR, and -4.15% maximum drawdown on the matched
 2019--2026 sample. These figures supersede the earlier EIA-only selected
-version in this report. The 1.673 Sharpe remains only the longer 2017-start
+version in this report. The 1.667 Sharpe remains only the longer 2017-start
 historical formal baseline.
 
 The research direction deserves continued development, but the next stage

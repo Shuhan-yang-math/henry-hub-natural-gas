@@ -1,7 +1,7 @@
 # Selected D1--3 Wind and Storage-Amplified Guard Strategy
 
 **Selection date:** August 12, 2026
-**Common sample:** July 25, 2019 through July 13, 2026; 1,737 trading days
+**Common sample:** July 25, 2019 through July 13, 2026; 1,735 trading days
 **Status:** selected research version
 
 ## Decision
@@ -15,9 +15,9 @@ production control, BSEE/Sabine pure short veto, one-session position lag, and
 
 The selection prioritizes risk-adjusted return and drawdown over the highest
 historical cumulative return. On the exact common sample, the selected version
-raises net Sharpe from 2.149 to 2.245, raises Sortino from 3.726 to 3.922, and
-reduces maximum drawdown from -5.29% to -4.15%. CAGR declines from 19.33% to
-19.07%, and the simple sum of incremental daily net return is -1.80 percentage
+raises net Sharpe from 2.139 to 2.240, raises Sortino from 3.703 to 3.910, and
+reduces maximum drawdown from -5.29% to -4.15%. CAGR declines from 19.24% to
+19.02%, and the simple sum of incremental daily net return is -1.58 percentage
 points versus the current D1--5 comparator.
 
 ## Rule
@@ -53,16 +53,20 @@ without wind.
 
 | Metric | Current D1--5 | D1--3, no guard | **Selected D1--3 + storage amplifier** |
 |---|---:|---:|---:|
-| Net Sharpe | 2.149 | 2.198 | **2.245** |
-| Sortino | 3.726 | 3.827 | **3.922** |
-| CAGR | **19.33%** | 18.76% | 19.07% |
+| Net Sharpe | 2.139 | 2.193 | **2.240** |
+| Sortino | 3.703 | 3.815 | **3.910** |
+| CAGR | **19.24%** | 18.71% | 19.02% |
 | Maximum drawdown | -5.29% | **-4.15%** | **-4.15%** |
-| Total net return | **242.70%** | 231.35% | 237.44% |
-| Mean absolute position | 10.68% | 10.41% | **10.19%** |
+| Total net return | **240.87%** | 230.31% | 236.39% |
+| Mean absolute position | 10.69% | 10.42% | **10.20%** |
 
 The horizon change provides most of the drawdown reduction. Relative to the
 unguarded D1--3 strategy, the storage-amplified guard raises Sharpe by 0.047,
 Sortino by 0.095, and cumulative net return by 1.80 percentage points.
+
+This refresh fixes the NYMEX holiday-session lag and early-roll path only. The
+separate missing-signal outage policy remains unresolved, so 13 return rows are
+still outside this common sample.
 
 ## Intervention behavior
 

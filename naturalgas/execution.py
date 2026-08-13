@@ -12,6 +12,8 @@ from typing import Iterable
 import numpy as np
 import pandas as pd
 
+from naturalgas.nymex_session_calendar import filter_confirmed_nymex_sessions
+
 
 EARLY_ROLL_TRADING_DAYS = 5
 
@@ -23,8 +25,13 @@ def build_ng_roll_calendar(
 ) -> pd.DataFrame:
     """Build official NG last-trading-day and earlier switch dates."""
 
-    dates = pd.DatetimeIndex(pd.to_datetime(list(trading_dates))).dropna()
-    dates = dates.unique().sort_values()
+    date_frame = pd.DataFrame({"date": pd.to_datetime(list(trading_dates))})
+    date_frame = filter_confirmed_nymex_sessions(date_frame)
+    dates = pd.DatetimeIndex(date_frame["date"]).dropna().unique().sort_values()
+    if dates.empty:
+        return pd.DataFrame(
+            columns=["delivery_month", "official_ltd", "roll_switch_date"]
+        )
     rows: list[dict[str, pd.Timestamp]] = []
     first_delivery = dates.min().to_period("M") + 1
     last_delivery = dates.max().to_period("M")
@@ -52,7 +59,11 @@ def build_ng_roll_calendar(
 def apply_early_roll_return(panel: pd.DataFrame) -> pd.DataFrame:
     """Replace official front-month returns with the fixed five-day roll."""
 
-    result = panel.copy()
+    result = filter_confirmed_nymex_sessions(panel)
+    if result["date"].duplicated().any():
+        raise ValueError("Futures panel contains duplicate NYMEX session dates")
+    if not result["date"].is_monotonic_increasing:
+        raise ValueError("Futures panel must be ordered by NYMEX session date")
     official = build_ng_roll_calendar(result["date"]).rename(
         columns={"roll_switch_date": "official_switch_date"}
     )

@@ -10,7 +10,6 @@ import pytest
 
 from naturalgas import build_multisignal_panel as panel_builder
 from naturalgas.build_multisignal_panel import (
-    DEFAULT_GCS_OUTPUT,
     DEFAULT_INPUT_MANIFEST,
     DEFAULT_INPUTS,
     build_from_manifest,
@@ -21,7 +20,6 @@ from naturalgas.build_multisignal_panel import (
     build_storage_4w_features,
     causal_z,
     merge_point_in_time,
-    read_parquet,
     write_panel,
 )
 from naturalgas.build_production_freezeoff_factors import (
@@ -282,16 +280,26 @@ def test_direct_input_manifest_is_generation_pinned() -> None:
 
 @pytest.mark.skipif(
     os.environ.get("RUN_GCS_PANEL_PARITY") != "1",
-    reason="set RUN_GCS_PANEL_PARITY=1 for the approved GCS parity check",
+    reason="set RUN_GCS_PANEL_PARITY=1 for the pinned-input panel rebuild",
 )
-def test_current_direct_inputs_match_approved_panel_exactly() -> None:
+def test_current_direct_inputs_build_holiday_corrected_panel(
+    tmp_path: Path,
+) -> None:
     actual = build_from_manifest(DEFAULT_INPUT_MANIFEST)
-    approved = read_parquet(DEFAULT_GCS_OUTPUT)
+    output = write_panel(actual, tmp_path / "corrected_panel.parquet")
 
-    pd.testing.assert_frame_equal(
-        actual,
-        approved,
-        check_exact=True,
-        check_dtype=True,
-        check_like=False,
+    assert len(actual) == 8144
+    assert not actual["date"].isin(
+        pd.to_datetime(
+            [
+                "2019-01-21",
+                "2019-02-18",
+                "2019-05-27",
+                "2019-09-02",
+                "2019-12-25",
+            ]
+        )
+    ).any()
+    assert hashlib.sha256(output.read_bytes()).hexdigest() == (
+        "abd94612836640ccefac9ab1dbc8b1503fd12823cdf9cb8a790bb917355a046d"
     )

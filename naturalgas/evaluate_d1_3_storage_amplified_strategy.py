@@ -38,6 +38,10 @@ from naturalgas.shutin_notice_event_controller import (  # noqa: E402
     DEFAULT_EVENT_REPORTS_PATH,
     apply_controller,
 )
+from naturalgas.nymex_session_calendar import (  # noqa: E402
+    CONFIRMED_NON_SESSION_DATES,
+    filter_confirmed_nymex_sessions,
+)
 
 
 FORMAL_DAILY = (
@@ -258,6 +262,9 @@ def build_daily(
         formal_daily_path, columns=["date", "roll_adjusted_return"]
     )
     formal["date"] = pd.to_datetime(formal["date"]).dt.normalize()
+    formal = filter_confirmed_nymex_sessions(formal).reset_index(drop=True)
+    if formal["date"].isin(CONFIRMED_NON_SESSION_DATES).any():
+        raise AssertionError("Formal daily input contains a non-session date")
     inputs = pd.read_parquet(score_inputs_path)
     inputs["date"] = pd.to_datetime(inputs["date"]).dt.normalize()
     states = validate_score_inputs(inputs)
