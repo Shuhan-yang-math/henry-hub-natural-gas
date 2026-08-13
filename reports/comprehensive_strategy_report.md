@@ -1,9 +1,10 @@
 # Henry Hub Natural-Gas Futures Strategy: Comprehensive Research Report
 
-**Report date:** August 12, 2026
+**Report date:** August 13, 2026
 **Historical formal version:** `south_central_total_storage`
 **Selected research version:** `d1_3_wind_storage_amplified_guard`
-**Backtest sample:** July 3, 2017 through July 13, 2026
+**Historical formal sample:** July 3, 2017 through July 13, 2026; 2,269 trading days
+**Selected common sample:** July 25, 2019 through July 13, 2026; 1,737 trading days
 **Instrument:** NYMEX Henry Hub natural-gas futures
 **Purpose:** Research documentation, causality audit, and risk review. This is not investment advice or a live-performance claim.
 
@@ -31,7 +32,12 @@ and applied to a futures return series that rolls five trading sessions before
 the official last-trading-day convention. The backtest charges 2.5 bps per
 unit of position change.
 
-### 1.1 Formal full-sample performance
+### 1.1 Historical formal baseline—not the current selected version
+
+The 2017-start artifact remains the approved historical baseline. It predates
+the EIA-930 regional sleeve, event veto, D1--3 wind horizon, and
+storage-amplified direction guard. Its figures are retained for provenance and
+must not be presented as the current selected strategy.
 
 | Metric | Net of costs | Before costs |
 |---|---:|---:|
@@ -77,9 +83,9 @@ The principal conclusions are:
 - South Central Total storage is economically closer to Henry Hub than Lower
   48 storage, but its full-sample Sharpe improvement is only about 0.04 and is
   not decisive statistical evidence.
-- 2025 is the only complete losing calendar year. Losses came mainly from
-  delayed adaptation to several sharp price reversals rather than persistent
-  cost leakage.
+- The historical formal baseline loses 3.60% in 2025, but the selected
+  storage-amplified D1--3 version earns 2.40% with a 0.347 Sharpe. The year
+  remains the weakest complete year in the selected overlap.
 - Mechanical date look-ahead is substantially controlled, but revised EIA and
   installed-capacity histories remain the largest unresolved vintage risk.
 
@@ -482,8 +488,8 @@ Solar receives a nominal 10% daylight-scaled allocation funded from the
 fundamental block. Missing wind or solar occupies a neutral fixed slot rather
 than causing dynamic renormalization.
 
-For the selected EIA-930 version, an additional fixed 10% is funded from the
-same fundamental sleeve:
+For the current selected research version, an additional fixed 10% EIA-930
+allocation is funded from the same fundamental sleeve:
 
 | Season | Legacy CPC weather | Wind | Solar | EIA-930 | Fundamentals after funding |
 |---|---:|---:|---:|---:|---:|
@@ -537,6 +543,10 @@ intraday executability.
 
 ## 16. Research splits and performance
 
+### 16.1 Historical formal baseline
+
+This table belongs only to the unchanged 2017-start historical artifact.
+
 | Period | Dates | Sharpe | CAGR | Maximum drawdown |
 |---|---|---:|---:|---:|
 | Development | 2017-07-03--2020-12-31 | 1.721 | 12.55% | -4.39% |
@@ -544,7 +554,7 @@ intraday executability.
 | First-look holdout | 2024-01-01--2026-07-13 | 1.407 | 12.97% | -6.07% |
 | Full | 2017-07-03--2026-07-13 | **1.673** | **14.61%** | **-6.07%** |
 
-Calendar-year results are:
+Its calendar-year results are:
 
 | Year | Net return | Sharpe |
 |---:|---:|---:|
@@ -558,6 +568,41 @@ Calendar-year results are:
 | 2024 | 27.04% | 2.683 |
 | 2025 | -3.60% | -0.533 |
 | 2026 partial | 11.12% | 1.849 |
+
+### 16.2 Current selected strategy on its common sample
+
+The current selected strategy is the D1--3 wind version with the
+storage-amplified fast-shock guard, 40% Central / 60% Florida EIA-930 sleeve,
+and BSEE/Sabine pure short veto. The table compares it with D1--5 on exactly
+the same dates and inputs.
+
+| Period | Dates | D1--5 Sharpe | Selected Sharpe | D1--5 CAGR | Selected CAGR | D1--5 max DD | Selected max DD |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Development overlap | 2019-07-25--2020-12-31 | **2.788** | 2.742 | **24.31%** | 23.60% | **-2.97%** | -3.62% |
+| Validation | 2021-01-04--2023-12-29 | 2.137 | **2.270** | **20.62%** | 20.59% | -5.29% | **-4.15%** |
+| First-look | 2024-01-02--2026-07-13 | 1.811 | **1.919** | **15.30%** | 15.01% | -4.35% | **-3.69%** |
+| Full common sample | 2019-07-25--2026-07-13 | 2.149 | **2.245** | **19.33%** | 19.07% | -5.29% | **-4.15%** |
+
+The selected version improves the fixed validation and first-look Sharpe and
+drawdown. It is weaker than D1--5 in the short development overlap and accepts
+slightly lower CAGR over the full common sample.
+
+### 16.3 Current selected calendar-year results
+
+| Year | Net return | Sharpe |
+|---:|---:|---:|
+| 2019 partial | 7.87% | 2.802 |
+| 2020 | 25.71% | 2.755 |
+| 2021 | 10.00% | 1.689 |
+| 2022 | 41.58% | 3.280 |
+| 2023 | 12.22% | 1.530 |
+| 2024 | 26.90% | 3.217 |
+| 2025 | 2.40% | 0.347 |
+| 2026 partial | 9.58% | 2.229 |
+
+All selected calendar years are positive in this revised-history backtest,
+but 2021 and 2026 YTD have lower Sharpe than the D1--5 comparator. The result
+is therefore not a claim of uniform annual dominance.
 
 ## 17. Interpretation of the development path
 
@@ -584,7 +629,7 @@ the complete final model cannot claim a pristine untouched holdout. The report
 therefore preserves the chronology and labels post-2024 performance as
 first-look rather than definitive out-of-sample proof.
 
-## 18. 2025 loss review
+## 18. 2025 weakness review
 
 The historical formal model's 2025 result is -3.60% with a -0.533 Sharpe.
 The main pattern was not constant small losses. Several large market moves
@@ -592,10 +637,13 @@ occurred while slow fundamental values and daily weather signals retained the
 prior direction. The model's low average position limited drawdown, but it did
 not adapt quickly enough to every reversal.
 
-On the selected EIA-930 common-overlap calculation, the 2025 Sharpe improves
-from -0.165 for Central to -0.076 for the 40/60 blend.  The year remains
-negative, but the Florida firm-generation state reduces part of the loss
-rather than merely improving already-strong years.
+On the current common-sample calculation, D1--5 earns 0.36% with a 0.050
+Sharpe in 2025. Shortening wind to D1--3 without the guard raises return to
+1.85% and Sharpe to 0.265. The selected storage-amplified version reaches
+2.40% and a 0.347 Sharpe, with a -3.69% maximum drawdown versus -4.35% for
+D1--5. The latest version therefore repairs enough of the old loss to make the
+year modestly positive, but 2025 remains a weak result rather than strong
+evidence of edge.
 
 This suggests that the next improvement should come from timelier regional
 balance data and explicit event-risk controls rather than more full-sample
@@ -728,6 +776,12 @@ supply/demand variables, and bounded event-risk control.
 Its economic mechanism is plausible, the major timing assumptions are
 explicit, and results remain positive across development, validation, and the
 post-2024 period.
+
+The current selected storage-amplified D1--3 version records 2.245 net Sharpe,
+3.922 Sortino, 19.07% CAGR, and -4.15% maximum drawdown on the matched
+2019--2026 sample. These figures supersede the earlier EIA-only selected
+version in this report. The 1.673 Sharpe remains only the longer 2017-start
+historical formal baseline.
 
 The research direction deserves continued development, but the next stage
 should focus on point-in-time data, regional physical validation, Gulf Coast

@@ -31,7 +31,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{Henry Hub Natural-Gas Strategy}
-\fancyhead[R]{Research Report -- August 12, 2026}
+\fancyhead[R]{Research Report -- August 13, 2026}
 \fancyfoot[C]{\thepage}
 \setlength{\headheight}{14pt}
 
@@ -42,7 +42,7 @@
 \title{\textbf{Henry Hub Natural-Gas Futures Strategy}\\
 \large Comprehensive Research Report}
 \author{Braeswood Carbon Research}
-\date{August 12, 2026}
+\date{August 13, 2026}
 
 \begin{document}
 \maketitle
@@ -51,7 +51,8 @@
 \begin{tabularx}{0.96\textwidth}{>{\bfseries}p{3.3cm}Y}
 Historical formal version: & \code{south\_central\_total\_storage}\\
 Selected research version: & \code{d1\_3\_wind\_storage\_amplified\_guard}\\
-Sample: & July 3, 2017--July 13, 2026; 2,269 trading days\\
+Historical formal sample: & July 3, 2017--July 13, 2026; 2,269 trading days\\
+Selected common sample: & July 25, 2019--July 13, 2026; 1,737 trading days\\
 Instrument: & NYMEX Henry Hub natural-gas futures\\
 Components: & CPC forecast revisions, capacity-weighted wind and solar,
 South Central storage, structural gas fundamentals, EIA-930 Central and
@@ -80,7 +81,7 @@ change.
 
 \begin{table}[h]
 \centering
-\caption{Formal full-sample performance}
+\caption{Historical formal baseline performance---not the current selected version}
 \begin{tabular}{lrr}
 \toprule
 Metric & Net of costs & Before costs\\
@@ -94,6 +95,10 @@ Daily win rate & 52.49\% & 52.84\%\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+The 2017-start artifact is retained for provenance. It predates the EIA-930
+regional sleeve, event veto, D1--3 wind horizon, and storage-amplified
+direction guard, so its 1.673 Sharpe is not the current selected result.
 
 The selected D1--3 version can be compared on a common 1,737-day overlap from
 July 25, 2019 through July 13, 2026. Every row retains the selected Central
@@ -305,7 +310,8 @@ Peak months use 45\% nominal legacy weather, 15\% wind, and 40\% fundamentals
 before solar funding. Shoulder months use 22.5\% weather, 22.5\% wind, and 55\%
 fundamentals. Solar receives its daylight-scaled nominal 10\% from fundamentals.
 
-The selected EIA-930 version also funds a fixed 10\% sleeve from fundamentals.
+The current selected research version also funds a fixed 10\% EIA-930 sleeve
+from fundamentals.
 Peak months therefore retain 45\% weather and 15\% wind, with 10\% EIA-930,
 0--10\% solar, and 20--30\% fundamentals. Shoulder months retain 22.5\%
 weather and 22.5\% wind, with 10\% EIA-930, 0--10\% solar, and 35--45\%
@@ -340,6 +346,11 @@ market impact, or both legs of the mechanical monthly contract roll.
 
 \section{Performance by Research Period}
 
+\subsection{Historical Formal Baseline}
+
+The following table belongs only to the unchanged 2017-start historical
+artifact.
+
 \begin{table}[h]
 \centering
 \begin{tabular}{lrrr}
@@ -354,13 +365,60 @@ Full sample & \textbf{1.673} & \textbf{14.61\%} & \textbf{-6.07\%}\\
 \end{tabular}
 \end{table}
 
-2025 is the only full losing calendar year, with a -3.60\% return and -0.533
-Sharpe. The main weakness was delayed reaction to several sharp reversals,
-rather than continuous small transaction-cost losses.
+\subsection{Current Selected Strategy on the Common Sample}
 
-On the selected EIA-930 common-overlap calculation, the 2025 Sharpe improves
-to -0.076. The year remains negative, but the regional multi-fuel power signal
-reduces part of the original loss.
+The current selected version combines D1--3 wind, the storage-amplified
+fast-shock guard, the Central 40\% / Florida 60\% EIA-930 sleeve, and the
+BSEE/Sabine pure short veto. All comparisons below use identical dates and
+inputs.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Period & D1--5 SR & Selected SR & D1--5 CAGR & Selected CAGR & D1--5 DD & Selected DD\\
+\midrule
+Development overlap & \textbf{2.788} & 2.742 & \textbf{24.31\%} & 23.60\% & \textbf{-2.97\%} & -3.62\%\\
+Validation & 2.137 & \textbf{2.270} & \textbf{20.62\%} & 20.59\% & -5.29\% & \textbf{-4.15\%}\\
+First-look & 1.811 & \textbf{1.919} & \textbf{15.30\%} & 15.01\% & -4.35\% & \textbf{-3.69\%}\\
+Full common sample & 2.149 & \textbf{2.245} & \textbf{19.33\%} & 19.07\% & -5.29\% & \textbf{-4.15\%}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The selected version improves the fixed validation and first-look Sharpe and
+drawdown, while accepting slightly lower full-common-sample CAGR.
+
+\subsection{Current Selected Calendar-Year Results}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr@{\qquad}lrr}
+\toprule
+Year & Net return & Sharpe & Year & Net return & Sharpe\\
+\midrule
+2019 partial & 7.87\% & 2.802 & 2023 & 12.22\% & 1.530\\
+2020 & 25.71\% & 2.755 & 2024 & 26.90\% & 3.217\\
+2021 & 10.00\% & 1.689 & 2025 & 2.40\% & 0.347\\
+2022 & 41.58\% & 3.280 & 2026 partial & 9.58\% & 2.229\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All selected calendar years are positive in the revised-history backtest,
+but 2021 and 2026 YTD have lower Sharpe than D1--5. The result is not uniform
+annual dominance.
+
+\subsection{2025 Weakness Review}
+
+The historical formal artifact loses 3.60\% with a -0.533 Sharpe in 2025. On
+the current common-sample calculation, D1--5 earns 0.36\% with a 0.050 Sharpe,
+unguarded D1--3 earns 1.85\% with a 0.265 Sharpe, and the selected
+storage-amplified D1--3 version earns 2.40\% with a 0.347 Sharpe. Its 2025
+maximum drawdown is -3.69\%, versus -4.35\% for D1--5. The latest version
+makes the year modestly positive, but 2025 remains weak rather than strong
+evidence of edge.
 
 \section{Look-Ahead Audit}
 
@@ -452,6 +510,12 @@ The strategy has a coherent economic mechanism spanning forward weather,
 realized multi-fuel power generation, gas fundamentals, and bounded event-risk
 control, with positive results across development, validation, and the
 post-2024 period.
+
+The current selected storage-amplified D1--3 version records 2.245 net Sharpe,
+3.922 Sortino, 19.07\% CAGR, and -4.15\% maximum drawdown on the matched
+2019--2026 sample. These figures supersede the earlier EIA-only selected
+version in this report. The 1.673 Sharpe remains only the longer 2017-start
+historical formal baseline.
 The research direction deserves continued development. Formal deployment,
 however, requires stronger point-in-time data, regional physical validation,
 Gulf Coast local-balance information, and realistic execution auditing.
