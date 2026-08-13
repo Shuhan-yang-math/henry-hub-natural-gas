@@ -676,19 +676,7 @@ Remaining risks include:
 The formal backtest should therefore be described as **release-lag-aware but
 not fully vintage-pure**.
 
-## 20. Perfect-information production and consumption experiment
-
-An explanatory upper bound aligns final month-M production and consumption
-values to month M, removes their actual reporting delay, and compresses all
-fundamental z-scores with `tanh(z/2)`. Under the current South Central framework
-this raises full-sample Sharpe from 1.673 to approximately 1.781 and improves
-maximum drawdown from -6.07% to about -4.40%.
-
-This is not a tradable result. It shows that timely, granular production and
-consumption estimates may have incremental value and motivates research into
-pipeline flows, regional power burn, dry-gas estimates, and LNG feedgas.
-
-## 21. Rejected or deferred overlays
+## 20. Rejected or deferred overlays
 
 - **Weekend/holiday reopen trading:** a risk-only flattening rule improved an
   older baseline but reduced current South Central full Sharpe to 1.648.
@@ -701,7 +689,7 @@ pipeline flows, regional power burn, dry-gas estimates, and LNG feedgas.
 These findings are documented to prevent rejected ideas from being silently
 reintroduced into the formal score.
 
-## 22. Principal physical and operational limitations
+## 21. Principal physical and operational limitations
 
 ### Wind
 
@@ -726,7 +714,7 @@ reintroduced into the formal score.
 - no bid/ask, market-impact, or liquidity model at the intended trade time;
 - no dynamic volatility targeting or event-risk sizing.
 
-## 23. Recommended next research priorities
+## 22. Recommended next research priorities
 
 Without changing the formal strategy in advance, the highest-value work is:
 
@@ -745,7 +733,7 @@ Without changing the formal strategy in advance, the highest-value work is:
 9. Monitor the fixed model on new data rather than repeatedly optimizing the
    existing sample.
 
-## 24. Reproducibility
+## 23. Reproducibility
 
 Primary entry points are:
 
@@ -770,7 +758,7 @@ their immutable archived generations. This guarantee does not extend to
 re-querying current public APIs, whose revised responses may differ from the
 historical snapshots.
 
-## 25. Final assessment
+## 24. Final assessment
 
 The project has developed from a basic weather/fundamental score into a
 coherent framework combining forecast revisions, renewable-generation
