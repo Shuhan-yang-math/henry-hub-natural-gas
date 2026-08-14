@@ -176,7 +176,8 @@ python -m naturalgas.pipelines.rebuild_all --overwrite
 ```
 
 This validates 72 master-panel input objects, 254 NCAR/GDEX weather
-partitions, and two frozen capacity-weight snapshots. It then rebuilds the
+partitions, two raw capacity snapshots, and all 13 objects in the selected
+strategy archive. It then rebuilds the
 155-column master panel, the selected wind/solar artifacts, the causal
 D1/D1--3/D1--5 wind-horizon lineage, the formal strategy, and the selected
 D1--3 strategy. The panel and all four weather-factor parquets are checked
@@ -242,18 +243,20 @@ This refreshes the selected daily series, full/period/annual metrics, event
 registry, summary, and English dashboard under
 `results/experiments/d1_3_storage_amplified/`.
 
-To audit the previously frozen D1--3 wind boundary from its raw source, use:
+To audit the selected D1--3 chain from immutable GCS inputs, use:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
 ```
 
-This command reads the exact 127 NCAR/GDEX GFS object generations pinned in
-`manifests/weather_factor_inputs_2026-07-28.json`, selects same-day 00Z issues
-and D1--3 leads, applies the frozen annual capacity vintage, constructs the
-past-only 60-initialization z-score, and requires exact daily equality with
-both wind columns consumed by the selected strategy. It then runs the selected
-evaluator and writes a reproduction receipt under `reproduced/d1_3_strategy/`.
+This command reads the exact 127 NCAR/GDEX GFS object generations and raw
+USWTDB snapshot pinned in `manifests/weather_factor_inputs_2026-07-28.json`,
+selects same-day 00Z issues and D1--3 leads, rebuilds the annual capacity
+weights, constructs the past-only 60-initialization z-score, and requires exact
+daily equality with both wind columns consumed by the selected strategy. It
+also downloads and validates every exact EIA-930/event/storage/score object in
+`manifests/selected_strategy_inputs_2026-08-14.json`, then runs the evaluator
+and writes a reproduction receipt under `reproduced/d1_3_strategy/`.
 Use `rebuild_all` above when the formal baseline must also be rebuilt from its
 generation-pinned GCS inputs in the same run.
 
@@ -297,10 +300,11 @@ direct input to the selected capacity-weighted artifact.
 
 The complete weather-factor inventory is
 [`manifests/weather_factor_inputs_2026-07-28.json`](manifests/weather_factor_inputs_2026-07-28.json).
-It enumerates all 127 wind and 127 solar partitions and the frozen wind/solar
-capacity-weight snapshots. It pins the byte-exact D1/D1--3/D1--5 output as
-well as the formal wind/solar outputs. The factor-only commands are also
-available for separate audits:
+It enumerates all 127 wind and 127 solar partitions plus generation-pinned raw
+USWTDB and EIA-860M snapshots. The raw capacity snapshots rebuild the checked-in
+wind/solar weight tables exactly. The manifest pins the byte-exact
+D1/D1--3/D1--5 output as well as the formal wind/solar outputs. The factor-only
+commands are also available for separate audits:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_weather_factors wind \

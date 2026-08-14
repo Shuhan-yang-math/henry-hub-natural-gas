@@ -1,7 +1,8 @@
 """Rebuild the master panel and approved strategies from immutable inputs.
 
 The command verifies the 72 direct objects declared for the 155-column master
-panel plus 254 weather partitions and two frozen capacity-weight snapshots.
+panel plus 254 weather partitions, two raw capacity snapshots, and the complete
+selected-strategy input archive.
 It rebuilds the panel after applying the audited NYMEX session filter and
 rebuilds the selected wind/solar artifacts plus the D1--3 horizon lineage
 byte-for-byte, then uses the pinned EIA inputs to recompute the formal and
@@ -23,18 +24,18 @@ from naturalgas.build_multisignal_panel import (
 )
 from naturalgas.pipelines.rebuild_final_backtest import rebuild
 from naturalgas.pipelines.rebuild_d1_3_strategy import (
+    DEFAULT_SELECTED_INPUT_MANIFEST,
+    EVENT_REPORT_ARTIFACT_ID,
+    SCORE_INPUT_ARTIFACT_ID,
+    STORAGE_CORRECTION_ARTIFACT_ID,
     evaluate_selected_strategy_with_horizon,
+    fetch_selected_strategy_inputs,
 )
 from naturalgas.pipelines.rebuild_weather_factors import (
     load_factor_inputs,
     rebuild_selected_wind,
     rebuild_solar,
     rebuild_wind_horizons,
-)
-from naturalgas.evaluate_d1_3_storage_amplified_strategy import (
-    DEFAULT_EVENT_REPORTS_PATH,
-    SCORE_INPUTS,
-    STORAGE_CALENDAR_CORRECTIONS,
 )
 from naturalgas.reproducibility import (
     DEFAULT_MANIFEST as DEFAULT_FORMAL_MANIFEST,
@@ -65,6 +66,7 @@ def rebuild_all(
     fetch: bool,
     overwrite: bool,
     rebuild_weather: bool = True,
+    selected_input_manifest: Path = DEFAULT_SELECTED_INPUT_MANIFEST,
 ) -> dict:
     staging, resolved_output = create_staging_directory(
         output_dir,
@@ -171,22 +173,41 @@ def rebuild_all(
             contract_only_override_ids={"ng_multisignal_panel"},
         )
         selected_d1_3 = None
+        selected_input_artifact_count = 0
         if horizon_result is not None:
+            selected_paths = fetch_selected_strategy_inputs(
+                selected_input_manifest,
+                root=staging,
+            )
+            logical_selected_paths = {
+                artifact_id: resolved_output / path.relative_to(staging)
+                for artifact_id, path in selected_paths.items()
+            }
+            selected_input_artifact_count = len(selected_paths)
             selected_d1_3 = evaluate_selected_strategy_with_horizon(
                 horizon_path=Path(horizon_result["output"]),
                 formal_daily_path=(
                     staging / "final_backtest" / "strategy_daily.parquet"
                 ),
-                score_inputs_path=SCORE_INPUTS,
+                score_inputs_path=selected_paths[SCORE_INPUT_ARTIFACT_ID],
                 storage_calendar_corrections_path=(
-                    STORAGE_CALENDAR_CORRECTIONS
+                    selected_paths[STORAGE_CORRECTION_ARTIFACT_ID]
                 ),
-                event_reports_path=DEFAULT_EVENT_REPORTS_PATH,
+                event_reports_path=selected_paths[EVENT_REPORT_ARTIFACT_ID],
                 output_dir=staging / "d1_3_strategy",
                 logical_output_dir=resolved_output / "d1_3_strategy",
                 logical_formal_daily_path=(
                     resolved_output / "final_backtest" / "strategy_daily.parquet"
                 ),
+                logical_score_inputs_path=logical_selected_paths[
+                    SCORE_INPUT_ARTIFACT_ID
+                ],
+                logical_storage_calendar_corrections_path=(
+                    logical_selected_paths[STORAGE_CORRECTION_ARTIFACT_ID]
+                ),
+                logical_event_reports_path=logical_selected_paths[
+                    EVENT_REPORT_ARTIFACT_ID
+                ],
             )
         receipt = {
             "status": "verified",
@@ -194,6 +215,13 @@ def rebuild_all(
             "panel_manifest_sha256": sha256_file(panel_manifest),
             "formal_manifest": str(formal_manifest),
             "formal_manifest_sha256": sha256_file(formal_manifest),
+            "selected_input_manifest": str(selected_input_manifest),
+            "selected_input_manifest_sha256": sha256_file(
+                selected_input_manifest
+            ),
+            "selected_input_artifacts_validated": (
+                selected_input_artifact_count
+            ),
             "weather_factor_rebuilt": rebuild_weather,
             "weather_factor_rebuild": weather_receipt,
             "rebuilt_panel": str(logical_panel_path),
@@ -236,6 +264,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_FORMAL_MANIFEST,
     )
+    parser.add_argument(
+        "--selected-input-manifest",
+        type=Path,
+        default=DEFAULT_SELECTED_INPUT_MANIFEST,
+    )
     parser.add_argument("--root", type=Path, default=PROJECT_ROOT)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument(
@@ -270,6 +303,7 @@ def main() -> None:
         fetch=not args.offline_formal_inputs,
         overwrite=args.overwrite,
         rebuild_weather=not args.use_approved_weather_artifacts,
+        selected_input_manifest=args.selected_input_manifest,
     )
     print(json.dumps(receipt, default=str, indent=2, sort_keys=True))
 

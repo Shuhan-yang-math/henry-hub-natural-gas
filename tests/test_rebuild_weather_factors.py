@@ -74,6 +74,36 @@ def test_approved_weather_manifest_is_complete_and_matches_formal_inputs() -> No
             "capacity_weighted_location_leads"
         ),
     }
+    expected_capacity_sources = {
+        "wind": {
+            "capacity_kind": "uswtdb_turbines",
+            "artifact": {
+                "uri": (
+                    "gs://bcli-natgas-data-497807/research/henry_hub_strategy/"
+                    "v2/inputs/wind/uswtdb_turbines.parquet"
+                ),
+                "generation": "1786672137418013",
+                "size_bytes": 1819747,
+                "sha256": (
+                    "26a4509b090252b4bf54aa09445e8db8a55a68280f6b7b4608481ba8df5bcfc2"
+                ),
+            },
+        },
+        "solar": {
+            "capacity_kind": "eia_generators",
+            "artifact": {
+                "uri": (
+                    "gs://bcli-natgas-data-497807/research/henry_hub_strategy/"
+                    "v2/inputs/solar/eia860m_operating_solar_generators.parquet"
+                ),
+                "generation": "1786672143203040",
+                "size_bytes": 6838745,
+                "sha256": (
+                    "0d64be7f7573d25e0bbe859016c02f988c6733f43ec67d7c7a58977746f1ab32"
+                ),
+            },
+        },
+    }
     for component in ("wind", "solar"):
         section = weather[component]
         partitions = section["weather_partitions"]
@@ -86,12 +116,9 @@ def test_approved_weather_manifest_is_complete_and_matches_formal_inputs() -> No
             for item in partitions
         )
         capacity = section["capacity_snapshot"]
-        capacity_path = (WEATHER_MANIFEST.parent / capacity["uri"]).resolve()
-        assert capacity_path.is_relative_to(PROJECT_ROOT)
-        assert capacity_path.stat().st_size == capacity["size_bytes"]
-        assert hashlib.sha256(capacity_path.read_bytes()).hexdigest() == (
-            capacity["sha256"]
-        )
+        expected_capacity = expected_capacity_sources[component]
+        assert section["capacity_kind"] == expected_capacity["capacity_kind"]
+        assert capacity == expected_capacity["artifact"]
         for filename, approved in section["approved_outputs"].items():
             if filename == WIND_HORIZON_OUTPUT_NAME:
                 assert approved == {

@@ -1,14 +1,12 @@
-"""Rebuild the selected D1--3 strategy from generation-pinned GCS wind data.
+"""Rebuild the selected D1--3 strategy from generation-pinned GCS inputs.
 
 The large NCAR/GDEX point archive remains in Google Cloud Storage.  This
 pipeline reads the exact object generations declared in the checked-in weather
 manifest, rebuilds the causal D1/D1--3/D1--5 wind signals, proves that the wind
 columns consumed by the compact selected-strategy audit input are identical,
-and then runs the selected evaluator.  It has no GCS write capability.
-
-Non-wind enhancement inputs remain the small checked-in audit artifacts
-documented in DATA_MANIFEST.md; this command removes the former frozen-only
-boundary specifically for the D1--3 wind calculation.
+downloads and validates every selected-strategy audit object declared in the
+selected-input manifest, and then runs the selected evaluator. It has no GCS
+write capability.
 """
 
 from __future__ import annotations
@@ -38,6 +36,7 @@ from naturalgas.reproducibility import (
     PROJECT_ROOT,
     create_staging_directory,
     discard_staging_directory,
+    fetch_manifest,
     publish_staging_directory,
     sha256_file,
 )
@@ -46,9 +45,36 @@ from naturalgas.reproducibility import (
 DEFAULT_WEATHER_MANIFEST = (
     PROJECT_ROOT / "manifests/weather_factor_inputs_2026-07-28.json"
 )
+DEFAULT_SELECTED_INPUT_MANIFEST = (
+    PROJECT_ROOT / "manifests/selected_strategy_inputs_2026-08-14.json"
+)
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reproduced/d1_3_strategy"
 EXPECTED_SUMMARY = SHIPPED_OUTPUT_DIR / "summary.json"
 WIND_SIGNAL_COLUMNS = ("wind_signal__d1_3", "wind_signal__d1_5")
+SCORE_INPUT_ARTIFACT_ID = "selected_d1_3_storage_amplifier_inputs"
+STORAGE_CORRECTION_ARTIFACT_ID = "selected_wngsr_d1_3_score_corrections"
+EVENT_REPORT_ARTIFACT_ID = "selected_event_reports_aligned"
+
+
+def fetch_selected_strategy_inputs(
+    manifest_path: Path,
+    *,
+    root: Path,
+) -> dict[str, Path]:
+    """Download and validate the complete immutable selected-input archive."""
+
+    paths = fetch_manifest(manifest_path, root=root)
+    required = {
+        SCORE_INPUT_ARTIFACT_ID,
+        STORAGE_CORRECTION_ARTIFACT_ID,
+        EVENT_REPORT_ARTIFACT_ID,
+    }
+    missing = required.difference(paths)
+    if missing:
+        raise KeyError(
+            f"selected-input manifest is missing evaluator inputs: {sorted(missing)}"
+        )
+    return paths
 
 
 def verify_score_input_wind_lineage(
@@ -170,6 +196,9 @@ def evaluate_selected_strategy_with_horizon(
     output_dir: Path,
     logical_output_dir: Path | None = None,
     logical_formal_daily_path: Path | None = None,
+    logical_score_inputs_path: Path | None = None,
+    logical_storage_calendar_corrections_path: Path | None = None,
+    logical_event_reports_path: Path | None = None,
     expected_summary_path: Path = EXPECTED_SUMMARY,
 ) -> dict[str, Any]:
     """Validate upstream wind parity, run the evaluator, and verify results."""
@@ -209,9 +238,21 @@ def evaluate_selected_strategy_with_horizon(
             else logical_formal_daily_path
         ),
         "formal_daily_sha256": sha256_file(formal_daily_path),
-        "score_inputs": str(score_inputs_path),
-        "storage_calendar_corrections": str(storage_calendar_corrections_path),
-        "event_reports": str(event_reports_path),
+        "score_inputs": str(
+            score_inputs_path
+            if logical_score_inputs_path is None
+            else logical_score_inputs_path
+        ),
+        "storage_calendar_corrections": str(
+            storage_calendar_corrections_path
+            if logical_storage_calendar_corrections_path is None
+            else logical_storage_calendar_corrections_path
+        ),
+        "event_reports": str(
+            event_reports_path
+            if logical_event_reports_path is None
+            else logical_event_reports_path
+        ),
         "output_dir": str(logical),
         "verified_against": str(expected_summary_path),
         "summary": summary_payload,
@@ -226,6 +267,7 @@ def evaluate_selected_strategy_with_horizon(
 def rebuild_d1_3_strategy(
     *,
     weather_manifest: Path = DEFAULT_WEATHER_MANIFEST,
+    selected_input_manifest: Path | None = DEFAULT_SELECTED_INPUT_MANIFEST,
     formal_daily_path: Path = FORMAL_DAILY,
     score_inputs_path: Path = SCORE_INPUTS,
     storage_calendar_corrections_path: Path = STORAGE_CALENDAR_CORRECTIONS,
@@ -240,6 +282,22 @@ def rebuild_d1_3_strategy(
         overwrite=overwrite,
     )
     try:
+        selected_paths: dict[str, Path] | None = None
+        logical_selected_paths: dict[str, Path] = {}
+        if selected_input_manifest is not None:
+            selected_paths = fetch_selected_strategy_inputs(
+                selected_input_manifest,
+                root=staging,
+            )
+            logical_selected_paths = {
+                artifact_id: resolved_output / path.relative_to(staging)
+                for artifact_id, path in selected_paths.items()
+            }
+            score_inputs_path = selected_paths[SCORE_INPUT_ARTIFACT_ID]
+            storage_calendar_corrections_path = selected_paths[
+                STORAGE_CORRECTION_ARTIFACT_ID
+            ]
+            event_reports_path = selected_paths[EVENT_REPORT_ARTIFACT_ID]
         wind = rebuild_wind_horizons(
             inputs=load_factor_inputs(weather_manifest, "wind"),
             output_dir=staging / "wind",
@@ -253,6 +311,15 @@ def rebuild_d1_3_strategy(
             event_reports_path=event_reports_path,
             output_dir=staging / "strategy",
             logical_output_dir=resolved_output / "strategy",
+            logical_score_inputs_path=logical_selected_paths.get(
+                SCORE_INPUT_ARTIFACT_ID
+            ),
+            logical_storage_calendar_corrections_path=(
+                logical_selected_paths.get(STORAGE_CORRECTION_ARTIFACT_ID)
+            ),
+            logical_event_reports_path=logical_selected_paths.get(
+                EVENT_REPORT_ARTIFACT_ID
+            ),
         )
         wind_receipt = dict(wind)
         wind_receipt["output"] = str(
@@ -262,6 +329,19 @@ def rebuild_d1_3_strategy(
             "status": "verified",
             "weather_manifest": str(weather_manifest),
             "weather_manifest_sha256": sha256_file(weather_manifest),
+            "selected_input_manifest": (
+                None
+                if selected_input_manifest is None
+                else str(selected_input_manifest)
+            ),
+            "selected_input_manifest_sha256": (
+                None
+                if selected_input_manifest is None
+                else sha256_file(selected_input_manifest)
+            ),
+            "selected_input_artifacts_validated": (
+                0 if selected_paths is None else len(selected_paths)
+            ),
             "wind_horizon_rebuild": wind_receipt,
             "selected_strategy_rebuild": strategy,
         }
@@ -282,6 +362,19 @@ def parse_args() -> argparse.Namespace:
         "--weather-manifest",
         type=Path,
         default=DEFAULT_WEATHER_MANIFEST,
+    )
+    parser.add_argument(
+        "--selected-input-manifest",
+        type=Path,
+        default=DEFAULT_SELECTED_INPUT_MANIFEST,
+    )
+    parser.add_argument(
+        "--use-checked-in-selected-inputs",
+        action="store_true",
+        help=(
+            "Use the checked-in compact score, WNGSR correction, and event "
+            "tables instead of downloading the immutable GCS archive."
+        ),
     )
     parser.add_argument("--formal-daily", type=Path, default=FORMAL_DAILY)
     parser.add_argument("--score-inputs", type=Path, default=SCORE_INPUTS)
@@ -304,6 +397,11 @@ def main() -> None:
     args = parse_args()
     receipt = rebuild_d1_3_strategy(
         weather_manifest=args.weather_manifest,
+        selected_input_manifest=(
+            None
+            if args.use_checked_in_selected_inputs
+            else args.selected_input_manifest
+        ),
         formal_daily_path=args.formal_daily,
         score_inputs_path=args.score_inputs,
         storage_calendar_corrections_path=args.storage_calendar_corrections,

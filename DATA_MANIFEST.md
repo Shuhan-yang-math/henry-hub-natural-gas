@@ -3,10 +3,10 @@
 Large model inputs are intentionally excluded from Git. Access requires
 Braeswood read credentials for bucket `bcli-natgas-data-497807`.
 
-The authoritative machine-readable inventory is
-[`manifests/input_artifacts_2026-07-13.json`](manifests/input_artifacts_2026-07-13.json).
-It pins every object by GCS generation and SHA-256 and also records byte size,
-row/column counts, date coverage, local path, and an Arrow schema fingerprint.
+The authoritative machine-readable inventories are listed under
+[Reproduction boundary](#reproduction-boundary). They pin every object by GCS
+generation and SHA-256 and record byte size, row/column counts, and local
+paths; the formal inventory additionally retains Arrow schema fingerprints.
 Exact schemas are retained in
 [`schemas/input_schemas_2026-07-13.json`](schemas/input_schemas_2026-07-13.json).
 
@@ -23,7 +23,7 @@ The default command performs six steps:
 1. validates and downloads the 72 generation-pinned direct inputs used by the
    155-column master-panel builder;
 2. validates and downloads 127 wind plus 127 solar NCAR/GDEX partitions and
-   reads two checked-in capacity-weight snapshots;
+   two generation-pinned raw capacity snapshots (USWTDB and EIA-860M);
 3. rebuilds the master panel with the audited NYMEX session filter (removing
    the five 2019 settlement carry rows on January 21, February 18, May 27,
    September 2, and December 25) and the actual WNGSR holiday release calendar,
@@ -33,9 +33,10 @@ The default command performs six steps:
    mutable live GCS keys; and
 5. rebuilds the formal result and verifies its headline metrics and complete
    summary-file SHA-256 against the shipped summary; and
-6. requires the raw-rebuilt D1--3 and D1--5 wind signals to equal the compact
-   selected-strategy input on every score date, then rebuilds and verifies the
-   selected D1--3 result.
+6. downloads and validates all 13 objects in the selected-strategy archive,
+   requires the raw-rebuilt D1--3 and D1--5 wind signals to equal its compact
+   score contract on every score date, then rebuilds and verifies the selected
+   D1--3 result.
 
 For a quicker formal-only audit that rebuilds the master panel but downloads
 the three approved wind/solar artifacts and skips the selected D1--3 raw-wind
@@ -103,8 +104,13 @@ they are not additional formal evaluator inputs.
 
 ## Selected strategy enhancement inputs
 
-The selected enhancement uses compact, checked-in audit inputs. They are
-separate from the seven pinned inputs of the approved formal rebuild.
+The selected enhancement keeps compact audit inputs in Git for a fast offline
+path. The same exact bytes, plus the EIA-930 source/rolling tables and raw
+capacity snapshots, are archived under the immutable GCS prefix
+`gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/`.
+[`manifests/selected_strategy_inputs_2026-08-14.json`](manifests/selected_strategy_inputs_2026-08-14.json)
+pins all 13 objects by generation, SHA-256, size, dimensions, and required
+columns. They remain separate from the seven formal processed inputs.
 
 | Path | Rows | Coverage | SHA-256 | Use |
 |---|---:|---|---|---|
@@ -179,10 +185,10 @@ artifacts, and a lineage receipt under `reproduced/d1_3_strategy/`. For the
 formal master panel and selected strategy in one transaction, use
 `python -m naturalgas.pipelines.rebuild_all --overwrite`.
 
-The byte-exact weather rebuild additionally uses the checked-in frozen
-capacity snapshots below. The Parquet wind snapshot preserves the original
-floating-point values used by the builder; the CSV remains a human-readable
-notebook audit table.
+The byte-exact weather rebuild now starts from generation-pinned raw USWTDB
+and EIA-860M snapshots in GCS. The builder has been checked to regenerate the
+two derived weight parquets below exactly; those small parquets remain in Git
+as human-reviewable parity targets.
 
 ```text
 inputs/audit/wind/annual_location_weights.parquet
@@ -222,12 +228,15 @@ This handoff supports reproduction of the formal 2017-07-03 through 2026-07-13
 backtest from immutable internal base objects. The panel object itself extends
 to 2026-07-17, but the frozen configuration applies the 2026-07-13 cutoff.
 
-The three inventories have different roles:
+The four inventories have different roles:
 
 - [`manifests/master_panel_inputs_2026-07-13.json`](manifests/master_panel_inputs_2026-07-13.json)
   pins 72 direct master-panel inputs;
 - [`manifests/weather_factor_inputs_2026-07-28.json`](manifests/weather_factor_inputs_2026-07-28.json)
-  pins 254 weather partitions and the frozen capacity snapshots; and
+  pins 254 weather partitions and raw USWTDB/EIA-860M capacity snapshots;
+- [`manifests/selected_strategy_inputs_2026-08-14.json`](manifests/selected_strategy_inputs_2026-08-14.json)
+  pins 13 exact selected-strategy, EIA-930/event audit, storage-correction, and
+  raw/derived capacity objects; and
 - [`manifests/input_artifacts_2026-07-13.json`](manifests/input_artifacts_2026-07-13.json)
   pins the seven approved processed artifacts used by the narrow rebuild and
   as parity targets for the broader build.
@@ -241,6 +250,8 @@ download is therefore a data refresh, not a bit-exact rebuild of this model.
 
 - EIA weekly/monthly files may reflect later revisions; they are not guaranteed
   first-release historical vintages.
+- The archived EIA-930 respondent-day source is the exact revised-history input
+  used by the model, not a historical first-publication payload archive.
 - GFS files preserve forecast issue/reference time and therefore support
   vintage-aware weather analysis.
 - Installed wind/solar capacity histories are lagged in the factor build but

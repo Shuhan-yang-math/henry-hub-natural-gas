@@ -53,6 +53,7 @@ def test_pinned_gcs_inputs_through_formal_and_selected_backtests(
         "34fb31802a41144e5ed842d2433a1b67db8d93810cf900835c875913f62db94c"
     )
     selected = receipt["selected_d1_3_rebuild"]
+    assert receipt["selected_input_artifacts_validated"] == 13
     assert selected["wind_lineage"]["status"] == "exact"
     assert selected["summary"]["trading_days"] == 1748
     assert selected["summary"]["selected_metrics"]["sharpe"] == (

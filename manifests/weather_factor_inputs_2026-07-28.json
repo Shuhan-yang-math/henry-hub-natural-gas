@@ -1022,11 +1022,12 @@
       }
     ],
     "capacity_snapshot": {
-      "uri": "../inputs/audit/wind/annual_location_weights.parquet",
-      "size_bytes": 14974,
-      "sha256": "f7ea18d461edbea3386046e528859294e8346393f80f215131451189373dee60"
+      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/uswtdb_turbines.parquet",
+      "generation": "1786672137418013",
+      "size_bytes": 1819747,
+      "sha256": "26a4509b090252b4bf54aa09445e8db8a55a68280f6b7b4608481ba8df5bcfc2"
     },
-    "capacity_kind": "annual_location_weights",
+    "capacity_kind": "uswtdb_turbines",
     "approved_outputs": {
       "capacity_weighted_wind_features_daily.parquet": {
         "rows": 3857,
@@ -2060,11 +2061,12 @@
       }
     ],
     "capacity_snapshot": {
-      "uri": "../inputs/audit/solar/monthly_location_weights.parquet",
-      "size_bytes": 68095,
-      "sha256": "f415446ae98a8233318f7f812066f5ebafb77f1c3af15b478fdaf79239f16002"
+      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/solar/eia860m_operating_solar_generators.parquet",
+      "generation": "1786672143203040",
+      "size_bytes": 6838745,
+      "sha256": "0d64be7f7573d25e0bbe859016c02f988c6733f43ec67d7c7a58977746f1ab32"
     },
-    "capacity_kind": "monthly_location_weights",
+    "capacity_kind": "eia_generators",
     "approved_outputs": {
       "capacity_weighted_location_leads.parquet": {
         "rows": 77225,
