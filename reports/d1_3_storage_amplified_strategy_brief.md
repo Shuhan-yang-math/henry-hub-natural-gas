@@ -17,11 +17,25 @@ The selection prioritizes risk-adjusted return and drawdown over the highest
 historical cumulative return. On the exact common sample, the selected version
 raises net Sharpe from 2.119 to 2.228, raises Sortino from 3.663 to 3.881, and
 reduces maximum drawdown from -5.30% to -4.16%. CAGR declines from 19.20% to
-19.06%, and the simple sum of paired daily net-return differences is -1.11
+19.05%, and the simple sum of paired daily net-return differences is -1.11
 percentage points versus the current D1--5 comparator. The separate compounded
 final-wealth difference is -2.89 percentage points. Maximum drawdown starts
 from initial wealth 1.0, and subperiod turnover inherits the actual position
 immediately before the period boundary.
+
+<!-- BEGIN AUTO-GENERATED: metric-conventions -->
+The selected D1--3 and EIA-930 tables report zero-risk-free-rate Sharpe and
+Sortino ratios from daily log net returns, `g_t = log(1 + r_t)`. Sharpe is
+`mean(g_t) / sample_std(g_t) * sqrt(252)`. Sortino is `mean(g_t) * 252`
+divided by the zero-target unconditional lower-partial-moment denominator
+`sqrt(mean(min(g_t, 0)^2)) * sqrt(252)`; positive-return days therefore enter
+the downside average as zeros. This is not the conditional-negative-day
+Sortino convention. For the selected strategy, arithmetic-return Sharpe is
+2.261 versus the reported 2.228, and conditional-negative-day log Sortino is
+2.648 versus the reported 3.881. CAGR uses the actual first settlement
+endpoint, maximum drawdown begins from initial wealth 1.0, and all reported
+ratios use 252 sessions per year.
+<!-- END AUTO-GENERATED: metric-conventions -->
 
 ## Rule
 
@@ -55,20 +69,27 @@ without wind.
 
 ## Common-sample performance
 
+<!-- BEGIN AUTO-GENERATED: d1-brief-table -->
 | Metric | Current D1--5 | D1--3, no guard | **Selected D1--3 + storage amplifier** |
 |---|---:|---:|---:|
 | Net Sharpe | 2.119 | 2.181 | **2.228** |
 | Sortino | 3.663 | 3.787 | **3.881** |
-| CAGR | **19.20%** | 18.75% | 19.06% |
+| CAGR | **19.20%** | 18.74% | 19.05% |
 | Maximum drawdown | -5.30% | -4.51% | **-4.16%** |
 | Total net return | **240.11%** | 231.09% | 237.22% |
 | Mean absolute position | 10.69% | 10.43% | **10.20%** |
+<!-- END AUTO-GENERATED: d1-brief-table -->
 
 The horizon change provides most of the drawdown reduction. Relative to the
 unguarded D1--3 strategy, the storage-amplified guard raises Sharpe by 0.047,
 Sortino by 0.094, and the simple sum of daily net-return differences by 1.81
-percentage points. The compounded final-wealth difference is +6.12 percentage
-points; it is not the same metric as the paired daily sum.
+percentage points.
+<!-- BEGIN AUTO-GENERATED: d1-drawdown-claim -->
+Relative to unguarded D1--3, the guard improves maximum drawdown from -4.51%
+to -4.16%, a 0.34 percentage-point reduction in drawdown depth.
+<!-- END AUTO-GENERATED: d1-drawdown-claim -->
+The compounded final-wealth difference is +6.12 percentage points; it is not
+the same metric as the paired daily sum.
 
 This refresh fixes both the NYMEX holiday-session/early-roll path and the EIA
 WNGSR holiday release calendar. The D1--3 overlay changes 23 affected score

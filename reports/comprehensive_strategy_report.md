@@ -59,18 +59,33 @@ the selected Central 40% / Florida 60% sleeve and event veto.
 |---|---:|---:|---:|
 | Net Sharpe | 2.119 | 2.181 | **2.228** |
 | Net Sortino | 3.663 | 3.787 | **3.881** |
-| Net CAGR | **19.20%** | 18.75% | 19.06% |
+| Net CAGR | **19.20%** | 18.74% | 19.05% |
 | Maximum drawdown | -5.30% | -4.51% | **-4.16%** |
 | Daily win rate | **54.06%** | 53.78% | 52.35% |
 | Total net return | **240.11%** | 231.09% | 237.22% |
 
 The selected version improves Sharpe by 0.108 and Sortino by 0.218 versus the
 D1--5 comparator while reducing maximum drawdown by 1.14 percentage points.
+Relative to unguarded D1--3, the guard improves maximum drawdown from -4.51%
+to -4.16%, a 0.34 percentage-point reduction in drawdown depth.
 Its simple sum of paired daily net-return differences is -1.11 percentage
 points, while its compounded final-wealth difference is -2.89 percentage points. The
 choice explicitly prioritizes risk-adjusted performance and drawdown over
 maximum cumulative return. The 2017-start formal artifact is reported
 separately because its history is longer.
+
+### 1.3 Metric conventions
+
+The selected D1--3 and EIA-930 results use daily log net returns
+`g_t = log(1 + r_t)`. The zero-risk-free-rate Sharpe ratio is
+`mean(g_t) / sample_std(g_t) * sqrt(252)`. Sortino divides annualized mean log
+return by `sqrt(mean(min(g_t, 0)^2)) * sqrt(252)`. This is a zero-target,
+unconditional lower-partial-moment convention: positive-return days remain in
+the downside average as zeros. It is not a conditional-negative-day Sortino.
+For the selected strategy, arithmetic-return Sharpe is 2.261 rather than the
+reported 2.228, and conditional-negative-day log Sortino is 2.648 rather than
+the reported 3.881. CAGR begins at the actual settlement endpoint before the
+first included return; maximum drawdown begins from wealth 1.0.
 
 ![Selected D1--3 strategy dashboard](../results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
 
@@ -589,8 +604,8 @@ effect before the storage-amplified guard is applied.
 | Variant | Development Sharpe | Validation Sharpe | First-look Sharpe | Full Sharpe | Full CAGR | Full max DD |
 |---|---:|---:|---:|---:|---:|---:|
 | Current D1--5 | **2.785** | 2.145 | 1.718 | 2.119 | **19.20%** | -5.30% |
-| D1--3, no guard | 2.757 | 2.232 | 1.779 | 2.181 | 18.75% | -4.51% |
-| **Selected D1--3 + storage amplifier** | 2.782 | **2.279** | **1.835** | **2.228** | 19.06% | **-4.16%** |
+| D1--3, no guard | 2.757 | 2.232 | 1.779 | 2.181 | 18.74% | -4.51% |
+| **Selected D1--3 + storage amplifier** | 2.782 | **2.279** | **1.835** | **2.228** | 19.05% | **-4.16%** |
 
 The D1--3 horizon provides most of the drawdown improvement and raises
 validation, first-look, and full-sample Sharpe relative to D1--5. Adding the
@@ -779,7 +794,7 @@ explicit, and results remain positive across development, validation, and the
 post-2024 period.
 
 The current selected storage-amplified D1--3 version records 2.228 net Sharpe,
-3.881 Sortino, 19.06% CAGR, and -4.16% maximum drawdown on the matched
+3.881 Sortino, 19.05% CAGR, and -4.16% maximum drawdown on the matched
 2019--2026 sample. These figures supersede the earlier EIA-only selected
 version in this report. The 1.667 Sharpe remains only the longer 2017-start
 historical formal baseline.

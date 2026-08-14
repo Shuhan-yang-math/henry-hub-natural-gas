@@ -18,6 +18,20 @@ maximum drawdown is -5.29%, compared with -6.07% for Central. The improvement
 is primarily a smoother loss and drawdown profile rather than higher
 cumulative return.
 
+<!-- BEGIN AUTO-GENERATED: metric-conventions -->
+The selected D1--3 and EIA-930 tables report zero-risk-free-rate Sharpe and
+Sortino ratios from daily log net returns, `g_t = log(1 + r_t)`. Sharpe is
+`mean(g_t) / sample_std(g_t) * sqrt(252)`. Sortino is `mean(g_t) * 252`
+divided by the zero-target unconditional lower-partial-moment denominator
+`sqrt(mean(min(g_t, 0)^2)) * sqrt(252)`; positive-return days therefore enter
+the downside average as zeros. This is not the conditional-negative-day
+Sortino convention. For the selected strategy, arithmetic-return Sharpe is
+2.261 versus the reported 2.228, and conditional-negative-day log Sortino is
+2.648 versus the reported 3.881. CAGR uses the actual first settlement
+endpoint, maximum drawdown begins from initial wealth 1.0, and all reported
+ratios use 252 sessions per year.
+<!-- END AUTO-GENERATED: metric-conventions -->
+
 ## Signals and physical interpretation
 
 The Central signal uses total non-gas generation relative to demand across
@@ -45,6 +59,7 @@ power-system state rather than duplicating the existing Central exposure.
 
 ## Common-sample results
 
+<!-- BEGIN AUTO-GENERATED: eia-brief-table -->
 | Metric | Core weather, fundamentals, and veto | Previous 10% Central sleeve | Selected Central 40% / Florida 60% |
 |---|---:|---:|---:|
 | Net Sharpe | 1.856 | 1.951 | **2.084** |
@@ -53,11 +68,14 @@ power-system state rather than duplicating the existing Central exposure.
 | Maximum drawdown | -6.14% | -6.07% | **-5.29%** |
 | Mean absolute position | 11.51% | 11.73% | **10.81%** |
 | Final cumulative return | 216.61% | 237.47% | **240.73%** |
+<!-- END AUTO-GENERATED: eia-brief-table -->
 
-Relative to the Central sleeve, the selected version raises Sharpe by 0.125
-and Sortino by 0.313. The simple sum of daily incremental net returns is
-+0.14 percentage points, while compounded final wealth is 1.51 percentage
-points higher.
+<!-- BEGIN AUTO-GENERATED: eia-brief-claim -->
+Relative to the Central sleeve, the selected version raises Sharpe by 0.132
+and Sortino by 0.324. The simple sum of daily incremental net returns is
++0.66 percentage points, while the distinct compounded final-wealth level is
+3.26 percentage points higher.
+<!-- END AUTO-GENERATED: eia-brief-claim -->
 This combination confirms that the improvement comes from path and tail-risk
 diversification rather than a material increase in unconditional return.
 

@@ -76,8 +76,9 @@ selected version records 2.084 net Sharpe, 3.576 Sortino, 19.24% CAGR, and
 -5.29% maximum drawdown. The previous Central-only sleeve records 1.951
 Sharpe, 3.252 Sortino, 19.07% CAGR, and
 -6.07% maximum drawdown. The simple daily incremental net return versus
-Central is +0.14 percentage points: the improvement is a smoother loss path,
-not return expansion.
+Central is +0.66 percentage points, while the distinct compounded final-wealth
+difference is +3.26 percentage points: the improvement is primarily a
+smoother loss path, not a large unconditional daily-return increment.
 
 The Central sleeve has 808 loss days. The selected blend improves 544 of
 them, turns 74 nonnegative, and recovers 32.00 percentage points on those
@@ -112,7 +113,7 @@ figures are retrospective validation, not an untouched holdout.
 On the calendar-corrected daily-available-BA 1,748-day overlap, current D1--5
 records 2.119 net Sharpe, 3.663 Sortino, 19.20% CAGR, and -5.30% maximum
 drawdown. The selected D1--3 version records 2.228 Sharpe, 3.881 Sortino,
-19.06% CAGR, and -4.16% maximum drawdown. Its simple sum of paired daily net-
+19.05% CAGR, and -4.16% maximum drawdown. Its simple sum of paired daily net-
 return differences versus D1--5 is -1.11 percentage
 points, while its compounded final-wealth difference is -2.89 percentage
 points. The decision therefore prioritizes risk-adjusted performance and

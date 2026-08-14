@@ -45,18 +45,24 @@ when low South Central inventory coincides with a moderate fast bullish shock.
 Low inventory cannot trigger the guard by itself, and the guard cannot create
 or amplify exposure.
 
+<!-- BEGIN AUTO-GENERATED: d1-full-table -->
 | Common-overlap metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
 | Sample | 2019-07-25 to 2026-07-13 | same | same |
 | Trading days | 1,748 | 1,748 | 1,748 |
 | Net Sharpe | 2.119 | 2.181 | **2.228** |
 | Net Sortino | 3.663 | 3.787 | **3.881** |
-| Net CAGR | **19.20%** | 18.75% | 19.06% |
-| Maximum drawdown | -5.30% | **-4.16%** | **-4.16%** |
+| Net CAGR | **19.20%** | 18.74% | 19.05% |
+| Maximum drawdown | -5.30% | -4.51% | **-4.16%** |
 | Total net return | **240.11%** | 231.09% | 237.22% |
+<!-- END AUTO-GENERATED: d1-full-table -->
 
 This is an explicit risk-adjusted selection: Sharpe, Sortino, and drawdown
 improve, while CAGR and cumulative return remain below the D1--5 comparator.
+<!-- BEGIN AUTO-GENERATED: d1-drawdown-claim -->
+Relative to unguarded D1--3, the guard improves maximum drawdown from -4.51%
+to -4.16%, a 0.34 percentage-point reduction in drawdown depth.
+<!-- END AUTO-GENERATED: d1-drawdown-claim -->
 The HDD guard is disabled in June--August and active in every other month;
 there is no CDD branch. It changes 59 held-return dates and adds 1.81
 percentage points to the simple sum of paired daily net-return differences
@@ -70,6 +76,22 @@ complete BAs on each source day. Partial-BA observations remain in the future
 rolling reference, so the five previously omitted returns are now retained.
 
 ![Selected D1--3 strategy dashboard](results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
+
+### Selected-strategy metric conventions
+
+<!-- BEGIN AUTO-GENERATED: metric-conventions -->
+The selected D1--3 and EIA-930 tables report zero-risk-free-rate Sharpe and
+Sortino ratios from daily log net returns, `g_t = log(1 + r_t)`. Sharpe is
+`mean(g_t) / sample_std(g_t) * sqrt(252)`. Sortino is `mean(g_t) * 252`
+divided by the zero-target unconditional lower-partial-moment denominator
+`sqrt(mean(min(g_t, 0)^2)) * sqrt(252)`; positive-return days therefore enter
+the downside average as zeros. This is not the conditional-negative-day
+Sortino convention. For the selected strategy, arithmetic-return Sharpe is
+2.261 versus the reported 2.228, and conditional-negative-day log Sortino is
+2.648 versus the reported 3.881. CAGR uses the actual first settlement
+endpoint, maximum drawdown begins from initial wealth 1.0, and all reported
+ratios use 252 sessions per year.
+<!-- END AUTO-GENERATED: metric-conventions -->
 
 ### Prior EIA-930 enhancement
 
@@ -86,6 +108,7 @@ The EIA-930 comparison begins when the checked-in generation panel becomes
 available. All rows in both columns use the same dates, futures returns, roll,
 one-session signal lag, and 2.5 bps turnover cost.
 
+<!-- BEGIN AUTO-GENERATED: eia-full-table -->
 | Common-overlap metric | Weather, fundamentals, and event veto | Previous 10% Central sleeve | Selected Central 40% / Florida 60% |
 |---|---:|---:|---:|
 | Sample | 2019-07-25 to 2026-07-13 | same | same |
@@ -95,13 +118,17 @@ one-session signal lag, and 2.5 bps turnover cost.
 | Net CAGR | 17.99% | 19.07% | **19.24%** |
 | Maximum drawdown | -6.14% | -6.07% | **-5.29%** |
 | Total net return | 216.61% | 237.47% | **240.73%** |
+<!-- END AUTO-GENERATED: eia-full-table -->
 
+<!-- BEGIN AUTO-GENERATED: eia-readme-claim -->
 Relative to the Central sleeve, the selected blend improves Sharpe by 0.132,
 Sortino by 0.324, and maximum drawdown by 0.79 percentage points. Its simple
-sum of daily incremental net returns is +0.66 percentage points, so the
-benefit is downside diversification rather than unconditional return
-expansion.  It is an incremental research enhancement, not a rewrite of the
+sum of daily incremental net returns is +0.66 percentage points; the distinct
+compounded final-wealth difference is +3.26 percentage points. The benefit is
+downside diversification rather than a large unconditional daily-return
+increment. It is an incremental research enhancement, not a rewrite of the
 approved 2017 full-history baseline.
+<!-- END AUTO-GENERATED: eia-readme-claim -->
 
 ![Selected EIA-930 strategy dashboard](results/experiments/eia930_selected/latest_strategy_dashboard.png)
 
@@ -242,6 +269,22 @@ python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 This refreshes the selected daily series, full/period/annual metrics, event
 registry, summary, and English dashboard under
 `results/experiments/d1_3_storage_amplified/`.
+
+When either selected evaluator successfully writes to its canonical results
+directory, it automatically synchronizes the generated metric tables and
+claims in the primary documents. Custom `--output-dir` runs—including
+`/tmp`, staging, and `reproduced/` rebuilds—never modify documentation.
+The synchronization can also be invoked or checked directly:
+
+```bash
+python -m naturalgas.sync_documentation_metrics
+python -m naturalgas.sync_documentation_metrics --check
+```
+
+The first command renders from the D1--3 `strategy_metrics.csv`, the EIA-930
+`summary.json`, and the selected daily artifact; `--check` is the read-only CI
+guard used to detect documentation drift. GitHub Actions runs this guard and
+the source-driven documentation tests on every relevant push and pull request.
 
 To audit the selected D1--3 chain from immutable GCS inputs, use:
 

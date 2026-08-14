@@ -16,7 +16,22 @@ trading system.
 - Signal timing: final composite score is delayed by one trading session.
 - Position: continuous and clipped to `[-1, 1]`.
 - Cost: 2.5 bps multiplied by absolute daily position change.
-- Risk-free rate: zero in the reported Sharpe ratio.
+<!-- BEGIN AUTO-GENERATED: metric-conventions-bullets -->
+- Risk-free rate: zero in the reported Sharpe and Sortino ratios.
+- Return basis: daily log net return, `g_t = log(1 + r_t)`.
+- Sharpe: `mean(g_t) / sample_std(g_t) * sqrt(252)`.
+- Sortino: `mean(g_t) * 252` divided by
+  `sqrt(mean(min(g_t, 0)^2)) * sqrt(252)`. This is a zero-target,
+  unconditional lower-partial-moment definition: positive-return days enter
+  the downside average as zeros, rather than being removed.
+- CAGR: compound every included return over the calendar span beginning at
+  the first return interval's actual prior settlement endpoint.
+
+For comparison, the selected strategy's arithmetic-return Sharpe is 2.261
+versus the reported log-return Sharpe of 2.228. A conditional-negative-day log
+Sortino is 2.648 versus the reported unconditional-LPM value of 3.881. These
+alternatives are sensitivities, not the shipped metric definitions.
+<!-- END AUTO-GENERATED: metric-conventions-bullets -->
 
 ## Top-level score
 
@@ -194,14 +209,21 @@ and not statistically decisive.
 
 ## Selected common-overlap performance
 
+<!-- BEGIN AUTO-GENERATED: d1-model-table -->
 | Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
 | Dates | 2019-07-25–2026-07-13 | same | same |
 | Net Sharpe | 2.119 | 2.181 | **2.228** |
 | Net Sortino | 3.663 | 3.787 | **3.881** |
-| Net CAGR | **19.20%** | 18.75% | 19.06% |
-| Maximum drawdown | -5.30% | **-4.16%** | **-4.16%** |
+| Net CAGR | **19.20%** | 18.74% | 19.05% |
+| Maximum drawdown | -5.30% | -4.51% | **-4.16%** |
 | Total net return | **240.11%** | 231.09% | 237.22% |
+<!-- END AUTO-GENERATED: d1-model-table -->
+
+<!-- BEGIN AUTO-GENERATED: d1-drawdown-claim -->
+Relative to unguarded D1--3, the guard improves maximum drawdown from -4.51%
+to -4.16%, a 0.34 percentage-point reduction in drawdown depth.
+<!-- END AUTO-GENERATED: d1-drawdown-claim -->
 
 Selected minus unguarded D1--3 is +1.81 percentage points when paired daily
 net-return differences are simply summed, but +6.12 percentage points when

@@ -24,7 +24,21 @@ from naturalgas.evaluate_eia930_selected_enhancement import (
 )
 
 
-def test_selected_overlay_reproduces_headline_metrics(tmp_path: Path) -> None:
+def test_selected_overlay_reproduces_headline_metrics(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    sync_requests: list[dict[str, Path]] = []
+
+    def record_sync_request(**kwargs: Path) -> tuple[Path, ...]:
+        sync_requests.append(kwargs)
+        return ()
+
+    monkeypatch.setattr(
+        "naturalgas.evaluate_eia930_selected_enhancement."
+        "synchronize_after_canonical_result",
+        record_sync_request,
+    )
     summary = run(
         formal_daily_path=FORMAL_DAILY,
         overlay_inputs_path=OVERLAY_INPUTS,
@@ -56,6 +70,16 @@ def test_selected_overlay_reproduces_headline_metrics(tmp_path: Path) -> None:
     assert summary["loss_day_diagnostics"]["improved_loss_days"] == 544
     assert (tmp_path / "central_florida_weight_sweep.csv").exists()
     assert (tmp_path / "loss_day_yearly.csv").exists()
+    assert sync_requests == [
+        {
+            "output_dir": tmp_path,
+            "canonical_output_dir": (
+                Path(__file__).resolve().parents[1]
+                / "results/experiments/eia930_selected"
+            ),
+            "root": Path(__file__).resolve().parents[1],
+        }
+    ]
 
 
 def test_selected_daily_contains_costed_return_series() -> None:

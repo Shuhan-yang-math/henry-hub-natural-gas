@@ -47,6 +47,9 @@ from naturalgas.nymex_session_calendar import (  # noqa: E402
 from naturalgas.eia930_florida_availability import (  # noqa: E402
     validate_score_history,
 )
+from naturalgas.sync_documentation_metrics import (  # noqa: E402
+    synchronize_after_canonical_result,
+)
 
 
 FORMAL_DAILY = (
@@ -763,6 +766,11 @@ def run(
     (output_dir / "summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True, default=json_default) + "\n",
         encoding="utf-8",
+    )
+    synchronize_after_canonical_result(
+        output_dir=output_dir,
+        canonical_output_dir=DEFAULT_OUTPUT_DIR,
+        root=PROJECT_ROOT,
     )
     return summary
 

@@ -37,6 +37,9 @@ from naturalgas.shutin_notice_event_controller import (
 )
 from naturalgas.nymex_session_calendar import filter_confirmed_nymex_sessions
 from naturalgas.eia930_florida_availability import validate_score_history
+from naturalgas.sync_documentation_metrics import (
+    synchronize_after_canonical_result,
+)
 
 
 FORMAL_DAILY = (
@@ -778,6 +781,11 @@ def run(
     (output_dir / "summary.json").write_text(
         json.dumps(summary, default=json_default, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
+    )
+    synchronize_after_canonical_result(
+        output_dir=output_dir,
+        canonical_output_dir=DEFAULT_OUTPUT_DIR,
+        root=PROJECT_ROOT,
     )
     return summary
 
