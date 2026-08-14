@@ -5,12 +5,18 @@ import pandas as pd
 
 from naturalgas.evaluate_d1_3_storage_amplified_strategy import (
     FORMAL_DAILY,
+    NET_D1_3,
+    NET_D1_5,
     NET_SELECTED,
+    POS_D1_3,
+    POS_D1_5,
     POS_SELECTED,
     SCORE_INPUTS,
     STORAGE_CALENDAR_CORRECTIONS,
     apply_storage_calendar_corrections,
     build_daily,
+    intervention_summary,
+    metrics_tables,
     performance,
     recompute_guard_states,
     validate_score_inputs,
@@ -70,6 +76,80 @@ def test_hdd_revision_guard_is_disabled_only_in_june_through_august() -> None:
     }
     assert states["hdd_moderate"].equals(states["hdd_strong"])
     assert states["fast_strong"].equals(states["hdd_strong"])
+
+
+def test_performance_includes_inception_drawdown_and_prior_position() -> None:
+    metrics = performance(
+        pd.Series([-0.10, 0.02]),
+        pd.Series(pd.to_datetime(["2025-01-02", "2025-01-03"])),
+        pd.Series([0.4, 0.4]),
+        prior_position=0.1,
+    )
+
+    assert np.isclose(metrics["maximum_drawdown"], -0.10)
+    assert np.isclose(metrics["total_turnover"], 0.30)
+
+
+def test_period_turnover_inherits_previous_full_path_position() -> None:
+    daily = pd.DataFrame(
+        {
+            "date": pd.to_datetime(
+                ["2023-12-29", "2024-01-02", "2024-01-03"]
+            ),
+            NET_D1_5: [0.001, 0.002, -0.001],
+            NET_D1_3: [0.001, 0.002, -0.001],
+            NET_SELECTED: [0.001, 0.002, -0.001],
+            POS_D1_5: [0.2, 0.5, 0.5],
+            POS_D1_3: [0.2, 0.5, 0.5],
+            POS_SELECTED: [0.2, 0.5, 0.5],
+        }
+    )
+
+    _, periods, annual = metrics_tables(daily)
+    first_look = periods.loc[
+        periods["period"].eq("first_look_2024_plus")
+        & periods["variant"].eq("d1_3_storage_amplified")
+    ].iloc[0]
+    year_2024 = annual.loc[
+        annual["year"].eq(2024)
+        & annual["variant"].eq("d1_3_storage_amplified")
+    ].iloc[0]
+
+    assert np.isclose(first_look["total_turnover"], 0.30)
+    assert np.isclose(year_2024["total_turnover"], 0.30)
+
+
+def test_return_difference_summary_separates_sum_and_compounding() -> None:
+    daily = pd.DataFrame(
+        {
+            "guard_blocked_position_date": [True, True],
+            "incremental_net_return_vs_d1_3": [0.10, 0.10],
+            "incremental_net_return_vs_d1_5": [0.05, 0.05],
+            NET_SELECTED: [0.10, 0.10],
+            NET_D1_3: [0.0, 0.0],
+            NET_D1_5: [0.05, 0.05],
+        }
+    )
+
+    summary = intervention_summary(daily)
+
+    assert "incremental_net_return_vs_d1_3" not in summary
+    assert np.isclose(
+        summary["sum_paired_daily_net_return_difference_vs_d1_3"],
+        0.20,
+    )
+    assert np.isclose(
+        summary["compounded_final_wealth_difference_vs_d1_3"],
+        0.21,
+    )
+    assert np.isclose(
+        summary["sum_paired_daily_net_return_difference_vs_d1_5"],
+        0.10,
+    )
+    assert np.isclose(
+        summary["compounded_final_wealth_difference_vs_d1_5"],
+        0.1075,
+    )
 
 
 def test_shipped_selected_strategy_reproduces() -> None:

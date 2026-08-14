@@ -1,9 +1,10 @@
 {
   "change_vs_current_d1_5": {
     "cagr": -0.0014583188011374482,
-    "cumulative_incremental_net_return": -0.011140602990808629,
+    "compounded_final_wealth_difference": -0.028886400657930356,
     "sharpe": 0.10859782650547212,
-    "sortino": 0.21825896653796928
+    "sortino": 0.21825896653796928,
+    "sum_paired_daily_net_return_difference": -0.011140602990808629
   },
   "current_d1_5_metrics": {
     "annualized_downside_deviation": 0.04818078236730959,
@@ -39,13 +40,15 @@
   "florida_minimum_available_ba_count": 6,
   "guard_action": "set a wind-flipped negative score to zero; never create or amplify exposure",
   "intervention_summary": {
+    "compounded_final_wealth_difference_vs_d1_3": 0.0612210896308234,
+    "compounded_final_wealth_difference_vs_d1_5": -0.028886400657930356,
     "helped_dates": 34,
     "hurt_dates": 25,
-    "incremental_net_return_vs_d1_3": 0.018074395254807328,
-    "incremental_net_return_vs_d1_5": -0.011140602990808629,
     "intervention_dates": 59,
     "losses_avoided_or_reduced": 0.06494421546008362,
-    "profits_sacrificed": 0.0466108540852071
+    "profits_sacrificed": 0.0466108540852071,
+    "sum_paired_daily_net_return_difference_vs_d1_3": 0.018074395254807328,
+    "sum_paired_daily_net_return_difference_vs_d1_5": -0.011140602990808629
   },
   "sample_end": "2026-07-13T00:00:00",
   "sample_start": "2019-07-25T00:00:00",

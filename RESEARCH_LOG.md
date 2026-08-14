@@ -112,14 +112,17 @@ figures are retrospective validation, not an untouched holdout.
 On the calendar-corrected daily-available-BA 1,748-day overlap, current D1--5
 records 2.119 net Sharpe, 3.663 Sortino, 19.20% CAGR, and -5.30% maximum
 drawdown. The selected D1--3 version records 2.228 Sharpe, 3.881 Sortino,
-19.06% CAGR, and -4.16% maximum drawdown. Its cumulative simple net-return
-difference versus D1--5 is -1.11 percentage
+19.06% CAGR, and -4.16% maximum drawdown. Its simple sum of paired daily net-
+return differences versus D1--5 is -1.11 percentage
+points, while its compounded final-wealth difference is -2.89 percentage
 points. The decision therefore prioritizes risk-adjusted performance and
 drawdown over maximum cumulative return.
 
 The guard changes 59 held-return dates, helps 34, hurts 25, and adds 1.81
-percentage points relative to unguarded D1--3. Its effect is not positive in
-every year, so the frozen rule remains subject to prospective monitoring.
+percentage points to the sum of paired daily net-return differences relative
+to unguarded D1--3; the corresponding compounded final-wealth difference is
++6.12 percentage points. Its effect is not positive in every year, so the
+frozen rule remains subject to prospective monitoring.
 
 - `naturalgas/evaluate_d1_3_storage_amplified_strategy.py`
 - `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet`

@@ -17,8 +17,11 @@ The selection prioritizes risk-adjusted return and drawdown over the highest
 historical cumulative return. On the exact common sample, the selected version
 raises net Sharpe from 2.119 to 2.228, raises Sortino from 3.663 to 3.881, and
 reduces maximum drawdown from -5.30% to -4.16%. CAGR declines from 19.20% to
-19.06%, and the simple sum of incremental daily net return is -1.11 percentage
-points versus the current D1--5 comparator.
+19.06%, and the simple sum of paired daily net-return differences is -1.11
+percentage points versus the current D1--5 comparator. The separate compounded
+final-wealth difference is -2.89 percentage points. Maximum drawdown starts
+from initial wealth 1.0, and subperiod turnover inherits the actual position
+immediately before the period boundary.
 
 ## Rule
 
@@ -64,7 +67,8 @@ without wind.
 The horizon change provides most of the drawdown reduction. Relative to the
 unguarded D1--3 strategy, the storage-amplified guard raises Sharpe by 0.047,
 Sortino by 0.094, and the simple sum of daily net-return differences by 1.81
-percentage points.
+percentage points. The compounded final-wealth difference is +6.12 percentage
+points; it is not the same metric as the paired daily sum.
 
 This refresh fixes both the NYMEX holiday-session/early-roll path and the EIA
 WNGSR holiday release calendar. The D1--3 overlay changes 23 affected score
@@ -79,7 +83,9 @@ removes the SCEG coupling and retains all five previously omitted returns.
 The guard changes 59 held-return dates. It helps on 34 dates and hurts on 25.
 It avoids or reduces 6.49 percentage points of losses on helped dates and
 sacrifices 4.66 percentage points of profits on hurt dates, for a net gain of
-1.81 percentage points relative to unguarded D1--3.
+1.81 percentage points in paired daily net-return differences relative to
+unguarded D1--3. Comparing compounded final wealth gives +6.12 percentage
+points.
 
 The fixed validation-block Sharpe for 2021--2023 rises from 2.232 for
 unguarded D1--3 to 2.279 for the selected strategy. The 2024+ first-look block

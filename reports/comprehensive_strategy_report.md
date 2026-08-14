@@ -66,8 +66,9 @@ the selected Central 40% / Florida 60% sleeve and event veto.
 
 The selected version improves Sharpe by 0.108 and Sortino by 0.218 versus the
 D1--5 comparator while reducing maximum drawdown by 1.14 percentage points.
-Its simple sum of daily incremental net returns is -1.11 percentage points, so
-the choice explicitly prioritizes risk-adjusted performance and drawdown over
+Its simple sum of paired daily net-return differences is -1.11 percentage
+points, while its compounded final-wealth difference is -2.89 percentage points. The
+choice explicitly prioritizes risk-adjusted performance and drawdown over
 maximum cumulative return. The 2017-start formal artifact is reported
 separately because its history is longer.
 

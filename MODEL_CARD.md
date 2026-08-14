@@ -191,6 +191,16 @@ and not statistically decisive.
 | Maximum drawdown | -5.30% | **-4.16%** | **-4.16%** |
 | Total net return | **240.11%** | 231.09% | 237.22% |
 
+Selected minus unguarded D1--3 is +1.81 percentage points when paired daily
+net-return differences are simply summed, but +6.12 percentage points when
+the two final compounded wealth levels are compared. Selected minus D1--5 is
+-1.11 and -2.89 percentage points on those respective definitions.
+
+Maximum drawdown is measured from initial wealth 1.0, so a loss on the first
+reported day is included. Period and annual turnover inherit the actual
+position immediately before the reporting boundary, consistent with the
+transaction cost already embedded in the continuous full-path net returns.
+
 These are 1,748-day common-overlap results for the already-selected 40%
 Central / 60% Florida sleeve. The D1--3 choice raises risk-adjusted performance
 and reduces drawdown while accepting lower CAGR and cumulative return than the

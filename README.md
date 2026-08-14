@@ -59,7 +59,10 @@ This is an explicit risk-adjusted selection: Sharpe, Sortino, and drawdown
 improve, while CAGR and cumulative return remain below the D1--5 comparator.
 The HDD guard is disabled in June--August and active in every other month;
 there is no CDD branch. It changes 59 held-return dates and adds 1.81
-percentage points versus unguarded D1--3 after costs.
+percentage points to the simple sum of paired daily net-return differences
+versus unguarded D1--3 after costs; the corresponding compounded final-wealth
+difference is +6.12 percentage points. Versus D1--5, those two distinct
+quantities are -1.11 and -2.89 percentage points, respectively.
 
 These figures include the NYMEX holiday-session correction, the audited EIA
 WNGSR holiday release calendar, and a continuous Florida signal built from all

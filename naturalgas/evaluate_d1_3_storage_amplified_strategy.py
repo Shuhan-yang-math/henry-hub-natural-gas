@@ -117,6 +117,8 @@ def performance(
     net: pd.Series,
     dates: pd.Series,
     position: pd.Series,
+    *,
+    prior_position: float = 0.0,
 ) -> dict[str, Any]:
     sample = pd.DataFrame(
         {"date": dates, "net_return": net, "position": position}
@@ -125,6 +127,7 @@ def performance(
         return {"trading_days": len(sample), "sharpe": np.nan}
     log_return = np.log1p(sample["net_return"])
     wealth = (1.0 + sample["net_return"]).cumprod()
+    running_peak = wealth.cummax().clip(lower=1.0)
     years = max(
         (sample["date"].iloc[-1] - sample["date"].iloc[0]).days
         / 365.2425,
@@ -135,9 +138,9 @@ def performance(
     downside_deviation = float(
         np.sqrt(np.square(downside).mean()) * np.sqrt(252.0)
     )
-    turnover = sample["position"].diff().abs().fillna(
-        sample["position"].abs()
-    )
+    previous_position = sample["position"].shift(1)
+    previous_position.iloc[0] = prior_position
+    turnover = (sample["position"] - previous_position).abs()
     return {
         "trading_days": len(sample),
         "start": sample["date"].iloc[0],
@@ -151,7 +154,7 @@ def performance(
             else np.nan
         ),
         "annualized_downside_deviation": downside_deviation,
-        "maximum_drawdown": float((wealth / wealth.cummax() - 1.0).min()),
+        "maximum_drawdown": float((wealth / running_peak - 1.0).min()),
         "win_rate": float(sample["net_return"].gt(0.0).mean()),
         "total_turnover": float(turnover.sum()),
         "mean_absolute_position": float(sample["position"].abs().mean()),
@@ -453,6 +456,13 @@ def metrics_tables(
     full_rows: list[dict[str, Any]] = []
     period_rows: list[dict[str, Any]] = []
     annual_rows: list[dict[str, Any]] = []
+
+    def position_before(mask: pd.Series, column: str) -> float:
+        selected_rows = np.flatnonzero(mask.to_numpy())
+        if not len(selected_rows) or selected_rows[0] == 0:
+            return 0.0
+        return float(daily.iloc[selected_rows[0] - 1][column])
+
     for name, (net_column, position_column) in variants.items():
         result = performance(daily[net_column], daily["date"], daily[position_column])
         result["variant"] = name
@@ -463,12 +473,17 @@ def metrics_tables(
                 daily.loc[mask, net_column],
                 daily.loc[mask, "date"],
                 daily.loc[mask, position_column],
+                prior_position=position_before(mask, position_column),
             )
             result.update({"variant": name, "period": period})
             period_rows.append(result)
-        for year, group in daily.groupby(daily["date"].dt.year):
+        for year in daily["date"].dt.year.unique():
+            mask = daily["date"].dt.year.eq(year)
             result = performance(
-                group[net_column], group["date"], group[position_column]
+                daily.loc[mask, net_column],
+                daily.loc[mask, "date"],
+                daily.loc[mask, position_column],
+                prior_position=position_before(mask, position_column),
             )
             result.update({"variant": name, "year": int(year)})
             annual_rows.append(result)
@@ -492,9 +507,19 @@ def intervention_summary(daily: pd.DataFrame) -> dict[str, Any]:
         "profits_sacrificed": float(
             -incremental.loc[active & incremental.lt(0.0)].sum()
         ),
-        "incremental_net_return_vs_d1_3": float(incremental.sum()),
-        "incremental_net_return_vs_d1_5": float(
+        "sum_paired_daily_net_return_difference_vs_d1_3": float(
+            incremental.sum()
+        ),
+        "sum_paired_daily_net_return_difference_vs_d1_5": float(
             daily["incremental_net_return_vs_d1_5"].sum()
+        ),
+        "compounded_final_wealth_difference_vs_d1_3": float(
+            (1.0 + daily[NET_SELECTED]).prod()
+            - (1.0 + daily[NET_D1_3]).prod()
+        ),
+        "compounded_final_wealth_difference_vs_d1_5": float(
+            (1.0 + daily[NET_SELECTED]).prod()
+            - (1.0 + daily[NET_D1_5]).prod()
         ),
     }
 
@@ -518,12 +543,16 @@ def plot_dashboard(
     drawdown: dict[str, pd.Series] = {}
     for name, (net_column, _, _) in definitions.items():
         wealth[name] = (1.0 + daily[net_column]).cumprod()
-        drawdown[name] = wealth[name] / wealth[name].cummax() - 1.0
+        drawdown[name] = (
+            wealth[name] / wealth[name].cummax().clip(lower=1.0) - 1.0
+        )
 
     metric_index = metrics.set_index("variant")
     annual_pivot = annual.pivot(index="year", columns="variant", values="sharpe")
     years = annual_pivot.index.to_numpy()
-    cumulative_incremental = daily["incremental_net_return_vs_d1_5"].cumsum() * 100.0
+    cumulative_paired_difference = (
+        daily["incremental_net_return_vs_d1_5"].cumsum() * 100.0
+    )
     interventions = daily["guard_blocked_position_date"].fillna(False)
 
     figure, axes = plt.subplots(2, 2, figsize=(18, 12), constrained_layout=True)
@@ -568,13 +597,13 @@ def plot_dashboard(
     axes[1, 0].grid(axis="y", alpha=0.25)
 
     axes[1, 1].plot(
-        daily["date"], cumulative_incremental,
+        daily["date"], cumulative_paired_difference,
         color="#d95f02", linewidth=2.0,
-        label="Selected minus current D1-5 net return",
+        label="Cumulative sum of selected minus D1-5 daily net returns",
     )
     axes[1, 1].scatter(
         daily.loc[interventions, "date"],
-        cumulative_incremental.loc[interventions],
+        cumulative_paired_difference.loc[interventions],
         s=36,
         color="#0077b6",
         edgecolor="white",
@@ -582,8 +611,8 @@ def plot_dashboard(
         label="Storage-amplified wind-flip block",
     )
     axes[1, 1].axhline(0.0, color="#6b7280", linewidth=0.8)
-    axes[1, 1].set_title("Selected Strategy Increment versus Current D1-5")
-    axes[1, 1].set_ylabel("Cumulative incremental net return (pp)")
+    axes[1, 1].set_title("Paired Daily Net-Return Difference versus D1-5")
+    axes[1, 1].set_ylabel("Cumulative sum of paired daily differences (pp)")
     axes[1, 1].legend(loc="upper left")
     axes[1, 1].grid(alpha=0.25)
 
@@ -690,8 +719,11 @@ def run(
             "sharpe": selected["sharpe"] - current["sharpe"],
             "sortino": selected["sortino"] - current["sortino"],
             "cagr": selected["cagr"] - current["cagr"],
-            "cumulative_incremental_net_return": float(
+            "sum_paired_daily_net_return_difference": float(
                 daily["incremental_net_return_vs_d1_5"].sum()
+            ),
+            "compounded_final_wealth_difference": float(
+                selected["total_return"] - current["total_return"]
             ),
         },
         "intervention_summary": interventions,
