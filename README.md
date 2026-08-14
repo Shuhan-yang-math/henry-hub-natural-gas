@@ -177,14 +177,16 @@ python -m naturalgas.pipelines.rebuild_all --overwrite
 
 This validates 72 master-panel input objects, 254 NCAR/GDEX weather
 partitions, and two frozen capacity-weight snapshots. It then rebuilds the
-155-column master panel, all three selected wind/solar artifacts, and the
-formal strategy. The panel and three weather-factor parquets are checked
-against their approved SHA-256 values; the formal strategy is checked against
-its approved headline metrics and summary hash before the verified output
-directory is published.
+155-column master panel, the selected wind/solar artifacts, the causal
+D1/D1--3/D1--5 wind-horizon lineage, the formal strategy, and the selected
+D1--3 strategy. The panel and all four weather-factor parquets are checked
+against their approved SHA-256 values. The formal and selected strategies are
+then checked against their shipped metrics before the verified output
+directory is published. The command only reads GCS and writes local outputs.
 
-For a quicker panel-to-strategy audit that downloads the already-approved
-weather factors, use:
+For a quicker formal panel-to-strategy audit that downloads the
+already-approved weather factors and skips the selected D1--3 raw-lineage
+step, use:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_all \
@@ -228,8 +230,8 @@ This command refreshes the selected daily series, annual metrics, event
 registry, summary, and English dashboard under
 `results/experiments/eia930_selected/`.
 
-The current selected D1--3 strategy is also reproduced entirely from
-checked-in audit inputs:
+The quickest offline reproduction of the current selected D1--3 strategy uses
+the checked-in compact audit input:
 
 ```bash
 python naturalgas/rebuild_hdd_guard_seasonality.py
@@ -240,6 +242,21 @@ This refreshes the selected daily series, full/period/annual metrics, event
 registry, summary, and English dashboard under
 `results/experiments/d1_3_storage_amplified/`.
 
+To audit the previously frozen D1--3 wind boundary from its raw source, use:
+
+```bash
+python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
+```
+
+This command reads the exact 127 NCAR/GDEX GFS object generations pinned in
+`manifests/weather_factor_inputs_2026-07-28.json`, selects same-day 00Z issues
+and D1--3 leads, applies the frozen annual capacity vintage, constructs the
+past-only 60-initialization z-score, and requires exact daily equality with
+both wind columns consumed by the selected strategy. It then runs the selected
+evaluator and writes a reproduction receipt under `reproduced/d1_3_strategy/`.
+Use `rebuild_all` above when the formal baseline must also be rebuilt from its
+generation-pinned GCS inputs in the same run.
+
 Networked integration tests are opt-in because ordinary CI may not have access
 to the private bucket:
 
@@ -247,6 +264,7 @@ to the private bucket:
 RUN_HENRY_HUB_INTEGRATION=1 pytest -q tests/test_rebuild_final_backtest.py
 RUN_GCS_PANEL_PARITY=1 pytest -q tests/test_build_multisignal_panel.py
 RUN_HENRY_HUB_WEATHER_CHAIN=1 pytest -q tests/test_rebuild_weather_factors.py
+RUN_HENRY_HUB_D1_3_CHAIN=1 pytest -q tests/test_rebuild_d1_3_strategy.py
 RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 ```
 
@@ -280,11 +298,15 @@ direct input to the selected capacity-weighted artifact.
 The complete weather-factor inventory is
 [`manifests/weather_factor_inputs_2026-07-28.json`](manifests/weather_factor_inputs_2026-07-28.json).
 It enumerates all 127 wind and 127 solar partitions and the frozen wind/solar
-capacity-weight snapshots. The factor-only command is also available for
-separate audits:
+capacity-weight snapshots. It pins the byte-exact D1/D1--3/D1--5 output as
+well as the formal wind/solar outputs. The factor-only commands are also
+available for separate audits:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_weather_factors wind \
+  --input-manifest manifests/weather_factor_inputs_2026-07-28.json \
+  --output-dir reproduced/weather
+python -m naturalgas.pipelines.rebuild_weather_factors wind-horizons \
   --input-manifest manifests/weather_factor_inputs_2026-07-28.json \
   --output-dir reproduced/weather
 python -m naturalgas.pipelines.rebuild_weather_factors solar \

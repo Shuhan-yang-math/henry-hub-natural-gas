@@ -103,6 +103,19 @@ python naturalgas/rebuild_hdd_guard_seasonality.py
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
 
+The commands above are the compact offline/downstream reproduction. To rebuild
+the D1--3 wind signal from its immutable GCS source before running the same
+evaluator, use:
+
+```bash
+python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
+```
+
+That pipeline reads the exact GFS object generations in the weather manifest,
+reconstructs same-day 00Z D1/D1--3/D1--5 signals with a past-only rolling
+reference, requires exact parity with the strategy input, and writes a lineage
+receipt together with the reproduced strategy outputs.
+
 The evaluator validates every frozen guard state and recomputes the guarded
 score, one-session position, BSEE/Sabine veto, transaction cost, performance
 tables, and dashboard. It reads:

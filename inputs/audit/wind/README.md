@@ -38,8 +38,14 @@ The weather-revision guard uses HDD in January--May and September--December,
 is disabled in June--August, and has no CDD branch. Recompute the frozen guard
 flags and selected score with `naturalgas/rebuild_hdd_guard_seasonality.py`.
 
-This file is a derived audit boundary, not a substitute for the raw NCAR/GDEX,
-EIA-930, storage, or production-weather source archives.
+This file remains the compact offline/downstream audit boundary for EIA-930,
+storage, production weather, and guard state. Its two wind columns are also
+verified upstream: `python -m naturalgas.pipelines.rebuild_d1_3_strategy
+--overwrite` reads the exact raw NCAR/GDEX GFS generations declared in
+`manifests/weather_factor_inputs_2026-07-28.json`, rebuilds D1/D1--3/D1--5,
+and requires bit-for-bit numeric and missing-date parity before running the
+strategy. The resulting receipt records the raw-built horizon hash, compact
+input hash, issue cycle, matched rows, and missing initialization dates.
 
 Florida now uses one continuous rolling history built from every complete BA
 on each source day. Partial-BA observations are retained in the future

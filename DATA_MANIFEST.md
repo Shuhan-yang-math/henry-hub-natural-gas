@@ -18,7 +18,7 @@ From `henry-hub-natural-gas/`, install the Python dependencies and run:
 python -m naturalgas.pipelines.rebuild_all --overwrite
 ```
 
-The default command performs five steps:
+The default command performs six steps:
 
 1. validates and downloads the 72 generation-pinned direct inputs used by the
    155-column master-panel builder;
@@ -28,14 +28,18 @@ The default command performs five steps:
    the five 2019 settlement carry rows on January 21, February 18, May 27,
    September 2, and December 25) and the actual WNGSR holiday release calendar,
    verifies its corrected SHA-256, and rebuilds the three selected wind/solar
-   artifacts byte-for-byte;
+   artifacts plus the D1/D1--3/D1--5 horizon lineage byte-for-byte;
 4. routes the three EIA reads through immutable local snapshots rather than
    mutable live GCS keys; and
 5. rebuilds the formal result and verifies its headline metrics and complete
-   summary-file SHA-256 against the shipped summary.
+   summary-file SHA-256 against the shipped summary; and
+6. requires the raw-rebuilt D1--3 and D1--5 wind signals to equal the compact
+   selected-strategy input on every score date, then rebuilds and verifies the
+   selected D1--3 result.
 
-For a quicker audit that rebuilds the master panel but downloads the three
-approved wind/solar artifacts, run:
+For a quicker formal-only audit that rebuilds the master panel but downloads
+the three approved wind/solar artifacts and skips the selected D1--3 raw-wind
+lineage, run:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_all \
@@ -138,9 +142,11 @@ Rebuild those artifacts with:
 python naturalgas/evaluate_eia930_selected_enhancement.py
 ```
 
-The current selected D1--3 strategy additionally reads the frozen wind/guard
-input with embedded Florida BA coverage and the narrow WNGSR correction
-overlay above and writes:
+The current selected D1--3 strategy reads the compact wind/guard input with
+embedded Florida BA coverage and the narrow WNGSR correction overlay above.
+Its wind columns are no longer accepted as an unaudited frozen boundary: the
+strict pipeline rebuilds them from the generation-pinned GCS GFS archive and
+requires exact equality before the evaluator runs. The strategy writes:
 
 ```text
 results/experiments/d1_3_storage_amplified/selected_strategy_daily.parquet
@@ -161,6 +167,17 @@ python naturalgas/build_wngsr_d1_3_corrections.py \
 python naturalgas/rebuild_hdd_guard_seasonality.py
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
+
+That is the fast offline/downstream path. The strict raw-wind-to-result path is:
+
+```bash
+python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
+```
+
+It writes the raw-rebuilt `wind_horizon_signals.parquet`, selected-strategy
+artifacts, and a lineage receipt under `reproduced/d1_3_strategy/`. For the
+formal master panel and selected strategy in one transaction, use
+`python -m naturalgas.pipelines.rebuild_all --overwrite`.
 
 The byte-exact weather rebuild additionally uses the checked-in frozen
 capacity snapshots below. The Parquet wind snapshot preserves the original
@@ -191,6 +208,13 @@ forecast days 1–5, and valid hours 00/06/12/18 UTC. The
 `processed/weather/.../wind_daily/` tree is a separate intermediate used by an
 earlier equal-location path; it is not the direct source of the selected
 capacity-weighted artifact.
+
+The manifest pins all 127 monthly objects by GCS generation, byte size, and
+SHA-256. `rebuild_weather_factors wind-horizons` reads those immutable object
+versions, keeps only 00Z, requires all 28 locations × 4 valid hours for every
+requested lead, applies the frozen issue-year-minus-one annual fleet weights,
+and computes each rolling z-score from prior initializations only. The approved
+3,857-row horizon parquet is itself pinned by SHA-256 in the same manifest.
 
 ## Reproduction boundary
 

@@ -1032,6 +1032,11 @@
         "rows": 3857,
         "size_bytes": 1107227,
         "sha256": "95f21e375f0b18eed4cb748cb764957778773e9630e445c325184520f5d55081"
+      },
+      "wind_horizon_signals.parquet": {
+        "rows": 3857,
+        "size_bytes": 374219,
+        "sha256": "34fb31802a41144e5ed842d2433a1b67db8d93810cf900835c875913f62db94c"
       }
     }
   },

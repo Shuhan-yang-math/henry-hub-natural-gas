@@ -50,6 +50,7 @@ import numpy as np
 import pandas as pd
 
 from naturalgas.evaluate_ncar_gdex_complete_wind_factor import (
+    SHEAR_EXPONENT,
     build_annual_location_weights,
     build_capacity_features,
 )
@@ -60,6 +61,10 @@ from naturalgas.ncar_gdex_capacity_weighted_solar import (
     build_monthly_location_weights,
 )
 from naturalgas.ncar_gdex_wind_backfill_to_gcs import LOCATIONS
+from naturalgas.ncar_gdex_nonlinear_wind import (
+    causal_zscore,
+    nonlinear_power_components,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -67,9 +72,19 @@ DEFAULT_OUTPUT_DIR = (
     PROJECT_ROOT / "naturalgas/processed/rebuilt_weather_factors"
 )
 WIND_OUTPUT_NAME = "capacity_weighted_wind_features_daily.parquet"
+WIND_HORIZON_OUTPUT_NAME = "wind_horizon_signals.parquet"
 SOLAR_SIGNAL_OUTPUT_NAME = "capacity_weighted_solar_signals.parquet"
 SOLAR_LEAD_OUTPUT_NAME = "capacity_weighted_location_leads.parquet"
 PRIMARY_CYCLE_UTC = 0
+WIND_HORIZONS: dict[str, tuple[int, ...]] = {
+    "d1": (1,),
+    "d1_3": (1, 2, 3),
+    "d1_5": (1, 2, 3, 4, 5),
+}
+WIND_Z_CAP = 2.0
+WIND_Z_WINDOW = 60
+WIND_Z_MIN_PERIODS = 30
+EXPECTED_VALID_HOURS_PER_LEAD = 4
 CAPACITY_LAG_MONTHS = 2
 MINIMUM_SOLAR_CAPACITY_COVERAGE = 0.995
 EXPECTED_LOCATION_IDS = frozenset(location.location_id for location in LOCATIONS)
@@ -331,7 +346,7 @@ def _manifest_approved_outputs(
             f"manifest {component}.approved_outputs must be an object"
         )
     expected_names = (
-        {WIND_OUTPUT_NAME}
+        {WIND_OUTPUT_NAME, WIND_HORIZON_OUTPUT_NAME}
         if component == "wind"
         else {SOLAR_LEAD_OUTPUT_NAME, SOLAR_SIGNAL_OUTPUT_NAME}
     )
@@ -375,6 +390,24 @@ def _manifest_approved_outputs(
             )
         )
     return tuple(outputs)
+
+
+def _approved_outputs_for(
+    inputs: FactorInputs,
+    *filenames: str,
+) -> tuple[ApprovedOutput, ...]:
+    """Select the approved serializations produced by one build operation."""
+
+    requested = set(filenames)
+    selected = tuple(
+        item for item in inputs.approved_outputs if item.filename in requested
+    )
+    if inputs.approved_outputs and {item.filename for item in selected} != requested:
+        missing = sorted(requested - {item.filename for item in selected})
+        raise FactorBuildInputError(
+            f"manifest has no approved output declaration for {missing}"
+        )
+    return selected
 
 
 def _validated_inputs(inputs: FactorInputs, *, component: str) -> FactorInputs:
@@ -905,6 +938,174 @@ def _wind_weights(
     return weights, diagnostics
 
 
+def build_wind_horizon_signals(
+    *,
+    inputs: FactorInputs,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Rebuild causal D1, D1--3 and D1--5 signals from pinned raw points."""
+
+    filesystem = ReadOnlyPartitionFileSystem(inputs.artifacts)
+    first_year, last_year = _validate_wind_weather(
+        inputs.weather_uris,
+        filesystem,
+    )
+    weights, _ = _wind_weights(inputs, filesystem)
+    missing_years = sorted(
+        set(range(first_year, last_year + 1)).difference(weights["issue_year"])
+    )
+    if missing_years:
+        raise FactorBuildInputError(
+            f"annual wind weights do not cover issue years {missing_years}"
+        )
+
+    columns = [
+        "forecast_reference_time_utc",
+        "forecast_cycle_hour_utc",
+        "location_id",
+        "lead_days",
+        "wind_speed_80m_mps",
+    ]
+    frames: list[pd.DataFrame] = []
+    input_00z_rows = 0
+    for path in sorted(inputs.weather_uris):
+        month = _read_frame(path, filesystem, columns=columns)
+        month = month.loc[
+            month["forecast_cycle_hour_utc"].eq(PRIMARY_CYCLE_UTC)
+        ].copy()
+        input_00z_rows += len(month)
+        month["issue_year"] = pd.to_datetime(
+            month["forecast_reference_time_utc"], utc=True
+        ).dt.year
+        month = month.merge(
+            weights[
+                ["issue_year", "location_id", "capacity_mw", "hub_height_m"]
+            ],
+            on=["issue_year", "location_id"],
+            how="left",
+            validate="many_to_one",
+        )
+        if month[["capacity_mw", "hub_height_m"]].isna().any().any():
+            raise FactorBuildInputError(
+                f"wind partition has no annual capacity weight: {path}"
+            )
+        month["wind_speed_hub_mps"] = month["wind_speed_80m_mps"] * (
+            month["hub_height_m"] / 80.0
+        ) ** SHEAR_EXPONENT
+        month["total_shortfall_cf"] = nonlinear_power_components(
+            month["wind_speed_hub_mps"]
+        )["total_shortfall_cf"]
+        month["weighted_shortfall"] = (
+            month["total_shortfall_cf"] * month["capacity_mw"]
+        )
+
+        monthly: pd.DataFrame | None = None
+        for name, lead_days in WIND_HORIZONS.items():
+            subset = month.loc[month["lead_days"].isin(lead_days)]
+            grouped = subset.groupby(
+                "forecast_reference_time_utc",
+                as_index=False,
+            ).agg(
+                sample_count=("wind_speed_80m_mps", "count"),
+                weight_sum=("capacity_mw", "sum"),
+                weighted_shortfall_sum=("weighted_shortfall", "sum"),
+            )
+            expected = (
+                len(LOCATIONS)
+                * EXPECTED_VALID_HOURS_PER_LEAD
+                * len(lead_days)
+            )
+            grouped = grouped.loc[grouped["sample_count"].eq(expected)].copy()
+            grouped[f"shortfall_cf__{name}"] = (
+                grouped["weighted_shortfall_sum"] / grouped["weight_sum"]
+            )
+            grouped = grouped[
+                ["forecast_reference_time_utc", f"shortfall_cf__{name}"]
+            ]
+            monthly = (
+                grouped
+                if monthly is None
+                else monthly.merge(
+                    grouped,
+                    on="forecast_reference_time_utc",
+                    how="inner",
+                    validate="one_to_one",
+                )
+            )
+        if monthly is None:
+            raise FactorBuildInputError(
+                f"wind partition produced no horizon features: {path}"
+            )
+        frames.append(monthly)
+
+    result = (
+        pd.concat(frames, ignore_index=True)
+        .sort_values("forecast_reference_time_utc")
+        .reset_index(drop=True)
+    )
+    result["date"] = pd.to_datetime(
+        result["forecast_reference_time_utc"], utc=True
+    ).dt.tz_localize(None).dt.normalize()
+    if not result["date"].is_unique:
+        raise FactorBuildInputError(
+            "wind horizon build produced duplicate 00Z issue dates"
+        )
+    for name in WIND_HORIZONS:
+        result[f"wind_z__{name}"] = causal_zscore(
+            result[f"shortfall_cf__{name}"],
+            window=WIND_Z_WINDOW,
+            min_periods=WIND_Z_MIN_PERIODS,
+        )
+        result[f"wind_signal__{name}"] = np.tanh(
+            result[f"wind_z__{name}"].clip(-WIND_Z_CAP, WIND_Z_CAP) / 2.0
+        )
+
+    issue = pd.to_datetime(result["forecast_reference_time_utc"], utc=True)
+    if not issue.dt.hour.eq(PRIMARY_CYCLE_UTC).all():
+        raise FactorBuildInputError("wind horizon output contains a non-00Z issue")
+    return result, {
+        "weather_partition_count": len(inputs.weather_partitions),
+        "input_00z_rows": input_00z_rows,
+        "complete_initializations": len(result),
+        "forecast_horizons": WIND_HORIZONS,
+        "expected_d1_3_samples_per_initialization": (
+            len(LOCATIONS) * EXPECTED_VALID_HOURS_PER_LEAD * 3
+        ),
+        "rolling_window": WIND_Z_WINDOW,
+        "rolling_min_periods": WIND_Z_MIN_PERIODS,
+        "rolling_current_observation_excluded": True,
+    }
+
+
+def rebuild_wind_horizons(
+    *,
+    inputs: FactorInputs,
+    output_dir: Path,
+) -> dict[str, Any]:
+    """Write the generation-pinned D1/D1--3/D1--5 lineage artifact."""
+
+    output = output_dir / WIND_HORIZON_OUTPUT_NAME
+    _ensure_targets_absent([output])
+    signals, quality = build_wind_horizon_signals(inputs=inputs)
+    metadata = _write_parquet_outputs_no_overwrite(
+        [(signals, output, "zstd")],
+        approved_outputs=_approved_outputs_for(
+            inputs,
+            WIND_HORIZON_OUTPUT_NAME,
+        ),
+    )
+    return {
+        "component": "wind_horizons",
+        "status": "built",
+        "output": str(output),
+        "rows": len(signals),
+        "first_reference_time": signals["forecast_reference_time_utc"].min(),
+        "last_reference_time": signals["forecast_reference_time_utc"].max(),
+        "capacity_kind": inputs.capacity_kind,
+        "output_integrity": metadata[output.name],
+        "quality": quality,
+    }
+
+
 def rebuild_selected_wind(
     *,
     inputs: FactorInputs,
@@ -945,7 +1146,7 @@ def rebuild_selected_wind(
         )
     output_metadata = _write_parquet_outputs_no_overwrite(
         [(selected, output, "zstd")],
-        approved_outputs=inputs.approved_outputs,
+        approved_outputs=_approved_outputs_for(inputs, WIND_OUTPUT_NAME),
     )
     return {
         "component": "wind",
@@ -1261,6 +1462,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="rebuild the selected 00Z capacity-weighted wind parquet",
     )
     _add_input_arguments(wind, component="wind")
+    wind_horizons = subparsers.add_parser(
+        "wind-horizons",
+        help="rebuild causal 00Z D1, D1-3 and D1-5 wind signals",
+    )
+    _add_input_arguments(wind_horizons, component="wind")
     solar = subparsers.add_parser(
         "solar",
         help="rebuild capacity-weighted solar leads and causal signals",
@@ -1277,10 +1483,18 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
-        inputs = _cli_inputs(args, component=args.component)
+        input_component = (
+            "wind" if args.component == "wind-horizons" else args.component
+        )
+        inputs = _cli_inputs(args, component=input_component)
         output_dir = _local_output_dir(args.output_dir)
         if args.component == "wind":
             result = rebuild_selected_wind(
+                inputs=inputs,
+                output_dir=output_dir,
+            )
+        elif args.component == "wind-horizons":
+            result = rebuild_wind_horizons(
                 inputs=inputs,
                 output_dir=output_dir,
             )

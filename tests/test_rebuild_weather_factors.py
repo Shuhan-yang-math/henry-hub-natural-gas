@@ -8,10 +8,12 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from naturalgas.ncar_gdex_nonlinear_wind import causal_zscore
 from naturalgas.ncar_gdex_wind_backfill_to_gcs import LOCATIONS
 from naturalgas.pipelines.rebuild_weather_factors import (
     SOLAR_LEAD_OUTPUT_NAME,
     SOLAR_SIGNAL_OUTPUT_NAME,
+    WIND_HORIZON_OUTPUT_NAME,
     WIND_OUTPUT_NAME,
     FactorBuildInputError,
     InputArtifact,
@@ -21,6 +23,7 @@ from naturalgas.pipelines.rebuild_weather_factors import (
     main,
     rebuild_selected_wind,
     rebuild_solar,
+    rebuild_wind_horizons,
 )
 
 
@@ -28,6 +31,20 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WEATHER_MANIFEST = (
     PROJECT_ROOT / "manifests/weather_factor_inputs_2026-07-28.json"
 )
+
+
+def test_wind_horizon_zscore_excludes_current_and_future_values() -> None:
+    values = pd.Series(range(32), dtype=float)
+    actual = causal_zscore(values, window=30, min_periods=30)
+    expected = (values.iloc[30] - values.iloc[:30].mean()) / values.iloc[
+        :30
+    ].std()
+    assert actual.iloc[30] == pytest.approx(expected)
+
+    changed_future = values.copy()
+    changed_future.iloc[31] = 1_000_000.0
+    changed = causal_zscore(changed_future, window=30, min_periods=30)
+    pd.testing.assert_series_equal(actual.iloc[:31], changed.iloc[:31])
 
 
 def _artifact(path: Path) -> dict[str, object]:
@@ -76,6 +93,16 @@ def test_approved_weather_manifest_is_complete_and_matches_formal_inputs() -> No
             capacity["sha256"]
         )
         for filename, approved in section["approved_outputs"].items():
+            if filename == WIND_HORIZON_OUTPUT_NAME:
+                assert approved == {
+                    "rows": 3857,
+                    "size_bytes": 374219,
+                    "sha256": (
+                        "34fb31802a41144e5ed842d2433a1b67d"
+                        "b8d93810cf900835c875913f62db94c"
+                    ),
+                }
+                continue
             formal_artifact = formal_by_id[expected_outputs[filename]]
             assert approved["rows"] == formal_artifact["rows"]
             assert approved["size_bytes"] == formal_artifact["size_bytes"]
@@ -93,11 +120,19 @@ def test_pinned_weather_partitions_rebuild_approved_outputs(
         inputs=load_factor_inputs(WEATHER_MANIFEST, "wind"),
         output_dir=tmp_path,
     )
+    horizons = rebuild_wind_horizons(
+        inputs=load_factor_inputs(WEATHER_MANIFEST, "wind"),
+        output_dir=tmp_path,
+    )
     solar = rebuild_solar(
         inputs=load_factor_inputs(WEATHER_MANIFEST, "solar"),
         output_dir=tmp_path,
     )
     assert wind["rows"] == 3857
+    assert horizons["rows"] == 3857
+    assert horizons["output_integrity"]["sha256"] == (
+        "34fb31802a41144e5ed842d2433a1b67db8d93810cf900835c875913f62db94c"
+    )
     assert solar["signal_rows"] == 15448
     assert solar["lead_rows"] == 77225
 
@@ -182,7 +217,7 @@ def test_help_states_frozen_snapshot_boundary(
     output = capsys.readouterr().out
     assert "frozen USWTDB" in output
     assert "frozen EIA" in output
-    assert "{wind,solar}" in output
+    assert "{wind,wind-horizons,solar}" in output
 
 
 def test_input_filesystem_rejects_writes(tmp_path: Path) -> None:
@@ -279,6 +314,19 @@ def test_local_factor_only_wind_and_solar_smoke(tmp_path: Path) -> None:
     assert len(wind) == 1
     assert wind["forecast_cycle_hour_utc"].eq(0).all()
     assert wind["sample_count"].eq(len(LOCATIONS) * 5 * 4).all()
+
+    horizon_output = tmp_path / "wind_horizon_output"
+    assert main([
+        "wind-horizons",
+        "--input-manifest",
+        str(manifest),
+        "--output-dir",
+        str(horizon_output),
+    ]) == 0
+    horizons = pd.read_parquet(horizon_output / WIND_HORIZON_OUTPUT_NAME)
+    assert len(horizons) == 1
+    assert horizons["forecast_reference_time_utc"].dt.hour.eq(0).all()
+    assert horizons["wind_z__d1_3"].isna().all()
 
     original_bytes = wind_path.read_bytes()
     with pytest.raises(SystemExit) as caught:

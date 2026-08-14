@@ -1,11 +1,12 @@
-"""Rebuild the master panel and approved strategy from immutable inputs.
+"""Rebuild the master panel and approved strategies from immutable inputs.
 
 The command verifies the 72 direct objects declared for the 155-column master
 panel plus 254 weather partitions and two frozen capacity-weight snapshots.
 It rebuilds the panel after applying the audited NYMEX session filter and
-rebuilds the three wind/solar artifacts byte-for-byte, then uses the pinned EIA
-inputs to recompute the approved strategy. All outputs are local; this entry
-point has no GCS write capability.
+rebuilds the selected wind/solar artifacts plus the D1--3 horizon lineage
+byte-for-byte, then uses the pinned EIA inputs to recompute the formal and
+selected D1--3 strategies. All outputs are local; this entry point has no GCS
+write capability.
 """
 
 from __future__ import annotations
@@ -21,10 +22,19 @@ from naturalgas.build_multisignal_panel import (
     write_panel,
 )
 from naturalgas.pipelines.rebuild_final_backtest import rebuild
+from naturalgas.pipelines.rebuild_d1_3_strategy import (
+    evaluate_selected_strategy_with_horizon,
+)
 from naturalgas.pipelines.rebuild_weather_factors import (
     load_factor_inputs,
     rebuild_selected_wind,
     rebuild_solar,
+    rebuild_wind_horizons,
+)
+from naturalgas.evaluate_d1_3_storage_amplified_strategy import (
+    DEFAULT_EVENT_REPORTS_PATH,
+    SCORE_INPUTS,
+    STORAGE_CALENDAR_CORRECTIONS,
 )
 from naturalgas.reproducibility import (
     DEFAULT_MANIFEST as DEFAULT_FORMAL_MANIFEST,
@@ -82,10 +92,16 @@ def rebuild_all(
             "ng_multisignal_panel": logical_panel_path,
         }
         weather_receipt: dict | None = None
+        horizon_result: dict | None = None
         if rebuild_weather:
             weather_dir = staging / "weather_factors"
+            wind_inputs = load_factor_inputs(weather_manifest, "wind")
             wind_result = rebuild_selected_wind(
-                inputs=load_factor_inputs(weather_manifest, "wind"),
+                inputs=wind_inputs,
+                output_dir=weather_dir,
+            )
+            horizon_result = rebuild_wind_horizons(
+                inputs=wind_inputs,
                 output_dir=weather_dir,
             )
             solar_result = rebuild_solar(
@@ -131,10 +147,15 @@ def rebuild_all(
             solar_receipt["lead_output"] = str(
                 receipt_override_paths["capacity_weighted_location_leads"]
             )
+            horizon_receipt = dict(horizon_result)
+            horizon_receipt["output"] = str(
+                logical_weather_dir / Path(horizon_result["output"]).name
+            )
             weather_receipt = {
                 "manifest": str(weather_manifest),
                 "manifest_sha256": sha256_file(weather_manifest),
                 "wind": wind_receipt,
+                "wind_horizons": horizon_receipt,
                 "solar": solar_receipt,
             }
 
@@ -149,6 +170,24 @@ def rebuild_all(
             receipt_override_paths=receipt_override_paths,
             contract_only_override_ids={"ng_multisignal_panel"},
         )
+        selected_d1_3 = None
+        if horizon_result is not None:
+            selected_d1_3 = evaluate_selected_strategy_with_horizon(
+                horizon_path=Path(horizon_result["output"]),
+                formal_daily_path=(
+                    staging / "final_backtest" / "strategy_daily.parquet"
+                ),
+                score_inputs_path=SCORE_INPUTS,
+                storage_calendar_corrections_path=(
+                    STORAGE_CALENDAR_CORRECTIONS
+                ),
+                event_reports_path=DEFAULT_EVENT_REPORTS_PATH,
+                output_dir=staging / "d1_3_strategy",
+                logical_output_dir=resolved_output / "d1_3_strategy",
+                logical_formal_daily_path=(
+                    resolved_output / "final_backtest" / "strategy_daily.parquet"
+                ),
+            )
         receipt = {
             "status": "verified",
             "panel_manifest": str(panel_manifest),
@@ -163,6 +202,7 @@ def rebuild_all(
             "master_panel_rows": len(panel),
             "master_panel_columns": len(panel.columns),
             "formal_rebuild": formal,
+            "selected_d1_3_rebuild": selected_d1_3,
         }
         (staging / "full_chain_receipt.json").write_text(
             json.dumps(receipt, default=str, indent=2, sort_keys=True) + "\n",
@@ -203,7 +243,8 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help=(
             "Skip raw weather-factor reconstruction and download the three "
-            "approved wind/solar artifacts from the formal manifest."
+            "approved wind/solar artifacts from the formal manifest; the "
+            "selected D1-3 raw-lineage rebuild is also skipped."
         ),
     )
     parser.add_argument(
