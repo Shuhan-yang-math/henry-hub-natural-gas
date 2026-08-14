@@ -50,15 +50,16 @@ or amplify exposure.
 | Sample | 2019-07-25 to 2026-07-13 | same | same |
 | Trading days | 1,748 | 1,748 | 1,748 |
 | Net Sharpe | 2.119 | 2.181 | **2.228** |
-| Net Sortino | 3.663 | 3.787 | **3.880** |
+| Net Sortino | 3.663 | 3.787 | **3.881** |
 | Net CAGR | **19.20%** | 18.75% | 19.06% |
 | Maximum drawdown | -5.30% | **-4.16%** | **-4.16%** |
-| Total net return | **240.11%** | 231.09% | 237.16% |
+| Total net return | **240.11%** | 231.09% | 237.22% |
 
 This is an explicit risk-adjusted selection: Sharpe, Sortino, and drawdown
 improve, while CAGR and cumulative return remain below the D1--5 comparator.
-The guard changes 60 held-return dates and adds 1.79 percentage points versus
-unguarded D1--3 after costs.
+The HDD guard is disabled in June--August and active in every other month;
+there is no CDD branch. It changes 59 held-return dates and adds 1.81
+percentage points versus unguarded D1--3 after costs.
 
 These figures include the NYMEX holiday-session correction, the audited EIA
 WNGSR holiday release calendar, and a continuous Florida signal built from all
@@ -228,6 +229,7 @@ The current selected D1--3 strategy is also reproduced entirely from
 checked-in audit inputs:
 
 ```bash
+python naturalgas/rebuild_hdd_guard_seasonality.py
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
 

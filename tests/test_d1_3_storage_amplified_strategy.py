@@ -39,6 +39,39 @@ def test_low_storage_is_an_amplifier_not_a_standalone_trigger() -> None:
     assert states.loc[1, "fast_plus_storage_amplifier"]
 
 
+def test_hdd_revision_guard_is_disabled_only_in_june_through_august() -> None:
+    months = np.arange(1, 13)
+    frame = pd.DataFrame(
+        {
+            "date": pd.to_datetime(
+                [f"2025-{month:02d}-15" for month in months]
+            ),
+            "prod_freeze_local_level_score": 0.0,
+            "prod_freeze_local_revision_score": 0.0,
+            "hdd_revision_5d_z": 2.0,
+            "central_firm_nongas_shortfall": 0.0,
+            "signal__firm__florida": 0.0,
+            "south_central_total_level_signal": 0.0,
+        }
+    )
+
+    states = recompute_guard_states(frame)
+
+    assert set(months[states["hdd_strong"]]) == {
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        11,
+        12,
+    }
+    assert states["hdd_moderate"].equals(states["hdd_strong"])
+    assert states["fast_strong"].equals(states["hdd_strong"])
+
+
 def test_shipped_selected_strategy_reproduces() -> None:
     daily, _ = build_daily(
         formal_daily_path=FORMAL_DAILY,
@@ -56,14 +89,14 @@ def test_shipped_selected_strategy_reproduces() -> None:
         daily["date"].eq("2019-12-26"), "position_source_date"
     ].item() == pd.Timestamp("2019-12-24")
     assert daily["guard_blocked_position_date"].notna().all()
-    assert int(daily["guard_blocked_position_date"].sum()) == 60
+    assert int(daily["guard_blocked_position_date"].sum()) == 59
     assert int(
         daily["storage_release_calendar_corrected_position_date"].sum()
     ) == 23
     assert int(daily["florida_available_ba_fallback_position_date"].sum()) == 16
     assert daily["position_source_florida_available_ba_count"].min() == 6
-    assert np.isclose(metrics["sharpe"], 2.2277424350908226, atol=1e-12)
-    assert np.isclose(metrics["sortino"], 3.880412216410142, atol=1e-12)
+    assert np.isclose(metrics["sharpe"], 2.2280397376832175, atol=1e-12)
+    assert np.isclose(metrics["sortino"], 3.8809211748765535, atol=1e-12)
     assert np.isclose(metrics["maximum_drawdown"], -0.041646633466991045, atol=1e-12)
 
 

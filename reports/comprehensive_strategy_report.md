@@ -58,15 +58,15 @@ the selected Central 40% / Florida 60% sleeve and event veto.
 | Metric | Current D1--5 | D1--3, no guard | Selected D1--3 + storage amplifier |
 |---|---:|---:|---:|
 | Net Sharpe | 2.119 | 2.181 | **2.228** |
-| Net Sortino | 3.663 | 3.787 | **3.880** |
+| Net Sortino | 3.663 | 3.787 | **3.881** |
 | Net CAGR | **19.20%** | 18.75% | 19.06% |
 | Maximum drawdown | -5.30% | -4.51% | **-4.16%** |
-| Daily win rate | **54.06%** | 53.78% | 52.29% |
-| Total net return | **240.11%** | 231.09% | 237.16% |
+| Daily win rate | **54.06%** | 53.78% | 52.35% |
+| Total net return | **240.11%** | 231.09% | 237.22% |
 
 The selected version improves Sharpe by 0.108 and Sortino by 0.218 versus the
 D1--5 comparator while reducing maximum drawdown by 1.14 percentage points.
-Its simple sum of daily incremental net returns is -1.13 percentage points, so
+Its simple sum of daily incremental net returns is -1.11 percentage points, so
 the choice explicitly prioritizes risk-adjusted performance and drawdown over
 maximum cumulative return. The 2017-start formal artifact is reported
 separately because its history is longer.
@@ -351,15 +351,16 @@ Positive values indicate weak expected wind and bullish power-burn pressure.
 
 Strong fast bullish shocks can prevent bearish D1--3 wind from reversing an
 otherwise positive score below zero. The strong triggers are HDD revision of
-at least +1 sigma, winter production-risk revision of at least +1 trailing-
-quantile scale unit while the risk level is positive, or Central/Florida firm
+at least +1 sigma outside June--August, winter production-risk revision of at
+least +1 trailing-quantile scale unit while the risk level is positive, or Central/Florida firm
 non-gas generation shortfall of at least +2 sigma.
 
 Low South Central inventory cannot trigger the guard alone. When inventory is
 at least 1 sigma low, the corresponding moderate thresholds are +0.5 sigma for
-HDD, +0.5 trailing-quantile scale unit for production revision, and +1 sigma
+HDD outside June--August, +0.5 trailing-quantile scale unit for production
+revision, and +1 sigma
 for firm non-gas shortfall. The guard sets only a wind-flipped negative score
-to zero; it cannot create or amplify exposure.
+to zero; it cannot create or amplify exposure. CDD is not a guard input.
 
 ## 9. Capacity-weighted solar module
 
@@ -588,7 +589,7 @@ effect before the storage-amplified guard is applied.
 |---|---:|---:|---:|---:|---:|---:|
 | Current D1--5 | **2.785** | 2.145 | 1.718 | 2.119 | **19.20%** | -5.30% |
 | D1--3, no guard | 2.757 | 2.232 | 1.779 | 2.181 | 18.75% | -4.51% |
-| **Selected D1--3 + storage amplifier** | 2.781 | **2.279** | **1.835** | **2.228** | 19.06% | **-4.16%** |
+| **Selected D1--3 + storage amplifier** | 2.782 | **2.279** | **1.835** | **2.228** | 19.06% | **-4.16%** |
 
 The D1--3 horizon provides most of the drawdown improvement and raises
 validation, first-look, and full-sample Sharpe relative to D1--5. Adding the
@@ -602,7 +603,7 @@ and accepts slightly lower full-sample CAGR.
 | Year | Net return | Sharpe |
 |---:|---:|---:|
 | 2019 partial | 7.83% | 2.710 |
-| 2020 | 26.55% | 2.828 |
+| 2020 | 26.57% | 2.830 |
 | 2021 | 10.66% | 1.792 |
 | 2022 | 41.43% | 3.270 |
 | 2023 | 12.00% | 1.501 |
@@ -777,7 +778,7 @@ explicit, and results remain positive across development, validation, and the
 post-2024 period.
 
 The current selected storage-amplified D1--3 version records 2.228 net Sharpe,
-3.880 Sortino, 19.06% CAGR, and -4.16% maximum drawdown on the matched
+3.881 Sortino, 19.06% CAGR, and -4.16% maximum drawdown on the matched
 2019--2026 sample. These figures supersede the earlier EIA-only selected
 version in this report. The 1.667 Sharpe remains only the longer 2017-start
 historical formal baseline.

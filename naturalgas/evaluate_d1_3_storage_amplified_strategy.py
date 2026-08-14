@@ -5,7 +5,9 @@ The selected version retains the 40% Central / 60% Florida EIA-930 sleeve and
 the BSEE/Sabine pure short veto, but replaces the wind forecast average from
 days 1--5 with days 1--3. A wind direction guard activates for a strong new
 bullish shock, or for a moderate new bullish shock when South Central storage
-is unusually low. Low storage can never activate the guard on its own.
+is unusually low. The HDD-revision branch is disabled in June--August and is
+active in every other month. Low storage can never activate the guard on its
+own.
 
 The guard is one-sided: when the score without wind is positive, wind is
 bearish, and wind alone would reverse the score below zero, the score is set to
@@ -64,6 +66,7 @@ DEFAULT_OUTPUT_DIR = (
 )
 TRANSACTION_COST_BPS = 2.5
 COLD_MONTHS = (11, 12, 1, 2, 3)
+HDD_GUARD_MONTHS = (1, 2, 3, 4, 5, 9, 10, 11, 12)
 STRONG_SCORE_THRESHOLD = 1.0
 MODERATE_SCORE_THRESHOLD = 0.5
 FIRM_STRONG_THRESHOLD = float(np.tanh(1.0))
@@ -160,6 +163,7 @@ def recompute_guard_states(inputs: pd.DataFrame) -> pd.DataFrame:
 
     states = pd.DataFrame(index=inputs.index)
     cold = inputs["date"].dt.month.isin(COLD_MONTHS)
+    hdd_guard_season = inputs["date"].dt.month.isin(HDD_GUARD_MONTHS)
     positive_production_risk = inputs[
         "prod_freeze_local_level_score"
     ].gt(0.0)
@@ -177,12 +181,12 @@ def recompute_guard_states(inputs: pd.DataFrame) -> pd.DataFrame:
             MODERATE_SCORE_THRESHOLD
         )
     )
-    states["hdd_strong"] = inputs["hdd_revision_5d_z"].ge(
-        STRONG_SCORE_THRESHOLD
-    )
-    states["hdd_moderate"] = inputs["hdd_revision_5d_z"].ge(
-        MODERATE_SCORE_THRESHOLD
-    )
+    states["hdd_strong"] = hdd_guard_season & inputs[
+        "hdd_revision_5d_z"
+    ].ge(STRONG_SCORE_THRESHOLD)
+    states["hdd_moderate"] = hdd_guard_season & inputs[
+        "hdd_revision_5d_z"
+    ].ge(MODERATE_SCORE_THRESHOLD)
     states["firm_nongas_strong"] = inputs[
         "central_firm_nongas_shortfall"
     ].ge(FIRM_STRONG_THRESHOLD) | inputs["signal__firm__florida"].ge(
@@ -640,14 +644,20 @@ def run(
     d1_3 = metric_index.loc["d1_3_no_guard"].to_dict()
     selected = metric_index.loc["d1_3_storage_amplified"].to_dict()
     summary = {
-        "strategy_version": "d1_3_wind_storage_amplified_guard",
-        "selection_status": "selected by user on 2026-08-12",
+        "strategy_version": "d1_3_wind_storage_amplified_hdd_guard",
+        "selection_status": (
+            "HDD month gate selected by user on 2026-08-13; historical "
+            "results are retrospective validation"
+        ),
         "sample_start": daily["date"].min(),
         "sample_end": daily["date"].max(),
         "trading_days": len(daily),
         "transaction_cost_bps": TRANSACTION_COST_BPS,
         "wind_horizon": "forecast days 1-3, equally weighted",
         "storage_role": "amplifier only; never a standalone trigger",
+        "weather_revision_guard": (
+            "HDD revision in every month except June-August; no CDD branch"
+        ),
         "storage_release_alignment": (
             "actual EIA WNGSR publication date with audited holiday exceptions"
         ),

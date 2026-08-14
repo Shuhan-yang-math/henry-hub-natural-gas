@@ -112,18 +112,18 @@ July 25, 2019 through July 13, 2026. Every row retains the selected Central
 Metric & Current D1--5 & D1--3, no guard & Selected D1--3 + amplifier\\
 \midrule
 Net Sharpe & 2.119 & 2.181 & \textbf{2.228}\\
-Net Sortino & 3.663 & 3.787 & \textbf{3.880}\\
+Net Sortino & 3.663 & 3.787 & \textbf{3.881}\\
 Net CAGR & \textbf{19.20\%} & 18.75\% & 19.06\%\\
 Maximum drawdown & -5.30\% & -4.51\% & \textbf{-4.16\%}\\
-Daily win rate & \textbf{54.06\%} & 53.78\% & 52.29\%\\
-Total net return & \textbf{240.11\%} & 231.09\% & 237.16\%\\
+Daily win rate & \textbf{54.06\%} & 53.78\% & 52.35\%\\
+Total net return & \textbf{240.11\%} & 231.09\% & 237.22\%\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Relative to current D1--5, the selected version raises Sharpe by 0.108 and
 Sortino by 0.218 while reducing maximum drawdown by 1.14 percentage points.
-Its simple sum of daily incremental net returns is -1.13 percentage points, so
+Its simple sum of daily incremental net returns is -1.11 percentage points, so
 the choice explicitly prioritizes risk-adjusted performance and drawdown over
 maximum cumulative return. The approved 2017-start formal artifact remains
 unchanged and is reported separately because its history is longer.
@@ -251,7 +251,9 @@ The selected direction guard activates for a strong fast bullish shock or when
 low South Central inventory coincides with a moderate fast bullish shock. Low
 inventory cannot activate the guard alone. If the score without wind is
 positive and bearish D1--3 wind would reverse it below zero, the guarded score
-is set to zero. The guard cannot create or amplify exposure.
+is set to zero. The HDD-revision branch is active in January--May and
+September--December, disabled in June--August, and has no CDD substitute. The
+guard cannot create or amplify exposure.
 
 \section{Solar Module}
 
@@ -392,7 +394,7 @@ Variant & Dev SR & Validation SR & First-look SR & Full SR & Full CAGR & Full DD
 \midrule
 Current D1--5 & \textbf{2.785} & 2.145 & 1.718 & 2.119 & \textbf{19.20\%} & -5.30\%\\
 D1--3, no guard & 2.757 & 2.232 & 1.779 & 2.181 & 18.75\% & -4.51\%\\
-\textbf{Selected D1--3 + amplifier} & 2.781 & \textbf{2.279} & \textbf{1.835} & \textbf{2.228} & 19.06\% & \textbf{-4.16\%}\\
+\textbf{Selected D1--3 + amplifier} & 2.782 & \textbf{2.279} & \textbf{1.835} & \textbf{2.228} & 19.06\% & \textbf{-4.16\%}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -412,7 +414,7 @@ slightly lower full-sample CAGR.
 Year & Net return & Sharpe & Year & Net return & Sharpe\\
 \midrule
 2019 partial & 7.83\% & 2.710 & 2023 & 12.00\% & 1.501\\
-2020 & 26.55\% & 2.828 & 2024 & 27.27\% & 3.265\\
+2020 & 26.57\% & 2.830 & 2024 & 27.27\% & 3.265\\
 2021 & 10.66\% & 1.792 & 2025 & 1.63\% & 0.234\\
 2022 & 41.43\% & 3.270 & 2026 partial & 8.98\% & 1.981\\
 \bottomrule
@@ -516,7 +518,7 @@ control, with positive results across development, validation, and the
 post-2024 period.
 
 The current selected storage-amplified D1--3 version records 2.228 net Sharpe,
-3.880 Sortino, 19.06\% CAGR, and -4.16\% maximum drawdown on the matched
+3.881 Sortino, 19.06\% CAGR, and -4.16\% maximum drawdown on the matched
 2019--2026 sample. These figures supersede the earlier EIA-only selected
 version in this report. The 1.667 Sharpe remains only the longer 2017-start
 historical formal baseline.

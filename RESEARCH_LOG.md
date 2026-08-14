@@ -18,7 +18,7 @@ mistaken for predeclared live rules.
 | How should offshore shut-ins enter the strategy? | Use a one-sided event veto. | The controller can cancel a conflicting short but cannot create or amplify exposure. |
 | Does the selected EIA-930 sleeve improve the matched sample? | Yes, as downside diversification. | On the 1,748-day overlap, the 40/60 blend reaches 2.084 Sharpe and 3.576 Sortino versus 1.951 and 3.252 for Central only. |
 | What Central/Florida mix should be retained? | 40% Central / 60% Florida inside the fixed 10% slot. | It has the highest 2021–2023 validation Sharpe and lies inside a stable 60%–80% Florida plateau; the ex-post 80% Florida full-sample maximum was not selected. |
-| Which wind horizon and direction guard should be retained? | Select forecast days 1--3 with the storage-amplified fast-shock guard. | On the calendar-corrected, daily-available-BA Florida 1,748-day sample, Sharpe is 2.228 and Sortino is 3.880 versus 2.119 and 3.663 for D1--5; maximum drawdown improves from -5.30% to -4.16%, with lower CAGR and total return. |
+| Which wind horizon and direction guard should be retained? | Select forecast days 1--3 with the storage-amplified fast-shock guard; disable its HDD branch in June--August and do not add CDD. | On the calendar-corrected, daily-available-BA Florida 1,748-day sample, Sharpe is 2.228 and Sortino is 3.881 versus 2.119 and 3.663 for D1--5; maximum drawdown improves from -5.30% to -4.16%, with lower CAGR and total return. |
 
 ## Deliberately excluded experiments
 
@@ -95,7 +95,7 @@ artifact:
 - `notebooks/06_eia930_central_florida_40_60.ipynb`
 - `reports/eia930_central_florida_40_60_brief.md`
 
-## August 12, 2026 selected wind enhancement
+## August 12--13, 2026 selected wind enhancement
 
 The current selected research version keeps the 40% Central / 60% Florida
 EIA-930 sleeve and replaces the days 1--5 wind average with days 1--3. It also
@@ -104,15 +104,20 @@ the guard by itself; it only allows moderate HDD, production-risk revision, or
 firm non-gas shortfall shocks to prevent wind from reversing an otherwise
 bullish score into a short.
 
+On August 13 the weather-revision branch was narrowed after reviewing the
+historical alternatives: HDD remains active in January--May and September--
+December, is disabled in June--August, and CDD is not used. These historical
+figures are retrospective validation, not an untouched holdout.
+
 On the calendar-corrected daily-available-BA 1,748-day overlap, current D1--5
 records 2.119 net Sharpe, 3.663 Sortino, 19.20% CAGR, and -5.30% maximum
-drawdown. The selected D1--3 version records 2.228 Sharpe, 3.880 Sortino,
+drawdown. The selected D1--3 version records 2.228 Sharpe, 3.881 Sortino,
 19.06% CAGR, and -4.16% maximum drawdown. Its cumulative simple net-return
-difference versus D1--5 is -1.13 percentage
+difference versus D1--5 is -1.11 percentage
 points. The decision therefore prioritizes risk-adjusted performance and
 drawdown over maximum cumulative return.
 
-The guard changes 60 held-return dates, helps 34, hurts 26, and adds 1.79
+The guard changes 59 held-return dates, helps 34, hurts 25, and adds 1.81
 percentage points relative to unguarded D1--3. Its effect is not positive in
 every year, so the frozen rule remains subject to prospective monitoring.
 

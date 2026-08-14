@@ -113,15 +113,17 @@ one-sided safety control against shorting during severe production disruption.
 ## Storage-amplified wind direction guard
 
 The selected D1--3 version adds a one-sided score guard. Strong new bullish
-shocks can activate it directly: HDD forecast revision at or above +1 sigma;
+shocks can activate it directly: outside June--August, HDD forecast revision
+at or above +1 sigma;
 November--March local production-risk revision at or above +1 trailing-
 quantile scale unit while the risk level is positive; or Central/Florida firm
 non-gas generation shortfall at or above +2 sigma.
 
 Low South Central inventory at or above +1 sigma cannot activate the guard by
 itself. It only lowers the corresponding fast-shock thresholds to +0.5 sigma
-for HDD, +0.5 trailing-quantile scale unit for production revision, and +1
-sigma for firm non-gas generation shortfall.
+for HDD outside June--August, +0.5 trailing-quantile scale unit for production
+revision, and +1 sigma for firm non-gas generation shortfall. There is no CDD
+guard branch.
 
 When the score without wind is positive, D1--3 wind is bearish, and wind would
 reverse the score below zero, the score is set to zero. The guard cannot create
@@ -184,10 +186,10 @@ and not statistically decisive.
 |---|---:|---:|---:|
 | Dates | 2019-07-25–2026-07-13 | same | same |
 | Net Sharpe | 2.119 | 2.181 | **2.228** |
-| Net Sortino | 3.663 | 3.787 | **3.880** |
+| Net Sortino | 3.663 | 3.787 | **3.881** |
 | Net CAGR | **19.20%** | 18.75% | 19.06% |
 | Maximum drawdown | -5.30% | **-4.16%** | **-4.16%** |
-| Total net return | **240.11%** | 231.09% | 237.16% |
+| Total net return | **240.11%** | 231.09% | 237.22% |
 
 These are 1,748-day common-overlap results for the already-selected 40%
 Central / 60% Florida sleeve. The D1--3 choice raises risk-adjusted performance

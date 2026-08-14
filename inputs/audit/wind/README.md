@@ -31,8 +31,12 @@ coverage. It is consumed directly by
 `naturalgas/evaluate_d1_3_storage_amplified_strategy.py` and has SHA-256:
 
 ```text
-a476153db3099a61632122b3f4b86e0f33cf657b06a71da61baea84794beb635
+d4807aae8bc5401a9bfb533ec64820cedcc6f38352af9a13f460ae1e50befe04
 ```
+
+The weather-revision guard uses HDD in January--May and September--December,
+is disabled in June--August, and has no CDD branch. Recompute the frozen guard
+flags and selected score with `naturalgas/rebuild_hdd_guard_seasonality.py`.
 
 This file is a derived audit boundary, not a substitute for the raw NCAR/GDEX,
 EIA-930, storage, or production-weather source archives.

@@ -108,7 +108,7 @@ separate from the seven pinned inputs of the approved formal rebuild.
 | `inputs/audit/eia930/florida_available_ba_signal_history.parquet` | 1,752 | 2019-07-24–2026-07-14 score dates | `c34597ae140a9251c07e670649f2f8d5a1fd6d8ea8a80d4c8dc7e4b84616189b` | Deterministic daily-available-BA Florida signal and rolling lineage |
 | `inputs/audit/eia930/selected_overlay_inputs.parquet` | 1,751 | 2019-07-24–2026-07-13 score dates | `80118666e3c63062c87441435c78f729676560b08b77cfcee1c9afe8b969f155` | Central total non-gas and daily-available-BA Florida shortfalls, production short-block state, and lineage |
 | `inputs/audit/events/event_reports_aligned.parquet` | 101 | 2017-08-24–2024-09-29 | `f1a99a286c1a2a5b7b03990edfec08786aa9a56e0b7f5ad88417450fb984fb1b` | BSEE/Sabine event-controller registry |
-| `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet` | 1,752 | 2019-07-24–2026-07-14 score dates | `a476153db3099a61632122b3f4b86e0f33cf657b06a71da61baea84794beb635` | D1--3/D1--5 scores, score without wind, fast-shock inputs, storage state, Florida BA coverage, and guard flags |
+| `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet` | 1,752 | 2019-07-24–2026-07-14 score dates | `d4807aae8bc5401a9bfb533ec64820cedcc6f38352af9a13f460ae1e50befe04` | D1--3/D1--5 scores, score without wind, fast-shock inputs, storage state, Florida BA coverage, and HDD guard flags with June--August disabled |
 | `inputs/audit/storage/legacy_week_ending_plus_six_formal_scores.parquet` | 2,264 | 2017-07-03–2026-07-13 | `ba0e107f9380075931cbf29d84ac6d2d135f77e4c2a7a373f049f0fbae2c8a0b` | Narrow pre-fix score baseline used only to isolate the release-calendar delta |
 | `inputs/audit/storage/wngsr_d1_3_score_corrections.parquet` | 23 | 2019-11-27–2025-12-31 affected score dates | `b68fe58589f8337be69e57a14011eefa83436fdd32a0b0b1d5c58e5af76b8a4a` | Actual-release-date score delta, corrected South Central state, and production-clamp audit fields |
 
@@ -158,6 +158,7 @@ Rebuild the selected strategy artifacts with:
 python naturalgas/build_wngsr_d1_3_corrections.py \
   --corrected-formal \
   naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet
+python naturalgas/rebuild_hdd_guard_seasonality.py
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
 
