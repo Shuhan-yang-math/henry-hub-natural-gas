@@ -83,6 +83,7 @@ def test_performance_includes_inception_drawdown_and_prior_position() -> None:
         pd.Series([-0.10, 0.02]),
         pd.Series(pd.to_datetime(["2025-01-02", "2025-01-03"])),
         pd.Series([0.4, 0.4]),
+        first_return_start_date=pd.Timestamp("2025-01-01"),
         prior_position=0.1,
     )
 
@@ -90,11 +91,32 @@ def test_performance_includes_inception_drawdown_and_prior_position() -> None:
     assert np.isclose(metrics["total_turnover"], 0.30)
 
 
+def test_performance_cagr_includes_first_return_interval() -> None:
+    returns = pd.Series([0.10, 0.0])
+    metrics = performance(
+        returns,
+        pd.Series(pd.to_datetime(["2024-01-02", "2025-01-01"])),
+        pd.Series([0.0, 0.0]),
+        first_return_start_date=pd.Timestamp("2024-01-01"),
+    )
+
+    elapsed_years = 366.0 / 365.2425
+    expected_cagr = np.exp(np.log1p(returns).sum() / elapsed_years) - 1.0
+    label_only_years = 365.0 / 365.2425
+    old_cagr = np.exp(np.log1p(returns).sum() / label_only_years) - 1.0
+
+    assert np.isclose(metrics["cagr"], expected_cagr)
+    assert not np.isclose(metrics["cagr"], old_cagr)
+
+
 def test_period_turnover_inherits_previous_full_path_position() -> None:
     daily = pd.DataFrame(
         {
             "date": pd.to_datetime(
                 ["2023-12-29", "2024-01-02", "2024-01-03"]
+            ),
+            "position_source_date": pd.to_datetime(
+                ["2023-12-28", "2023-12-29", "2024-01-02"]
             ),
             NET_D1_5: [0.001, 0.002, -0.001],
             NET_D1_3: [0.001, 0.002, -0.001],
@@ -159,7 +181,12 @@ def test_shipped_selected_strategy_reproduces() -> None:
         storage_calendar_corrections_path=STORAGE_CALENDAR_CORRECTIONS,
         event_reports_path=DEFAULT_EVENT_REPORTS_PATH,
     )
-    metrics = performance(daily[NET_SELECTED], daily["date"], daily[POS_SELECTED])
+    metrics = performance(
+        daily[NET_SELECTED],
+        daily["date"],
+        daily[POS_SELECTED],
+        first_return_start_date=daily["position_source_date"].iloc[0],
+    )
 
     assert len(daily) == 1748
     assert not daily["date"].isin(
@@ -175,6 +202,7 @@ def test_shipped_selected_strategy_reproduces() -> None:
     ) == 23
     assert int(daily["florida_available_ba_fallback_position_date"].sum()) == 16
     assert daily["position_source_florida_available_ba_count"].min() == 6
+    assert np.isclose(metrics["cagr"], 0.19050835194298243, atol=1e-12)
     assert np.isclose(metrics["sharpe"], 2.2280397376832175, atol=1e-12)
     assert np.isclose(metrics["sortino"], 3.8809211748765535, atol=1e-12)
     assert np.isclose(metrics["maximum_drawdown"], -0.041646633466991045, atol=1e-12)

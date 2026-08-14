@@ -1,6 +1,6 @@
 {
   "change_vs_current_d1_5": {
-    "cagr": -0.0014583188011374482,
+    "cagr": -0.0014576457828114897,
     "compounded_final_wealth_difference": -0.028886400657930356,
     "sharpe": 0.10859782650547212,
     "sortino": 0.21825896653796928,
@@ -8,7 +8,7 @@
   },
   "current_d1_5_metrics": {
     "annualized_downside_deviation": 0.04818078236730959,
-    "cagr": 0.19204824576885393,
+    "cagr": 0.19196599772579392,
     "end": "2026-07-13T00:00:00",
     "maximum_drawdown": -0.05304157431613854,
     "mean_absolute_position": 0.10692383367859987,
@@ -22,7 +22,7 @@
   },
   "d1_3_no_guard_metrics": {
     "annualized_downside_deviation": 0.04557994286357619,
-    "cagr": 0.18746349243164762,
+    "cagr": 0.18738335790107308,
     "end": "2026-07-13T00:00:00",
     "maximum_drawdown": -0.04506194899136451,
     "mean_absolute_position": 0.10429152143858975,
@@ -55,7 +55,7 @@
   "selected_event_veto_days": 6,
   "selected_metrics": {
     "annualized_downside_deviation": 0.045154294240968756,
-    "cagr": 0.19058992696771648,
+    "cagr": 0.19050835194298243,
     "end": "2026-07-13T00:00:00",
     "maximum_drawdown": -0.0416466334669916,
     "mean_absolute_position": 0.10203362019846682,

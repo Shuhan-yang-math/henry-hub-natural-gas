@@ -118,6 +118,7 @@ def performance(
     dates: pd.Series,
     position: pd.Series,
     *,
+    first_return_start_date: pd.Timestamp | None,
     prior_position: float = 0.0,
 ) -> dict[str, Any]:
     sample = pd.DataFrame(
@@ -125,11 +126,18 @@ def performance(
     ).dropna().sort_values("date")
     if len(sample) < 2:
         return {"trading_days": len(sample), "sharpe": np.nan}
+    return_start = pd.Timestamp(first_return_start_date)
+    if pd.isna(return_start):
+        raise ValueError("first return interval start date is required")
+    if return_start >= sample["date"].iloc[0]:
+        raise ValueError(
+            "first return interval must start before its return label"
+        )
     log_return = np.log1p(sample["net_return"])
     wealth = (1.0 + sample["net_return"]).cumprod()
     running_peak = wealth.cummax().clip(lower=1.0)
     years = max(
-        (sample["date"].iloc[-1] - sample["date"].iloc[0]).days
+        (sample["date"].iloc[-1] - return_start).days
         / 365.2425,
         1.0 / 252.0,
     )
@@ -463,8 +471,22 @@ def metrics_tables(
             return 0.0
         return float(daily.iloc[selected_rows[0] - 1][column])
 
+    def first_return_start(mask: pd.Series) -> pd.Timestamp | None:
+        selected_rows = np.flatnonzero(mask.to_numpy())
+        if not len(selected_rows):
+            return None
+        return pd.Timestamp(
+            daily.iloc[selected_rows[0]]["position_source_date"]
+        )
+
     for name, (net_column, position_column) in variants.items():
-        result = performance(daily[net_column], daily["date"], daily[position_column])
+        full_mask = pd.Series(True, index=daily.index)
+        result = performance(
+            daily[net_column],
+            daily["date"],
+            daily[position_column],
+            first_return_start_date=first_return_start(full_mask),
+        )
         result["variant"] = name
         full_rows.append(result)
         for period, (start, end) in PERIODS.items():
@@ -473,6 +495,7 @@ def metrics_tables(
                 daily.loc[mask, net_column],
                 daily.loc[mask, "date"],
                 daily.loc[mask, position_column],
+                first_return_start_date=first_return_start(mask),
                 prior_position=position_before(mask, position_column),
             )
             result.update({"variant": name, "period": period})
@@ -483,6 +506,7 @@ def metrics_tables(
                 daily.loc[mask, net_column],
                 daily.loc[mask, "date"],
                 daily.loc[mask, position_column],
+                first_return_start_date=first_return_start(mask),
                 prior_position=position_before(mask, position_column),
             )
             result.update({"variant": name, "year": int(year)})
