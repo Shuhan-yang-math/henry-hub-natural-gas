@@ -207,40 +207,22 @@ into a lagged Henry Hub futures position.
 
 ### 1. Read and validate the data
 
-The supported rebuild starts from exact internal GCS objects, not from fresh
-queries to mutable public APIs. Manifests identify each object generation and
-the loaders are read-only.
+The rebuild reads exact internal GCS versions through explicit contracts. It
+does not refresh mutable public APIs or write back to GCS.
 
 ```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 65, "rankSpacing": 80}, "themeVariables": {"fontSize": "20px"}}}%%
 flowchart LR
-    subgraph CONTRACTS["Version and data contracts"]
-        CONFIG["config/<br/>model identity, dates,<br/>weights, lag, roll, cost"]
-        MANIFESTS["manifests/<br/>GCS URI + generation<br/>SHA-256 + expected size"]
-        SCHEMAS["schemas/<br/>required columns,<br/>types and dimensions"]
-    end
+    CONTRACTS["config + manifests + schemas<br/>model rules and exact object identity"] --> LOAD["Read-only loaders"]
 
-    subgraph GCS["Generation-pinned objects in GCS"]
-        PANEL["Master-panel inputs: 72 references<br/>futures, CPC, gas fundamentals,<br/>daily weather and freeze-off context"]
-        WEATHER["Weather inputs<br/>127 wind + 127 solar monthly partitions<br/>USWTDB + EIA-860M capacity snapshots"]
-        SELECTED["Selected V03 archive: 13 artifacts<br/>EIA-930, event registry, WNGSR correction,<br/>compact score and capacity lineage"]
-    end
+    MARKET["Futures prices<br/>and trading calendar"] --> LOAD
+    WEATHER["CPC and GFS<br/>weather forecasts"] --> LOAD
+    GAS["Storage, production,<br/>LNG and trade"] --> LOAD
+    POWER["EIA-930, capacity<br/>and event data"] --> LOAD
 
-    CONFIG --> READER["Read-only pipeline loaders"]
-    MANIFESTS --> READER
-    SCHEMAS --> READER
-    PANEL --> READER
-    WEATHER --> READER
-    SELECTED --> READER
-
-    READER --> VERIFY["Fail-closed validation<br/>generation + hash + bytes<br/>rows + columns + required fields"]
-    VERIFY --> TIMING["Normalize dates and enforce timing<br/>NYMEX sessions + WNGSR calendar<br/>M+3 monthly availability + source-day lineage"]
-    TIMING --> STAGING["Local ignored cache / atomic staging<br/>inputs/gcs and reproduced/<br/>no GCS write capability"]
-    STAGING --> DATASETS["Typed point-in-time datasets<br/>market target | forecasts | gas balance<br/>power-system state | event controls"]
+    LOAD --> CHECK["Validate generation, hash,<br/>schema and availability time"]
+    CHECK --> READY["Point-in-time datasets<br/>ready for feature construction"]
 ```
-
-The two raw capacity snapshots also appear in the 13-artifact selected
-archive. The numbers above describe manifest roles and therefore are not
-counts of mutually exclusive GCS objects.
 
 ### 2. Transform data into the scores used by V03
 
@@ -248,60 +230,31 @@ Every directional score is oriented so that a positive value is bullish
 natural gas. Rolling reference distributions exclude the current observation.
 
 ```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 65, "rankSpacing": 80}, "themeVariables": {"fontSize": "20px"}}}%%
 flowchart TB
-    subgraph FORECASTS["Forward weather and renewable scores"]
-        CPC_RAW["CPC HDD / CDD / GDD forecasts"] --> CPC_TX["Same-target 5-day revision<br/>seasonal selection<br/>past-only standardization"]
-        CPC_TX --> CPC_SCORE["CPC weather block<br/>tanh(sig_cpc_seasonal_revision / 2)<br/>level and observed-weather slots = 0"]
+    CPC["CPC forecast revisions"] --> CPC_TX["Seasonal revision<br/>past-only z-score"] --> CPC_SCORE["Weather score"]
 
-        WIND_RAW["GFS 80 m wind + USWTDB turbines"] --> WIND_TX["Adjust to lagged hub height<br/>nonlinear cut-in / rated / cut-out curve<br/>capacity-weight D1-3 generation shortfall"]
-        WIND_TX --> WIND_SCORE["D1-3 wind score<br/>past 60 issues z-score<br/>wind_signal__d1_3 = tanh(z / 2)"]
+    WIND["GFS wind<br/>+ turbine capacity"] --> WIND_TX["Hub-height adjustment<br/>+ power curve + D1-3 shortfall"] --> WIND_SCORE["Wind score"]
 
-        SOLAR_RAW["GFS radiation + temperature<br/>clear-sky geometry + EIA-860M capacity"] --> SOLAR_TX["Build D1-5 PV-availability proxy<br/>lag capacity and calculate daylight scale<br/>past-only standardization"]
-        SOLAR_TX --> SOLAR_SCORE["Solar score<br/>tanh(sig_solar_pv / 2)<br/>effective weight scaled by daylight"]
-    end
+    SOLAR["GFS radiation<br/>+ solar capacity"] --> SOLAR_TX["PV-availability proxy<br/>+ daylight scaling"] --> SOLAR_SCORE["Solar score"]
 
-    subgraph FUNDAMENTALS["Native-frequency gas fundamental score"]
-        STORAGE_RAW["EIA WNGSR South Central storage"] --> STORAGE_TX["Actual release calendar<br/>same-week level normal<br/>1-week and 4-week change surprises<br/>104-release causal z-scores"]
-        STORAGE_TX --> STORAGE_SCORES["Storage signals<br/>low level 18.18%<br/>1-week change 9.09%<br/>4-week change 9.09%"]
+    GAS["South Central storage<br/>production, LNG and trade"] --> GAS_TX["Release-aligned changes<br/>+ causal standardization"] --> FUND_SCORE["9-signal<br/>fundamental score"]
 
-        MONTHLY_RAW["EIA monthly production, LNG,<br/>consumption, imports and exports"] --> MONTHLY_TX["YoY and MoM transformations<br/>60-month causal z-scores<br/>reference month M available at M+3"]
-        MONTHLY_TX --> MONTHLY_SCORES["Active monthly signals<br/>low production YoY 9.09%<br/>LNG export YoY 9.09%<br/>low net-import supply 9.09%<br/>production MoM 9.09%<br/>LNG export MoM 18.18%<br/>net-import change 9.09%<br/>consumption signals 0%"]
+    EIA930["EIA-930 demand<br/>and non-gas generation"] --> POWER_TX["Central and Florida<br/>non-gas shortfall"] --> POWER_SCORE["Regional power score<br/>40% Central + 60% Florida"]
 
-        STORAGE_SCORES --> FUND_SCORE["fundamental score<br/>weighted available mean of 9 active signals"]
-        MONTHLY_SCORES --> FUND_SCORE
-    end
+    CONTROLS["HDD, production risk,<br/>low storage and events"] -.-> RISK["Guard and veto states<br/>not extra score sleeves"]
 
-    subgraph POWER["Realized regional power-system score"]
-        EIA930["EIA-930 demand and generation"] --> CENTRAL["Central: ERCOT + MISO + SPP<br/>total non-gas generation shortfall<br/>past-only bounded score"]
-        EIA930 --> FLORIDA["Florida: coal + nuclear + water<br/>share of demand vs past 8 same weekdays<br/>innovation / prior-252-day volatility"]
-        CENTRAL --> POWER_SCORE["EIA-930 score<br/>40% Central + 60% Florida"]
-        FLORIDA --> POWER_SCORE
-    end
-
-    subgraph CONTROLS["States that control risk but are not extra score sleeves"]
-        FAST["Fast bullish shocks<br/>HDD revision | production-risk revision<br/>Central / Florida firm non-gas shortfall"] --> GUARD_STATE["strong / moderate fast-shock states"]
-        STORAGE_TX --> LOW_STORAGE["low South Central storage state<br/>level z-score at or above +1"]
-        EVENTS["BSEE shut-in revision<br/>+ recent Sabine notice"] --> EVENT_STATE["post-score short-veto state"]
-    end
-
-    CPC_SCORE --> SCORE_CONTRACT["Five directional score inputs"]
-    WIND_SCORE --> SCORE_CONTRACT
-    SOLAR_SCORE --> SCORE_CONTRACT
-    FUND_SCORE --> SCORE_CONTRACT
-    POWER_SCORE --> SCORE_CONTRACT
-    GUARD_STATE --> GUARD_INPUTS["Storage-amplified guard inputs"]
-    LOW_STORAGE --> GUARD_INPUTS
-    SCORE_CONTRACT --> MODEL_INPUTS["Daily V03 model-input contract"]
-    GUARD_INPUTS --> MODEL_INPUTS
-    EVENT_STATE --> MODEL_INPUTS
+    CPC_SCORE --> MODEL_INPUTS["V03 model inputs"]
+    WIND_SCORE --> MODEL_INPUTS
+    SOLAR_SCORE --> MODEL_INPUTS
+    FUND_SCORE --> MODEL_INPUTS
+    POWER_SCORE --> MODEL_INPUTS
+    RISK -.-> MODEL_INPUTS
 ```
 
-Fast weekly and YoY fundamental z-scores are bounded with `tanh(z / 2)` before
-aggregation; the four slow monthly MoM signals enter as oriented causal
-z-scores. The EIA-930 and event histories are validated frozen processed
-contracts in the current reproducibility boundary; the D1--3 wind signal is
-also rebuilt independently from pinned GFS and USWTDB inputs and required to
-match the compact contract exactly.
+The five solid-arrow outputs are the directional score inputs. Guard and veto
+states are separate controls: they can reduce exposure but are not additional
+weighted factors.
 
 ### 3. Combine scores, choose the position, and calculate the trade return
 
@@ -309,58 +262,25 @@ The selected model uses continuous exposure rather than a discrete buy/sell
 classifier. A score of `+0.30` targets a 30% long; `-0.30` targets a 30% short.
 
 ```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 65, "rankSpacing": 80}, "themeVariables": {"fontSize": "20px"}}}%%
 flowchart TB
-    SEASON{"Calendar season"}
-    CPC["CPC weather block"] --> BUDGET["Seasonal top-level budget<br/>Peak: CPC 45%, wind 15%, solar 0-10%,<br/>EIA-930 10%, fundamentals 20-30%<br/>Shoulder: CPC 22.5%, wind 22.5%, solar 0-10%,<br/>EIA-930 10%, fundamentals 35-45%"]
-    SOLAR["Daylight-scaled solar score"] --> BUDGET
-    FUND["9-signal fundamental score"] --> BUDGET
-    POWER["10% EIA-930 sleeve<br/>40% Central / 60% Florida"] --> BUDGET
-    SEASON --> BUDGET
+    SCORES["Weather + wind + solar<br/>fundamentals + EIA-930"] --> MIX["Seasonal weighted<br/>composite score"]
 
-    BUDGET --> NO_WIND["score_without_wind<br/>seasonally weighted non-wind components"]
-    BUDGET --> WIND_WEIGHT["Seasonally weighted D1-3 wind term"]
-    WIND["D1-3 wind score"] --> WIND_WEIGHT
-    NO_WIND --> NO_GUARD["score_d1_3_no_guard<br/>no-wind score + weighted D1-3 wind"]
-    WIND_WEIGHT --> NO_GUARD
+    MIX --> GUARD["Production-risk and<br/>storage-amplified wind guard"]
+    GUARD --> LAG["Clip to [-1, 1]<br/>and lag one trading session"]
 
-    WNGSR["Actual WNGSR calendar correction"] --> SHORT_FLOOR["Correct no-wind and no-guard scores<br/>then reapply one-sided production-risk control<br/>in Nov-Mar"]
-    NO_WIND --> SHORT_FLOOR
-    NO_GUARD --> SHORT_FLOOR
+    EVENTS["BSEE / Sabine event state"] -.-> VETO["One-sided short veto"]
+    LAG --> VETO
 
-    SHORT_FLOOR --> WIND_GUARD{"Would bearish wind reverse a<br/>positive corrected no-wind score below zero,<br/>while a qualifying fast shock is active?"}
-    STRONG["Strong fast shock<br/>HDD revision at or above +1 sigma outside Jun-Aug<br/>OR positive production risk + revision at or above +1 in Nov-Mar<br/>OR firm non-gas shortfall at or above +2 sigma"] --> WIND_GUARD
-    AMPLIFIED["Storage-amplified moderate shock<br/>South Central low-storage state at or above +1 sigma<br/>AND corresponding fast threshold falls to +0.5 / +1 sigma"] --> WIND_GUARD
-    WIND_GUARD -->|"yes"| FLAT_GUARD["Set selected score to 0<br/>storage cannot trigger or add a long"]
-    WIND_GUARD -->|"no"| KEEP["Keep corrected no-guard score"]
+    VETO --> POSITION["Continuous futures position<br/>positive = long<br/>negative = short<br/>zero = flat"]
 
-    FLAT_GUARD --> CLIP["Clip score to [-1, 1]"]
-    KEEP --> CLIP
-    CLIP --> LAG["Shift by one NYMEX trading session"]
-    LAG --> PRE_VETO["Pre-veto continuous position"]
-
-    EVENT["Worsening BSEE shut-in<br/>+ recent Sabine operating notice"] --> VETO{"Event active and<br/>position is short?"}
-    PRE_VETO --> VETO
-    VETO -->|"yes"| FINAL_FLAT["Final position = 0"]
-    VETO -->|"no"| FINAL_KEEP["Keep lagged position"]
-
-    FINAL_FLAT --> SIDE{"Final exposure"}
-    FINAL_KEEP --> SIDE
-    SIDE -->|"positive"| LONG["Long Henry Hub futures"]
-    SIDE -->|"negative"| SHORT["Short Henry Hub futures"]
-    SIDE -->|"zero"| FLAT["Flat"]
-
-    LONG --> PNL["Five-session-early-roll return<br/>gross = position x roll-adjusted return"]
-    SHORT --> PNL
-    FLAT --> PNL
-    PNL --> COST["turnover = abs(position_t - position_t-1)<br/>net return = gross - turnover x 2.5 bps"]
-    COST --> OUTPUT["strategy_daily.parquet<br/>equity, Sharpe, Sortino, CAGR,<br/>drawdown and attribution tables"]
+    POSITION --> RETURN["Five-session-early-roll<br/>Henry Hub futures return"]
+    RETURN --> NET["Net return<br/>position x futures return<br/>minus 2.5 bps x turnover"]
+    NET --> RESULTS["Daily results<br/>equity, risk and attribution"]
 ```
 
-This is the backtest execution convention, not an order-level fill simulator:
-it does not separately simulate bid--ask spread, market impact, two-leg roll
-slippage, margin, liquidity, or failed fills. Files under `reproduced/` are
-local audit outputs; files under `results/models/` are the checked-in canonical
-research record.
+This is the backtest execution convention, not an order-level fill simulator.
+Detailed score definitions and weights remain in `MODEL_CARD.md`.
 
 ## Reproduce the approved model
 
