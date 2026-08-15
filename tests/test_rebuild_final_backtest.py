@@ -7,6 +7,11 @@ from pathlib import Path
 
 import pytest
 
+from naturalgas.audit_inputs import (
+    WIND_DIAGNOSTICS_CSV_ARTIFACT_ID,
+    WIND_WEIGHTS_CSV_ARTIFACT_ID,
+    materialize_audit_inputs,
+)
 from naturalgas.pipelines.rebuild_final_backtest import rebuild
 from naturalgas.reproducibility import DEFAULT_MANIFEST, PROJECT_ROOT
 
@@ -44,19 +49,22 @@ def test_input_manifest_matches_checked_schema_registry() -> None:
 
 
 def test_wind_audit_artifacts_are_exact() -> None:
+    audit_paths = materialize_audit_inputs(
+        [WIND_WEIGHTS_CSV_ARTIFACT_ID, WIND_DIAGNOSTICS_CSV_ARTIFACT_ID]
+    )
     expected = {
-        "inputs/audit/wind/annual_location_weights.csv": (
+        audit_paths[WIND_WEIGHTS_CSV_ARTIFACT_ID]: (
             "677cdabc8f3f051514f3ad3ed29e24332c6755dc9902bd8361b35dddd8ff23db"
         ),
-        "inputs/audit/wind/annual_fleet_diagnostics.csv": (
+        audit_paths[WIND_DIAGNOSTICS_CSV_ARTIFACT_ID]: (
             "57fdd655c5b2e5c21c060d71e6ceb6d1884ad803f15ed484308e48c8920f596e"
         ),
-        "results/experiments/wind/complete_wind_factor_ic.csv": (
+        PROJECT_ROOT / "results/experiments/wind/complete_wind_factor_ic.csv": (
             "93a1faf2e1d73618b0cde4b95eb572801adebd6953bcdae9fd39c4fd9080a930"
         ),
     }
-    for relative_path, expected_hash in expected.items():
-        content = (PROJECT_ROOT / relative_path).read_bytes()
+    for path, expected_hash in expected.items():
+        content = path.read_bytes()
         assert hashlib.sha256(content).hexdigest() == expected_hash
 
 

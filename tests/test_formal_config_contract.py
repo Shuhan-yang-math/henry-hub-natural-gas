@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import yaml
@@ -54,9 +55,23 @@ def test_formal_config_references_the_shipped_contract_files() -> None:
         config["panel"]["approved_artifact_manifest"],
         config["panel"]["schema_contract"],
         config["weather_rebuild"]["input_manifest"],
-        config["weather_rebuild"]["frozen_wind_capacity_snapshot"],
-        config["weather_rebuild"]["frozen_solar_capacity_snapshot"],
+        config["weather_rebuild"]["derived_capacity_parity_manifest"],
+        config["wind"]["notebook_audit_inputs"]["manifest"],
     }
     for relative_path in declared:
         assert not Path(relative_path).is_absolute()
         assert (PROJECT_ROOT / relative_path).is_file(), relative_path
+
+    selected_manifest = json.loads(
+        (
+            PROJECT_ROOT
+            / config["weather_rebuild"]["derived_capacity_parity_manifest"]
+        ).read_text(encoding="utf-8")
+    )
+    selected_ids = {entry["id"] for entry in selected_manifest["artifacts"]}
+    assert config["weather_rebuild"][
+        "frozen_wind_capacity_snapshot_artifact_id"
+    ] in selected_ids
+    assert config["weather_rebuild"][
+        "frozen_solar_capacity_snapshot_artifact_id"
+    ] in selected_ids

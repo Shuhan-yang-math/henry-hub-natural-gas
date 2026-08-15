@@ -368,14 +368,6 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_SELECTED_INPUT_MANIFEST,
     )
-    parser.add_argument(
-        "--use-checked-in-selected-inputs",
-        action="store_true",
-        help=(
-            "Use the checked-in compact score, WNGSR correction, and event "
-            "tables instead of downloading the immutable GCS archive."
-        ),
-    )
     parser.add_argument("--formal-daily", type=Path, default=FORMAL_DAILY)
     parser.add_argument("--score-inputs", type=Path, default=SCORE_INPUTS)
     parser.add_argument(
@@ -397,11 +389,7 @@ def main() -> None:
     args = parse_args()
     receipt = rebuild_d1_3_strategy(
         weather_manifest=args.weather_manifest,
-        selected_input_manifest=(
-            None
-            if args.use_checked_in_selected_inputs
-            else args.selected_input_manifest
-        ),
+        selected_input_manifest=args.selected_input_manifest,
         formal_daily_path=args.formal_daily,
         score_inputs_path=args.score_inputs,
         storage_calendar_corrections_path=args.storage_calendar_corrections,

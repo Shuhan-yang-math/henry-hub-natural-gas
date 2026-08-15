@@ -91,8 +91,9 @@ artifact:
 
 - `naturalgas/evaluate_eia930_selected_enhancement.py`
 - `results/experiments/eia930_selected/`
-- `inputs/audit/eia930/selected_overlay_inputs.parquet`
-- `inputs/audit/events/event_reports_aligned.parquet`
+- GCS artifacts `selected_eia930_overlay_inputs` and
+  `selected_event_reports_aligned` pinned in
+  `manifests/selected_strategy_inputs_2026-08-14.json`
 - `notebooks/06_eia930_central_florida_40_60.ipynb`
 - `reports/eia930_central_florida_40_60_brief.md`
 
@@ -126,8 +127,9 @@ to unguarded D1--3; the corresponding compounded final-wealth difference is
 frozen rule remains subject to prospective monitoring.
 
 - `naturalgas/evaluate_d1_3_storage_amplified_strategy.py`
-- `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet`
-- `inputs/audit/storage/wngsr_d1_3_score_corrections.parquet`
+- GCS artifacts `selected_d1_3_storage_amplifier_inputs` and
+  `selected_wngsr_d1_3_score_corrections` pinned in
+  `manifests/selected_strategy_inputs_2026-08-14.json`
 - `results/experiments/d1_3_storage_amplified/`
 - `notebooks/07_d1_3_storage_amplified_strategy.ipynb`
 - `reports/d1_3_storage_amplified_strategy_brief.md`

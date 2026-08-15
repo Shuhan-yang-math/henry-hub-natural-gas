@@ -22,22 +22,22 @@ from naturalgas.eia930_florida_availability import (  # noqa: E402
     build_source_history,
     map_to_score_dates,
 )
-
-
-SOURCE_DAILY = (
-    PROJECT_ROOT
-    / "inputs/audit/eia930/eia930_southeast_daily_multifuel.parquet"
+from naturalgas.audit_inputs import (  # noqa: E402
+    D1_3_SCORE_INPUTS_ARTIFACT_ID,
+    EIA930_SOURCE_ARTIFACT_ID,
+    audit_input_path,
+    resolve_audit_inputs,
 )
+
+
+SOURCE_DAILY = audit_input_path(EIA930_SOURCE_ARTIFACT_ID)
 FORMAL_DAILY = (
     PROJECT_ROOT
     / "naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet"
 )
-D1_SCORE_INPUTS = (
-    PROJECT_ROOT / "inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet"
-)
+D1_SCORE_INPUTS = audit_input_path(D1_3_SCORE_INPUTS_ARTIFACT_ID)
 OUTPUT = (
-    PROJECT_ROOT
-    / "inputs/audit/eia930/florida_available_ba_signal_history.parquet"
+    PROJECT_ROOT / "reproduced/audit/eia930/florida_available_ba_signal_history.parquet"
 )
 
 
@@ -60,6 +60,12 @@ def run(
     d1_score_inputs_path: Path = D1_SCORE_INPUTS,
     output_path: Path = OUTPUT,
 ) -> dict[str, Any]:
+    audit_paths = resolve_audit_inputs({
+        EIA930_SOURCE_ARTIFACT_ID: source_daily_path,
+        D1_3_SCORE_INPUTS_ARTIFACT_ID: d1_score_inputs_path,
+    })
+    source_daily_path = audit_paths[EIA930_SOURCE_ARTIFACT_ID]
+    d1_score_inputs_path = audit_paths[D1_3_SCORE_INPUTS_ARTIFACT_ID]
     source = pd.read_parquet(source_daily_path)
     formal_dates = pd.read_parquet(formal_daily_path, columns=["date"])["date"]
     d1_dates = pd.read_parquet(d1_score_inputs_path, columns=["date"])["date"]

@@ -120,11 +120,12 @@ uniform annual improvement.
 Run from `henry-hub-natural-gas/`:
 
 ```bash
-python naturalgas/rebuild_hdd_guard_seasonality.py
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
 
-The commands above are the compact offline/downstream reproduction. To rebuild
+The command above materializes the compact score, WNGSR correction, and event
+inputs from the exact GCS generations in
+`manifests/selected_strategy_inputs_2026-08-14.json`. To rebuild
 the D1--3 wind signal from its immutable GCS source before running the same
 evaluator, use:
 
@@ -142,9 +143,9 @@ score, one-session position, BSEE/Sabine veto, transaction cost, performance
 tables, and dashboard. It reads:
 
 - `naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`;
-- `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet`;
-- `inputs/audit/eia930/florida_available_ba_signal_history.parquet`;
-- `inputs/audit/storage/wngsr_d1_3_score_corrections.parquet`; and
-- `inputs/audit/events/event_reports_aligned.parquet`.
+- GCS artifact `selected_d1_3_storage_amplifier_inputs`;
+- GCS artifact `selected_florida_available_ba_signal_history`;
+- GCS artifact `selected_wngsr_d1_3_score_corrections`; and
+- GCS artifact `selected_event_reports_aligned`.
 
 Outputs are written to `results/experiments/d1_3_storage_amplified/`.

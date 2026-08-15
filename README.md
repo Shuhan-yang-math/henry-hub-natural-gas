@@ -167,7 +167,7 @@ henry-hub-natural-gas/
 ├── config/                     # frozen formal-model policy
 ├── manifests/                  # immutable input generations and checksums
 ├── schemas/                    # exact Arrow input schemas
-├── inputs/audit/               # EIA-930 and event-controller audit inputs
+├── inputs/audit/               # documentation for remote audit inputs
 ├── notebooks/
 │   ├── 01_final_south_central_strategy.ipynb
 │   ├── 02_capacity_weighted_wind.ipynb
@@ -247,8 +247,8 @@ To verify the shipped result after reproduction:
 pytest -q
 ```
 
-The selected EIA-930 enhancement is reproduced entirely from checked-in audit
-inputs and the checked-in formal daily artifact:
+The selected EIA-930 enhancement keeps the formal daily result in Git and
+materializes its compact audit inputs from exact GCS generations:
 
 ```bash
 python naturalgas/evaluate_eia930_selected_enhancement.py
@@ -258,12 +258,19 @@ This command refreshes the selected daily series, annual metrics, event
 registry, summary, and English dashboard under
 `results/experiments/eia930_selected/`.
 
-The quickest offline reproduction of the current selected D1--3 strategy uses
-the checked-in compact audit input:
+The quickest downstream reproduction of the current selected D1--3 strategy
+materializes the compact score, WNGSR correction, and event inputs from their
+generation-pinned GCS manifest into the ignored `inputs/gcs` cache:
 
 ```bash
-python naturalgas/rebuild_hdd_guard_seasonality.py
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
+```
+
+The evaluators fetch missing default audit inputs automatically. To populate
+and validate the complete audit cache explicitly, run:
+
+```bash
+python -m naturalgas.audit_inputs
 ```
 
 This refreshes the selected daily series, full/period/annual metrics, event
@@ -319,12 +326,12 @@ RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 | Notebook | Clean-run inputs and behavior |
 |---|---|
 | `01_final_south_central_strategy.ipynb` | Preserves the historical full-sample baseline and the earlier Central-only EIA-930 research snapshot. Use notebook 07 for the current selected strategy. |
-| `02_capacity_weighted_wind.ipynb` | Needs the manifest panel and 00Z wind parquet plus the checked-in files under `inputs/audit/wind/`; the nonlinear power-curve helper is source code in `naturalgas/`. |
+| `02_capacity_weighted_wind.ipynb` | Needs the manifest panel and 00Z wind parquet; its two audit CSVs are materialized from generation-pinned GCS objects. The nonlinear power-curve helper is source code in `naturalgas/`. |
 | `03_capacity_weighted_solar.ipynb` | Reads its summary, IC, annual, and cost tables from tracked `results/experiments/solar/`. Weight-grid and daily-equity cells are optional and report a clear skip unless generated with `python naturalgas/evaluate_ncar_gdex_complete_solar_factor.py`. |
 | `04_native_frequency_fundamentals.ipynb` | Recomputes immediately and needs the four model parquets plus access to the three EIA inputs. It is a research notebook, not the strict final-rebuild entry point. |
 | `05_fundamental_weight_selection.ipynb` | Has `RUN_BACKTEST=True` and later perfect-information cells that access EIA data. It requires all model inputs and Braeswood GCS read credentials and is not part of the strict formal reproduction guarantee. |
-| `06_eia930_central_florida_40_60.ipynb` | Rebuilds from the checked-in formal daily artifact, Central/Florida overlay, and event registry; no network access is required. |
-| `07_d1_3_storage_amplified_strategy.ipynb` | Rebuilds the current selected D1--3 strategy from the checked-in formal daily artifact, frozen D1--3 score inputs, and event registry; no network access is required. |
+| `06_eia930_central_florida_40_60.ipynb` | Rebuilds from the checked-in formal daily result and generation-pinned GCS Central/Florida overlay and event registry. The first clean run requires private-bucket read access. |
+| `07_d1_3_storage_amplified_strategy.ipynb` | Rebuilds the current selected D1--3 strategy from the checked-in formal daily result and generation-pinned GCS score, WNGSR-correction, and event inputs. The first clean run requires private-bucket read access. |
 
 The notebooks retain historical rendered outputs. A dependency audit must
 execute them from a fresh kernel; the presence of saved output is not evidence

@@ -1,5 +1,11 @@
 # EIA WNGSR release-calendar audit
 
+The two derived data files documented below are not tracked in Git. Artifacts
+`selected_legacy_wngsr_formal_scores` and
+`selected_wngsr_d1_3_score_corrections` are downloaded from the exact GCS
+generations pinned in `manifests/selected_strategy_inputs_2026-08-14.json` into
+the ignored `inputs/gcs` cache.
+
 Weekly storage values come from the generation-pinned EIA bulk artifact in
 `manifests/input_artifacts_2026-07-13.json`. That artifact is a revised history:
 its `week_ending` field is an observation date and does not preserve the first
@@ -47,10 +53,10 @@ differences, the fix is applied as a narrow overlay:
 
 | Artifact | Rows | SHA-256 |
 |---|---:|---|
-| `legacy_week_ending_plus_six_formal_scores.parquet` | 2,264 | `ba0e107f9380075931cbf29d84ac6d2d135f77e4c2a7a373f049f0fbae2c8a0b` |
-| `wngsr_d1_3_score_corrections.parquet` | 23 | `b68fe58589f8337be69e57a14011eefa83436fdd32a0b0b1d5c58e5af76b8a4a` |
+| `selected_legacy_wngsr_formal_scores` | 2,264 | `ba0e107f9380075931cbf29d84ac6d2d135f77e4c2a7a373f049f0fbae2c8a0b` |
+| `selected_wngsr_d1_3_score_corrections` | 23 | `b68fe58589f8337be69e57a14011eefa83436fdd32a0b0b1d5c58e5af76b8a4a` |
 
-The first file retains only the date, formal core score, and formal core
+The first artifact retains only the date, formal core score, and formal core
 fundamental from the pre-fix `week_ending + 6` run. The builder differences it
 against the corrected formal artifact, verifies that the same 23 dates have a
 changed South Central storage state, and writes the second file. Rebuild it
@@ -59,8 +65,11 @@ with:
 ```bash
 python naturalgas/build_wngsr_d1_3_corrections.py \
   --corrected-formal \
-  naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet
+    naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet
 ```
+
+The command writes its regenerated intermediate under `reproduced/audit/`; it
+does not overwrite the immutable GCS input or write into `inputs/audit`.
 
 The evaluator adds the before-production-control score delta to the frozen
 D1--5, D1--3, and no-wind scores, reapplies the production clamp, replaces the

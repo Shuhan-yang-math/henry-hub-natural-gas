@@ -19,18 +19,18 @@ settlement-to-settlement return.
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
 
-
-ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_EVENT_REPORTS_PATH = (
-    ROOT
-    / "inputs/audit/events/event_reports_aligned.parquet"
+from naturalgas.audit_inputs import (
+    EVENT_REPORTS_ARTIFACT_ID,
+    audit_input_path,
 )
+
+
+DEFAULT_EVENT_REPORTS_PATH = audit_input_path(EVENT_REPORTS_ARTIFACT_ID)
 CONTROLLER_NAME = "shutin_worsening_recent_operational_notice_veto"
 CONTROLLED_POSITION_COLUMN = (
     "position__replace_all_storage__south_central_total__shutin_notice_veto"

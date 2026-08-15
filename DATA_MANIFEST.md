@@ -92,42 +92,48 @@ The three EIA objects are downloaded to `inputs/gcs/` and exposed to the
 legacy factor functions through a read-only local filesystem adapter. No GCS
 object is modified.
 
-Notebook 02 also uses two small, checked-in audit tables:
+Notebook 02 also uses two small audit tables archived in GCS:
 
 ```text
-inputs/audit/wind/annual_location_weights.csv
-inputs/audit/wind/annual_fleet_diagnostics.csv
+gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/annual_location_weights.csv
+gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/annual_fleet_diagnostics.csv
 ```
 
-These tables explain the historical capacity weighting and fleet diagnostics;
-they are not additional formal evaluator inputs.
+Their generations and hashes are pinned in
+`manifests/wind_notebook_audit_inputs_2026-08-15.json`. Notebook 02 downloads
+them into the ignored `inputs/gcs` cache. They explain the historical capacity
+weighting and fleet diagnostics; they are not additional formal evaluator
+inputs.
 
 ## Selected strategy enhancement inputs
 
-The selected enhancement keeps compact audit inputs in Git for a fast offline
-path. The same exact bytes, plus the EIA-930 source/rolling tables and raw
-capacity snapshots, are archived under the immutable GCS prefix
+The selected enhancement keeps intermediate audit data out of Git. Compact
+score inputs, EIA-930 source/rolling tables, event inputs, and capacity
+snapshots are archived under the immutable GCS prefix
 `gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/`.
 [`manifests/selected_strategy_inputs_2026-08-14.json`](manifests/selected_strategy_inputs_2026-08-14.json)
 pins all 13 objects by generation, SHA-256, size, dimensions, and required
 columns. They remain separate from the seven formal processed inputs.
 
-| Path | Rows | Coverage | SHA-256 | Use |
+| Manifest artifact id | Rows | Coverage | SHA-256 | Use |
 |---|---:|---|---|---|
-| `inputs/audit/eia930/eia930_southeast_daily_multifuel.parquet` | 49,518 | 2019-01-01–2026-07-13 respondent-days | `332bbf025b5f9536adf5148aa40be09cd80f596d49a39f058f1d7eea132542e4` | Frozen revised EIA-930 daily BA demand and generation source |
-| `inputs/audit/eia930/florida_available_ba_signal_history.parquet` | 1,752 | 2019-07-24–2026-07-14 score dates | `c34597ae140a9251c07e670649f2f8d5a1fd6d8ea8a80d4c8dc7e4b84616189b` | Deterministic daily-available-BA Florida signal and rolling lineage |
-| `inputs/audit/eia930/selected_overlay_inputs.parquet` | 1,751 | 2019-07-24–2026-07-13 score dates | `80118666e3c63062c87441435c78f729676560b08b77cfcee1c9afe8b969f155` | Central total non-gas and daily-available-BA Florida shortfalls, production short-block state, and lineage |
-| `inputs/audit/events/event_reports_aligned.parquet` | 101 | 2017-08-24–2024-09-29 | `f1a99a286c1a2a5b7b03990edfec08786aa9a56e0b7f5ad88417450fb984fb1b` | BSEE/Sabine event-controller registry |
-| `inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet` | 1,752 | 2019-07-24–2026-07-14 score dates | `d4807aae8bc5401a9bfb533ec64820cedcc6f38352af9a13f460ae1e50befe04` | D1--3/D1--5 scores, score without wind, fast-shock inputs, storage state, Florida BA coverage, and HDD guard flags with June--August disabled |
-| `inputs/audit/storage/legacy_week_ending_plus_six_formal_scores.parquet` | 2,264 | 2017-07-03–2026-07-13 | `ba0e107f9380075931cbf29d84ac6d2d135f77e4c2a7a373f049f0fbae2c8a0b` | Narrow pre-fix score baseline used only to isolate the release-calendar delta |
-| `inputs/audit/storage/wngsr_d1_3_score_corrections.parquet` | 23 | 2019-11-27–2025-12-31 affected score dates | `b68fe58589f8337be69e57a14011eefa83436fdd32a0b0b1d5c58e5af76b8a4a` | Actual-release-date score delta, corrected South Central state, and production-clamp audit fields |
+| `selected_eia930_southeast_daily_multifuel` | 49,518 | 2019-01-01–2026-07-13 respondent-days | `332bbf025b5f9536adf5148aa40be09cd80f596d49a39f058f1d7eea132542e4` | Frozen revised EIA-930 daily BA demand and generation source |
+| `selected_florida_available_ba_signal_history` | 1,752 | 2019-07-24–2026-07-14 score dates | `c34597ae140a9251c07e670649f2f8d5a1fd6d8ea8a80d4c8dc7e4b84616189b` | Deterministic daily-available-BA Florida signal and rolling lineage |
+| `selected_eia930_overlay_inputs` | 1,751 | 2019-07-24–2026-07-13 score dates | `80118666e3c63062c87441435c78f729676560b08b77cfcee1c9afe8b969f155` | Central total non-gas and daily-available-BA Florida shortfalls, production short-block state, and lineage |
+| `selected_event_reports_aligned` | 101 | 2017-08-24–2024-09-29 | `f1a99a286c1a2a5b7b03990edfec08786aa9a56e0b7f5ad88417450fb984fb1b` | BSEE/Sabine event-controller registry |
+| `selected_d1_3_storage_amplifier_inputs` | 1,752 | 2019-07-24–2026-07-14 score dates | `d4807aae8bc5401a9bfb533ec64820cedcc6f38352af9a13f460ae1e50befe04` | D1--3/D1--5 scores, score without wind, fast-shock inputs, storage state, Florida BA coverage, and HDD guard flags with June--August disabled |
+| `selected_legacy_wngsr_formal_scores` | 2,264 | 2017-07-03–2026-07-13 | `ba0e107f9380075931cbf29d84ac6d2d135f77e4c2a7a373f049f0fbae2c8a0b` | Narrow pre-fix score baseline used only to isolate the release-calendar delta |
+| `selected_wngsr_d1_3_score_corrections` | 23 | 2019-11-27–2025-12-31 affected score dates | `b68fe58589f8337be69e57a14011eefa83436fdd32a0b0b1d5c58e5af76b8a4a` | Actual-release-date score delta, corrected South Central state, and production-clamp audit fields |
+| `selected_annual_location_weights` | 308 | 2016–2026 issue years | `f7ea18d461edbea3386046e528859294e8346393f80f215131451189373dee60` | Wind-capacity parity target |
+| `selected_monthly_location_weights` | 3,532 | Historical monthly capacity periods | `f415446ae98a8233318f7f812066f5ebafb77f1c3af15b478fdaf79239f16002` | Solar-capacity parity target |
 
 Florida is rebuilt from the BAs that are complete on each source gas day into
 one continuous past-only rolling history. Partial-BA observations remain in
 the reference history used by later dates. This removes the accidental SCEG
 coupling and retains all five previously omitted Florida-outage return dates.
 
-The selected evaluator reads these inputs together with
+The selected evaluator materializes the required objects into the ignored
+`inputs/gcs` cache, reads them together with
 `naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`
 and writes:
 
@@ -167,14 +173,11 @@ results/experiments/d1_3_storage_amplified/summary.json
 Rebuild the selected strategy artifacts with:
 
 ```bash
-python naturalgas/build_wngsr_d1_3_corrections.py \
-  --corrected-formal \
-  naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet
-python naturalgas/rebuild_hdd_guard_seasonality.py
 python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
 ```
 
-That is the fast offline/downstream path. The strict raw-wind-to-result path is:
+That is the fast downstream path: missing audit inputs are downloaded from
+their exact GCS generations. The strict raw-wind-to-result path is:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
@@ -185,15 +188,10 @@ artifacts, and a lineage receipt under `reproduced/d1_3_strategy/`. For the
 formal master panel and selected strategy in one transaction, use
 `python -m naturalgas.pipelines.rebuild_all --overwrite`.
 
-The byte-exact weather rebuild now starts from generation-pinned raw USWTDB
-and EIA-860M snapshots in GCS. The builder has been checked to regenerate the
-two derived weight parquets below exactly; those small parquets remain in Git
-as human-reviewable parity targets.
-
-```text
-inputs/audit/wind/annual_location_weights.parquet
-inputs/audit/solar/monthly_location_weights.parquet
-```
+The byte-exact weather rebuild starts from generation-pinned raw USWTDB and
+EIA-860M snapshots in GCS. The builder has been checked to regenerate the wind
+and solar derived-weight artifacts exactly; both parity targets also remain in
+GCS and are pinned in `manifests/selected_strategy_inputs_2026-08-14.json`.
 
 ## Wind source correction
 

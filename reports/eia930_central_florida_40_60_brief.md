@@ -145,8 +145,10 @@ first-vintage capture confirms the historical result.
 
 - `notebooks/06_eia930_central_florida_40_60.ipynb`
 - `naturalgas/evaluate_eia930_selected_enhancement.py`
-- `inputs/audit/eia930/selected_overlay_inputs.parquet`
-- `inputs/audit/eia930/florida_available_ba_signal_history.parquet`
+- GCS artifact `selected_eia930_overlay_inputs` in
+  `manifests/selected_strategy_inputs_2026-08-14.json`
+- GCS artifact `selected_florida_available_ba_signal_history` in the same
+  manifest
 - `results/experiments/eia930_selected/summary.json`
 - `results/experiments/eia930_selected/selected_strategy_daily.parquet`
 - `results/experiments/eia930_selected/central_florida_weight_sweep.csv`

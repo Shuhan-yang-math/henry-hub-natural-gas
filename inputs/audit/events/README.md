@@ -1,6 +1,11 @@
 # BSEE and Sabine event-controller input
 
-`event_reports_aligned.parquet` is the frozen report registry used by the
+The data file is not tracked in Git. Artifact
+`selected_event_reports_aligned` is downloaded from the exact GCS generation
+pinned in `manifests/selected_strategy_inputs_2026-08-14.json` into the ignored
+`inputs/gcs` cache.
+
+`selected_event_reports_aligned` is the frozen report registry used by the
 post-score pure short-veto controller.
 
 | Property | Value |

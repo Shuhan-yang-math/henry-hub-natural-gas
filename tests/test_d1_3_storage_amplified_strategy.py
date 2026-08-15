@@ -3,6 +3,11 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from naturalgas.audit_inputs import (
+    D1_3_SCORE_INPUTS_ARTIFACT_ID,
+    WNGSR_CORRECTIONS_ARTIFACT_ID,
+    materialize_audit_inputs,
+)
 from naturalgas.evaluate_d1_3_storage_amplified_strategy import (
     FORMAL_DAILY,
     NET_D1_3,
@@ -209,7 +214,8 @@ def test_shipped_selected_strategy_reproduces() -> None:
 
 
 def test_available_ba_history_restores_five_florida_outages() -> None:
-    inputs = pd.read_parquet(SCORE_INPUTS)
+    paths = materialize_audit_inputs([D1_3_SCORE_INPUTS_ARTIFACT_ID])
+    inputs = pd.read_parquet(paths[D1_3_SCORE_INPUTS_ARTIFACT_ID])
     validate_score_history(inputs, signal_column="signal__firm__florida")
     outage_score_dates = pd.to_datetime(
         [
@@ -232,9 +238,13 @@ def test_available_ba_history_restores_five_florida_outages() -> None:
 
 
 def test_storage_calendar_overlay_is_narrow_and_recomputes_guard_state() -> None:
-    inputs = pd.read_parquet(SCORE_INPUTS)
+    paths = materialize_audit_inputs([
+        D1_3_SCORE_INPUTS_ARTIFACT_ID,
+        WNGSR_CORRECTIONS_ARTIFACT_ID,
+    ])
+    inputs = pd.read_parquet(paths[D1_3_SCORE_INPUTS_ARTIFACT_ID])
     inputs["date"] = pd.to_datetime(inputs["date"]).dt.normalize()
-    corrections = pd.read_parquet(STORAGE_CALENDAR_CORRECTIONS)
+    corrections = pd.read_parquet(paths[WNGSR_CORRECTIONS_ARTIFACT_ID])
     corrections["date"] = pd.to_datetime(corrections["date"]).dt.normalize()
     validate_score_inputs(inputs)
 

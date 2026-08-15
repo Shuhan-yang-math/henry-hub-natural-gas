@@ -25,6 +25,15 @@ from naturalgas.evaluate_d1_3_storage_amplified_strategy import (  # noqa: E402
     recompute_guard_states,
     validate_score_inputs,
 )
+from naturalgas.audit_inputs import (  # noqa: E402
+    D1_3_SCORE_INPUTS_ARTIFACT_ID,
+    resolve_audit_inputs,
+)
+
+
+DEFAULT_OUTPUT = (
+    PROJECT_ROOT / "reproduced/audit/wind/d1_3_storage_amplifier_inputs.parquet"
+)
 
 
 def sha256(path: Path) -> str:
@@ -70,6 +79,9 @@ def write_atomic(frame: pd.DataFrame, output: Path) -> None:
 
 
 def run(input_path: Path, output_path: Path) -> dict[str, object]:
+    input_path = resolve_audit_inputs({
+        D1_3_SCORE_INPUTS_ARTIFACT_ID: input_path,
+    })[D1_3_SCORE_INPUTS_ARTIFACT_ID]
     rebuilt = rebuild(pd.read_parquet(input_path))
     write_atomic(rebuilt, output_path)
     return {
@@ -85,7 +97,7 @@ def run(input_path: Path, output_path: Path) -> dict[str, object]:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=SCORE_INPUTS)
-    parser.add_argument("--output", type=Path, default=SCORE_INPUTS)
+    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args()
 
 

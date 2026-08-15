@@ -1,27 +1,26 @@
 # Wind notebook audit inputs
 
-This directory contains small descriptive fleet/capacity tables and the frozen
-score-date input for the selected D1--3 research evaluator. The fleet tables
-support `notebooks/02_capacity_weighted_wind.ipynb`; the selected input is
-documented separately below.
+This directory now contains documentation only. The small descriptive
+fleet/capacity tables and the frozen score-date input are archived in GCS and
+materialized into the ignored `inputs/gcs` cache on demand.
 
-- `annual_location_weights.csv` is a text export of the 308-row
-  `annual_location_weights.parquet` produced by
+- `wind_annual_location_weights_csv` is a text export of the 308-row
+  `selected_annual_location_weights` artifact produced by
   `evaluate_ncar_gdex_complete_wind_factor.py`.
-- `annual_fleet_diagnostics.csv` is the corresponding 11-row annual fleet
+- `wind_annual_fleet_diagnostics_csv` is the corresponding 11-row annual fleet
   summary.
 
-The annual-weights Parquet file is also the frozen capacity snapshot consumed by the strict
-weather-factor rebuild. It preserves the original floating-point bit patterns
-required for byte-exact output. Its size and SHA-256 are pinned in
-`manifests/weather_factor_inputs_2026-07-28.json`; the CSV is the
-human-readable notebook representation.
+The strict weather-factor rebuild starts from the raw generation-pinned USWTDB
+snapshot and checks the derived weights against
+`selected_annual_location_weights`. The Parquet artifact preserves the exact
+floating-point bit patterns; the CSV is the human-readable notebook
+representation.
 
-The CSV audit-table hashes and formal wind IC hash are recorded in
-`config/ng_multisignal_panel_2026-07-13.yaml`. The weather snapshot contract is
-enforced by `tests/test_rebuild_weather_factors.py`.
+The CSV generations and hashes are pinned in
+`manifests/wind_notebook_audit_inputs_2026-08-15.json`; the selected Parquet
+inputs are pinned in `manifests/selected_strategy_inputs_2026-08-14.json`.
 
-`d1_3_storage_amplifier_inputs.parquet` is the compact score-date audit input
+`selected_d1_3_storage_amplifier_inputs` is the compact score-date audit input
 for the currently selected D1--3 strategy. It contains 1,752 rows from
 2019-07-24 through 2026-07-14 and freezes the D1--3 and D1--5 wind-inclusive
 scores, the score without wind, wind signals, HDD revision, production-risk
@@ -38,7 +37,7 @@ The weather-revision guard uses HDD in January--May and September--December,
 is disabled in June--August, and has no CDD branch. Recompute the frozen guard
 flags and selected score with `naturalgas/rebuild_hdd_guard_seasonality.py`.
 
-This file remains the compact offline/downstream audit boundary for EIA-930,
+This artifact remains the compact downstream audit boundary for EIA-930,
 storage, production weather, and guard state. Its two wind columns are also
 verified upstream: `python -m naturalgas.pipelines.rebuild_d1_3_strategy
 --overwrite` reads the exact raw NCAR/GDEX GFS generations declared in

@@ -1923,11 +1923,11 @@ version has 1.930 net Sharpe, 3.213 Sortino, 18.65% CAGR, and -6.07% maximum
 drawdown. Its cumulative incremental net return is 6.05 percentage points.
 
 The approved 2017-start formal result remains unchanged. The new evaluator,
-checked-in inputs, annual results, and dashboard are stored at:
+generation-pinned GCS inputs, annual results, and dashboard are identified by:
 
 - `naturalgas/evaluate_eia930_selected_enhancement.py`;
-- `inputs/audit/eia930/selected_overlay_inputs.parquet`;
-- `inputs/audit/events/event_reports_aligned.parquet`;
+- `manifests/selected_strategy_inputs_2026-08-14.json` artifacts
+  `selected_eia930_overlay_inputs` and `selected_event_reports_aligned`;
 - `results/experiments/eia930_selected/`.
 
 ## 16. Conclusion

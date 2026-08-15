@@ -62,11 +62,12 @@ wind:
     dataset: USWTDB turbine snapshot
     point_in_time_policy: "issue year y uses turbines commissioned by y-1"
   notebook_audit_inputs:
+    manifest: manifests/wind_notebook_audit_inputs_2026-08-15.json
     annual_location_weights:
-      path: inputs/audit/wind/annual_location_weights.csv
+      artifact_id: wind_annual_location_weights_csv
       sha256: 677cdabc8f3f051514f3ad3ed29e24332c6755dc9902bd8361b35dddd8ff23db
     annual_fleet_diagnostics:
-      path: inputs/audit/wind/annual_fleet_diagnostics.csv
+      artifact_id: wind_annual_fleet_diagnostics_csv
       sha256: 57fdd655c5b2e5c21c060d71e6ceb6d1884ad803f15ed484308e48c8920f596e
     complete_factor_ic:
       path: results/experiments/wind/complete_wind_factor_ic.csv
@@ -79,8 +80,9 @@ solar:
 
 weather_rebuild:
   input_manifest: manifests/weather_factor_inputs_2026-07-28.json
-  frozen_wind_capacity_snapshot: inputs/audit/wind/annual_location_weights.parquet
-  frozen_solar_capacity_snapshot: inputs/audit/solar/monthly_location_weights.parquet
+  derived_capacity_parity_manifest: manifests/selected_strategy_inputs_2026-08-14.json
+  frozen_wind_capacity_snapshot_artifact_id: selected_annual_location_weights
+  frozen_solar_capacity_snapshot_artifact_id: selected_monthly_location_weights
 
 fundamentals:
   storage_artifact_id: storage_weekly

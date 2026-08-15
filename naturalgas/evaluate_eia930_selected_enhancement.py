@@ -35,6 +35,12 @@ from naturalgas.shutin_notice_event_controller import (
     DEFAULT_EVENT_REPORTS_PATH,
     apply_controller,
 )
+from naturalgas.audit_inputs import (
+    EIA930_OVERLAY_ARTIFACT_ID,
+    EVENT_REPORTS_ARTIFACT_ID,
+    audit_input_path,
+    resolve_audit_inputs,
+)
 from naturalgas.nymex_session_calendar import filter_confirmed_nymex_sessions
 from naturalgas.eia930_florida_availability import validate_score_history
 from naturalgas.sync_documentation_metrics import (
@@ -46,9 +52,7 @@ FORMAL_DAILY = (
     PROJECT_ROOT
     / "naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet"
 )
-OVERLAY_INPUTS = (
-    PROJECT_ROOT / "inputs/audit/eia930/selected_overlay_inputs.parquet"
-)
+OVERLAY_INPUTS = audit_input_path(EIA930_OVERLAY_ARTIFACT_ID)
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "results/experiments/eia930_selected"
 
 CORE_SCORE = "score__replace_all_storage__south_central_total"
@@ -157,6 +161,12 @@ def build_daily(
     overlay_inputs_path: Path,
     event_reports_path: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
+    audit_paths = resolve_audit_inputs({
+        EIA930_OVERLAY_ARTIFACT_ID: overlay_inputs_path,
+        EVENT_REPORTS_ARTIFACT_ID: event_reports_path,
+    })
+    overlay_inputs_path = audit_paths[EIA930_OVERLAY_ARTIFACT_ID]
+    event_reports_path = audit_paths[EVENT_REPORTS_ARTIFACT_ID]
     formal = pd.read_parquet(formal_daily_path)
     formal["date"] = pd.to_datetime(formal["date"]).dt.normalize()
     formal = filter_confirmed_nymex_sessions(formal).reset_index(drop=True)

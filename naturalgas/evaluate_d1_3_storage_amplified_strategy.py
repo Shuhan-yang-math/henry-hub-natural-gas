@@ -40,6 +40,13 @@ from naturalgas.shutin_notice_event_controller import (  # noqa: E402
     DEFAULT_EVENT_REPORTS_PATH,
     apply_controller,
 )
+from naturalgas.audit_inputs import (  # noqa: E402
+    D1_3_SCORE_INPUTS_ARTIFACT_ID,
+    EVENT_REPORTS_ARTIFACT_ID,
+    WNGSR_CORRECTIONS_ARTIFACT_ID,
+    audit_input_path,
+    resolve_audit_inputs,
+)
 from naturalgas.nymex_session_calendar import (  # noqa: E402
     CONFIRMED_NON_SESSION_DATES,
     filter_confirmed_nymex_sessions,
@@ -56,13 +63,9 @@ FORMAL_DAILY = (
     PROJECT_ROOT
     / "naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet"
 )
-SCORE_INPUTS = (
-    PROJECT_ROOT
-    / "inputs/audit/wind/d1_3_storage_amplifier_inputs.parquet"
-)
-STORAGE_CALENDAR_CORRECTIONS = (
-    PROJECT_ROOT
-    / "inputs/audit/storage/wngsr_d1_3_score_corrections.parquet"
+SCORE_INPUTS = audit_input_path(D1_3_SCORE_INPUTS_ARTIFACT_ID)
+STORAGE_CALENDAR_CORRECTIONS = audit_input_path(
+    WNGSR_CORRECTIONS_ARTIFACT_ID
 )
 DEFAULT_OUTPUT_DIR = (
     PROJECT_ROOT / "results/experiments/d1_3_storage_amplified"
@@ -368,6 +371,16 @@ def build_daily(
     storage_calendar_corrections_path: Path,
     event_reports_path: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
+    audit_paths = resolve_audit_inputs({
+        D1_3_SCORE_INPUTS_ARTIFACT_ID: score_inputs_path,
+        WNGSR_CORRECTIONS_ARTIFACT_ID: storage_calendar_corrections_path,
+        EVENT_REPORTS_ARTIFACT_ID: event_reports_path,
+    })
+    score_inputs_path = audit_paths[D1_3_SCORE_INPUTS_ARTIFACT_ID]
+    storage_calendar_corrections_path = audit_paths[
+        WNGSR_CORRECTIONS_ARTIFACT_ID
+    ]
+    event_reports_path = audit_paths[EVENT_REPORTS_ARTIFACT_ID]
     formal = pd.read_parquet(
         formal_daily_path, columns=["date", "roll_adjusted_return"]
     )

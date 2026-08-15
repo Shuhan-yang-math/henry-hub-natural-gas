@@ -26,3 +26,8 @@ naturalgas/processed/south_central_storage/
 # identities live in manifests/ and the files remain in private GCS.
 inputs/gcs/
 reproduced/
+
+# Audit data is materialized from generation-pinned GCS manifests.  Keep only
+# its human-readable README documentation in Git.
+inputs/audit/**/*.parquet
+inputs/audit/**/*.csv

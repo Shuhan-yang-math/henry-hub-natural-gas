@@ -38,15 +38,18 @@ from naturalgas.evaluate_south_central_storage import (
 )
 from naturalgas.pipelines.rebuild_final_backtest import local_filesystem
 from naturalgas.reproducibility import DEFAULT_MANIFEST
-
-
-LEGACY_FORMAL_DAILY = (
-    PROJECT_ROOT
-    / "inputs/audit/storage/legacy_week_ending_plus_six_formal_scores.parquet"
+from naturalgas.audit_inputs import (
+    D1_3_SCORE_INPUTS_ARTIFACT_ID,
+    EIA930_OVERLAY_ARTIFACT_ID,
+    LEGACY_WNGSR_ARTIFACT_ID,
+    audit_input_path,
+    resolve_audit_inputs,
 )
+
+
+LEGACY_FORMAL_DAILY = audit_input_path(LEGACY_WNGSR_ARTIFACT_ID)
 DEFAULT_OUTPUT = (
-    PROJECT_ROOT
-    / "inputs/audit/storage/wngsr_d1_3_score_corrections.parquet"
+    PROJECT_ROOT / "reproduced/audit/storage/wngsr_d1_3_score_corrections.parquet"
 )
 SCORE_DELTA = "wngsr_score_delta_before_production_control"
 CORRECTED_LEVEL = "corrected_south_central_total_level_signal"
@@ -185,10 +188,15 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    legacy_formal = _load_dates(args.legacy_formal)
+    audit_paths = resolve_audit_inputs({
+        LEGACY_WNGSR_ARTIFACT_ID: args.legacy_formal,
+        EIA930_OVERLAY_ARTIFACT_ID: args.overlay_inputs,
+        D1_3_SCORE_INPUTS_ARTIFACT_ID: args.score_inputs,
+    })
+    legacy_formal = _load_dates(audit_paths[LEGACY_WNGSR_ARTIFACT_ID])
     corrected_formal = _load_dates(args.corrected_formal)
-    overlay = _load_dates(args.overlay_inputs)
-    score_inputs = _load_dates(args.score_inputs)
+    overlay = _load_dates(audit_paths[EIA930_OVERLAY_ARTIFACT_ID])
+    score_inputs = _load_dates(audit_paths[D1_3_SCORE_INPUTS_ARTIFACT_ID])
     filesystem = local_filesystem(DEFAULT_MANIFEST, root=PROJECT_ROOT)
     corrected_weekly = regional_weekly_signals(filesystem)
     corrections = build_corrections(
