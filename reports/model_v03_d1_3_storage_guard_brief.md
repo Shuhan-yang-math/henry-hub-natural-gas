@@ -1,8 +1,8 @@
-# Selected D1--3 Wind and Storage-Amplified Guard Strategy
+# Model V03 — Current Selected D1--3 Wind + Storage Guard
 
 **Selection date:** August 12, 2026; HDD month gate revised August 13, 2026
 **Common sample:** July 25, 2019 through July 13, 2026; 1,748 trading days
-**Status:** selected research version
+**Status:** current selected research model
 
 ## Decision
 
@@ -120,7 +120,7 @@ uniform annual improvement.
 Run from `henry-hub-natural-gas/`:
 
 ```bash
-python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
+python naturalgas/evaluate_model_v03_d1_3_storage_guard.py
 ```
 
 The command above materializes the compact score, WNGSR correction, and event
@@ -130,7 +130,7 @@ the D1--3 wind signal from its immutable GCS source before running the same
 evaluator, use:
 
 ```bash
-python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
+python -m naturalgas.pipelines.rebuild_model_v03 --overwrite
 ```
 
 That pipeline reads the exact GFS object generations in the weather manifest,
@@ -142,10 +142,10 @@ The evaluator validates every frozen guard state and recomputes the guarded
 score, one-session position, BSEE/Sabine veto, transaction cost, performance
 tables, and dashboard. It reads:
 
-- `naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`;
+- `results/models/v01_south_central_storage/strategy_daily.parquet`;
 - GCS artifact `selected_d1_3_storage_amplifier_inputs`;
 - GCS artifact `selected_florida_available_ba_signal_history`;
 - GCS artifact `selected_wngsr_d1_3_score_corrections`; and
 - GCS artifact `selected_event_reports_aligned`.
 
-Outputs are written to `results/experiments/d1_3_storage_amplified/`.
+Outputs are written to `results/models/v03_d1_3_storage_guard/`.

@@ -1,5 +1,11 @@
 # Model card
 
+**Model covered:** `hh_v03_d1_3_storage_guard` (V03, current selected research)
+
+**Historical reference:** `hh_v01_south_central_storage` (V01, frozen formal baseline)
+
+**Version registry:** `config/model_registry.yaml`
+
 ## Objective
 
 Estimate a bounded daily directional exposure to NYMEX Henry Hub natural-gas
@@ -85,7 +91,7 @@ requires the complete lead/location/hour inventory, rebuilds the annual weights
 from a generation-pinned raw USWTDB snapshot, and excludes the current issue
 from its rolling reference. The selected-input manifest separately pins the
 exact EIA-930, event, WNGSR-correction, and compact score objects consumed by
-the evaluator. `python -m naturalgas.pipelines.rebuild_d1_3_strategy
+the evaluator. `python -m naturalgas.pipelines.rebuild_model_v03
 --overwrite` validates that archive and requires the rebuilt daily D1--3 and
 D1--5 values to match the compact strategy input exactly before it will run
 the selected backtest.

@@ -16,6 +16,9 @@
     "zscore": "causal rolling 104 weekly values, min 52, current excluded"
   },
   "gcs_objects_modified": false,
+  "lifecycle_state": "frozen_formal_baseline",
+  "model_id": "hh_v01_south_central_storage",
+  "model_sequence": 1,
   "other_factors": "unchanged",
   "sample_end": "2026-07-13T00:00:00",
   "sample_start": "2017-07-03T00:00:00",
@@ -27,12 +30,10 @@
     "total_turnover": 149.75421824456123,
     "win_rate": 0.526060070671378
   },
-  "status": "current_notebook_strategy",
   "storage_replacement": {
     "sig_low_storage": "South Central Total level vs same-week 5-year normal",
     "sig_storage_4w_change": "South Central Total 4-week change vs seasonal normal",
     "sig_storage_change": "South Central Total 1-week change vs seasonal normal"
   },
-  "strategy_version": "south_central_total_storage",
   "trading_days": 2264
 }

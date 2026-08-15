@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the fixed South Central Total storage version of the current strategy.
+"""Build model V01, the frozen South Central storage formal baseline.
 
 This promotes the pre-specified ``replace_all_storage__south_central_total``
 candidate from the regional storage comparison into a clean, reproducible
@@ -48,10 +48,10 @@ from naturalgas.evaluate_south_central_storage import (  # noqa: E402
 )
 
 
-DEFAULT_OUTPUT_DIR = (
-    Path(__file__).resolve().parent
-    / "processed/south_central_storage_strategy"
-)
+MODEL_ID = "hh_v01_south_central_storage"
+MODEL_SEQUENCE = 1
+LIFECYCLE_STATE = "frozen_formal_baseline"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "results/models/v01_south_central_storage"
 SELECTED_CANDIDATE = "replace_all_storage__south_central_total"
 BASELINE_CANDIDATE = "current_lower48"
 CURRENT_WEIGHT_CANDIDATE = "reallocate__low_storage__lng_export_mom"
@@ -177,8 +177,9 @@ def run(
     selected = full.loc["south_central_total"]
     baseline = full.loc["lower48_baseline"]
     summary = {
-        "strategy_version": "south_central_total_storage",
-        "status": "current_notebook_strategy",
+        "model_id": MODEL_ID,
+        "model_sequence": MODEL_SEQUENCE,
+        "lifecycle_state": LIFECYCLE_STATE,
         "selected_candidate": SELECTED_CANDIDATE,
         "baseline_candidate": BASELINE_CANDIDATE,
         "sample_start": daily["date"].min(),

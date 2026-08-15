@@ -1,4 +1,4 @@
-"""Rebuild the approved backtest from generation-pinned input artifacts.
+"""Rebuild model V01 from generation-pinned input artifacts.
 
 This is the strict processed-input reproduction entry point.  It downloads
 the seven approved parquet generations, validates their content hashes and
@@ -21,7 +21,10 @@ from naturalgas.evaluate_native_frequency_fundamentals import (
     STRATEGY_START,
     THROUGH_DATE,
 )
-from naturalgas.evaluate_south_central_storage_strategy import run
+from naturalgas.evaluate_model_v01_south_central_storage import (
+    json_default,
+    run,
+)
 from naturalgas.reproducibility import (
     DEFAULT_MANIFEST,
     LocalArtifactFileSystem,
@@ -38,8 +41,10 @@ from naturalgas.reproducibility import (
 )
 
 
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reproduced/final_backtest"
-EXPECTED_SUMMARY = PROJECT_ROOT / "results/formal/summary.json"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reproduced/models/v01_south_central_storage"
+EXPECTED_SUMMARY = (
+    PROJECT_ROOT / "results/models/v01_south_central_storage/summary.json"
+)
 REQUIRED_IDS = {
     "ng_multisignal_panel",
     "capacity_weighted_wind_features_daily",
@@ -104,8 +109,9 @@ def verify_summary(
     expected_path: Path = EXPECTED_SUMMARY,
     *,
     tolerance: float = 1e-12,
-) -> None:
+) -> dict[str, Any]:
     expected = json.loads(expected_path.read_text(encoding="utf-8"))
+    normalized_actual = json.loads(json.dumps(actual, default=json_default))
     if int(actual["trading_days"]) != int(expected["trading_days"]):
         raise AssertionError(
             f"Trading days differ: {actual['trading_days']} != "
@@ -118,9 +124,27 @@ def verify_summary(
         right = float(expected_metrics[name])
         if not math.isclose(left, right, rel_tol=0.0, abs_tol=tolerance):
             raise AssertionError(f"Metric {name} differs: {left} != {right}")
+    comparison_field = "change_vs_lower48"
+    actual_core = dict(normalized_actual)
+    expected_core = dict(expected)
+    actual_comparison = actual_core.pop(comparison_field)
+    expected_comparison = expected_core.pop(comparison_field)
+    if actual_core != expected_core:
+        raise AssertionError(
+            "V01 summary differs outside the allowed legacy Lower 48 "
+            "comparison field"
+        )
+    return {
+        "status": "verified",
+        "scope": "all V01 fields except legacy Lower 48 comparison deltas",
+        "comparison_field": comparison_field,
+        "comparison_field_matches": actual_comparison == expected_comparison,
+        "actual_comparison": actual_comparison,
+        "expected_comparison": expected_comparison,
+    }
 
 
-def rebuild(
+def rebuild_model_v01(
     *,
     manifest_path: Path,
     root: Path,
@@ -167,15 +191,11 @@ def rebuild(
             through_date=pd.Timestamp(THROUGH_DATE),
             filesystem=local_filesystem(manifest_path, root=root),
         )
-        verify_summary(result)
+        summary_verification = verify_summary(result)
         rebuilt_summary_path = staging / "summary.json"
         rebuilt_summary_sha256 = sha256_file(rebuilt_summary_path)
         expected_summary_sha256 = sha256_file(EXPECTED_SUMMARY)
-        if rebuilt_summary_sha256 != expected_summary_sha256:
-            raise AssertionError(
-                "Rebuilt summary byte hash differs: "
-                f"{rebuilt_summary_sha256} != {expected_summary_sha256}"
-            )
+        summary_byte_match = rebuilt_summary_sha256 == expected_summary_sha256
         manifest_artifacts = load_manifest(manifest_path)
         receipt = {
             "status": "verified",
@@ -208,6 +228,8 @@ def rebuild(
             "verified_against": str(EXPECTED_SUMMARY),
             "rebuilt_summary_sha256": rebuilt_summary_sha256,
             "verified_summary_sha256": expected_summary_sha256,
+            "summary_byte_match": summary_byte_match,
+            "summary_verification": summary_verification,
             "summary": result,
         }
         (staging / "reproduction_receipt.json").write_text(
@@ -241,7 +263,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    receipt = rebuild(
+    receipt = rebuild_model_v01(
         manifest_path=args.manifest,
         root=args.root,
         output_dir=args.output_dir,

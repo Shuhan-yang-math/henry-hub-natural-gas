@@ -34,7 +34,7 @@
     "trading_days": 1748,
     "win_rate": 0.5377574370709383
   },
-  "dashboard": "results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png",
+  "dashboard": "results/models/v03_d1_3_storage_guard/dashboard.png",
   "florida_available_ba_fallback_position_dates": 16,
   "florida_available_ba_policy": "aggregate the complete Florida BAs on each source day into one continuous rolling history; partial-BA observations remain in the reference history used by later dates",
   "florida_minimum_available_ba_count": 6,
@@ -50,6 +50,9 @@
     "sum_paired_daily_net_return_difference_vs_d1_3": 0.018074395254807328,
     "sum_paired_daily_net_return_difference_vs_d1_5": -0.011140602990808629
   },
+  "lifecycle_state": "current_selected_research",
+  "model_id": "hh_v03_d1_3_storage_guard",
+  "model_sequence": 3,
   "sample_end": "2026-07-13T00:00:00",
   "sample_start": "2019-07-25T00:00:00",
   "selected_event_veto_days": 6,
@@ -72,7 +75,6 @@
   "storage_release_calendar_corrected_position_dates": 23,
   "storage_release_calendar_corrected_score_dates": 23,
   "storage_role": "amplifier only; never a standalone trigger",
-  "strategy_version": "d1_3_wind_storage_amplified_hdd_guard",
   "trading_days": 1748,
   "transaction_cost_bps": 2.5,
   "weather_revision_guard": "HDD revision in every month except June-August; no CDD branch",

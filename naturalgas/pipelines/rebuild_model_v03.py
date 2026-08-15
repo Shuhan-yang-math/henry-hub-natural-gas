@@ -1,4 +1,4 @@
-"""Rebuild the selected D1--3 strategy from generation-pinned GCS inputs.
+"""Rebuild model V03 from generation-pinned GCS inputs.
 
 The large NCAR/GDEX point archive remains in Google Cloud Storage.  This
 pipeline reads the exact object generations declared in the checked-in weather
@@ -19,13 +19,13 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from naturalgas.evaluate_d1_3_storage_amplified_strategy import (
+from naturalgas.evaluate_model_v03_d1_3_storage_guard import (
     DEFAULT_EVENT_REPORTS_PATH,
     DEFAULT_OUTPUT_DIR as SHIPPED_OUTPUT_DIR,
-    FORMAL_DAILY,
+    MODEL_V01_DAILY,
     SCORE_INPUTS,
     STORAGE_CALENDAR_CORRECTIONS,
-    run as run_selected_evaluator,
+    run as run_model_v03_evaluator,
 )
 from naturalgas.pipelines.rebuild_weather_factors import (
     WIND_HORIZON_OUTPUT_NAME,
@@ -48,7 +48,7 @@ DEFAULT_WEATHER_MANIFEST = (
 DEFAULT_SELECTED_INPUT_MANIFEST = (
     PROJECT_ROOT / "manifests/selected_strategy_inputs_2026-08-14.json"
 )
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reproduced/d1_3_strategy"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reproduced/models/v03_d1_3_storage_guard"
 EXPECTED_SUMMARY = SHIPPED_OUTPUT_DIR / "summary.json"
 WIND_SIGNAL_COLUMNS = ("wind_signal__d1_3", "wind_signal__d1_5")
 SCORE_INPUT_ARTIFACT_ID = "selected_d1_3_storage_amplifier_inputs"
@@ -172,7 +172,7 @@ def _without_dashboard(payload: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def verify_selected_summary(
+def verify_model_v03_summary(
     actual_path: Path,
     expected_path: Path = EXPECTED_SUMMARY,
 ) -> None:
@@ -186,16 +186,16 @@ def verify_selected_summary(
         )
 
 
-def evaluate_selected_strategy_with_horizon(
+def evaluate_model_v03_with_horizon(
     *,
     horizon_path: Path,
-    formal_daily_path: Path,
+    model_v01_daily_path: Path,
     score_inputs_path: Path,
     storage_calendar_corrections_path: Path,
     event_reports_path: Path,
     output_dir: Path,
     logical_output_dir: Path | None = None,
-    logical_formal_daily_path: Path | None = None,
+    logical_model_v01_daily_path: Path | None = None,
     logical_score_inputs_path: Path | None = None,
     logical_storage_calendar_corrections_path: Path | None = None,
     logical_event_reports_path: Path | None = None,
@@ -207,19 +207,19 @@ def evaluate_selected_strategy_with_horizon(
         horizon_path=horizon_path,
         score_inputs_path=score_inputs_path,
     )
-    run_selected_evaluator(
-        formal_daily_path=formal_daily_path,
+    run_model_v03_evaluator(
+        model_v01_daily_path=model_v01_daily_path,
         score_inputs_path=score_inputs_path,
         storage_calendar_corrections_path=storage_calendar_corrections_path,
         event_reports_path=event_reports_path,
         output_dir=output_dir,
     )
     summary_path = output_dir / "summary.json"
-    verify_selected_summary(summary_path, expected_summary_path)
+    verify_model_v03_summary(summary_path, expected_summary_path)
 
     logical = output_dir if logical_output_dir is None else logical_output_dir
     summary_payload = json.loads(summary_path.read_text(encoding="utf-8"))
-    dashboard = logical / "latest_strategy_dashboard.png"
+    dashboard = logical / "dashboard.png"
     summary_payload["dashboard"] = str(
         dashboard.relative_to(PROJECT_ROOT)
         if dashboard.is_relative_to(PROJECT_ROOT)
@@ -232,12 +232,12 @@ def evaluate_selected_strategy_with_horizon(
     receipt = {
         "status": "verified",
         "wind_lineage": lineage,
-        "formal_daily": str(
-            formal_daily_path
-            if logical_formal_daily_path is None
-            else logical_formal_daily_path
+        "model_v01_daily": str(
+            model_v01_daily_path
+            if logical_model_v01_daily_path is None
+            else logical_model_v01_daily_path
         ),
-        "formal_daily_sha256": sha256_file(formal_daily_path),
+        "model_v01_daily_sha256": sha256_file(model_v01_daily_path),
         "score_inputs": str(
             score_inputs_path
             if logical_score_inputs_path is None
@@ -264,11 +264,11 @@ def evaluate_selected_strategy_with_horizon(
     return receipt
 
 
-def rebuild_d1_3_strategy(
+def rebuild_model_v03(
     *,
     weather_manifest: Path = DEFAULT_WEATHER_MANIFEST,
     selected_input_manifest: Path | None = DEFAULT_SELECTED_INPUT_MANIFEST,
-    formal_daily_path: Path = FORMAL_DAILY,
+    model_v01_daily_path: Path = MODEL_V01_DAILY,
     score_inputs_path: Path = SCORE_INPUTS,
     storage_calendar_corrections_path: Path = STORAGE_CALENDAR_CORRECTIONS,
     event_reports_path: Path = DEFAULT_EVENT_REPORTS_PATH,
@@ -303,9 +303,9 @@ def rebuild_d1_3_strategy(
             output_dir=staging / "wind",
         )
         horizon_path = Path(wind["output"])
-        strategy = evaluate_selected_strategy_with_horizon(
+        strategy = evaluate_model_v03_with_horizon(
             horizon_path=horizon_path,
-            formal_daily_path=formal_daily_path,
+            model_v01_daily_path=model_v01_daily_path,
             score_inputs_path=score_inputs_path,
             storage_calendar_corrections_path=storage_calendar_corrections_path,
             event_reports_path=event_reports_path,
@@ -343,7 +343,7 @@ def rebuild_d1_3_strategy(
                 0 if selected_paths is None else len(selected_paths)
             ),
             "wind_horizon_rebuild": wind_receipt,
-            "selected_strategy_rebuild": strategy,
+            "model_v03_rebuild": strategy,
         }
         (staging / "reproduction_receipt.json").write_text(
             json.dumps(receipt, indent=2, sort_keys=True, default=str) + "\n",
@@ -368,7 +368,9 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_SELECTED_INPUT_MANIFEST,
     )
-    parser.add_argument("--formal-daily", type=Path, default=FORMAL_DAILY)
+    parser.add_argument(
+        "--model-v01-daily", type=Path, default=MODEL_V01_DAILY
+    )
     parser.add_argument("--score-inputs", type=Path, default=SCORE_INPUTS)
     parser.add_argument(
         "--storage-calendar-corrections",
@@ -387,10 +389,10 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    receipt = rebuild_d1_3_strategy(
+    receipt = rebuild_model_v03(
         weather_manifest=args.weather_manifest,
         selected_input_manifest=args.selected_input_manifest,
-        formal_daily_path=args.formal_daily,
+        model_v01_daily_path=args.model_v01_daily,
         score_inputs_path=args.score_inputs,
         storage_calendar_corrections_path=args.storage_calendar_corrections,
         event_reports_path=args.event_reports,

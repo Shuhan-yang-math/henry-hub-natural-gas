@@ -7,15 +7,15 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from naturalgas.pipelines.rebuild_d1_3_strategy import (
+from naturalgas.pipelines.rebuild_model_v03 import (
     DEFAULT_SELECTED_INPUT_MANIFEST,
     DEFAULT_WEATHER_MANIFEST,
     EVENT_REPORT_ARTIFACT_ID,
     SCORE_INPUT_ARTIFACT_ID,
     STORAGE_CORRECTION_ARTIFACT_ID,
-    rebuild_d1_3_strategy,
+    rebuild_model_v03,
     verify_score_input_wind_lineage,
-    verify_selected_summary,
+    verify_model_v03_summary,
 )
 from naturalgas.reproducibility import load_manifest
 
@@ -118,26 +118,26 @@ def test_selected_summary_verification_ignores_only_dashboard_location(
         json.dumps({"dashboard": "/tmp/a.png", "trading_days": 10}) + "\n",
         encoding="utf-8",
     )
-    verify_selected_summary(actual, expected)
+    verify_model_v03_summary(actual, expected)
     actual.write_text(
         json.dumps({"dashboard": "/tmp/a.png", "trading_days": 11}) + "\n",
         encoding="utf-8",
     )
     with pytest.raises(AssertionError, match="does not reproduce"):
-        verify_selected_summary(actual, expected)
+        verify_model_v03_summary(actual, expected)
 
 
 @pytest.mark.skipif(
-    os.environ.get("RUN_HENRY_HUB_D1_3_CHAIN") != "1",
-    reason="set RUN_HENRY_HUB_D1_3_CHAIN=1 for the pinned GCS D1-3 rebuild",
+    os.environ.get("RUN_HENRY_HUB_MODEL_V03_CHAIN") != "1",
+    reason="set RUN_HENRY_HUB_MODEL_V03_CHAIN=1 for the pinned V03 rebuild",
 )
 def test_pinned_gcs_wind_through_selected_d1_3_strategy(
     tmp_path: Path,
 ) -> None:
-    receipt = rebuild_d1_3_strategy(
+    receipt = rebuild_model_v03(
         weather_manifest=DEFAULT_WEATHER_MANIFEST,
         selected_input_manifest=DEFAULT_SELECTED_INPUT_MANIFEST,
-        output_dir=tmp_path / "d1_3",
+        output_dir=tmp_path / "models/v03_d1_3_storage_guard",
         overwrite=False,
     )
     wind = receipt["wind_horizon_rebuild"]
@@ -145,7 +145,7 @@ def test_pinned_gcs_wind_through_selected_d1_3_strategy(
     assert wind["output_integrity"]["sha256"] == (
         "34fb31802a41144e5ed842d2433a1b67db8d93810cf900835c875913f62db94c"
     )
-    selected = receipt["selected_strategy_rebuild"]
+    selected = receipt["model_v03_rebuild"]
     assert receipt["selected_input_artifacts_validated"] == 13
     assert selected["wind_lineage"]["matched_non_null_d1_3_dates"] == 1750
     assert selected["wind_lineage"]["missing_initialization_dates"] == [
@@ -153,6 +153,7 @@ def test_pinned_gcs_wind_through_selected_d1_3_strategy(
         "2022-12-01",
     ]
     assert selected["summary"]["trading_days"] == 1748
+    assert selected["summary"]["model_id"] == "hh_v03_d1_3_storage_guard"
     assert selected["summary"]["selected_metrics"]["sharpe"] == (
         2.2280397376832175
     )

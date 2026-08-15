@@ -1,12 +1,12 @@
-# EIA-930 Central 40% / Florida 60% Strategy Brief
+# Model V02 — EIA-930 Central/Florida Strategy Brief
 
 **Research date:** August 11, 2026
 **Common sample:** July 25, 2019 through July 13, 2026; 1,748 trading days
-**Status:** selected research version; not yet production-approved
+**Status:** superseded research model; retained for chronology and attribution
 
 ## Decision
 
-The selected EIA-930 sleeve is now **40% Central and 60% Florida inside the
+V02 set the EIA-930 sleeve to **40% Central and 60% Florida inside the
 existing fixed 10% slot**.  In total-strategy terms, 4% of the score uses the
 Central signal and 6% uses the Florida signal.  The change does not add
 leverage and leaves the GFS wind and solar factors, production-risk state,
@@ -143,15 +143,15 @@ first-vintage capture confirms the historical result.
 
 ## Reproducible artifacts
 
-- `notebooks/06_eia930_central_florida_40_60.ipynb`
-- `naturalgas/evaluate_eia930_selected_enhancement.py`
+- `notebooks/06_model_v02_eia930_central_florida.ipynb`
+- `naturalgas/evaluate_model_v02_eia930_central_florida.py`
 - GCS artifact `selected_eia930_overlay_inputs` in
   `manifests/selected_strategy_inputs_2026-08-14.json`
 - GCS artifact `selected_florida_available_ba_signal_history` in the same
   manifest
-- `results/experiments/eia930_selected/summary.json`
-- `results/experiments/eia930_selected/selected_strategy_daily.parquet`
-- `results/experiments/eia930_selected/central_florida_weight_sweep.csv`
-- `results/experiments/eia930_selected/loss_day_yearly.csv`
-- `results/experiments/eia930_selected/latest_strategy_dashboard.png`
-- `results/experiments/eia930_selected/central_florida_weight_sweep.png`
+- `results/models/v02_eia930_central_florida/summary.json`
+- `results/models/v02_eia930_central_florida/strategy_daily.parquet`
+- `results/models/v02_eia930_central_florida/central_florida_weight_sweep.csv`
+- `results/models/v02_eia930_central_florida/loss_day_yearly.csv`
+- `results/models/v02_eia930_central_florida/dashboard.png`
+- `results/models/v02_eia930_central_florida/central_florida_weight_sweep.png`

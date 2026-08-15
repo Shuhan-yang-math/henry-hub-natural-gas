@@ -8,8 +8,8 @@ from naturalgas.audit_inputs import (
     WNGSR_CORRECTIONS_ARTIFACT_ID,
     materialize_audit_inputs,
 )
-from naturalgas.evaluate_d1_3_storage_amplified_strategy import (
-    FORMAL_DAILY,
+from naturalgas.evaluate_model_v03_d1_3_storage_guard import (
+    MODEL_V01_DAILY,
     NET_D1_3,
     NET_D1_5,
     NET_SELECTED,
@@ -181,7 +181,7 @@ def test_return_difference_summary_separates_sum_and_compounding() -> None:
 
 def test_shipped_selected_strategy_reproduces() -> None:
     daily, _ = build_daily(
-        formal_daily_path=FORMAL_DAILY,
+        model_v01_daily_path=MODEL_V01_DAILY,
         score_inputs_path=SCORE_INPUTS,
         storage_calendar_corrections_path=STORAGE_CALENDAR_CORRECTIONS,
         event_reports_path=DEFAULT_EVENT_REPORTS_PATH,

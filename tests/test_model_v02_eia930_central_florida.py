@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from naturalgas.evaluate_eia930_selected_enhancement import (
+from naturalgas.evaluate_model_v02_eia930_central_florida import (
     BASE_NET_RETURN,
     CENTRAL_SHARE,
     CENTRAL_SIGNAL,
@@ -11,7 +11,7 @@ from naturalgas.evaluate_eia930_selected_enhancement import (
     DEFAULT_EVENT_REPORTS_PATH,
     FLORIDA_SHARE,
     FLORIDA_SIGNAL,
-    FORMAL_DAILY,
+    MODEL_V01_DAILY,
     OVERLAY_INPUTS,
     SELECTED_SIGNAL,
     SELECTED_NET_RETURN,
@@ -35,12 +35,12 @@ def test_selected_overlay_reproduces_headline_metrics(
         return ()
 
     monkeypatch.setattr(
-        "naturalgas.evaluate_eia930_selected_enhancement."
+        "naturalgas.evaluate_model_v02_eia930_central_florida."
         "synchronize_after_canonical_result",
         record_sync_request,
     )
     summary = run(
-        formal_daily_path=FORMAL_DAILY,
+        model_v01_daily_path=MODEL_V01_DAILY,
         overlay_inputs_path=OVERLAY_INPUTS,
         event_reports_path=DEFAULT_EVENT_REPORTS_PATH,
         output_dir=tmp_path,
@@ -75,7 +75,7 @@ def test_selected_overlay_reproduces_headline_metrics(
             "output_dir": tmp_path,
             "canonical_output_dir": (
                 Path(__file__).resolve().parents[1]
-                / "results/experiments/eia930_selected"
+                / "results/models/v02_eia930_central_florida"
             ),
             "root": Path(__file__).resolve().parents[1],
         }
@@ -84,7 +84,7 @@ def test_selected_overlay_reproduces_headline_metrics(
 
 def test_selected_daily_contains_costed_return_series() -> None:
     daily, _ = build_daily(
-        formal_daily_path=FORMAL_DAILY,
+        model_v01_daily_path=MODEL_V01_DAILY,
         overlay_inputs_path=OVERLAY_INPUTS,
         event_reports_path=DEFAULT_EVENT_REPORTS_PATH,
     )
@@ -101,7 +101,7 @@ def test_selected_daily_contains_costed_return_series() -> None:
 
 def test_selected_signal_weights_and_timing_are_fixed() -> None:
     daily, _ = build_daily(
-        formal_daily_path=FORMAL_DAILY,
+        model_v01_daily_path=MODEL_V01_DAILY,
         overlay_inputs_path=OVERLAY_INPUTS,
         event_reports_path=DEFAULT_EVENT_REPORTS_PATH,
     )
@@ -120,7 +120,7 @@ def test_selected_signal_weights_and_timing_are_fixed() -> None:
 
 def test_weight_sweep_and_loss_day_diagnostics() -> None:
     daily, _ = build_daily(
-        formal_daily_path=FORMAL_DAILY,
+        model_v01_daily_path=MODEL_V01_DAILY,
         overlay_inputs_path=OVERLAY_INPUTS,
         event_reports_path=DEFAULT_EVENT_REPORTS_PATH,
     )

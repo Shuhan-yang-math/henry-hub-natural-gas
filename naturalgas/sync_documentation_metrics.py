@@ -17,20 +17,20 @@ import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-D1_RESULTS = Path("results/experiments/d1_3_storage_amplified")
-EIA_RESULTS = Path("results/experiments/eia930_selected")
+V03_RESULTS = Path("results/models/v03_d1_3_storage_guard")
+V02_RESULTS = Path("results/models/v02_eia930_central_florida")
 
 BEGIN = "<!-- BEGIN AUTO-GENERATED: {name} -->"
 END = "<!-- END AUTO-GENERATED: {name} -->"
 
 
 def _metric_conventions(root: Path) -> tuple[str, str]:
-    metrics = pd.read_csv(root / D1_RESULTS / "strategy_metrics.csv").set_index(
+    metrics = pd.read_csv(root / V03_RESULTS / "strategy_metrics.csv").set_index(
         "variant"
     )
     selected = metrics.loc["d1_3_storage_amplified"]
     daily = pd.read_parquet(
-        root / D1_RESULTS / "selected_strategy_daily.parquet",
+        root / V03_RESULTS / "strategy_daily.parquet",
         columns=["net_return__d1_3_storage_amplified"],
     )
     net = daily["net_return__d1_3_storage_amplified"]
@@ -73,7 +73,7 @@ alternatives are sensitivities, not the shipped metric definitions."""
 
 
 def _d1_blocks(root: Path) -> dict[str, str]:
-    metrics = pd.read_csv(root / D1_RESULTS / "strategy_metrics.csv").set_index(
+    metrics = pd.read_csv(root / V03_RESULTS / "strategy_metrics.csv").set_index(
         "variant"
     )
     current = metrics.loc["d1_5_current"]
@@ -133,7 +133,7 @@ to {drawdown[2]}, a {improvement:.2f} percentage-point reduction in drawdown dep
 
 
 def _eia_blocks(root: Path) -> dict[str, str]:
-    summary = json.loads((root / EIA_RESULTS / "summary.json").read_text())
+    summary = json.loads((root / V02_RESULTS / "summary.json").read_text())
     baseline = summary["baseline_metrics"]
     central = summary["current_central_metrics"]
     selected = summary["selected_metrics"]
@@ -225,12 +225,12 @@ def render_documents(root: Path = PROJECT_ROOT) -> dict[Path, str]:
             "d1-model-table",
             "d1-drawdown-claim",
         ),
-        Path("reports/d1_3_storage_amplified_strategy_brief.md"): (
+        Path("reports/model_v03_d1_3_storage_guard_brief.md"): (
             "metric-conventions",
             "d1-brief-table",
             "d1-drawdown-claim",
         ),
-        Path("reports/eia930_central_florida_40_60_brief.md"): (
+        Path("reports/model_v02_eia930_central_florida_brief.md"): (
             "metric-conventions",
             "eia-brief-table",
             "eia-brief-claim",

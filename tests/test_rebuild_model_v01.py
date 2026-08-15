@@ -12,7 +12,7 @@ from naturalgas.audit_inputs import (
     WIND_WEIGHTS_CSV_ARTIFACT_ID,
     materialize_audit_inputs,
 )
-from naturalgas.pipelines.rebuild_final_backtest import rebuild
+from naturalgas.pipelines.rebuild_model_v01 import rebuild_model_v01
 from naturalgas.reproducibility import DEFAULT_MANIFEST, PROJECT_ROOT
 
 
@@ -69,23 +69,26 @@ def test_wind_audit_artifacts_are_exact() -> None:
 
 
 @pytest.mark.skipif(
-    os.environ.get("RUN_HENRY_HUB_INTEGRATION") != "1",
-    reason="set RUN_HENRY_HUB_INTEGRATION=1 to fetch pinned GCS inputs",
+    os.environ.get("RUN_HENRY_HUB_MODEL_V01_CHAIN") != "1",
+    reason="set RUN_HENRY_HUB_MODEL_V01_CHAIN=1 for the pinned V01 rebuild",
 )
 def test_generation_pinned_formal_evaluator_rebuild(tmp_path: Path) -> None:
-    receipt = rebuild(
+    receipt = rebuild_model_v01(
         manifest_path=DEFAULT_MANIFEST,
         root=tmp_path,
-        output_dir=tmp_path / "reproduced/final_backtest",
+        output_dir=tmp_path / "reproduced/models/v01_south_central_storage",
         fetch=True,
         overwrite=True,
     )
     summary = receipt["summary"]
     assert receipt["status"] == "verified"
-    assert receipt["rebuilt_summary_sha256"] == (
-        receipt["verified_summary_sha256"]
+    assert receipt["summary_verification"]["status"] == "verified"
+    assert receipt["summary_verification"]["scope"] == (
+        "all V01 fields except legacy Lower 48 comparison deltas"
     )
-    assert summary["strategy_version"] == "south_central_total_storage"
+    assert summary["model_id"] == "hh_v01_south_central_storage"
+    assert summary["model_sequence"] == 1
+    assert summary["lifecycle_state"] == "frozen_formal_baseline"
     assert summary["trading_days"] == 2264
     assert str(summary["sample_end"]) == "2026-07-13 00:00:00"
     assert (

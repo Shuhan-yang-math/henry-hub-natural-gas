@@ -45,7 +45,7 @@
     "trading_days": 1748,
     "win_rate": 0.5354691075514875
   },
-  "dashboard": "results/experiments/eia930_selected/latest_strategy_dashboard.png",
+  "dashboard": "results/models/v02_eia930_central_florida/dashboard.png",
   "eia930_slot_weight": 0.1,
   "florida_available_ba_fallback_position_dates": 16,
   "florida_available_ba_policy": "aggregate the complete Florida BAs on each source day into one continuous rolling history",
@@ -62,6 +62,7 @@
     "TEC"
   ],
   "florida_share_within_slot": 0.6,
+  "lifecycle_state": "superseded_research",
   "loss_day_diagnostics": {
     "central_loss_day_net_return": -2.44003544358761,
     "central_loss_days": 808,
@@ -96,6 +97,8 @@
     "selected_on_central_loss_day_net_return": -2.119998731597084,
     "worsened_loss_days": 264
   },
+  "model_id": "hh_v02_eia930_central_florida",
+  "model_sequence": 2,
   "sample_end": "2026-07-13T00:00:00",
   "sample_start": "2019-07-25T00:00:00",
   "selected_event_veto_days": 7,
@@ -117,8 +120,7 @@
     "central": "continuous total non-gas generation shortfall / demand",
     "florida": "continuous coal+nuclear+water shortfall / demand"
   },
-  "strategy_version": "eia930_central40_florida60_10pct_with_event_veto",
   "trading_days": 1748,
   "transaction_cost_bps": 2.5,
-  "weight_sweep_chart": "results/experiments/eia930_selected/central_florida_weight_sweep.png"
+  "weight_sweep_chart": "results/models/v02_eia930_central_florida/central_florida_weight_sweep.png"
 }

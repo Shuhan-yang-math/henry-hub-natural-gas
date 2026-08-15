@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reproduce the selected D1--3 wind plus storage-amplified guard strategy.
+"""Reproduce model V03, the current selected D1--3 storage-guard model.
 
 The selected version retains the 40% Central / 60% Florida EIA-930 sleeve and
 the BSEE/Sabine pure short veto, but replaces the wind forecast average from
@@ -59,17 +59,18 @@ from naturalgas.sync_documentation_metrics import (  # noqa: E402
 )
 
 
-FORMAL_DAILY = (
+MODEL_V01_DAILY = (
     PROJECT_ROOT
-    / "naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet"
+    / "results/models/v01_south_central_storage/strategy_daily.parquet"
 )
 SCORE_INPUTS = audit_input_path(D1_3_SCORE_INPUTS_ARTIFACT_ID)
 STORAGE_CALENDAR_CORRECTIONS = audit_input_path(
     WNGSR_CORRECTIONS_ARTIFACT_ID
 )
-DEFAULT_OUTPUT_DIR = (
-    PROJECT_ROOT / "results/experiments/d1_3_storage_amplified"
-)
+MODEL_ID = "hh_v03_d1_3_storage_guard"
+MODEL_SEQUENCE = 3
+LIFECYCLE_STATE = "current_selected_research"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "results/models/v03_d1_3_storage_guard"
 TRANSACTION_COST_BPS = 2.5
 COLD_MONTHS = (11, 12, 1, 2, 3)
 HDD_GUARD_MONTHS = (1, 2, 3, 4, 5, 9, 10, 11, 12)
@@ -366,7 +367,7 @@ def apply_storage_calendar_corrections(
 
 def build_daily(
     *,
-    formal_daily_path: Path,
+    model_v01_daily_path: Path,
     score_inputs_path: Path,
     storage_calendar_corrections_path: Path,
     event_reports_path: Path,
@@ -382,7 +383,7 @@ def build_daily(
     ]
     event_reports_path = audit_paths[EVENT_REPORTS_ARTIFACT_ID]
     formal = pd.read_parquet(
-        formal_daily_path, columns=["date", "roll_adjusted_return"]
+        model_v01_daily_path, columns=["date", "roll_adjusted_return"]
     )
     formal["date"] = pd.to_datetime(formal["date"]).dt.normalize()
     formal = filter_confirmed_nymex_sessions(formal).reset_index(drop=True)
@@ -674,14 +675,14 @@ def plot_dashboard(
 
 def run(
     *,
-    formal_daily_path: Path = FORMAL_DAILY,
+    model_v01_daily_path: Path = MODEL_V01_DAILY,
     score_inputs_path: Path = SCORE_INPUTS,
     storage_calendar_corrections_path: Path = STORAGE_CALENDAR_CORRECTIONS,
     event_reports_path: Path = DEFAULT_EVENT_REPORTS_PATH,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
 ) -> dict[str, Any]:
     daily, aligned_reports = build_daily(
-        formal_daily_path=formal_daily_path,
+        model_v01_daily_path=model_v01_daily_path,
         score_inputs_path=score_inputs_path,
         storage_calendar_corrections_path=storage_calendar_corrections_path,
         event_reports_path=event_reports_path,
@@ -690,7 +691,7 @@ def run(
     interventions = intervention_summary(daily)
     output_dir.mkdir(parents=True, exist_ok=True)
     daily.to_parquet(
-        output_dir / "selected_strategy_daily.parquet",
+        output_dir / "strategy_daily.parquet",
         index=False,
         compression="zstd",
     )
@@ -706,14 +707,16 @@ def run(
         daily,
         metrics,
         annual,
-        output_dir / "latest_strategy_dashboard.png",
+        output_dir / "dashboard.png",
     )
     metric_index = metrics.set_index("variant")
     current = metric_index.loc["d1_5_current"].to_dict()
     d1_3 = metric_index.loc["d1_3_no_guard"].to_dict()
     selected = metric_index.loc["d1_3_storage_amplified"].to_dict()
     summary = {
-        "strategy_version": "d1_3_wind_storage_amplified_hdd_guard",
+        "model_id": MODEL_ID,
+        "model_sequence": MODEL_SEQUENCE,
+        "lifecycle_state": LIFECYCLE_STATE,
         "selection_status": (
             "HDD month gate selected by user on 2026-08-13; historical "
             "results are retrospective validation"
@@ -790,7 +793,9 @@ def run(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--formal-daily", type=Path, default=FORMAL_DAILY)
+    parser.add_argument(
+        "--model-v01-daily", type=Path, default=MODEL_V01_DAILY
+    )
     parser.add_argument("--score-inputs", type=Path, default=SCORE_INPUTS)
     parser.add_argument(
         "--storage-calendar-corrections",
@@ -807,7 +812,7 @@ def parse_args() -> argparse.Namespace:
 if __name__ == "__main__":
     arguments = parse_args()
     result = run(
-        formal_daily_path=arguments.formal_daily,
+        model_v01_daily_path=arguments.model_v01_daily,
         score_inputs_path=arguments.score_inputs,
         storage_calendar_corrections_path=(
             arguments.storage_calendar_corrections

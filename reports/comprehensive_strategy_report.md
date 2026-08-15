@@ -1,8 +1,8 @@
 # Henry Hub Natural-Gas Futures Strategy: Comprehensive Research Report
 
 **Report date:** August 13, 2026
-**Historical formal version:** `south_central_total_storage`
-**Selected research version:** `d1_3_wind_storage_amplified_guard`
+**Historical formal model:** `hh_v01_south_central_storage`
+**Current selected research model:** `hh_v03_d1_3_storage_guard`
 **Historical formal sample:** July 3, 2017 through July 13, 2026; 2,264 trading days
 **Selected common sample:** July 25, 2019 through July 13, 2026; 1,748 trading days
 **Instrument:** NYMEX Henry Hub natural-gas futures
@@ -87,7 +87,7 @@ reported 2.228, and conditional-negative-day log Sortino is 2.648 rather than
 the reported 3.881. CAGR begins at the actual settlement endpoint before the
 first included return; maximum drawdown begins from wealth 1.0.
 
-![Selected D1--3 strategy dashboard](../results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
+![V03 strategy dashboard](../results/models/v03_d1_3_storage_guard/dashboard.png)
 
 The principal conclusions are:
 
@@ -762,19 +762,19 @@ Without changing the formal strategy in advance, the highest-value work is:
 
 Primary entry points are:
 
-- Final notebook: `notebooks/01_final_south_central_strategy.ipynb`
-- Formal evaluator: `naturalgas/evaluate_south_central_storage_strategy.py`
+- V01 notebook: `notebooks/01_model_v01_south_central_storage.ipynb`
+- V01 evaluator: `naturalgas/evaluate_model_v01_south_central_storage.py`
 - Data manifest: `DATA_MANIFEST.md`
-- Formal metrics: `results/formal/summary.json`
-- Weights: `results/formal/strategy_weights.csv`
-- Period results: `results/formal/period_comparison.csv`
-- Annual results: `results/formal/annual_comparison.csv`
-- Selected evaluator: `naturalgas/evaluate_d1_3_storage_amplified_strategy.py`
-- Selected notebook: `notebooks/07_d1_3_storage_amplified_strategy.ipynb`
-- Selected brief: `reports/d1_3_storage_amplified_strategy_brief.md`
-- Selected summary: `results/experiments/d1_3_storage_amplified/summary.json`
+- V01 metrics: `results/models/v01_south_central_storage/summary.json`
+- V01 weights: `results/models/v01_south_central_storage/strategy_weights.csv`
+- V01 period results: `results/models/v01_south_central_storage/period_comparison.csv`
+- V01 annual results: `results/models/v01_south_central_storage/annual_comparison.csv`
+- V03 evaluator: `naturalgas/evaluate_model_v03_d1_3_storage_guard.py`
+- V03 notebook: `notebooks/07_model_v03_d1_3_storage_guard.ipynb`
+- V03 brief: `reports/model_v03_d1_3_storage_guard_brief.md`
+- V03 summary: `results/models/v03_d1_3_storage_guard/summary.json`
 - Selected dashboard:
-  `results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png`
+  `results/models/v03_d1_3_storage_guard/dashboard.png`
 
 The repository now includes the factor builders, master-panel builder, pinned
 generation manifests, and strict rebuild pipelines. Large source objects

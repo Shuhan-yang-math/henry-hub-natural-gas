@@ -16,8 +16,8 @@ from naturalgas.sync_documentation_metrics import (
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-D1_RESULTS = PROJECT_ROOT / "results/experiments/d1_3_storage_amplified"
-EIA_RESULTS = PROJECT_ROOT / "results/experiments/eia930_selected"
+V03_RESULTS = PROJECT_ROOT / "results/models/v03_d1_3_storage_guard"
+V02_RESULTS = PROJECT_ROOT / "results/models/v02_eia930_central_florida"
 
 
 def _read(relative_path: str) -> str:
@@ -71,12 +71,11 @@ def test_synchronize_documents_repairs_a_stale_generated_block(
     required_files = (
         "README.md",
         "MODEL_CARD.md",
-        "reports/d1_3_storage_amplified_strategy_brief.md",
-        "reports/eia930_central_florida_40_60_brief.md",
-        "results/experiments/d1_3_storage_amplified/strategy_metrics.csv",
-        "results/experiments/d1_3_storage_amplified/"
-        "selected_strategy_daily.parquet",
-        "results/experiments/eia930_selected/summary.json",
+        "reports/model_v03_d1_3_storage_guard_brief.md",
+        "reports/model_v02_eia930_central_florida_brief.md",
+        "results/models/v03_d1_3_storage_guard/strategy_metrics.csv",
+        "results/models/v03_d1_3_storage_guard/strategy_daily.parquet",
+        "results/models/v02_eia930_central_florida/summary.json",
     )
     for relative_path in required_files:
         target = tmp_path / relative_path
@@ -96,7 +95,7 @@ def test_synchronize_documents_repairs_a_stale_generated_block(
 
 
 def test_selected_strategy_documentation_matches_metrics_csv() -> None:
-    metrics = pd.read_csv(D1_RESULTS / "strategy_metrics.csv").set_index(
+    metrics = pd.read_csv(V03_RESULTS / "strategy_metrics.csv").set_index(
         "variant"
     )
     current = metrics.loc["d1_5_current"]
@@ -156,7 +155,7 @@ def test_selected_strategy_documentation_matches_metrics_csv() -> None:
             "drawdown depth"
         ) in normalized
 
-    brief = _read("reports/d1_3_storage_amplified_strategy_brief.md")
+    brief = _read("reports/model_v03_d1_3_storage_guard_brief.md")
     assert markdown_sharpe in brief
     assert (
         f"| Sortino | {sortino_values[0]} | {sortino_values[1]} | "
@@ -220,13 +219,13 @@ def test_selected_strategy_documentation_matches_metrics_csv() -> None:
     research_log = _read("RESEARCH_LOG.md")
     assert f"{cagr_values[2]} CAGR, and {drawdown_values[2]}" in research_log
 
-    notebook = _read("notebooks/07_d1_3_storage_amplified_strategy.ipynb")
+    notebook = _read("notebooks/07_model_v03_d1_3_storage_guard.ipynb")
     assert f">{cagr_values[1]}</td>" in notebook
     assert f">{cagr_values[2]}</td>" in notebook
 
 
 def test_eia_documentation_matches_summary_json() -> None:
-    summary = json.loads((EIA_RESULTS / "summary.json").read_text())
+    summary = json.loads((V02_RESULTS / "summary.json").read_text())
     result_rows = (
         summary["baseline_metrics"],
         summary["current_central_metrics"],
@@ -255,13 +254,13 @@ def test_eia_documentation_matches_summary_json() -> None:
         - summary["current_central_metrics"]["total_return"]
     ) * 100.0
 
-    brief = _normalized("reports/eia930_central_florida_40_60_brief.md")
+    brief = _normalized("reports/model_v02_eia930_central_florida_brief.md")
     assert (
         f"raises Sharpe by {delta_sharpe:.3f} and Sortino by "
         f"{delta_sortino:.3f}."
     ) in brief
 
-    brief_raw = _read("reports/eia930_central_florida_40_60_brief.md")
+    brief_raw = _read("reports/model_v02_eia930_central_florida_brief.md")
     for row in (
         f"| Net Sharpe | {sharpe_values[0]} | {sharpe_values[1]} | "
         f"**{sharpe_values[2]}** |",
@@ -316,7 +315,7 @@ def test_eia_documentation_matches_summary_json() -> None:
 
 def test_metric_definitions_and_sensitivities_are_disclosed() -> None:
     daily = pd.read_parquet(
-        D1_RESULTS / "selected_strategy_daily.parquet",
+        V03_RESULTS / "strategy_daily.parquet",
         columns=["net_return__d1_3_storage_amplified"],
     )
     net = daily["net_return__d1_3_storage_amplified"]
@@ -332,7 +331,7 @@ def test_metric_definitions_and_sensitivities_are_disclosed() -> None:
     for path in (
         "README.md",
         "MODEL_CARD.md",
-        "reports/d1_3_storage_amplified_strategy_brief.md",
+        "reports/model_v03_d1_3_storage_guard_brief.md",
         "reports/comprehensive_strategy_report.md",
     ):
         document = _read(path)
@@ -349,11 +348,11 @@ def test_known_stale_metric_claims_are_absent() -> None:
             "README.md",
             "MODEL_CARD.md",
             "RESEARCH_LOG.md",
-            "reports/d1_3_storage_amplified_strategy_brief.md",
-            "reports/eia930_central_florida_40_60_brief.md",
+            "reports/model_v03_d1_3_storage_guard_brief.md",
+            "reports/model_v02_eia930_central_florida_brief.md",
             "reports/comprehensive_strategy_report.md",
             "reports/comprehensive_strategy_report.tex",
-            "notebooks/07_d1_3_storage_amplified_strategy.ipynb",
+            "notebooks/07_model_v03_d1_3_storage_guard.ipynb",
         )
     )
     stale_drawdown = (

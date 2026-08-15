@@ -27,10 +27,10 @@ def test_declarative_formal_config_matches_executable_policy() -> None:
     config = yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
 
     assert config["formal_strategy_cutoff"] == THROUGH_DATE.strftime("%Y-%m-%d")
-    assert config["formal_evaluator"]["strategy_start"] == (
+    assert config["model_v01_evaluator"]["strategy_start"] == (
         STRATEGY_START.strftime("%Y-%m-%d")
     )
-    assert config["formal_evaluator"]["through_date"] == (
+    assert config["model_v01_evaluator"]["through_date"] == (
         THROUGH_DATE.strftime("%Y-%m-%d")
     )
     execution = config["execution"]

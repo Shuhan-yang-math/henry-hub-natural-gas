@@ -2,7 +2,7 @@
 
 **Model-development history and validation record**  
 **Report date:** August 5, 2026  
-**Formal strategy version:** `south_central_total_storage`  
+**Current registry identity:** `hh_v01_south_central_storage` (V01 frozen formal baseline)
 **Backtest sample:** July 3, 2017 through July 13, 2026  
 **Instrument:** NYMEX Henry Hub natural-gas futures  
 **Status:** Research model; not a live-performance claim or investment recommendation  
@@ -1925,10 +1925,10 @@ drawdown. Its cumulative incremental net return is 6.05 percentage points.
 The approved 2017-start formal result remains unchanged. The new evaluator,
 generation-pinned GCS inputs, annual results, and dashboard are identified by:
 
-- `naturalgas/evaluate_eia930_selected_enhancement.py`;
+- `naturalgas/evaluate_model_v02_eia930_central_florida.py`;
 - `manifests/selected_strategy_inputs_2026-08-14.json` artifacts
   `selected_eia930_overlay_inputs` and `selected_event_reports_aligned`;
-- `results/experiments/eia930_selected/`.
+- `results/models/v02_eia930_central_florida/`.
 
 ## 16. Conclusion
 
@@ -2001,19 +2001,19 @@ r^{net}_t &= P_t r^{NG}_t
 
 Primary formal artifacts:
 
-- `naturalgas/processed/south_central_storage_strategy/summary.json`:
+- `results/models/v01_south_central_storage/summary.json`:
   headline performance and formal configuration;
-- `naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`:
+- `results/models/v01_south_central_storage/strategy_daily.parquet`:
   daily component scores, positions, and returns;
-- `naturalgas/processed/south_central_storage_strategy/strategy_weights.csv`:
+- `results/models/v01_south_central_storage/strategy_weights.csv`:
   final internal weights;
-- `naturalgas/processed/south_central_storage_strategy/period_comparison.csv`
+- `results/models/v01_south_central_storage/period_comparison.csv`
   and `annual_comparison.csv`: split and calendar results;
-- `naturalgas/evaluate_south_central_storage_strategy.py`:
+- `naturalgas/evaluate_model_v01_south_central_storage.py`:
   formal strategy evaluation.
-- `naturalgas/evaluate_eia930_selected_enhancement.py`:
+- `naturalgas/evaluate_model_v02_eia930_central_florida.py`:
   selected EIA-930 and event-controller evaluation.
-- `results/experiments/eia930_selected/`:
+- `results/models/v02_eia930_central_florida/`:
   selected daily series, annual metrics, summary, and dashboard.
 
 Feature-development artifacts:
@@ -2046,7 +2046,7 @@ Rejected-overlay artifacts:
 Context and prior reports:
 
 - `reports/comprehensive_strategy_report.md`;
-- `reports/ng_south_central_storage_model_development_history_2026-08-05.md`
+- `reports/model_v01_development_history_2026-08-05.md`
   (this model-development history).
 
 ---

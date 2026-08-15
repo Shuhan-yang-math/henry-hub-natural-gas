@@ -14,8 +14,9 @@ panel:
     required_input_complete: true
   schema_contract: schemas/input_schemas_2026-07-13.json
 
-formal_evaluator:
-  entrypoint: naturalgas/evaluate_south_central_storage_strategy.py
+model_v01_evaluator:
+  model_id: hh_v01_south_central_storage
+  entrypoint: naturalgas/evaluate_model_v01_south_central_storage.py
   strategy_start: "2017-07-01"
   through_date: "2026-07-13"
   local_artifact_ids:

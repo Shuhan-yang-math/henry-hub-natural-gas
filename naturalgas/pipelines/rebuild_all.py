@@ -22,13 +22,13 @@ from naturalgas.build_multisignal_panel import (
     load_input_manifest,
     write_panel,
 )
-from naturalgas.pipelines.rebuild_final_backtest import rebuild
-from naturalgas.pipelines.rebuild_d1_3_strategy import (
+from naturalgas.pipelines.rebuild_model_v01 import rebuild_model_v01
+from naturalgas.pipelines.rebuild_model_v03 import (
     DEFAULT_SELECTED_INPUT_MANIFEST,
     EVENT_REPORT_ARTIFACT_ID,
     SCORE_INPUT_ARTIFACT_ID,
     STORAGE_CORRECTION_ARTIFACT_ID,
-    evaluate_selected_strategy_with_horizon,
+    evaluate_model_v03_with_horizon,
     fetch_selected_strategy_inputs,
 )
 from naturalgas.pipelines.rebuild_weather_factors import (
@@ -161,18 +161,25 @@ def rebuild_all(
                 "solar": solar_receipt,
             }
 
-        formal = rebuild(
+        model_v01 = rebuild_model_v01(
             manifest_path=formal_manifest,
             root=root,
-            output_dir=staging / "final_backtest",
+            output_dir=staging / "models/v01_south_central_storage",
             fetch=fetch,
             overwrite=False,
             artifact_overrides=artifact_overrides,
-            receipt_output_dir=resolved_output / "final_backtest",
+            receipt_output_dir=(
+                resolved_output / "models/v01_south_central_storage"
+            ),
             receipt_override_paths=receipt_override_paths,
             contract_only_override_ids={"ng_multisignal_panel"},
         )
-        selected_d1_3 = None
+        if not model_v01["summary_byte_match"]:
+            raise AssertionError(
+                "Corrected-panel V01 summary does not match the canonical "
+                "summary byte-for-byte"
+            )
+        model_v03 = None
         selected_input_artifact_count = 0
         if horizon_result is not None:
             selected_paths = fetch_selected_strategy_inputs(
@@ -184,20 +191,24 @@ def rebuild_all(
                 for artifact_id, path in selected_paths.items()
             }
             selected_input_artifact_count = len(selected_paths)
-            selected_d1_3 = evaluate_selected_strategy_with_horizon(
+            model_v03 = evaluate_model_v03_with_horizon(
                 horizon_path=Path(horizon_result["output"]),
-                formal_daily_path=(
-                    staging / "final_backtest" / "strategy_daily.parquet"
+                model_v01_daily_path=(
+                    staging
+                    / "models/v01_south_central_storage/strategy_daily.parquet"
                 ),
                 score_inputs_path=selected_paths[SCORE_INPUT_ARTIFACT_ID],
                 storage_calendar_corrections_path=(
                     selected_paths[STORAGE_CORRECTION_ARTIFACT_ID]
                 ),
                 event_reports_path=selected_paths[EVENT_REPORT_ARTIFACT_ID],
-                output_dir=staging / "d1_3_strategy",
-                logical_output_dir=resolved_output / "d1_3_strategy",
-                logical_formal_daily_path=(
-                    resolved_output / "final_backtest" / "strategy_daily.parquet"
+                output_dir=staging / "models/v03_d1_3_storage_guard",
+                logical_output_dir=(
+                    resolved_output / "models/v03_d1_3_storage_guard"
+                ),
+                logical_model_v01_daily_path=(
+                    resolved_output
+                    / "models/v01_south_central_storage/strategy_daily.parquet"
                 ),
                 logical_score_inputs_path=logical_selected_paths[
                     SCORE_INPUT_ARTIFACT_ID
@@ -229,8 +240,8 @@ def rebuild_all(
             "master_panel_objects": panel_object_count,
             "master_panel_rows": len(panel),
             "master_panel_columns": len(panel.columns),
-            "formal_rebuild": formal,
-            "selected_d1_3_rebuild": selected_d1_3,
+            "model_v01_rebuild": model_v01,
+            "model_v03_rebuild": model_v03,
         }
         (staging / "full_chain_receipt.json").write_text(
             json.dumps(receipt, default=str, indent=2, sort_keys=True) + "\n",

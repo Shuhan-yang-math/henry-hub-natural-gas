@@ -4,6 +4,11 @@ This document separates accepted model changes from informative but rejected
 experiments. It is intended to prevent full-sample discoveries from being
 mistaken for predeclared live rules.
 
+The model chronology is V01 frozen formal baseline → V02 superseded EIA-930
+research model → V03 current selected D1--3 research model. Stable ids,
+lifecycle states, promotion dates, implementations, notebooks, and result
+directories are registered in `config/model_registry.yaml`.
+
 ## Accepted research steps
 
 | Research question | Decision | Evidence retained here |
@@ -55,17 +60,17 @@ mistaken for predeclared live rules.
 
 | Notebook | Purpose |
 |---|---|
-| `01_final_south_central_strategy.ipynb` | current fixed strategy and final performance |
+| `01_model_v01_south_central_storage.ipynb` | V01 frozen formal baseline and historical performance |
 | `02_capacity_weighted_wind.ipynb` | wind power curve, capacity weighting, and seasonal allocation |
 | `03_capacity_weighted_solar.ipynb` | radiation/PV factor, weight grid, and controls |
 | `04_native_frequency_fundamentals.ipynb` | weekly/monthly causal standardization correction |
 | `05_fundamental_weight_selection.ipynb` | remove consumption and reallocate fixed slots |
-| `06_eia930_central_florida_40_60.ipynb` | prior selected EIA-930 regional blend, stability, and loss-day attribution |
-| `07_d1_3_storage_amplified_strategy.ipynb` | current selected wind horizon, guard logic, performance, and intervention audit |
+| `06_model_v02_eia930_central_florida.ipynb` | V02 superseded EIA-930 regional blend, stability, and loss-day attribution |
+| `07_model_v03_d1_3_storage_guard.ipynb` | V03 current selected wind horizon, guard logic, performance, and intervention audit |
 
-## August 11, 2026 selected enhancement
+## V02 — August 11, 2026 superseded EIA-930 research model
 
-The latest selected version retains the nine-factor fundamental block and the
+V02 retained the nine-factor fundamental block and the
 GFS wind/solar forecasts.  It allocates a fixed 10% EIA-930 sleeve 40% to the
 ERCOT/MISO/SPP total non-gas shortfall and 60% to Florida firm non-gas
 generation relative to demand.  It also keeps the BSEE/Sabine controller as a
@@ -89,15 +94,15 @@ unchanged.
 The implementation and output are isolated from the approved full-history
 artifact:
 
-- `naturalgas/evaluate_eia930_selected_enhancement.py`
-- `results/experiments/eia930_selected/`
+- `naturalgas/evaluate_model_v02_eia930_central_florida.py`
+- `results/models/v02_eia930_central_florida/`
 - GCS artifacts `selected_eia930_overlay_inputs` and
   `selected_event_reports_aligned` pinned in
   `manifests/selected_strategy_inputs_2026-08-14.json`
-- `notebooks/06_eia930_central_florida_40_60.ipynb`
-- `reports/eia930_central_florida_40_60_brief.md`
+- `notebooks/06_model_v02_eia930_central_florida.ipynb`
+- `reports/model_v02_eia930_central_florida_brief.md`
 
-## August 12--13, 2026 selected wind enhancement
+## V03 — August 12--14, 2026 current selected research model
 
 The current selected research version keeps the 40% Central / 60% Florida
 EIA-930 sleeve and replaces the days 1--5 wind average with days 1--3. It also
@@ -126,10 +131,10 @@ to unguarded D1--3; the corresponding compounded final-wealth difference is
 +6.12 percentage points. Its effect is not positive in every year, so the
 frozen rule remains subject to prospective monitoring.
 
-- `naturalgas/evaluate_d1_3_storage_amplified_strategy.py`
+- `naturalgas/evaluate_model_v03_d1_3_storage_guard.py`
 - GCS artifacts `selected_d1_3_storage_amplifier_inputs` and
   `selected_wngsr_d1_3_score_corrections` pinned in
   `manifests/selected_strategy_inputs_2026-08-14.json`
-- `results/experiments/d1_3_storage_amplified/`
-- `notebooks/07_d1_3_storage_amplified_strategy.ipynb`
-- `reports/d1_3_storage_amplified_strategy_brief.md`
+- `results/models/v03_d1_3_storage_guard/`
+- `notebooks/07_model_v03_d1_3_storage_guard.ipynb`
+- `reports/model_v03_d1_3_storage_guard_brief.md`

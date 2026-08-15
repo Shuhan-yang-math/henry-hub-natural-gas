@@ -14,7 +14,7 @@ __pycache__/
 credentials*.json
 
 # Large model inputs are downloaded from GCS; final shipped result artifacts
-# under naturalgas/processed/south_central_storage_strategy remain tracked.
+# under results/models/ remain tracked.
 naturalgas/processed/ng_multisignal_score/
 naturalgas/processed/ncar_gdex_complete_wind_factor/
 naturalgas/processed/ncar_gdex_capacity_weighted_solar/

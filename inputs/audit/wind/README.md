@@ -27,7 +27,7 @@ scores, the score without wind, wind signals, HDD revision, production-risk
 level and revision, Central/Florida firm non-gas shortfalls, South Central
 inventory state, every recomputable guard flag, and Florida source-day BA
 coverage. It is consumed directly by
-`naturalgas/evaluate_d1_3_storage_amplified_strategy.py` and has SHA-256:
+`naturalgas/evaluate_model_v03_d1_3_storage_guard.py` and has SHA-256:
 
 ```text
 d4807aae8bc5401a9bfb533ec64820cedcc6f38352af9a13f460ae1e50befe04
@@ -39,7 +39,7 @@ flags and selected score with `naturalgas/rebuild_hdd_guard_seasonality.py`.
 
 This artifact remains the compact downstream audit boundary for EIA-930,
 storage, production weather, and guard state. Its two wind columns are also
-verified upstream: `python -m naturalgas.pipelines.rebuild_d1_3_strategy
+verified upstream: `python -m naturalgas.pipelines.rebuild_model_v03
 --overwrite` reads the exact raw NCAR/GDEX GFS generations declared in
 `manifests/weather_factor_inputs_2026-07-28.json`, rebuilds D1/D1--3/D1--5,
 and requires bit-for-bit numeric and missing-date parity before running the

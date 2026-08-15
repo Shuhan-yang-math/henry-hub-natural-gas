@@ -7,9 +7,25 @@ an audit-oriented report, and small result artifacts. Large inputs remain in
 Google Cloud Storage; dated manifests pin their object generations, SHA-256
 checksums, dimensions, and schemas.
 
-## Executive result
+## Model sequence
 
-The current fixed version combines CPC forecast revisions, capacity-weighted
+Model names use a permanent chronological prefix. Lifecycle state is stored
+separately, so a future promotion does not require another file rename. The
+machine-readable source of truth is
+[`config/model_registry.yaml`](config/model_registry.yaml).
+
+| Order | Stable model id | Lifecycle state | Role |
+|---:|---|---|---|
+| V01 | `hh_v01_south_central_storage` | Frozen formal baseline | Historical 2017--2026 provenance and formal reproduction baseline |
+| V02 | `hh_v02_eia930_central_florida` | Superseded research | Added the Central 40% / Florida 60% EIA-930 sleeve |
+| V03 | `hh_v03_d1_3_storage_guard` | **Current selected research** | Retains V02 and adds the D1--3 wind horizon plus storage-amplified guard |
+
+Wind, solar, native-frequency, and weight-selection work under
+`results/experiments/` are factor experiments, not additional model versions.
+
+## V01 — historical formal baseline
+
+The frozen V01 formal baseline combines CPC forecast revisions, capacity-weighted
 nonlinear wind and solar availability, South Central natural-gas storage, and
 lagged U.S. gas fundamentals. The backtest uses one-session signal lag, a
 five-trading-day early front-month roll, and 2.5 bps of cost per unit of
@@ -30,12 +46,12 @@ These are historical research results, not an estimate of live performance.
 The EIA histories used here may contain revisions, and some source datasets do
 not have archived first-release vintages.
 
-![Net equity curve](results/formal/formal_equity_curve.png)
+![Net equity curve](results/models/v01_south_central_storage/equity_curve.png)
 
 The year-by-year table and chart are available in
-[`results/formal/`](results/formal/).
+[`results/models/v01_south_central_storage/`](results/models/v01_south_central_storage/).
 
-### Selected D1--3 wind and storage-amplified guard
+### V03 — current selected research model
 
 The latest selected research version retains the 40% Central / 60% Florida
 EIA-930 sleeve and changes the wind forecast window from days 1--5 to days
@@ -75,7 +91,7 @@ WNGSR holiday release calendar, and a continuous Florida signal built from all
 complete BAs on each source day. Partial-BA observations remain in the future
 rolling reference, so the five previously omitted returns are now retained.
 
-![Selected D1--3 strategy dashboard](results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png)
+![V03 strategy dashboard](results/models/v03_d1_3_storage_guard/dashboard.png)
 
 ### Selected-strategy metric conventions
 
@@ -93,7 +109,7 @@ endpoint, maximum drawdown begins from initial wealth 1.0, and all reported
 ratios use 252 sessions per year.
 <!-- END AUTO-GENERATED: metric-conventions -->
 
-### Prior EIA-930 enhancement
+### V02 — superseded EIA-930 research model
 
 The prior selected EIA-930 version preserves the nine-factor fundamental
 block and adds two post-score controls: a fixed 10% EIA-930 sleeve and a
@@ -130,26 +146,26 @@ increment. It is an incremental research enhancement, not a rewrite of the
 approved 2017 full-history baseline.
 <!-- END AUTO-GENERATED: eia-readme-claim -->
 
-![Selected EIA-930 strategy dashboard](results/experiments/eia930_selected/latest_strategy_dashboard.png)
+![V02 strategy dashboard](results/models/v02_eia930_central_florida/dashboard.png)
 
 ## Where to start
 
 1. [`MODEL_CARD.md`](MODEL_CARD.md) — signal definitions, weights, timing,
    execution assumptions, splits, and limitations.
-2. [`notebooks/01_final_south_central_strategy.ipynb`](notebooks/01_final_south_central_strategy.ipynb)
-   — approved historical baseline and earlier selected-enhancement context.
-3. [`notebooks/07_d1_3_storage_amplified_strategy.ipynb`](notebooks/07_d1_3_storage_amplified_strategy.ipynb)
+2. [`notebooks/01_model_v01_south_central_storage.ipynb`](notebooks/01_model_v01_south_central_storage.ipynb)
+   — frozen formal baseline and earlier selected-enhancement context.
+3. [`notebooks/07_model_v03_d1_3_storage_guard.ipynb`](notebooks/07_model_v03_d1_3_storage_guard.ipynb)
    — current selected D1--3 wind window, storage-amplified guard, performance,
    intervention audit, and dashboard.
-4. [`notebooks/06_eia930_central_florida_40_60.ipynb`](notebooks/06_eia930_central_florida_40_60.ipynb)
+4. [`notebooks/06_model_v02_eia930_central_florida.ipynb`](notebooks/06_model_v02_eia930_central_florida.ipynb)
    — prior selected 40/60 EIA-930 sleeve and geographic weight audit.
 5. [`RESEARCH_LOG.md`](RESEARCH_LOG.md) — what was tested, accepted, rejected,
    and deliberately excluded from the formal model.
 6. [`reports/comprehensive_strategy_report.md`](reports/comprehensive_strategy_report.md)
    — detailed English-language strategy and causality report.
-7. [`reports/d1_3_storage_amplified_strategy_brief.md`](reports/d1_3_storage_amplified_strategy_brief.md)
+7. [`reports/model_v03_d1_3_storage_guard_brief.md`](reports/model_v03_d1_3_storage_guard_brief.md)
    — concise decision record for the current selected version.
-8. [`reports/eia930_central_florida_40_60_brief.md`](reports/eia930_central_florida_40_60_brief.md)
+8. [`reports/model_v02_eia930_central_florida_brief.md`](reports/model_v02_eia930_central_florida_brief.md)
    — concise selected-version decision record.
 9. [`DATA_MANIFEST.md`](DATA_MANIFEST.md) — exact GCS objects and local paths.
 
@@ -164,21 +180,22 @@ henry-hub-natural-gas/
 ├── requirements.txt
 ├── requirements-build.lock     # exact verified Python package versions
 ├── .python-version             # Python 3.13.5
-├── config/                     # frozen formal-model policy
+├── config/                     # model registry and frozen policy
 ├── manifests/                  # immutable input generations and checksums
 ├── schemas/                    # exact Arrow input schemas
 ├── inputs/audit/               # documentation for remote audit inputs
 ├── notebooks/
-│   ├── 01_final_south_central_strategy.ipynb
+│   ├── 01_model_v01_south_central_storage.ipynb
 │   ├── 02_capacity_weighted_wind.ipynb
 │   ├── 03_capacity_weighted_solar.ipynb
 │   ├── 04_native_frequency_fundamentals.ipynb
 │   ├── 05_fundamental_weight_selection.ipynb
-│   ├── 06_eia930_central_florida_40_60.ipynb
-│   └── 07_d1_3_storage_amplified_strategy.ipynb
-├── naturalgas/                 # final evaluator and dependency modules
+│   ├── 06_model_v02_eia930_central_florida.ipynb
+│   └── 07_model_v03_d1_3_storage_guard.ipynb
+├── naturalgas/                 # versioned evaluators and dependency modules
 ├── reports/                    # detailed Markdown and XeLaTeX report
-├── results/experiments/        # selected dashboard and experiment audits
+├── results/models/             # V01/V02/V03 canonical model results
+├── results/experiments/        # factor experiments and diagnostics
 └── tests/
 ```
 
@@ -224,7 +241,7 @@ python -m naturalgas.pipelines.rebuild_all \
 The narrowest processed-input reproduction remains available as:
 
 ```bash
-python -m naturalgas.pipelines.rebuild_final_backtest --overwrite
+python -m naturalgas.pipelines.rebuild_model_v01 --overwrite
 ```
 
 This downloads the seven exact GCS object generations in the manifest,
@@ -233,12 +250,16 @@ runs the evaluator using only those local snapshots. It writes results and a
 verification receipt under:
 
 ```text
-reproduced/final_backtest/
+reproduced/models/v01_south_central_storage/
 ```
 
-The pipeline checks the rebuilt trading-day count, Sharpe, CAGR, maximum
-drawdown, and win rate, then requires the complete rebuilt summary file to
-match the SHA-256 of `results/formal/summary.json`. After the seven inputs have
+The pipeline checks the V01 model identity, trading-day count, Sharpe, CAGR,
+maximum drawdown, win rate, and every summary field except the legacy Lower 48
+comparison delta. That comparison-only field can differ because the narrow
+manifest retains the pre-holiday-correction panel; both values and the full
+summary hashes are written to the receipt. The primary `rebuild_all` path
+rebuilds the corrected panel and requires the complete V01 summary to match
+`results/models/v01_south_central_storage/summary.json`. After the seven inputs have
 been downloaded once, add `--offline` to rerun without contacting GCS.
 
 To verify the shipped result after reproduction:
@@ -251,19 +272,19 @@ The selected EIA-930 enhancement keeps the formal daily result in Git and
 materializes its compact audit inputs from exact GCS generations:
 
 ```bash
-python naturalgas/evaluate_eia930_selected_enhancement.py
+python naturalgas/evaluate_model_v02_eia930_central_florida.py
 ```
 
 This command refreshes the selected daily series, annual metrics, event
 registry, summary, and English dashboard under
-`results/experiments/eia930_selected/`.
+`results/models/v02_eia930_central_florida/`.
 
 The quickest downstream reproduction of the current selected D1--3 strategy
 materializes the compact score, WNGSR correction, and event inputs from their
 generation-pinned GCS manifest into the ignored `inputs/gcs` cache:
 
 ```bash
-python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
+python naturalgas/evaluate_model_v03_d1_3_storage_guard.py
 ```
 
 The evaluators fetch missing default audit inputs automatically. To populate
@@ -275,7 +296,7 @@ python -m naturalgas.audit_inputs
 
 This refreshes the selected daily series, full/period/annual metrics, event
 registry, summary, and English dashboard under
-`results/experiments/d1_3_storage_amplified/`.
+`results/models/v03_d1_3_storage_guard/`.
 
 When either selected evaluator successfully writes to its canonical results
 directory, it automatically synchronizes the generated metric tables and
@@ -296,7 +317,7 @@ the source-driven documentation tests on every relevant push and pull request.
 To audit the selected D1--3 chain from immutable GCS inputs, use:
 
 ```bash
-python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
+python -m naturalgas.pipelines.rebuild_model_v03 --overwrite
 ```
 
 This command reads the exact 127 NCAR/GDEX GFS object generations and raw
@@ -306,7 +327,8 @@ weights, constructs the past-only 60-initialization z-score, and requires exact
 daily equality with both wind columns consumed by the selected strategy. It
 also downloads and validates every exact EIA-930/event/storage/score object in
 `manifests/selected_strategy_inputs_2026-08-14.json`, then runs the evaluator
-and writes a reproduction receipt under `reproduced/d1_3_strategy/`.
+and writes a reproduction receipt under
+`reproduced/models/v03_d1_3_storage_guard/`.
 Use `rebuild_all` above when the formal baseline must also be rebuilt from its
 generation-pinned GCS inputs in the same run.
 
@@ -314,10 +336,10 @@ Networked integration tests are opt-in because ordinary CI may not have access
 to the private bucket:
 
 ```bash
-RUN_HENRY_HUB_INTEGRATION=1 pytest -q tests/test_rebuild_final_backtest.py
+RUN_HENRY_HUB_MODEL_V01_CHAIN=1 pytest -q tests/test_rebuild_model_v01.py
 RUN_GCS_PANEL_PARITY=1 pytest -q tests/test_build_multisignal_panel.py
 RUN_HENRY_HUB_WEATHER_CHAIN=1 pytest -q tests/test_rebuild_weather_factors.py
-RUN_HENRY_HUB_D1_3_CHAIN=1 pytest -q tests/test_rebuild_d1_3_strategy.py
+RUN_HENRY_HUB_MODEL_V03_CHAIN=1 pytest -q tests/test_rebuild_model_v03.py
 RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 ```
 
@@ -325,13 +347,13 @@ RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 
 | Notebook | Clean-run inputs and behavior |
 |---|---|
-| `01_final_south_central_strategy.ipynb` | Preserves the historical full-sample baseline and the earlier Central-only EIA-930 research snapshot. Use notebook 07 for the current selected strategy. |
+| `01_model_v01_south_central_storage.ipynb` | Preserves V01, the frozen historical full-sample baseline, and the earlier Central-only EIA-930 research snapshot. Use notebook 07 for current V03. |
 | `02_capacity_weighted_wind.ipynb` | Needs the manifest panel and 00Z wind parquet; its two audit CSVs are materialized from generation-pinned GCS objects. The nonlinear power-curve helper is source code in `naturalgas/`. |
 | `03_capacity_weighted_solar.ipynb` | Reads its summary, IC, annual, and cost tables from tracked `results/experiments/solar/`. Weight-grid and daily-equity cells are optional and report a clear skip unless generated with `python naturalgas/evaluate_ncar_gdex_complete_solar_factor.py`. |
 | `04_native_frequency_fundamentals.ipynb` | Recomputes immediately and needs the four model parquets plus access to the three EIA inputs. It is a research notebook, not the strict final-rebuild entry point. |
 | `05_fundamental_weight_selection.ipynb` | Has `RUN_BACKTEST=True` and later perfect-information cells that access EIA data. It requires all model inputs and Braeswood GCS read credentials and is not part of the strict formal reproduction guarantee. |
-| `06_eia930_central_florida_40_60.ipynb` | Rebuilds from the checked-in formal daily result and generation-pinned GCS Central/Florida overlay and event registry. The first clean run requires private-bucket read access. |
-| `07_d1_3_storage_amplified_strategy.ipynb` | Rebuilds the current selected D1--3 strategy from the checked-in formal daily result and generation-pinned GCS score, WNGSR-correction, and event inputs. The first clean run requires private-bucket read access. |
+| `06_model_v02_eia930_central_florida.ipynb` | Rebuilds superseded research model V02 from the checked-in V01 daily result and generation-pinned GCS Central/Florida overlay and event registry. The first clean run requires private-bucket read access. |
+| `07_model_v03_d1_3_storage_guard.ipynb` | Rebuilds current selected research model V03 from the checked-in V01 daily result and generation-pinned GCS score, WNGSR-correction, and event inputs. The first clean run requires private-bucket read access. |
 
 The notebooks retain historical rendered outputs. A dependency audit must
 execute them from a fresh kernel; the presence of saved output is not evidence

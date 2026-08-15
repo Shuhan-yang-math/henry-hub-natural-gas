@@ -43,7 +43,7 @@ def test_pinned_gcs_inputs_through_formal_and_selected_backtests(
     )
     assert receipt["master_panel_rows"] == 8144
     assert receipt["master_panel_columns"] == 155
-    summary = receipt["formal_rebuild"]["summary"]
+    summary = receipt["model_v01_rebuild"]["summary"]
     assert summary["trading_days"] == 2264
     assert summary["selected_full_metrics"]["sharpe_zero_rf"] == (
         1.667459455270079
@@ -52,7 +52,7 @@ def test_pinned_gcs_inputs_through_formal_and_selected_backtests(
     assert horizons["output_integrity"]["sha256"] == (
         "34fb31802a41144e5ed842d2433a1b67db8d93810cf900835c875913f62db94c"
     )
-    selected = receipt["selected_d1_3_rebuild"]
+    selected = receipt["model_v03_rebuild"]
     assert receipt["selected_input_artifacts_validated"] == 13
     assert selected["wind_lineage"]["status"] == "exact"
     assert selected["summary"]["trading_days"] == 1748

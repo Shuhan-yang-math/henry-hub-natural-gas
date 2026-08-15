@@ -1,0 +1,48 @@
+registry_version: 1
+naming_convention: >-
+  VNN is the permanent chronological model sequence. Lifecycle state is
+  metadata and may change without renaming the model.
+
+models:
+  - sequence: 1
+    model_id: hh_v01_south_central_storage
+    display_name: "V01 — South Central storage"
+    lifecycle_state: frozen_formal_baseline
+    promoted_at: "2026-08-06"
+    data_cutoff: "2026-07-13"
+    implementation: naturalgas/evaluate_model_v01_south_central_storage.py
+    notebook: notebooks/01_model_v01_south_central_storage.ipynb
+    results: results/models/v01_south_central_storage
+    role: >-
+      Historical approved full-sample baseline retained for provenance and
+      formal reproduction. It is not the current selected research model.
+
+  - sequence: 2
+    model_id: hh_v02_eia930_central_florida
+    display_name: "V02 — EIA-930 Central/Florida"
+    lifecycle_state: superseded_research
+    promoted_at: "2026-08-11"
+    data_cutoff: "2026-07-13"
+    implementation: naturalgas/evaluate_model_v02_eia930_central_florida.py
+    notebook: notebooks/06_model_v02_eia930_central_florida.ipynb
+    results: results/models/v02_eia930_central_florida
+    parent_model: hh_v01_south_central_storage
+    superseded_by: hh_v03_d1_3_storage_guard
+    role: >-
+      Prior selected research model. It introduced the fixed Central 40% /
+      Florida 60% EIA-930 sleeve and is retained as an attributable step.
+
+  - sequence: 3
+    model_id: hh_v03_d1_3_storage_guard
+    display_name: "V03 — D1–3 wind + storage guard"
+    lifecycle_state: current_selected_research
+    promoted_at: "2026-08-13"
+    finalized_at: "2026-08-14"
+    data_cutoff: "2026-07-13"
+    implementation: naturalgas/evaluate_model_v03_d1_3_storage_guard.py
+    notebook: notebooks/07_model_v03_d1_3_storage_guard.ipynb
+    results: results/models/v03_d1_3_storage_guard
+    parent_model: hh_v02_eia930_central_florida
+    role: >-
+      Current selected research model. It retains V02's EIA-930 sleeve and
+      changes the wind horizon and one-sided storage-amplified guard.

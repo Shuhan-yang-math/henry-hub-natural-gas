@@ -31,8 +31,8 @@ The default command performs six steps:
    artifacts plus the D1/D1--3/D1--5 horizon lineage byte-for-byte;
 4. routes the three EIA reads through immutable local snapshots rather than
    mutable live GCS keys; and
-5. rebuilds the formal result and verifies its headline metrics and complete
-   summary-file SHA-256 against the shipped summary; and
+5. rebuilds V01 from the corrected panel and verifies its headline metrics and
+   complete summary-file SHA-256 against the shipped summary; and
 6. downloads and validates all 13 objects in the selected-strategy archive,
    requires the raw-rebuilt D1--3 and D1--5 wind signals to equal its compact
    score contract on every score date, then rebuilds and verifies the selected
@@ -50,15 +50,21 @@ python -m naturalgas.pipelines.rebuild_all \
 The narrow seven-object processed-input rebuild remains available as:
 
 ```bash
-python -m naturalgas.pipelines.rebuild_final_backtest --overwrite
+python -m naturalgas.pipelines.rebuild_model_v01 --overwrite
 ```
 
 Once the seven formal inputs exist locally and validate, that narrow build can
 run without a network request:
 
 ```bash
-python -m naturalgas.pipelines.rebuild_final_backtest --offline --overwrite
+python -m naturalgas.pipelines.rebuild_model_v01 --offline --overwrite
 ```
+
+This older seven-object manifest predates the five-row NYMEX holiday panel
+correction. The narrow receipt therefore verifies every V01 field except the
+legacy Lower 48 comparison delta and records both summary hashes. The primary
+`rebuild_all` path reconstructs the corrected panel and requires the complete
+canonical V01 summary to match byte-for-byte.
 
 ## Pinned formal inputs
 
@@ -134,24 +140,24 @@ coupling and retains all five previously omitted Florida-outage return dates.
 
 The selected evaluator materializes the required objects into the ignored
 `inputs/gcs` cache, reads them together with
-`naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet`
+`results/models/v01_south_central_storage/strategy_daily.parquet`
 and writes:
 
 ```text
-results/experiments/eia930_selected/selected_strategy_daily.parquet
-results/experiments/eia930_selected/annual_metrics.csv
-results/experiments/eia930_selected/central_florida_weight_sweep.csv
-results/experiments/eia930_selected/loss_day_yearly.csv
-results/experiments/eia930_selected/event_report_registry.parquet
-results/experiments/eia930_selected/latest_strategy_dashboard.png
-results/experiments/eia930_selected/central_florida_weight_sweep.png
-results/experiments/eia930_selected/summary.json
+results/models/v02_eia930_central_florida/strategy_daily.parquet
+results/models/v02_eia930_central_florida/annual_metrics.csv
+results/models/v02_eia930_central_florida/central_florida_weight_sweep.csv
+results/models/v02_eia930_central_florida/loss_day_yearly.csv
+results/models/v02_eia930_central_florida/event_report_registry.parquet
+results/models/v02_eia930_central_florida/dashboard.png
+results/models/v02_eia930_central_florida/central_florida_weight_sweep.png
+results/models/v02_eia930_central_florida/summary.json
 ```
 
 Rebuild those artifacts with:
 
 ```bash
-python naturalgas/evaluate_eia930_selected_enhancement.py
+python naturalgas/evaluate_model_v02_eia930_central_florida.py
 ```
 
 The current selected D1--3 strategy reads the compact wind/guard input with
@@ -161,30 +167,31 @@ strict pipeline rebuilds them from the generation-pinned GCS GFS archive and
 requires exact equality before the evaluator runs. The strategy writes:
 
 ```text
-results/experiments/d1_3_storage_amplified/selected_strategy_daily.parquet
-results/experiments/d1_3_storage_amplified/strategy_metrics.csv
-results/experiments/d1_3_storage_amplified/period_metrics.csv
-results/experiments/d1_3_storage_amplified/annual_metrics.csv
-results/experiments/d1_3_storage_amplified/event_report_registry.parquet
-results/experiments/d1_3_storage_amplified/latest_strategy_dashboard.png
-results/experiments/d1_3_storage_amplified/summary.json
+results/models/v03_d1_3_storage_guard/strategy_daily.parquet
+results/models/v03_d1_3_storage_guard/strategy_metrics.csv
+results/models/v03_d1_3_storage_guard/period_metrics.csv
+results/models/v03_d1_3_storage_guard/annual_metrics.csv
+results/models/v03_d1_3_storage_guard/event_report_registry.parquet
+results/models/v03_d1_3_storage_guard/dashboard.png
+results/models/v03_d1_3_storage_guard/summary.json
 ```
 
 Rebuild the selected strategy artifacts with:
 
 ```bash
-python naturalgas/evaluate_d1_3_storage_amplified_strategy.py
+python naturalgas/evaluate_model_v03_d1_3_storage_guard.py
 ```
 
 That is the fast downstream path: missing audit inputs are downloaded from
 their exact GCS generations. The strict raw-wind-to-result path is:
 
 ```bash
-python -m naturalgas.pipelines.rebuild_d1_3_strategy --overwrite
+python -m naturalgas.pipelines.rebuild_model_v03 --overwrite
 ```
 
 It writes the raw-rebuilt `wind_horizon_signals.parquet`, selected-strategy
-artifacts, and a lineage receipt under `reproduced/d1_3_strategy/`. For the
+artifacts, and a lineage receipt under
+`reproduced/models/v03_d1_3_storage_guard/`. For the
 formal master panel and selected strategy in one transaction, use
 `python -m naturalgas.pipelines.rebuild_all --overwrite`.
 

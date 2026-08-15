@@ -65,7 +65,7 @@ with:
 ```bash
 python naturalgas/build_wngsr_d1_3_corrections.py \
   --corrected-formal \
-    naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet
+    results/models/v01_south_central_storage/strategy_daily.parquet
 ```
 
 The command writes its regenerated intermediate under `reproduced/audit/`; it

@@ -21,8 +21,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from naturalgas.evaluate_d1_3_storage_amplified_strategy import SCORE_INPUTS
-from naturalgas.evaluate_eia930_selected_enhancement import (
+from naturalgas.evaluate_model_v03_d1_3_storage_guard import SCORE_INPUTS
+from naturalgas.evaluate_model_v02_eia930_central_florida import (
     CENTRAL_SHARE,
     CENTRAL_SIGNAL,
     CORE_FUNDAMENTAL,
@@ -36,7 +36,7 @@ from naturalgas.evaluate_south_central_storage import (
     attach_regional_signals,
     regional_weekly_signals,
 )
-from naturalgas.pipelines.rebuild_final_backtest import local_filesystem
+from naturalgas.pipelines.rebuild_model_v01 import local_filesystem
 from naturalgas.reproducibility import DEFAULT_MANIFEST
 from naturalgas.audit_inputs import (
     D1_3_SCORE_INPUTS_ARTIFACT_ID,
@@ -47,7 +47,7 @@ from naturalgas.audit_inputs import (
 )
 
 
-LEGACY_FORMAL_DAILY = audit_input_path(LEGACY_WNGSR_ARTIFACT_ID)
+LEGACY_V01_DAILY = audit_input_path(LEGACY_WNGSR_ARTIFACT_ID)
 DEFAULT_OUTPUT = (
     PROJECT_ROOT / "reproduced/audit/storage/wngsr_d1_3_score_corrections.parquet"
 )
@@ -177,7 +177,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--legacy-formal",
         type=Path,
-        default=LEGACY_FORMAL_DAILY,
+        default=LEGACY_V01_DAILY,
     )
     parser.add_argument("--corrected-formal", type=Path, required=True)
     parser.add_argument("--overlay-inputs", type=Path, default=OVERLAY_INPUTS)

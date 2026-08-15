@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Build the selected EIA-930 Central 40% / Florida 60% enhancement.
+"""Build model V02, the superseded EIA-930 Central/Florida research model.
 
-The selected version preserves the existing GFS wind and solar factors and
+V02 preserves the existing GFS wind and solar factors and
 funds one fixed 10% EIA-930 slot from the fundamental allocation.  Forty
 percent of that slot uses the ERCOT/MISO/SPP total non-gas shortfall and 60%
 uses Florida firm non-gas generation relative to demand.  The existing
@@ -48,12 +48,15 @@ from naturalgas.sync_documentation_metrics import (
 )
 
 
-FORMAL_DAILY = (
+MODEL_V01_DAILY = (
     PROJECT_ROOT
-    / "naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet"
+    / "results/models/v01_south_central_storage/strategy_daily.parquet"
 )
 OVERLAY_INPUTS = audit_input_path(EIA930_OVERLAY_ARTIFACT_ID)
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "results/experiments/eia930_selected"
+MODEL_ID = "hh_v02_eia930_central_florida"
+MODEL_SEQUENCE = 2
+LIFECYCLE_STATE = "superseded_research"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "results/models/v02_eia930_central_florida"
 
 CORE_SCORE = "score__replace_all_storage__south_central_total"
 CORE_FUNDAMENTAL = "fundamental__replace_all_storage__south_central_total"
@@ -157,7 +160,7 @@ def performance(net: pd.Series, dates: pd.Series, position: pd.Series) -> dict[s
 
 def build_daily(
     *,
-    formal_daily_path: Path,
+    model_v01_daily_path: Path,
     overlay_inputs_path: Path,
     event_reports_path: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -167,7 +170,7 @@ def build_daily(
     })
     overlay_inputs_path = audit_paths[EIA930_OVERLAY_ARTIFACT_ID]
     event_reports_path = audit_paths[EVENT_REPORTS_ARTIFACT_ID]
-    formal = pd.read_parquet(formal_daily_path)
+    formal = pd.read_parquet(model_v01_daily_path)
     formal["date"] = pd.to_datetime(formal["date"]).dt.normalize()
     formal = filter_confirmed_nymex_sessions(formal).reset_index(drop=True)
     overlay = pd.read_parquet(overlay_inputs_path)
@@ -679,13 +682,13 @@ def plot_dashboard(
 
 def run(
     *,
-    formal_daily_path: Path,
+    model_v01_daily_path: Path,
     overlay_inputs_path: Path,
     event_reports_path: Path,
     output_dir: Path,
 ) -> dict[str, Any]:
     daily, aligned_reports = build_daily(
-        formal_daily_path=formal_daily_path,
+        model_v01_daily_path=model_v01_daily_path,
         overlay_inputs_path=overlay_inputs_path,
         event_reports_path=event_reports_path,
     )
@@ -705,7 +708,7 @@ def run(
     loss_day_summary, loss_day_yearly = loss_day_diagnostics(daily)
     output_dir.mkdir(parents=True, exist_ok=True)
     daily.to_parquet(
-        output_dir / "selected_strategy_daily.parquet",
+        output_dir / "strategy_daily.parquet",
         index=False,
         compression="zstd",
     )
@@ -723,14 +726,16 @@ def run(
         base_metrics,
         central_metrics,
         selected_metrics,
-        output_dir / "latest_strategy_dashboard.png",
+        output_dir / "dashboard.png",
     )
     weight_sweep_chart = plot_weight_sweep(
         sweep,
         output_dir / "central_florida_weight_sweep.png",
     )
     summary = {
-        "strategy_version": "eia930_central40_florida60_10pct_with_event_veto",
+        "model_id": MODEL_ID,
+        "model_sequence": MODEL_SEQUENCE,
+        "lifecycle_state": LIFECYCLE_STATE,
         "sample_start": daily["date"].min(),
         "sample_end": daily["date"].max(),
         "trading_days": len(daily),
@@ -802,7 +807,9 @@ def run(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--formal-daily", type=Path, default=FORMAL_DAILY)
+    parser.add_argument(
+        "--model-v01-daily", type=Path, default=MODEL_V01_DAILY
+    )
     parser.add_argument("--overlay-inputs", type=Path, default=OVERLAY_INPUTS)
     parser.add_argument(
         "--event-reports", type=Path, default=DEFAULT_EVENT_REPORTS_PATH
@@ -814,7 +821,7 @@ def parse_args() -> argparse.Namespace:
 if __name__ == "__main__":
     args = parse_args()
     result = run(
-        formal_daily_path=args.formal_daily,
+        model_v01_daily_path=args.model_v01_daily,
         overlay_inputs_path=args.overlay_inputs,
         event_reports_path=args.event_reports,
         output_dir=args.output_dir,

@@ -31,9 +31,9 @@ from naturalgas.audit_inputs import (  # noqa: E402
 
 
 SOURCE_DAILY = audit_input_path(EIA930_SOURCE_ARTIFACT_ID)
-FORMAL_DAILY = (
+MODEL_V01_DAILY = (
     PROJECT_ROOT
-    / "naturalgas/processed/south_central_storage_strategy/strategy_daily.parquet"
+    / "results/models/v01_south_central_storage/strategy_daily.parquet"
 )
 D1_SCORE_INPUTS = audit_input_path(D1_3_SCORE_INPUTS_ARTIFACT_ID)
 OUTPUT = (
@@ -56,7 +56,7 @@ def json_default(value: Any) -> Any:
 def run(
     *,
     source_daily_path: Path = SOURCE_DAILY,
-    formal_daily_path: Path = FORMAL_DAILY,
+    model_v01_daily_path: Path = MODEL_V01_DAILY,
     d1_score_inputs_path: Path = D1_SCORE_INPUTS,
     output_path: Path = OUTPUT,
 ) -> dict[str, Any]:
@@ -67,7 +67,9 @@ def run(
     source_daily_path = audit_paths[EIA930_SOURCE_ARTIFACT_ID]
     d1_score_inputs_path = audit_paths[D1_3_SCORE_INPUTS_ARTIFACT_ID]
     source = pd.read_parquet(source_daily_path)
-    formal_dates = pd.read_parquet(formal_daily_path, columns=["date"])["date"]
+    formal_dates = pd.read_parquet(
+        model_v01_daily_path, columns=["date"]
+    )["date"]
     d1_dates = pd.read_parquet(d1_score_inputs_path, columns=["date"])["date"]
     strategy_dates = pd.concat([formal_dates, d1_dates], ignore_index=True)
     history = build_source_history(source)
@@ -97,7 +99,9 @@ def run(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-daily", type=Path, default=SOURCE_DAILY)
-    parser.add_argument("--formal-daily", type=Path, default=FORMAL_DAILY)
+    parser.add_argument(
+        "--model-v01-daily", type=Path, default=MODEL_V01_DAILY
+    )
     parser.add_argument("--d1-score-inputs", type=Path, default=D1_SCORE_INPUTS)
     parser.add_argument("--output", type=Path, default=OUTPUT)
     return parser.parse_args()
@@ -109,7 +113,7 @@ if __name__ == "__main__":
         json.dumps(
             run(
                 source_daily_path=arguments.source_daily,
-                formal_daily_path=arguments.formal_daily,
+                model_v01_daily_path=arguments.model_v01_daily,
                 d1_score_inputs_path=arguments.d1_score_inputs,
                 output_path=arguments.output,
             ),
