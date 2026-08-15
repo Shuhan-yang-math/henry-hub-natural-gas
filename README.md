@@ -199,6 +199,84 @@ henry-hub-natural-gas/
 └── tests/
 ```
 
+## Repository execution flow
+
+The repository has one complete current-chain rebuild and two narrower
+standalone rebuilds. The complete path rebuilds the upstream panel and weather
+features before evaluating V01 and then V03; the standalone paths start from
+approved intermediate contracts to provide faster, scoped checks.
+
+```mermaid
+flowchart TB
+    subgraph INPUTS["Generation-pinned immutable inputs"]
+        CONTRACTS["config / manifests / schemas"]
+        PANEL_INPUTS["72 master-panel objects"]
+        WEATHER_INPUTS["254 GFS partitions<br/>+ 2 capacity snapshots"]
+        V03_INPUTS["13 V03 selected-input objects"]
+    end
+
+    subgraph FULL["Complete current V01 to V03 chain"]
+        ALL["python -m naturalgas.pipelines.rebuild_all"]
+        PANEL["Rebuild 155-column<br/>master panel"]
+        WEATHER["Rebuild wind and solar factors<br/>plus forecast horizons"]
+        V01["Evaluate V01<br/>frozen formal baseline"]
+        V01_DAILY["New V01<br/>strategy_daily.parquet"]
+        V03["Evaluate V03<br/>current selected research"]
+        FULL_OUT["reproduced/full_chain/<br/>artifacts and receipts"]
+
+        ALL --> PANEL
+        ALL --> WEATHER
+        PANEL --> V01
+        WEATHER --> V01
+        V01 --> V01_DAILY
+        V01_DAILY --> V03
+        WEATHER --> V03
+        V03 --> FULL_OUT
+        V01 --> FULL_OUT
+    end
+
+    CONTRACTS --> ALL
+    PANEL_INPUTS --> ALL
+    WEATHER_INPUTS --> ALL
+    V03_INPUTS --> ALL
+    V03_INPUTS --> V03
+
+    subgraph STANDALONE["Narrow standalone rebuilds"]
+        V01_INPUTS["7 pinned processed<br/>V01 inputs"]
+        RV01["rebuild_model_v01"]
+        OV01["reproduced/models/<br/>v01_south_central_storage"]
+
+        CANONICAL_V01["Checked-in canonical<br/>V01 daily result"]
+        RV03_INPUTS["Pinned GFS data<br/>+ 13 V03 inputs"]
+        RV03["rebuild_model_v03"]
+        OV03["reproduced/models/<br/>v03_d1_3_storage_guard"]
+
+        V01_INPUTS --> RV01 --> OV01
+        CANONICAL_V01 --> RV03
+        RV03_INPUTS --> RV03 --> OV03
+    end
+
+    subgraph RECORD["Checked-in canonical research record"]
+        C1["results/models/v01...<br/>frozen formal baseline"]
+        C2["results/models/v02...<br/>superseded research"]
+        C3["results/models/v03...<br/>current selected research"]
+        DOCS["README / MODEL_CARD / reports"]
+
+        C1 --> DOCS
+        C2 --> DOCS
+        C3 --> DOCS
+    end
+
+    C1 -.-> CANONICAL_V01
+```
+
+Solid arrows show data dependencies. Files under `reproduced/` are generated
+local audit outputs and are ignored by Git; files under `results/models/` are
+the checked-in canonical research record. `rebuild_all` means “rebuild the
+complete current V01-to-V03 dependency chain,” not “rerun every historical
+model”: V02 is deliberately retained for comparison but is not part of that
+chain.
+
 ## Reproduce the approved model
 
 The verified environment is Python 3.13.5 with the exact package versions in
