@@ -201,81 +201,77 @@ henry-hub-natural-gas/
 
 ## Repository execution flow
 
-The repository has one complete current-chain rebuild and two narrower
-standalone rebuilds. The complete path rebuilds the upstream panel and weather
-features before evaluating V01 and then V03; the standalone paths start from
-approved intermediate contracts to provide faster, scoped checks.
+The repository has three rebuild commands. Each command has a different input
+boundary and writes to a separate local reproduction directory.
+
+### 1. Complete current chain: `rebuild_all`
+
+Use this command when the upstream master panel, weather factors, V01, and V03
+must all be rebuilt in one transaction.
 
 ```mermaid
 flowchart TB
-    subgraph INPUTS["Generation-pinned immutable inputs"]
-        CONTRACTS["config / manifests / schemas"]
-        PANEL_INPUTS["72 master-panel objects"]
-        WEATHER_INPUTS["254 GFS partitions<br/>+ 2 capacity snapshots"]
-        V03_INPUTS["13 V03 selected-input objects"]
-    end
+    CONFIG["config / manifests / schemas"] --> ALL["rebuild_all"]
+    PANEL_INPUTS["72 master-panel<br/>object references"] --> ALL
+    WEATHER_INPUTS["127 wind + 127 solar partitions<br/>and 2 capacity snapshots"] --> ALL
+    SELECTED_INPUTS["13 V03 selected<br/>artifact references"] --> ALL
 
-    subgraph FULL["Complete current V01 to V03 chain"]
-        ALL["python -m naturalgas.pipelines.rebuild_all"]
-        PANEL["Rebuild 155-column<br/>master panel"]
-        WEATHER["Rebuild wind and solar factors<br/>plus forecast horizons"]
-        V01["Evaluate V01<br/>frozen formal baseline"]
-        V01_DAILY["New V01<br/>strategy_daily.parquet"]
-        V03["Evaluate V03<br/>current selected research"]
-        FULL_OUT["reproduced/full_chain/<br/>artifacts and receipts"]
+    ALL --> PANEL["Rebuild 155-column<br/>master panel"]
+    ALL --> WEATHER["Rebuild wind, solar,<br/>and forecast horizons"]
 
-        ALL --> PANEL
-        ALL --> WEATHER
-        PANEL --> V01
-        WEATHER --> V01
-        V01 --> V01_DAILY
-        V01_DAILY --> V03
-        WEATHER --> V03
-        V03 --> FULL_OUT
-        V01 --> FULL_OUT
-    end
+    PANEL --> V01["Evaluate V01<br/>frozen formal baseline"]
+    WEATHER --> V01
+    V01 --> V01_DAILY["New V01<br/>strategy_daily.parquet"]
 
-    CONTRACTS --> ALL
-    PANEL_INPUTS --> ALL
-    WEATHER_INPUTS --> ALL
-    V03_INPUTS --> ALL
-    V03_INPUTS --> V03
+    V01_DAILY --> V03["Evaluate V03<br/>current selected research"]
+    WEATHER --> V03
+    SELECTED_INPUTS --> V03
 
-    subgraph STANDALONE["Narrow standalone rebuilds"]
-        V01_INPUTS["7 pinned processed<br/>V01 inputs"]
-        RV01["rebuild_model_v01"]
-        OV01["reproduced/models/<br/>v01_south_central_storage"]
-
-        CANONICAL_V01["Checked-in canonical<br/>V01 daily result"]
-        RV03_INPUTS["Pinned GFS data<br/>+ 13 V03 inputs"]
-        RV03["rebuild_model_v03"]
-        OV03["reproduced/models/<br/>v03_d1_3_storage_guard"]
-
-        V01_INPUTS --> RV01 --> OV01
-        CANONICAL_V01 --> RV03
-        RV03_INPUTS --> RV03 --> OV03
-    end
-
-    subgraph RECORD["Checked-in canonical research record"]
-        C1["results/models/v01...<br/>frozen formal baseline"]
-        C2["results/models/v02...<br/>superseded research"]
-        C3["results/models/v03...<br/>current selected research"]
-        DOCS["README / MODEL_CARD / reports"]
-
-        C1 --> DOCS
-        C2 --> DOCS
-        C3 --> DOCS
-    end
-
-    C1 -.-> CANONICAL_V01
+    V01 --> OUTPUT["reproduced/full_chain/<br/>V01, V03, rebuilt artifacts,<br/>and receipts"]
+    V03 --> OUTPUT
 ```
 
-Solid arrows show data dependencies. Files under `reproduced/` are generated
-local audit outputs and are ignored by Git; files under `results/models/` are
-the checked-in canonical research record. `rebuild_all` means “rebuild the
-complete current V01-to-V03 dependency chain,” not “rerun every historical
-model”: V02 is deliberately retained for comparison but is not part of that
-chain.
+The two capacity snapshots are also present in the 13-object selected archive,
+so the displayed manifest-role counts are not counts of mutually exclusive
+GCS objects. `rebuild_all` rebuilds the current V01-to-V03 dependency chain;
+it does not rerun the historical V02 model.
+
+### 2. Narrow formal-baseline rebuild: `rebuild_model_v01`
+
+Use this command for a faster V01 audit that starts from seven approved
+processed inputs instead of rebuilding the complete upstream panel and weather
+history.
+
+```mermaid
+flowchart LR
+    MANIFEST["7 generation-pinned<br/>processed V01 inputs"] --> FETCH["Download and validate<br/>or validate local cache"]
+    FETCH --> V01["Evaluate V01<br/>south-central-storage baseline"]
+    CONFIG["Frozen V01 config"] --> V01
+    V01 --> VERIFY["Compare metrics and hashes<br/>with canonical V01"]
+    VERIFY --> OUTPUT["reproduced/models/<br/>v01_south_central_storage"]
+```
+
+### 3. Narrow selected-model rebuild: `rebuild_model_v03`
+
+Use this command to rebuild and audit V03 without rebuilding the master panel,
+solar factors, or V01. It therefore reads the checked-in canonical V01 daily
+result as an input.
+
+```mermaid
+flowchart TB
+    WIND_INPUTS["127 pinned wind partitions<br/>+ USWTDB capacity snapshot"] --> WIND["Rebuild D1 / D1-3 / D1-5<br/>wind-horizon lineage"]
+    SELECTED_INPUTS["13 pinned V03 artifacts"] --> VALIDATE["Validate compact scores,<br/>corrections, events, and lineage"]
+    CANONICAL_V01["results/models/v01.../<br/>strategy_daily.parquet"] --> V03["Evaluate V03<br/>D1-3 storage guard"]
+    WIND --> V03
+    VALIDATE --> V03
+    CONFIG["Frozen V03 config"] --> V03
+    V03 --> VERIFY["Verify selected metrics<br/>and wind parity"]
+    VERIFY --> OUTPUT["reproduced/models/<br/>v03_d1_3_storage_guard"]
+```
+
+Files under `reproduced/` are generated local audit outputs and are ignored by
+Git. Files under `results/models/` are the checked-in canonical research
+record used for comparison, documentation, and the standalone V03 handoff.
 
 ## Reproduce the approved model
 
