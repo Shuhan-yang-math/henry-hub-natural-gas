@@ -1205,8 +1205,8 @@ power curve is
 ```math
 P_0(v)=
 \begin{cases}
-0, & v<3,\\
-\dfrac{v^3-3^3}{12^3-3^3}, & 3\leq v<12,\\
+0, & v\lt 3,\\
+\dfrac{v^3-3^3}{12^3-3^3}, & 3\leq v\lt 12,\\
 1, & v\geq12.
 \end{cases}
 ```
@@ -1719,7 +1719,7 @@ date. When several weekend source days map to the same Monday score date, the
 latest completed source day is retained. The mapping is
 
 ```math
-ScoreDate(t)=\min\{T_j:T_j>t\},
+ScoreDate(t)=\min\{T_j:T_j\gt t\},
 ```
 
 and, if several source days share one score date,
@@ -1847,7 +1847,7 @@ RecentNotice_r=
 ```
 
 ```math
-Eligible_r=\mathbf{1}\{\Delta Q_r>0\}\times RecentNotice_r.
+Eligible_r=\mathbf{1}\{\Delta Q_r\gt 0\}\times RecentNotice_r.
 ```
 
 An event record is eligible when the shut-in estimate worsens and the recent-
@@ -1865,13 +1865,13 @@ With $`\mathcal T`$ denoting confirmed settlement dates, the mapping is
 Entry_r=
 \begin{cases}
 d_r, & d_r\in\mathcal T,\\
-\min\{T\in\mathcal T:T>d_r\}, & d_r\notin\mathcal T,
+\min\{T\in\mathcal T:T\gt d_r\}, & d_r\notin\mathcal T,
 \end{cases}
 ```
 
 ```math
 ControlledReturnDate_r=
-\min\{T\in\mathcal T:T>Entry_r\}.
+\min\{T\in\mathcal T:T\gt Entry_r\}.
 ```
 
 If more than one eligible report maps to the same controlled return date, the
@@ -1925,7 +1925,7 @@ the early switch date generated five trading sessions before the official
 switch. Define
 
 ```math
-I^{early}_t=\mathbf{1}\{E_m\leq t<OfficialSwitch_m\}.
+I^{early}_t=\mathbf{1}\{E_m\leq t\lt OfficialSwitch_m\}.
 ```
 
 The contract-consistent daily return is
@@ -2241,9 +2241,9 @@ condition is
 ```math
 G_t=
 H_t
-\land\mathbf 1\{V_t<0\}
-\land\mathbf 1\{Q_t^{-V}>0\}
-\land\mathbf 1\{Q_t^{1:3}<0\}.
+\land\mathbf 1\{V_t\lt 0\}
+\land\mathbf 1\{Q_t^{-V}\gt 0\}
+\land\mathbf 1\{Q_t^{1:3}\lt 0\}.
 ```
 
 The selected score is then
@@ -2269,7 +2269,7 @@ short over the mapped return interval. For a preliminary position $`p`$, define
 ```math
 \mathcal E_t(p)=
 \begin{cases}
-0, & E_t^{event}=1\text{ and }p<0,\\
+0, & E_t^{event}=1\text{ and }p\lt 0,\\
 p, & \text{otherwise}.
 \end{cases}
 ```
@@ -2424,7 +2424,7 @@ before the subperiod begins.
 Daily win rate is
 
 ```math
-WinRate=\frac{1}{N}\sum_{t=1}^{N}\mathbf 1\{r_t^{net}>0\}.
+WinRate=\frac{1}{N}\sum_{t=1}^{N}\mathbf 1\{r_t^{net}\gt 0\}.
 ```
 
 Its denominator includes every reported trading session; zero-return and
@@ -3061,9 +3061,9 @@ guard intervenes only when all four conditions hold:
 ```math
 G_t=
 A_t
-\land\mathbf 1\{V_t^{1:3}<0\}
-\land\mathbf 1\{Q_t^{-V}>0\}
-\land\mathbf 1\{Q_t^{1:3}<0\}.
+\land\mathbf 1\{V_t^{1:3}\lt 0\}
+\land\mathbf 1\{Q_t^{-V}\gt 0\}
+\land\mathbf 1\{Q_t^{1:3}\lt 0\}.
 ```
 
 The selected score is
@@ -3096,7 +3096,7 @@ date. Let $`E_t^{event}`$ be its Boolean value. The final position is
 ```math
 P_t=
 \begin{cases}
-0, & E_t^{event}=1\text{ and }P_t^{pre}<0,\\
+0, & E_t^{event}=1\text{ and }P_t^{pre}\lt 0,\\
 P_t^{pre}, & \text{otherwise}.
 \end{cases}
 ```

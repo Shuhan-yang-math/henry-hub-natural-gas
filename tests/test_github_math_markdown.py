@@ -45,10 +45,14 @@ def test_markdown_uses_github_safe_math_syntax(relative_path: Path) -> None:
     assert not re.search(r"\\\([^\n]+\\\)", text)
     assert text.count("$`") == text.count("`$")
 
+    inline_expressions = re.findall(r"\$`([^`]*)`\$", text)
+    assert all("<" not in expression and ">" not in expression for expression in inline_expressions)
+
     blocks = _math_blocks(text)
     assert blocks, f"no GitHub math blocks found in {relative_path}"
 
     for block in blocks:
+        assert "<" not in block and ">" not in block
         for environment in ("cases", "aligned"):
             assert block.count(rf"\begin{{{environment}}}") == block.count(
                 rf"\end{{{environment}}}"

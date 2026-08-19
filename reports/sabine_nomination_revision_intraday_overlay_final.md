@@ -36,8 +36,8 @@ gas days using a causal expanding mean and standard deviation with at least 60
 prior observations:
 
 ```math
-z_{j,t}=\frac{Revision_{j,t}-\overline{Revision}_{j,<t}}
-{s(Revision_{j,<t})}.
+z_{j,t}=\frac{Revision_{j,t}-\overline{Revision}_{j,\lt t}}
+{s(Revision_{j,\lt t})}.
 ```
 
 The signal retains the revision with the larger absolute standardized value:

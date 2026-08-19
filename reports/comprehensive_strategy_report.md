@@ -328,10 +328,10 @@ The normalized power proxy is approximately:
 ```math
 P(v)=
 \begin{cases}
-0, & v<3,\\
-\dfrac{v^3-3^3}{12^3-3^3}, & 3\le v<12,\\
-1, & 12\le v<20,\\
-\text{cosine derating}, & 20\le v<25,\\
+0, & v\lt 3,\\
+\dfrac{v^3-3^3}{12^3-3^3}, & 3\le v\lt 12,\\
+1, & 12\le v\lt 20,\\
+\text{cosine derating}, & 20\le v\lt 25,\\
 0, & v\ge25.
 \end{cases}
 ```
