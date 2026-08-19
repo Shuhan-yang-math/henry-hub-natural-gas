@@ -111,17 +111,17 @@ aligned execution window are available.
 | Sample | 2023-10-23--2026-07-13 | same | same |
 | Trading days | 682 | 682 | 682 |
 | Eligible I3 events | -- | 635 | 635 shifted to the next session |
-| Net Sharpe | 1.960 | **2.454** | 1.332 |
-| Net Sortino | 3.362 | **4.336** | 2.107 |
-| CAGR | 15.31% | **20.32%** | 10.14% |
-| Total net return | 47.36% | **65.44%** | 30.06% |
-| Maximum drawdown | -3.94% | **-3.10%** | -7.86% |
-| Simple incremental net-return sum | -- | **+1,162.9 bps** | -1,250.4 bps |
+| Net Sharpe | 1.960 | **2.453** | 1.331 |
+| Net Sortino | 3.362 | **4.334** | 2.104 |
+| CAGR | 15.31% | **20.32%** | 10.13% |
+| Total net return | 47.36% | **65.42%** | 30.03% |
+| Maximum drawdown | -3.94% | **-3.10%** | -7.87% |
+| Simple incremental net-return sum | -- | **+1,162.0 bps** | -1,252.4 bps |
 
 The selected overlay raises active-window Sharpe by 0.493 and makes maximum
 drawdown 0.84 percentage point shallower. Its cumulative return exceeds V03 by
-18.07 percentage points over the same dates. The next-session implementation
-moves in the opposite direction: Sharpe falls by 0.628 and drawdown becomes
+18.06 percentage points over the same dates. The next-session implementation
+moves in the opposite direction: Sharpe falls by 0.629 and drawdown becomes
 materially deeper. The historical evidence therefore supports a short-lived
 post-I3 information effect rather than a persistent next-day directional state.
 
@@ -143,7 +143,7 @@ Both selected physical channels contribute positively:
 | Selected source | Events | Mean absolute incremental position | Incremental net-return sum | Mean contribution per selected event |
 |---|---:|---:|---:|---:|
 | TransCameron LNG | 161 | 5.72% | +749.8 bps | +4.66 bps |
-| Jefferson Island storage | 474 | 5.87% | +413.1 bps | +0.87 bps |
+| Jefferson Island storage | 474 | 5.88% | +412.2 bps | +0.87 bps |
 
 The two channels play different historical roles. TransCameron is selected
 less often but contributes substantially more per selected observation,
@@ -163,12 +163,12 @@ performs better than either single channel or a simple equal combination.
 | Signal construction | Sharpe change vs V03 | Incremental net-return sum |
 |---|---:|---:|
 | LNG only | +0.193 | +682.2 bps |
-| Storage only | +0.240 | +422.5 bps |
-| Equal combination | +0.306 | +583.2 bps |
-| Dominant revision | **+0.493** | **+1,162.9 bps** |
+| Storage only | +0.240 | +422.6 bps |
+| Equal combination | +0.306 | +583.3 bps |
+| Dominant revision | **+0.493** | **+1,162.0 bps** |
 
 The result is similar when the minimum causal history is changed from 60 gas
-days to 20 or 120 days: the Sharpe improvement is +0.416, +0.493, and +0.482,
+days to 20 or 120 days: the Sharpe improvement is +0.416, +0.493, and +0.481,
 respectively. It remains positive at assumed costs of 5 and 10 basis points per
 leg, but turns negative at 20 basis points per leg. Execution quality is
 therefore economically important rather than a cosmetic backtest assumption.
@@ -181,7 +181,7 @@ Sharpe improvement. The benefit declines as the per-leg cost assumption rises.*
 The paired circular moving-block bootstrap resamples the base and overlay daily
 net returns together using 20-session blocks and 20,000 repetitions. The
 observed active-window Sharpe improvement is +0.493; the 95% percentile interval
-is approximately [0.043, 0.968]. This describes sampling uncertainty in the
+is approximately [0.042, 0.968]. This describes sampling uncertainty in the
 observed return path but does not remove specification-selection effects.
 
 ## Interpretation and use
@@ -220,9 +220,13 @@ Parquet dimensions, schema fingerprint, and required columns.
 The complete rebuild entry point is
 [`naturalgas/pipelines/rebuild_sabine_nomination_overlay.py`](../naturalgas/pipelines/rebuild_sabine_nomination_overlay.py).
 It reconstructs the retained LNG and storage revisions and their 20-, 60-,
-and 120-gas-day causal z-scores from the raw OAC rows, requires exact equality
-with the assembled panel, runs the final evaluator, and verifies every output
-table and daily path against the shipped artifacts. Run it with:
+and 120-gas-day causal z-scores from the raw OAC rows. When the archive
+contains more than one complete capture for the same gas day and cycle, it
+keeps the capture with the latest native posting timestamp before aggregating
+point quantities; the retained snapshot must then have unique point/direction
+rows. The pipeline requires exact equality with the assembled panel, runs the
+final evaluator, and verifies every output table and daily path against the
+shipped artifacts. Run it with:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_sabine_nomination_overlay --overwrite

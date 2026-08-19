@@ -3,32 +3,32 @@
     "base_maximum_drawdown": -0.03943164230471885,
     "base_sharpe": 1.960249312112515,
     "base_total_return": 0.47364697569507497,
-    "delta_sharpe": 0.49344829549467706,
-    "delta_total_return": 0.1807043581382226,
+    "delta_sharpe": 0.4926345202324378,
+    "delta_total_return": 0.18055842658945154,
     "end": "2026-07-13T00:00:00",
     "events": 635,
     "exact_execution_matches": 696,
-    "incremental_net_sum_bps": 1162.8985394845304,
-    "next_session_only_delta_sharpe": -0.6278559115654241,
-    "next_session_only_incremental_net_sum_bps": -1250.390873006196,
-    "next_session_only_sharpe": 1.332393400547091,
-    "selected_intraday_maximum_drawdown": -0.031028638879562087,
-    "selected_intraday_sharpe": 2.453697607607192,
-    "selected_intraday_total_return": 0.6543513338332976,
+    "incremental_net_sum_bps": 1162.0398713365475,
+    "next_session_only_delta_sharpe": -0.6294042108679703,
+    "next_session_only_incremental_net_sum_bps": -1252.3667079194925,
+    "next_session_only_sharpe": 1.3308451012445448,
+    "selected_intraday_maximum_drawdown": -0.031033153062331786,
+    "selected_intraday_sharpe": 2.452883832344953,
+    "selected_intraday_total_return": 0.6542054022845265,
     "start": "2023-10-23T00:00:00",
     "trading_days": 682
   },
   "base_strategy_modified": false,
   "bootstrap": {
     "block_length": 20,
-    "delta_sharpe_bootstrap_median": 0.49056936478597424,
+    "delta_sharpe_bootstrap_median": 0.4897513511564451,
     "delta_sharpe_percentile_interval_95": [
-      0.04310120526013726,
-      0.9684312489167227
+      0.0417586096999164,
+      0.9683079823276498
     ],
     "replications": 20000,
     "seed": 20260819,
-    "share_nonpositive": 0.01395
+    "share_nonpositive": 0.0141
   },
   "experiment": "sabine_nomination_revision_intraday_overlay_final",
   "full_v03_sample": {
@@ -43,27 +43,27 @@
       "trading_days": 1748
     },
     "next_session_only_comparator": {
-      "cagr": 0.169434232205522,
+      "cagr": 0.16940014718419727,
       "end": "2026-07-13T00:00:00",
-      "maximum_drawdown": -0.07860503417611853,
-      "sharpe": 1.9998700368495228,
-      "sortino": 3.383542211964113,
+      "maximum_drawdown": -0.07873222096933874,
+      "sharpe": 1.9992343156265135,
+      "sortino": 3.3821645882586258,
       "start": "2019-07-25T00:00:00",
-      "total_return": 1.9761415250042242,
+      "total_return": 1.9755371450448793,
       "trading_days": 1748
     },
     "selected_intraday_overlay": {
-      "cagr": 0.21051873448792424,
+      "cagr": 0.21050340940308931,
       "end": "2026-07-13T00:00:00",
       "maximum_drawdown": -0.0416466334669916,
-      "sharpe": 2.409975438146274,
-      "sortino": 4.240212181926321,
+      "sharpe": 2.4096824258103986,
+      "sortino": 4.23934429195485,
       "start": "2019-07-25T00:00:00",
-      "total_return": 2.7856748071851887,
+      "total_return": 2.785340870024149,
       "trading_days": 1748
     }
   },
-  "generated_utc": "2026-08-19T02:43:15.726261+00:00",
+  "generated_utc": "2026-08-19T22:14:06.702103+00:00",
   "input_lineage": {
     "all_cycle_source": {
       "path": "inputs/gcs/sabine_nomination_overlay/all_cycle/sabine_oac_all_locations.parquet",
@@ -71,7 +71,7 @@
     },
     "assembled_research_panel": {
       "path": "inputs/gcs/sabine_nomination_overlay/assembled/daily_panel.parquet",
-      "sha256": "c10096b5319d87d50962018b99eedb15be604bf002b115f5325924f5a04b8b16"
+      "sha256": "3db124ba1cf895cf6172ede94291a514f5a3ac155eed999d175073ab2d270b9d"
     },
     "execution_windows": {
       "path": "inputs/gcs/sabine_nomination_overlay/execution/execution_windows.parquet",

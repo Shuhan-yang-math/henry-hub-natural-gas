@@ -158,8 +158,8 @@ posting +5 through +30 minutes, and exits at the same contract's settlement
 VWAP. It is not part of V03 and is not a formal V04.
 
 On its 682-session active window, the overlay raises V03 Sharpe from 1.960 to
-2.454 and reduces maximum drawdown from -3.94% to -3.10%. Applying the same
-signal only at the next normal position update lowers Sharpe to 1.332, so the
+2.453 and reduces maximum drawdown from -3.94% to -3.10%. Applying the same
+signal only at the next normal position update lowers Sharpe to 1.331, so the
 result is explicitly an intraday timing result rather than a daily factor.
 
 ![Sabine nomination-revision comparison](results/experiments/sabine_nomination_revision_intraday_overlay_final/cumulative_net_wealth.png)
@@ -170,8 +170,10 @@ pins three exact GCS generations: the 231,679-row raw all-cycle Sabine OAC
 archive, the assembled nomination research panel, and the processed NG
 execution-window contract. The full nomination-lineage rebuild downloads and
 validates those objects, reconstructs the retained LNG and storage revisions
-and their 20/60/120-gas-day causal z-scores from raw OAC rows, requires exact
-parity with the assembled panel, reruns the final evaluator, and verifies every
+and their 20/60/120-gas-day causal z-scores from raw OAC rows, retains the
+latest complete snapshot when a gas-day/cycle page was captured more than
+once, requires exact parity with the assembled panel, reruns the final
+evaluator, and verifies every
 result table and daily path against the shipped artifacts:
 
 ```bash

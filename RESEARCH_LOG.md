@@ -161,14 +161,14 @@ exit. It does not change the stored V03 daily position.
 
 On the 2023-10-23--2026-07-13 active window, base V03 records 1.960 Sharpe,
 47.36% total return, and -3.94% maximum drawdown. The selected intraday overlay
-records 2.454 Sharpe, 65.44% total return, and -3.10% maximum drawdown. The
-simple sum of incremental net returns is +1,162.9 bps across 635 eligible I3
+records 2.453 Sharpe, 65.42% total return, and -3.10% maximum drawdown. The
+simple sum of incremental net returns is +1,162.0 bps across 635 eligible I3
 observations.
 
 The same signal was also shifted to the next confirmed session's normal
 settlement-to-settlement position without an I3-to-settlement trade. That
-comparator records 1.332 Sharpe, 30.06% total return, -7.86% maximum drawdown,
-and a -1,250.4 bps simple incremental net-return sum on the same active dates.
+comparator records 1.331 Sharpe, 30.03% total return, -7.87% maximum drawdown,
+and a -1,252.4 bps simple incremental net-return sum on the same active dates.
 It is rejected. This contrast makes execution timing part of the retained
 economic hypothesis rather than an implementation detail.
 

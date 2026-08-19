@@ -14,6 +14,7 @@ from naturalgas.audit_inputs import (
 )
 from naturalgas.pipelines.rebuild_sabine_nomination_overlay import (
     DEFAULT_INPUT_MANIFEST,
+    rebuild_nomination_revisions,
     rebuild_sabine_nomination_overlay,
     verify_nomination_revision_lineage,
     verify_overlay_summary,
@@ -88,10 +89,6 @@ def _write_lineage_fixture(tmp_path: Path) -> tuple[Path, Path]:
     raw_path = tmp_path / "raw.parquet"
     raw.to_parquet(raw_path, index=False)
 
-    from naturalgas.pipelines.rebuild_sabine_nomination_overlay import (
-        rebuild_nomination_revisions,
-    )
-
     rebuilt = rebuild_nomination_revisions(raw_path)
     panel = rebuilt.rename(
         columns={"posting_time_utc": "posting_time_utc_factor"}
@@ -100,6 +97,40 @@ def _write_lineage_fixture(tmp_path: Path) -> tuple[Path, Path]:
     panel_path = tmp_path / "panel.parquet"
     panel.to_parquet(panel_path, index=False)
     return raw_path, panel_path
+
+
+def test_nomination_rebuild_keeps_latest_complete_cycle_snapshot(
+    tmp_path: Path,
+) -> None:
+    raw_path, _ = _write_lineage_fixture(tmp_path)
+    expected = rebuild_nomination_revisions(raw_path)
+    raw = pd.read_parquet(raw_path)
+
+    duplicate_snapshot = raw.loc[
+        raw["gas_date"].eq(pd.Timestamp("2024-01-01"))
+        & raw["cycle"].eq("Timely")
+    ].copy()
+    duplicate_snapshot["posting_time_utc"] += pd.Timedelta(seconds=5)
+    pd.concat([raw, duplicate_snapshot], ignore_index=True).to_parquet(
+        raw_path,
+        index=False,
+    )
+
+    actual = rebuild_nomination_revisions(raw_path)
+    pd.testing.assert_frame_equal(actual, expected, check_exact=True)
+
+
+def test_nomination_rebuild_rejects_duplicate_points_in_latest_snapshot(
+    tmp_path: Path,
+) -> None:
+    raw_path, _ = _write_lineage_fixture(tmp_path)
+    raw = pd.read_parquet(raw_path)
+    duplicate = raw.iloc[[0]].copy()
+    raw = pd.concat([raw, duplicate], ignore_index=True)
+    raw.to_parquet(raw_path, index=False)
+
+    with pytest.raises(ValueError, match="duplicate point/direction"):
+        rebuild_nomination_revisions(raw_path)
 
 
 def test_raw_nomination_lineage_requires_exact_factor_parity(
@@ -170,4 +201,4 @@ def test_pinned_gcs_raw_oac_through_final_overlay(tmp_path: Path) -> None:
     assert receipt["summary"]["active_evaluation"]["events"] == 635
     assert receipt["summary"]["active_evaluation"][
         "selected_intraday_sharpe"
-    ] == 2.453697607607192
+    ] == 2.452883832344953

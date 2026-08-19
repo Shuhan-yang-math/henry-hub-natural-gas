@@ -83,6 +83,33 @@ def causal_expanding_z(values: pd.Series, minimum_history: int) -> pd.Series:
     return (values - history.mean()) / scale
 
 
+def select_latest_cycle_snapshots(raw: pd.DataFrame) -> pd.DataFrame:
+    """Keep the latest complete EBB snapshot for each gas day and cycle."""
+
+    snapshot_keys = ["gas_date", "cycle"]
+    if raw["posting_time_utc"].isna().any():
+        raise ValueError("All-cycle archive contains missing posting timestamps")
+    latest_posting = raw.groupby(snapshot_keys)[
+        "posting_time_utc"
+    ].transform("max")
+    latest = raw.loc[raw["posting_time_utc"].eq(latest_posting)].copy()
+
+    point_keys = [
+        "gas_date",
+        "cycle",
+        "location_name",
+        "flow_indicator",
+    ]
+    duplicate_points = latest.duplicated(point_keys, keep=False)
+    if duplicate_points.any():
+        example = latest.loc[duplicate_points, point_keys].iloc[0].to_dict()
+        raise ValueError(
+            "Latest Sabine cycle snapshot contains duplicate point/direction "
+            f"rows; first duplicate={example}"
+        )
+    return latest
+
+
 def rebuild_nomination_revisions(raw_path: Path) -> pd.DataFrame:
     """Rebuild the retained cycle revisions from the raw all-cycle archive."""
 
@@ -99,6 +126,7 @@ def rebuild_nomination_revisions(raw_path: Path) -> pd.DataFrame:
     raw["posting_time_utc"] = pd.to_datetime(
         raw["posting_time_utc"], utc=True
     )
+    raw = select_latest_cycle_snapshots(raw)
     quantity = pd.to_numeric(
         raw["total_scheduled_quantity_dth_per_day"], errors="coerce"
     ).fillna(0.0)

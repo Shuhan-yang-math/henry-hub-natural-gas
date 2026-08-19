@@ -118,10 +118,10 @@ is:
 
 | Metric | Base V03 | Sabine intraday overlay | Same signal, next session |
 |---|---:|---:|---:|
-| Net Sharpe | 1.960 | **2.454** | 1.332 |
-| CAGR | 15.31% | **20.32%** | 10.14% |
-| Total net return | 47.36% | **65.44%** | 30.06% |
-| Maximum drawdown | -3.94% | **-3.10%** | -7.86% |
+| Net Sharpe | 1.960 | **2.453** | 1.331 |
+| CAGR | 15.31% | **20.32%** | 10.13% |
+| Total net return | 47.36% | **65.42%** | 30.03% |
+| Maximum drawdown | -3.94% | **-3.10%** | -7.87% |
 
 The contrast in timing is economically important. The signal performs strongly
 between the Intraday 3 posting and settlement, but its incremental return turns
@@ -2692,28 +2692,28 @@ contains 682 trading sessions and 635 eligible Intraday 3 observations:
 
 | Active-window metric | Base V03 | Intraday overlay | Next-session implementation |
 |---|---:|---:|---:|
-| Net Sharpe | 1.960 | **2.454** | 1.332 |
-| Net Sortino | 3.362 | **4.336** | 2.107 |
-| CAGR | 15.31% | **20.32%** | 10.14% |
-| Total net return | 47.36% | **65.44%** | 30.06% |
-| Maximum drawdown | -3.94% | **-3.10%** | -7.86% |
-| Incremental net-return sum | -- | **+1,162.9 bps** | -1,250.4 bps |
+| Net Sharpe | 1.960 | **2.453** | 1.331 |
+| Net Sortino | 3.362 | **4.334** | 2.104 |
+| CAGR | 15.31% | **20.32%** | 10.13% |
+| Total net return | 47.36% | **65.42%** | 30.03% |
+| Maximum drawdown | -3.94% | **-3.10%** | -7.87% |
+| Incremental net-return sum | -- | **+1,162.0 bps** | -1,252.4 bps |
 
-The overlay raises Sharpe by 0.493, adds 18.07 percentage points of compounded
+The overlay raises Sharpe by 0.493, adds 18.06 percentage points of compounded
 wealth, and makes maximum drawdown 0.84 percentage point shallower over the
 same dates. Both channels contribute: selected TransCameron observations add
-749.8 basis points and selected Jefferson Island observations add 413.1 basis
+749.8 basis points and selected Jefferson Island observations add 412.2 basis
 points on the simple paired-return basis. The result is also positive under
 20-, 60-, and 120-day causal standardization histories and remains positive at
 assumed costs of 5 and 10 basis points per leg.
 
 A paired moving-block bootstrap of base V03 and overlay returns places the 95%
-percentile interval for the Sharpe improvement at approximately [0.043,
+percentile interval for the Sharpe improvement at approximately [0.042,
 0.968], which is above zero but does not remove specification-selection bias
 from the historical research process.
 
 Timing is central to the result. Moving the same signal to the next confirmed
-session's normal settlement-to-settlement position lowers Sharpe to 1.332 and
+session's normal settlement-to-settlement position lowers Sharpe to 1.331 and
 produces a negative incremental return. The useful information is therefore
 concentrated between the Intraday 3 posting and settlement rather than behaving
 like a persistent next-day gas-balance factor.

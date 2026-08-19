@@ -235,7 +235,7 @@ contract in
 
 | Artifact | Rows × columns | Reproduction role |
 |---|---:|---|
-| Raw all-cycle Sabine OAC archive | 231,679 × 26 | Rebuild TransCameron Intraday-1-to-3 and Jefferson Island Timely-to-Intraday-3 revisions and their 20/60/120-day causal histories. |
+| Raw all-cycle Sabine OAC archive | 231,679 × 26 | Keep the latest complete gas-day/cycle snapshot, then rebuild TransCameron Intraday-1-to-3 and Jefferson Island Timely-to-Intraday-3 revisions and their 20/60/120-day causal histories. |
 | Assembled nomination research panel | 1,748 × 78 | Exact mapped factor contract and parity target consumed by the final evaluator. |
 | Processed NG execution windows | 2,250 × 18 | Exact native-posting, entry-VWAP, settlement-VWAP, held-contract, volume, trade-count, and settlement-method contract. |
 

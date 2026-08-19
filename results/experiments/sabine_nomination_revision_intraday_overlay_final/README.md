@@ -24,9 +24,12 @@ python -m naturalgas.pipelines.rebuild_sabine_nomination_overlay --overwrite
 
 This writes an atomic verified build and `reproduction_receipt.json` under
 `reproduced/experiments/sabine_nomination_revision_intraday_overlay_final/`.
-The receipt requires exact raw-to-assembled revision parity, exact execution
-input parity, exact output table and daily-path parity, and equality with the
-shipped result summary apart from run-local timestamps and paths.
+For repeated captures of one gas-day/cycle page, the raw rebuild first keeps
+the complete snapshot with the latest native posting timestamp and requires
+unique point/direction rows within that snapshot. The receipt then requires
+exact raw-to-assembled revision parity, exact execution input parity, exact
+output table and daily-path parity, and equality with the shipped result
+summary apart from run-local timestamps and paths.
 
 To attach the overlay to a preceding V03 GCS-lineage rebuild:
 

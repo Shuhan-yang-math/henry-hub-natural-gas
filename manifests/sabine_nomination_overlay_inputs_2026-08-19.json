@@ -8,6 +8,7 @@
   },
   "limitations": [
     "The Sabine archive is a retrospectively assembled all-cycle archive. Native EBB posting timestamps are retained, but this is not an untouched prospective capture.",
+    "When more than one complete EBB snapshot exists for the same gas day and cycle, the raw rebuild keeps the snapshot with the latest native posting timestamp before aggregating point quantities.",
     "Scheduled quantity is a commercial nomination, not a metered physical-flow observation.",
     "The execution-window parquet is the exact processed contract derived from controlled NYMEX outright trade data. Raw tick files are not redistributed by this handoff; the manifest therefore reproduces and audits the retained VWAP inputs but does not independently reconstruct them from raw trades.",
     "The evaluator remains a historical research overlay outside formal model V03 and is not a formal V04."
@@ -37,9 +38,9 @@
     {
       "id": "sabine_nomination_research_panel",
       "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/sabine_nomination_overlay_final/2026-08-19/daily_panel.parquet",
-      "generation": "1787106629976792",
-      "sha256": "c10096b5319d87d50962018b99eedb15be604bf002b115f5325924f5a04b8b16",
-      "size_bytes": 528170,
+      "generation": "1787177438210349",
+      "sha256": "3db124ba1cf895cf6172ede94291a514f5a3ac155eed999d175073ab2d270b9d",
+      "size_bytes": 484894,
       "rows": 1748,
       "columns": 78,
       "schema_fingerprint_sha256": "fd0f9c22b3dc28a7cc56fcc395c4e0f47d2d68e755bb837e8fce7ba57b7ff8fd",
