@@ -227,13 +227,39 @@ requested lead, applies the frozen issue-year-minus-one annual fleet weights,
 and computes each rolling z-score from prior initializations only. The approved
 3,857-row horizon parquet is itself pinned by SHA-256 in the same manifest.
 
+## Sabine nomination-overlay archive
+
+The isolated Sabine nomination-revision overlay has a separate three-object
+contract in
+[`manifests/sabine_nomination_overlay_inputs_2026-08-19.json`](manifests/sabine_nomination_overlay_inputs_2026-08-19.json):
+
+| Artifact | Rows × columns | Reproduction role |
+|---|---:|---|
+| Raw all-cycle Sabine OAC archive | 231,679 × 26 | Rebuild TransCameron Intraday-1-to-3 and Jefferson Island Timely-to-Intraday-3 revisions and their 20/60/120-day causal histories. |
+| Assembled nomination research panel | 1,748 × 78 | Exact mapped factor contract and parity target consumed by the final evaluator. |
+| Processed NG execution windows | 2,250 × 18 | Exact native-posting, entry-VWAP, settlement-VWAP, held-contract, volume, trade-count, and settlement-method contract. |
+
+Each object is pinned by GCS generation, SHA-256, byte size, Parquet dimensions,
+schema fingerprint, and required columns. The strict rebuild is:
+
+```bash
+python -m naturalgas.pipelines.rebuild_sabine_nomination_overlay --overwrite
+```
+
+It downloads all three objects, verifies the raw nomination lineage exactly,
+runs the final overlay against V03, and writes a reproduction receipt under
+`reproduced/experiments/sabine_nomination_revision_intraday_overlay_final/`.
+Raw NYMEX tick files are controlled and are not redistributed, so the execution
+window is a pinned processed-input boundary rather than a public raw-tick
+rebuild.
+
 ## Reproduction boundary
 
 This handoff supports reproduction of the formal 2017-07-03 through 2026-07-13
 backtest from immutable internal base objects. The panel object itself extends
 to 2026-07-17, but the frozen configuration applies the 2026-07-13 cutoff.
 
-The four inventories have different roles:
+The five inventories have different roles:
 
 - [`manifests/master_panel_inputs_2026-07-13.json`](manifests/master_panel_inputs_2026-07-13.json)
   pins 72 direct master-panel inputs;
@@ -244,7 +270,10 @@ The four inventories have different roles:
   raw/derived capacity objects; and
 - [`manifests/input_artifacts_2026-07-13.json`](manifests/input_artifacts_2026-07-13.json)
   pins the seven approved processed artifacts used by the narrow rebuild and
-  as parity targets for the broader build.
+  as parity targets for the broader build; and
+- [`manifests/sabine_nomination_overlay_inputs_2026-08-19.json`](manifests/sabine_nomination_overlay_inputs_2026-08-19.json)
+  pins the raw Sabine nomination archive, assembled overlay panel, and
+  processed execution-window contract used by the isolated intraday study.
 
 This is not a guarantee that re-querying current public APIs reproduces the
 same history. Upstream CPC, futures, EIA, USWTDB, Open-Meteo, FRED, and related

@@ -143,6 +143,14 @@ In November–March, when both the local freeze level and revision scores meet
 the fixed freeze condition, the final raw score cannot be negative. This is a
 one-sided safety control against shorting during severe production disruption.
 
+The implementation columns are `prod_freeze_local_level_score` and
+`prod_freeze_local_revision_score`. They are unbounded scores: the D1--5 local
+cold-severity level is `log1p` transformed, the same-valid-date D1--4 revision
+is signed-`log1p` transformed, and each is divided by its prior-756-observation
+95th-percentile scale with 252 observations required. They are not z-scores or
+`tanh`-bounded signals. The clamp requires level at or above 1 and revision at
+or above 0.
+
 ## Storage-amplified wind direction guard
 
 The selected D1--3 version adds a one-sided score guard. Strong new bullish
@@ -157,6 +165,14 @@ itself. It only lowers the corresponding fast-shock thresholds to +0.5 sigma
 for HDD outside June--August, +0.5 trailing-quantile scale unit for production
 revision, and +1 sigma for firm non-gas generation shortfall. There is no CDD
 guard branch.
+
+The HDD thresholds act on pre-`tanh` `hdd_revision_5d_z`, standardized over 60
+prior issues with 30 required. The inventory threshold acts on pre-`tanh`
+`south_central_total_level_signal = -Z_causal_104(LevelDeviation)`, not on the
+bounded continuous storage component. The Central guard input excludes wind
+and solar and is distinct from the continuous Central total-non-gas signal;
+the Central and Florida firm-shortfall thresholds act on their already bounded
+`tanh(z/2)` values, so +2/+1 raw sigma correspond to `tanh(1)`/`tanh(0.5)`.
 
 When the score without wind is positive, D1--3 wind is bearish, and wind would
 reverse the score below zero, the score is set to zero. The guard cannot create

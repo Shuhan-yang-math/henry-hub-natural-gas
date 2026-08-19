@@ -103,10 +103,12 @@ removes the SCEG coupling and retains all five previously omitted returns.
 
 The guard changes 59 held-return dates. It helps on 34 dates and hurts on 25.
 It avoids or reduces 6.49 percentage points of losses on helped dates and
-sacrifices 4.66 percentage points of profits on hurt dates, for a net gain of
-1.81 percentage points in paired daily net-return differences relative to
-unguarded D1--3. Comparing compounded final wealth gives +6.12 percentage
-points.
+sacrifices 4.66 percentage points of profits on hurt dates, for a +1.83
+percentage-point intervention-date subtotal. Position restoration on later
+dates adds 0.026 percentage point of relative turnover cost, leaving a
+full-path gain of 1.81 percentage points in paired daily net-return differences
+relative to unguarded D1--3 after rounding. Comparing compounded final wealth
+gives +6.12 percentage points.
 
 The fixed validation-block Sharpe for 2021--2023 rises from 2.232 for
 unguarded D1--3 to 2.279 for the selected strategy. The 2024+ first-look block

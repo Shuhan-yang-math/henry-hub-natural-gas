@@ -35,8 +35,10 @@ directories are registered in `config/model_registry.yaml`.
   the risk-only flattening rule reduced South Central full Sharpe from 1.673 to
   1.648. It is not formal and those historical comparison values are retained
   only as experiment provenance.
-- **EBB Henry Hub/Sabine pipeline overlay:** short-history results were regime
-  dependent, especially around 2020. No EBB factor is in the formal model.
+- **Earlier daily EBB Henry Hub/Sabine pipeline overlay:** short-history results
+  were regime dependent, especially around 2020. No EBB factor is in the
+  formal daily model. The separately timed I3-to-settlement overlay is recorded
+  below and remains outside V03.
 - **Macro/geopolitical/market-price overlays:** no stable incremental signal
   was established, so they are excluded.
 - **No-lag EIA production and consumption:** aligning final month-M values to
@@ -67,6 +69,7 @@ directories are registered in `config/model_registry.yaml`.
 | `05_fundamental_weight_selection.ipynb` | remove consumption and reallocate fixed slots |
 | `06_model_v02_eia930_central_florida.ipynb` | V02 superseded EIA-930 regional blend, stability, and loss-day attribution |
 | `07_model_v03_d1_3_storage_guard.ipynb` | V03 current selected wind horizon, guard logic, performance, and intervention audit |
+| `08_sabine_nomination_revision_intraday_overlay_final.ipynb` | Final isolated I3 nomination-revision overlay, execution timing, rejected next-session comparator, and robustness |
 
 ## V02 — August 11, 2026 superseded EIA-930 research model
 
@@ -138,3 +141,52 @@ frozen rule remains subject to prospective monitoring.
 - `results/models/v03_d1_3_storage_guard/`
 - `notebooks/07_model_v03_d1_3_storage_guard.ipynb`
 - `reports/model_v03_d1_3_storage_guard_brief.md`
+
+## August 19, 2026 — final Sabine nomination-revision intraday overlay
+
+The pipeline-nomination work is retained as a separate intraday research
+overlay rather than a V03 score change. The final name is **Sabine dominant
+nomination-revision intraday overlay**.
+
+The signal compares two causal scheduled-quantity revisions: TransCameron LNG
+delivery from Intraday 1 to Intraday 3, and Jefferson Island injection minus
+withdrawal from Timely to Intraday 3. Each uses an expanding z-score based on
+strictly earlier gas days with a 60-day minimum. The larger absolute revision
+sets a temporary position of `0.10 * tanh(z)` while preserving its sign.
+
+Execution is fixed at the held NG contract's trade VWAP from I3 posting +5
+through +30 minutes, followed by a complete exit at the same contract's
+settlement-window VWAP. The overlay pays 2.5 bps per unit on both entry and
+exit. It does not change the stored V03 daily position.
+
+On the 2023-10-23--2026-07-13 active window, base V03 records 1.960 Sharpe,
+47.36% total return, and -3.94% maximum drawdown. The selected intraday overlay
+records 2.454 Sharpe, 65.44% total return, and -3.10% maximum drawdown. The
+simple sum of incremental net returns is +1,162.9 bps across 635 eligible I3
+observations.
+
+The same signal was also shifted to the next confirmed session's normal
+settlement-to-settlement position without an I3-to-settlement trade. That
+comparator records 1.332 Sharpe, 30.06% total return, -7.86% maximum drawdown,
+and a -1,250.4 bps simple incremental net-return sum on the same active dates.
+It is rejected. This contrast makes execution timing part of the retained
+economic hypothesis rather than an implementation detail.
+
+Final artifacts:
+
+- `naturalgas/evaluate_sabine_nomination_revision_intraday_overlay_final.py`
+- `naturalgas/pipelines/rebuild_sabine_nomination_overlay.py`
+- `manifests/sabine_nomination_overlay_inputs_2026-08-19.json`
+- `notebooks/08_sabine_nomination_revision_intraday_overlay_final.ipynb`
+- `reports/sabine_nomination_revision_intraday_overlay_final.md`
+- `results/experiments/sabine_nomination_revision_intraday_overlay_final/`
+
+The reproduction pipeline downloads three exact GCS generations, rebuilds the
+retained revisions and 20/60/120-gas-day causal z-scores from the 231,679-row
+raw all-cycle OAC archive, requires exact parity with the assembled research
+panel, validates the processed execution-window contract, and verifies the
+reproduced daily path and result tables against the shipped artifacts. Raw
+NYMEX ticks remain controlled and are not redistributed; the pinned execution
+window is the exact processed price-input contract.
+
+Earlier exploratory scripts and processed outputs remain unchanged.

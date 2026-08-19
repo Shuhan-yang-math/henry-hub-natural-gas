@@ -148,6 +148,78 @@ approved 2017 full-history baseline.
 
 ![V02 strategy dashboard](results/models/v02_eia930_central_florida/dashboard.png)
 
+## Isolated Sabine nomination-revision intraday overlay
+
+The final specification for the separate pipeline-nomination study is the
+**Sabine dominant nomination-revision intraday overlay**. It selects the
+larger absolute causal revision from TransCameron LNG delivery and Jefferson
+Island storage tightness, enters a temporary 10% sleeve using trades from I3
+posting +5 through +30 minutes, and exits at the same contract's settlement
+VWAP. It is not part of V03 and is not a formal V04.
+
+On its 682-session active window, the overlay raises V03 Sharpe from 1.960 to
+2.454 and reduces maximum drawdown from -3.94% to -3.10%. Applying the same
+signal only at the next normal position update lowers Sharpe to 1.332, so the
+result is explicitly an intraday timing result rather than a daily factor.
+
+![Sabine nomination-revision comparison](results/experiments/sabine_nomination_revision_intraday_overlay_final/cumulative_net_wealth.png)
+
+The checked-in manifest
+[`manifests/sabine_nomination_overlay_inputs_2026-08-19.json`](manifests/sabine_nomination_overlay_inputs_2026-08-19.json)
+pins three exact GCS generations: the 231,679-row raw all-cycle Sabine OAC
+archive, the assembled nomination research panel, and the processed NG
+execution-window contract. The full nomination-lineage rebuild downloads and
+validates those objects, reconstructs the retained LNG and storage revisions
+and their 20/60/120-gas-day causal z-scores from raw OAC rows, requires exact
+parity with the assembled panel, reruns the final evaluator, and verifies every
+result table and daily path against the shipped artifacts:
+
+```bash
+python -m naturalgas.pipelines.rebuild_sabine_nomination_overlay --overwrite
+```
+
+The verified output and receipt are written under
+`reproduced/experiments/sabine_nomination_revision_intraday_overlay_final/`.
+The default run attaches the nomination overlay to the checked-in V03 daily
+path. To continue from a preceding pinned V03 rebuild instead, run:
+
+```bash
+python -m naturalgas.pipelines.rebuild_model_v03 --overwrite
+python -m naturalgas.pipelines.rebuild_sabine_nomination_overlay \
+  --v03-daily reproduced/models/v03_d1_3_storage_guard/strategy/strategy_daily.parquet \
+  --overwrite
+```
+
+For a faster downstream refresh that skips the independent raw-OAC parity
+receipt, the evaluator itself materializes its exact default inputs into the
+ignored `inputs/gcs` cache and writes the canonical experiment directory:
+
+```bash
+python naturalgas/evaluate_sabine_nomination_revision_intraday_overlay_final.py
+```
+
+All three paths require read access to the private
+`bcli-natgas-data-497807` bucket. Raw NYMEX ticks are controlled data and are
+not redistributed. The pinned `execution_windows.parquet` is the exact
+processed trade-price contract: it preserves posting timestamps, held
+contracts, entry and settlement VWAPs, volumes, trade counts, and settlement
+method, but it does not claim independent reconstruction from raw ticks.
+Use the repository's locked environment and configure Application Default
+Credentials before the first networked run, for example:
+
+```bash
+python -m pip install -r requirements-build.lock
+gcloud auth application-default login
+```
+
+On managed compute or CI, use the attached service account instead of an
+interactive login.
+
+The strategy definition and interpretation are recorded in the
+[standalone report](reports/sabine_nomination_revision_intraday_overlay_final.md),
+and the generated tables and figures are indexed in the
+[result directory](results/experiments/sabine_nomination_revision_intraday_overlay_final/README.md).
+
 ## Where to start
 
 1. [`MODEL_CARD.md`](MODEL_CARD.md) — signal definitions, weights, timing,
@@ -159,15 +231,20 @@ approved 2017 full-history baseline.
    intervention audit, and dashboard.
 4. [`notebooks/06_model_v02_eia930_central_florida.ipynb`](notebooks/06_model_v02_eia930_central_florida.ipynb)
    — prior selected 40/60 EIA-930 sleeve and geographic weight audit.
-5. [`RESEARCH_LOG.md`](RESEARCH_LOG.md) — what was tested, accepted, rejected,
+5. [`notebooks/08_sabine_nomination_revision_intraday_overlay_final.ipynb`](notebooks/08_sabine_nomination_revision_intraday_overlay_final.ipynb)
+   — final isolated I3 nomination-revision overlay, execution audit, timing
+   comparator, robustness, and figures.
+6. [`reports/sabine_nomination_revision_intraday_overlay_final.md`](reports/sabine_nomination_revision_intraday_overlay_final.md)
+   — standalone decision record for the intraday overlay.
+7. [`RESEARCH_LOG.md`](RESEARCH_LOG.md) — what was tested, accepted, rejected,
    and deliberately excluded from the formal model.
-6. [`reports/comprehensive_strategy_report.md`](reports/comprehensive_strategy_report.md)
+8. [`reports/comprehensive_strategy_report.md`](reports/comprehensive_strategy_report.md)
    — detailed English-language strategy and causality report.
-7. [`reports/model_v03_d1_3_storage_guard_brief.md`](reports/model_v03_d1_3_storage_guard_brief.md)
+9. [`reports/model_v03_d1_3_storage_guard_brief.md`](reports/model_v03_d1_3_storage_guard_brief.md)
    — concise decision record for the current selected version.
-8. [`reports/model_v02_eia930_central_florida_brief.md`](reports/model_v02_eia930_central_florida_brief.md)
+10. [`reports/model_v02_eia930_central_florida_brief.md`](reports/model_v02_eia930_central_florida_brief.md)
    — concise selected-version decision record.
-9. [`DATA_MANIFEST.md`](DATA_MANIFEST.md) — exact GCS objects and local paths.
+11. [`DATA_MANIFEST.md`](DATA_MANIFEST.md) — exact GCS objects and local paths.
 
 ## Repository layout
 
@@ -191,7 +268,8 @@ henry-hub-natural-gas/
 │   ├── 04_native_frequency_fundamentals.ipynb
 │   ├── 05_fundamental_weight_selection.ipynb
 │   ├── 06_model_v02_eia930_central_florida.ipynb
-│   └── 07_model_v03_d1_3_storage_guard.ipynb
+│   ├── 07_model_v03_d1_3_storage_guard.ipynb
+│   └── 08_sabine_nomination_revision_intraday_overlay_final.ipynb
 ├── naturalgas/                 # versioned evaluators and dependency modules
 ├── reports/                    # detailed Markdown and XeLaTeX report
 ├── results/models/             # V01/V02/V03 canonical model results
@@ -423,6 +501,7 @@ RUN_HENRY_HUB_MODEL_V01_CHAIN=1 pytest -q tests/test_rebuild_model_v01.py
 RUN_GCS_PANEL_PARITY=1 pytest -q tests/test_build_multisignal_panel.py
 RUN_HENRY_HUB_WEATHER_CHAIN=1 pytest -q tests/test_rebuild_weather_factors.py
 RUN_HENRY_HUB_MODEL_V03_CHAIN=1 pytest -q tests/test_rebuild_model_v03.py
+RUN_HENRY_HUB_SABINE_NOMINATION_CHAIN=1 pytest -q tests/test_rebuild_sabine_nomination_overlay.py
 RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 ```
 
@@ -437,6 +516,7 @@ RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 | `05_fundamental_weight_selection.ipynb` | Has `RUN_BACKTEST=True` and later perfect-information cells that access EIA data. It requires all model inputs and Braeswood GCS read credentials and is not part of the strict formal reproduction guarantee. |
 | `06_model_v02_eia930_central_florida.ipynb` | Rebuilds superseded research model V02 from the checked-in V01 daily result and generation-pinned GCS Central/Florida overlay and event registry. The first clean run requires private-bucket read access. |
 | `07_model_v03_d1_3_storage_guard.ipynb` | Rebuilds current selected research model V03 from the checked-in V01 daily result and generation-pinned GCS score, WNGSR-correction, and event inputs. The first clean run requires private-bucket read access. |
+| `08_sabine_nomination_revision_intraday_overlay_final.ipynb` | Materializes the generation-pinned nomination panel, all-cycle OAC archive, and audited I3 execution windows from GCS, then reproduces the isolated final overlay against the checked-in V03 path. Use the command-line rebuild pipeline for the independent raw-OAC parity receipt and atomic `reproduced/` output. |
 
 The notebooks retain historical rendered outputs. A dependency audit must
 execute them from a fresh kernel; the presence of saved output is not evidence

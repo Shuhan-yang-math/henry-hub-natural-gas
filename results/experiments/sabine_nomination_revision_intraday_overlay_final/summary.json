@@ -1,0 +1,103 @@
+{
+  "active_evaluation": {
+    "base_maximum_drawdown": -0.03943164230471885,
+    "base_sharpe": 1.960249312112515,
+    "base_total_return": 0.47364697569507497,
+    "delta_sharpe": 0.49344829549467706,
+    "delta_total_return": 0.1807043581382226,
+    "end": "2026-07-13T00:00:00",
+    "events": 635,
+    "exact_execution_matches": 696,
+    "incremental_net_sum_bps": 1162.8985394845304,
+    "next_session_only_delta_sharpe": -0.6278559115654241,
+    "next_session_only_incremental_net_sum_bps": -1250.390873006196,
+    "next_session_only_sharpe": 1.332393400547091,
+    "selected_intraday_maximum_drawdown": -0.031028638879562087,
+    "selected_intraday_sharpe": 2.453697607607192,
+    "selected_intraday_total_return": 0.6543513338332976,
+    "start": "2023-10-23T00:00:00",
+    "trading_days": 682
+  },
+  "base_strategy_modified": false,
+  "bootstrap": {
+    "block_length": 20,
+    "delta_sharpe_bootstrap_median": 0.49056936478597424,
+    "delta_sharpe_percentile_interval_95": [
+      0.04310120526013726,
+      0.9684312489167227
+    ],
+    "replications": 20000,
+    "seed": 20260819,
+    "share_nonpositive": 0.01395
+  },
+  "experiment": "sabine_nomination_revision_intraday_overlay_final",
+  "full_v03_sample": {
+    "base_v03": {
+      "cagr": 0.19058992696771648,
+      "end": "2026-07-13T00:00:00",
+      "maximum_drawdown": -0.0416466334669916,
+      "sharpe": 2.2280397376832175,
+      "sortino": 3.8809211748765535,
+      "start": "2019-07-25T00:00:00",
+      "total_return": 2.3721665504067704,
+      "trading_days": 1748
+    },
+    "next_session_only_comparator": {
+      "cagr": 0.169434232205522,
+      "end": "2026-07-13T00:00:00",
+      "maximum_drawdown": -0.07860503417611853,
+      "sharpe": 1.9998700368495228,
+      "sortino": 3.383542211964113,
+      "start": "2019-07-25T00:00:00",
+      "total_return": 1.9761415250042242,
+      "trading_days": 1748
+    },
+    "selected_intraday_overlay": {
+      "cagr": 0.21051873448792424,
+      "end": "2026-07-13T00:00:00",
+      "maximum_drawdown": -0.0416466334669916,
+      "sharpe": 2.409975438146274,
+      "sortino": 4.240212181926321,
+      "start": "2019-07-25T00:00:00",
+      "total_return": 2.7856748071851887,
+      "trading_days": 1748
+    }
+  },
+  "generated_utc": "2026-08-19T02:43:15.726261+00:00",
+  "input_lineage": {
+    "all_cycle_source": {
+      "path": "inputs/gcs/sabine_nomination_overlay/all_cycle/sabine_oac_all_locations.parquet",
+      "sha256": "58a97209987262ab4b0a015569443e4ca267e5320495e7dd4e52477fb97a281a"
+    },
+    "assembled_research_panel": {
+      "path": "inputs/gcs/sabine_nomination_overlay/assembled/daily_panel.parquet",
+      "sha256": "c10096b5319d87d50962018b99eedb15be604bf002b115f5325924f5a04b8b16"
+    },
+    "execution_windows": {
+      "path": "inputs/gcs/sabine_nomination_overlay/execution/execution_windows.parquet",
+      "sha256": "bf0eab46fdf3d5b285a12e5aecde9c9386ea9847f21ef8d8f7d12e36047c4637"
+    },
+    "formal_v03_daily": {
+      "path": "results/models/v03_d1_3_storage_guard/strategy_daily.parquet",
+      "sha256": "aabdb341119db0bab445e7601bb63f45333edc71045c2a716679cbaa4e48d69c"
+    }
+  },
+  "interpretation": [
+    "The return improvement is specific to the post-I3 intraday window.",
+    "Using the same signal only at the next normal rebalance is a rejected timing comparator.",
+    "The all-cycle history was assembled retrospectively and is not an untouched prospective sample.",
+    "Scheduled quantity is a nomination rather than metered physical flow."
+  ],
+  "status": "final_research_specification_not_part_of_v03",
+  "strategy_definition": {
+    "contract": "V03 held contract: C2 during the five-session early-roll window, otherwise C1",
+    "cost": "2.5 bps per unit on entry and 2.5 bps per unit on exit",
+    "entry": "held NG contract trade VWAP from I3 posting +5 through +30 minutes",
+    "exit": "same contract settlement-window VWAP",
+    "lng_revision": "TransCameron delivery, Intraday 1 to Intraday 3",
+    "selection": "larger absolute z-score, economic sign preserved",
+    "standardization": "causal expanding z-score with 60 prior gas days",
+    "storage_revision": "Jefferson Island injection minus withdrawal, Timely to Intraday 3",
+    "temporary_position": "0.10 * tanh(selected revision z)"
+  }
+}

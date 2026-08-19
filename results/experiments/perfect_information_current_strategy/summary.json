@@ -1,0 +1,53 @@
+{
+  "experiment": "perfect_information_monthly_fundamentals_in_current_selected_strategy",
+  "retained_strategy_layers": [
+    "D1-3 wind",
+    "storage-amplified fast-shock wind guard",
+    "Central 40% / Florida 60% EIA-930 sleeve",
+    "BSEE/Sabine pure short veto",
+    "one-session position lag"
+  ],
+  "sample_end": "2026-04-30T00:00:00",
+  "sample_start": "2020-01-03T00:00:00",
+  "scenarios": {
+    "current_selected": {
+      "cagr": 0.1930049949909871,
+      "maximum_drawdown": -0.04151797069188734,
+      "sharpe": 2.22882642729366,
+      "sharpe_delta_vs_current": 0.0,
+      "sortino": 3.8693536621650875
+    },
+    "no_delay_all_six_active_monthly": {
+      "cagr": 0.16885173784713503,
+      "maximum_drawdown": -0.04923088623604821,
+      "sharpe": 2.0691195120136716,
+      "sharpe_delta_vs_current": -0.1597069152799886,
+      "sortino": 3.479618367736372
+    },
+    "no_delay_all_six_plus_consumption_yoy": {
+      "cagr": 0.16793222505261118,
+      "maximum_drawdown": -0.04952173223668366,
+      "sharpe": 2.106458528052164,
+      "sharpe_delta_vs_current": -0.12236789924149605,
+      "sortino": 3.535139458020384
+    },
+    "no_delay_production": {
+      "cagr": 0.20153325001921174,
+      "maximum_drawdown": -0.053881906684825065,
+      "sharpe": 2.231195232845232,
+      "sharpe_delta_vs_current": 0.0023688055515718176,
+      "sortino": 3.901682634492881
+    },
+    "no_delay_production_plus_consumption_yoy": {
+      "cagr": 0.20205840237487993,
+      "maximum_drawdown": -0.05429349596986177,
+      "sharpe": 2.2757867412136075,
+      "sharpe_delta_vs_current": 0.04696031391994726,
+      "sortino": 3.9665165038889567
+    }
+  },
+  "tradable": false,
+  "trading_days": 1569,
+  "transaction_cost_bps": 2.5,
+  "warning": "Final month-M values are aligned to month M; the experiment contains deliberate look-ahead and is only an explanatory upper bound."
+}

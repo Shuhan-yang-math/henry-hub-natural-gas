@@ -1,0 +1,90 @@
+{
+  "input": "results/models/v03_d1_3_storage_guard/strategy_daily.parquet",
+  "sample_start": "2019-07-25",
+  "sample_end": "2026-07-13",
+  "trading_days": 1748,
+  "formal_statistic": "annualized log-return Sharpe difference, selected V03 minus D1--5 comparator",
+  "selected_log_return_sharpe": 2.2280397376832175,
+  "selected_arithmetic_return_sharpe": 2.261038961035643,
+  "observed_sharpe_difference": 0.10859782650547212,
+  "bootstrap_method": "paired circular moving-block percentile bootstrap",
+  "primary_block_length_sessions": 20,
+  "bootstrap_by_block_length": {
+    "5": {
+      "block_length_sessions": 5,
+      "replications": 20000,
+      "base_seed": 20260818,
+      "effective_seed": 20260823,
+      "percentile_interval_95": [
+        -0.13218495018059498,
+        0.3493201387327591
+      ],
+      "bootstrap_median": 0.11013991390984623,
+      "bootstrap_mean": 0.10890119618998328,
+      "bootstrap_standard_deviation": 0.12219874842963475,
+      "fraction_at_or_below_zero": 0.18795
+    },
+    "10": {
+      "block_length_sessions": 10,
+      "replications": 20000,
+      "base_seed": 20260818,
+      "effective_seed": 20260828,
+      "percentile_interval_95": [
+        -0.1247535996445611,
+        0.3362200828545961
+      ],
+      "bootstrap_median": 0.10841989809003727,
+      "bootstrap_mean": 0.10842130849150158,
+      "bootstrap_standard_deviation": 0.11745492908301465,
+      "fraction_at_or_below_zero": 0.17875
+    },
+    "20": {
+      "block_length_sessions": 20,
+      "replications": 20000,
+      "base_seed": 20260818,
+      "effective_seed": 20260838,
+      "percentile_interval_95": [
+        -0.1184075406585503,
+        0.33544235771012787
+      ],
+      "bootstrap_median": 0.10747503285455995,
+      "bootstrap_mean": 0.10695309944867322,
+      "bootstrap_standard_deviation": 0.1152290752736109,
+      "fraction_at_or_below_zero": 0.1777
+    },
+    "40": {
+      "block_length_sessions": 40,
+      "replications": 20000,
+      "base_seed": 20260818,
+      "effective_seed": 20260858,
+      "percentile_interval_95": [
+        -0.10592607746425471,
+        0.3234134087231843
+      ],
+      "bootstrap_median": 0.11047695793974077,
+      "bootstrap_mean": 0.10955636051714407,
+      "bootstrap_standard_deviation": 0.10943568116613407,
+      "fraction_at_or_below_zero": 0.1574
+    },
+    "60": {
+      "block_length_sessions": 60,
+      "replications": 20000,
+      "base_seed": 20260818,
+      "effective_seed": 20260878,
+      "percentile_interval_95": [
+        -0.09941462200847663,
+        0.31737863004485645
+      ],
+      "bootstrap_median": 0.10871577358763518,
+      "bootstrap_mean": 0.1085308793883519,
+      "bootstrap_standard_deviation": 0.106080953474629,
+      "fraction_at_or_below_zero": 0.15455
+    }
+  },
+  "win_rate_definition": "positive net-return sessions divided by all reported trading sessions; zero-return and flat-position sessions remain in the denominator",
+  "selected_return_day_counts": {
+    "positive": 915,
+    "zero": 19,
+    "negative": 814
+  }
+}
