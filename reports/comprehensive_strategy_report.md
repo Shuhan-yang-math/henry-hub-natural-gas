@@ -220,23 +220,23 @@ forecast issues, EIA fundamentals, and installed capacity
 
 Let the contemporaneous component score be
 
-$$
+```math
 S_t = w_{W,t}W_t + w_{wind,t}Wind_t
       + w_{F,t}F_t + w_{solar,t}Solar_t.
-$$
+```
 
-After the freeze control produces $\widetilde S_t$, the traded position is
+After the freeze control produces $`\widetilde S_t`$, the traded position is
 
-$$
+```math
 P_t = \operatorname{clip}(\widetilde S_{t-1},-1,1).
-$$
+```
 
 Net daily return is
 
-$$
+```math
 r^{net}_t = P_t r^{fut}_t
  - 0.00025\left|P_t-P_{t-1}\right|.
-$$
+```
 
 ## 5. Data inventory and availability assumptions
 
@@ -285,9 +285,9 @@ the same future target dates across successive issues.
 Only `sig_cpc_seasonal_revision` remains active. The legacy weather block
 retains three equal nominal slots:
 
-$$
+```math
 W_t = \frac{\tanh(CPCRevision_t/2)+0_{level}+0_{observed}}{3}.
-$$
+```
 
 Keeping the denominator at three prevents removal of CPC level and observed
 weather from mechanically tripling the surviving revision signal.
@@ -306,17 +306,17 @@ representative U.S. locations, four daily valid intervals, and 80 m U/V wind
 components. The selected version aggregates forecast days 1--3; forecast days
 1--5 remain the prior comparator. Wind speed is
 
-$$
+```math
 v_{80}=\sqrt{u_{80}^2+v_{80}^2}.
-$$
+```
 
 ### 8.2 Hub-height adjustment
 
-Wind is adjusted from 80 m to estimated hub height $h$ using
+Wind is adjusted from 80 m to estimated hub height $`h`$ using
 
-$$
+```math
 v_h=v_{80}\left(\frac{h}{80}\right)^{0.14}.
-$$
+```
 
 The exponent is a neutral approximation and does not fully represent
 stability, roughness, low-level jets, or complex terrain.
@@ -325,7 +325,7 @@ stability, roughness, low-level jets, or complex terrain.
 
 The normalized power proxy is approximately:
 
-$$
+```math
 P(v)=
 \begin{cases}
 0, & v<3,\\
@@ -334,7 +334,7 @@ P(v)=
 \text{cosine derating}, & 20\le v<25,\\
 0, & v\ge25.
 \end{cases}
-$$
+```
 
 Thus low wind and extreme cut-out wind can both be bullish gas, while ordinary
 high wind is bearish.
@@ -342,24 +342,24 @@ high wind is bearish.
 ### 8.4 Capacity aggregation and signal
 
 USWTDB turbines are mapped to representative weather locations using rated
-capacity and commissioning year. For issue year $y$, the point-in-time proxy
-includes only turbines with commissioning year no later than $y-1$.
+capacity and commissioning year. For issue year $`y`$, the point-in-time proxy
+includes only turbines with commissioning year no later than $`y-1`$.
 
 Power curves are evaluated before aggregation:
 
-$$
+```math
 EstimatedWindCF_t =
 \frac{\sum_i Capacity_{i,t}P(v_{i,t})}
 {\sum_i Capacity_{i,t}}.
-$$
+```
 
-The raw gas-direction feature is wind shortfall, $1-EstimatedWindCF_t$. The
+The raw gas-direction feature is wind shortfall, $`1-EstimatedWindCF_t`$. The
 selected signal is a causal 60-issue z-score with a 30-issue minimum and is
 compressed as
 
-$$
+```math
 Wind_t=\tanh\left(\frac{Z^{causal}_{60}(1-EstimatedWindCF_t)}{2}\right).
-$$
+```
 
 Positive values indicate weak expected wind and bullish power-burn pressure.
 
@@ -386,10 +386,10 @@ The main GFS fields are downward shortwave radiation (`DSWRF`), total cloud
 cover (`TCDC`) for diagnostics, and 2 m temperature. A six-hour average
 radiation flux converts to energy as
 
-$$
+```math
 E_{6h}=DSWRF\times\frac{6}{1000}
 \quad\text{kWh/m}^2.
-$$
+```
 
 Four intervals form daily surface energy.
 
@@ -398,21 +398,21 @@ Four intervals form daily surface energy.
 Surface energy is normalized by deterministic extraterrestrial horizontal
 radiation to remove much of the mechanical day-length and solar-angle effect:
 
-$$
+```math
 K_t=\frac{SW^{surface}_t}{SW^{extra}_t}.
-$$
+```
 
 A simple cell-temperature proxy and efficiency adjustment are
 
-$$
+```math
 T^{cell}=T_{2m}+0.025\,DSWRF,
-$$
+```
 
-$$
+```math
 \eta_T=\operatorname{clip}\left[1-0.004(T^{cell}-25),0.75,1.10\right].
-$$
+```
 
-The PV-availability proxy is $K_t\eta_T$.
+The PV-availability proxy is $`K_t\eta_T`$.
 
 ### 9.3 Capacity weighting and final signal
 
@@ -423,10 +423,10 @@ calculates a causal 60-issue z-score, and applies `tanh(z/2)`.
 
 The nominal 10% solar allocation is multiplied by deterministic daylight:
 
-$$
+```math
 w^{effective}_{solar,t}=0.10\times
 \operatorname{clip}\left(\frac{SW^{extra,5d}_t}{10},0.25,1\right).
-$$
+```
 
 The average effective weight is approximately 7.93%, with lower winter and
 higher summer exposure.
@@ -446,9 +446,9 @@ given separate formal weights.
 For each ISO week, the seasonal normal is the mean of the prior five same-week
 observations, requiring at least three. The level deviation is
 
-$$
+```math
 Dev_t=\frac{Storage_t}{Normal_t}-1.
-$$
+```
 
 Low storage is bullish, so the signal is a negative causal z-score. One-week
 and four-week changes are each compared with their prior-five-year same-week

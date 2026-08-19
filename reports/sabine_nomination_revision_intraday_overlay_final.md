@@ -31,28 +31,28 @@ Two economically distinct scheduled-quantity revisions are evaluated:
    represents a tighter local balance through greater injection or lower
    withdrawal.
 
-For gas day $t$, each raw revision is standardized against strictly earlier
+For gas day $`t`$, each raw revision is standardized against strictly earlier
 gas days using a causal expanding mean and standard deviation with at least 60
 prior observations:
 
-$$
+```math
 z_{j,t}=\frac{Revision_{j,t}-\overline{Revision}_{j,<t}}
 {s(Revision_{j,<t})}.
-$$
+```
 
 The signal retains the revision with the larger absolute standardized value:
 
-$$
+```math
 z_t^*=\operatorname*{arg\,max}_{z\in\{z_t^{LNG},z_t^{Storage}\}}|z|,
-$$
+```
 
 and the temporary incremental position is
 
-$$
+```math
 \Delta P_t=0.10\tanh(z_t^*),
-$$
+```
 
-subject to the total normalized position remaining inside $[-1,1]$. The sign
+subject to the total normalized position remaining inside $`[-1,1]`$. The sign
 of the selected revision is preserved. This construction allows the LNG and
 storage channels to complement one another without mechanically cancelling
 on days when they disagree.
@@ -82,8 +82,8 @@ and 10:00 p.m. Central as the time by which scheduled quantities are provided.
 The strategy does not assume either fixed time: it reads the native EBB
 posting timestamp, whose median is 9:25 p.m. Central in the selected sample.
 An ordinary observation therefore typically enters around 9:30--9:55 p.m.
-Central on calendar date $d$ and exits at 1:28--1:30 p.m. Central
-(14:28--14:30 Eastern) on $d+1$. Because the NG Globex session runs from 5:00
+Central on calendar date $`d`$ and exits at 1:28--1:30 p.m. Central
+(14:28--14:30 Eastern) on $`d+1`$. Because the NG Globex session runs from 5:00
 p.m. to 4:00 p.m. Central, the two legs are in the same session labelled by
 the exit date. In this precise exchange-session sense, the retained strategy
 can also be described as a **same-session nomination overlay**. [Sabine tariff

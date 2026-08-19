@@ -73,9 +73,9 @@ and the evidence used to retain, remove, or defer each candidate signal.
 The objective is to estimate a continuous daily directional exposure to
 Henry Hub futures:
 
-$$
+```math
 P_t \in [-1,1],
-$$
+```
 
 where positive exposure represents a long natural-gas position and negative
 exposure represents a short position. The model seeks to answer:
@@ -505,10 +505,10 @@ Three direct CPC/observed-weather slots originally existed:
 
 Only the revision signal was retained:
 
-$$
+```math
 W_t =
 \frac{\tanh(CPCRevision_t/2)+0_{level}+0_{observed}}{3}.
-$$
+```
 
 The denominator remains three. Without that fixed denominator, removing two
 features would mechanically triple the remaining CPC revision exposure and
@@ -543,14 +543,14 @@ speed. The improved model:
 
 The hub-height adjustment is
 
-$$
+```math
 v_h =
 v_{80}\left(\frac{h}{80}\right)^{0.14}.
-$$
+```
 
 The normalized turbine power proxy is
 
-$$
+```math
 Power(v)=
 \begin{cases}
 0, & v<3,\\
@@ -559,7 +559,7 @@ Power(v)=
 \text{cosine derating}, & 20\le v<25,\\
 0, & v\ge25.
 \end{cases}
-$$
+```
 
 This matters because very low wind is bullish gas, ordinary strong wind is
 bearish gas, and extreme cut-out-region wind may again become bullish.
@@ -649,33 +649,33 @@ tested:
 
 Six-hour downward shortwave radiation was converted to energy:
 
-$$
+```math
 E_{6h}=DSWRF\times\frac{6}{1000}
 \quad \text{kWh/m}^2.
-$$
+```
 
 Surface radiation was normalized by extraterrestrial horizontal radiation to
 remove deterministic solar geometry:
 
-$$
+```math
 K_t =
 \frac{SW^{surface}_t}{SW^{extra}_t}.
-$$
+```
 
 A simple temperature adjustment was applied:
 
-$$
+```math
 T^{cell}=T_{2m}+0.025DSWRF,
-$$
+```
 
-$$
+```math
 \eta_T =
 \operatorname{clip}\left(1-0.004(T^{cell}-25),0.75,1.10\right),
-$$
+```
 
-$$
+```math
 PVAvailability_t = K_t\eta_T.
-$$
+```
 
 The full-sample information coefficients were:
 
@@ -706,7 +706,7 @@ therefore uses 10%, not 15%, as a conservative intermediate weight.
 
 The effective solar weight is further scaled by daylight:
 
-$$
+```math
 w^{solar}_{t}
 =0.10\times
 \operatorname{clip}
@@ -714,7 +714,7 @@ w^{solar}_{t}
 \frac{SW^{extra,5d}_t}{10},
 0.25,1
 \right).
-$$
+```
 
 The average effective weight is approximately 7.93%. Solar is funded from the
 fundamental block rather than added as leverage.
@@ -1179,9 +1179,9 @@ evidence that the full position can be executed at that price.
 
 The complete score is delayed by one trading session:
 
-$$
+```math
 P_t = \operatorname{clip}(\widetilde S_{t-1},-1,1).
-$$
+```
 
 This conservative lag avoids using information labeled with date `t` to
 earn the already-realized return on the same date. It also permits mixed
@@ -1192,11 +1192,11 @@ framework.
 
 The formal net daily return is
 
-$$
+```math
 r^{net}_t =
 P_t r^{fut}_t
 -0.00025|P_t-P_{t-1}|.
-$$
+```
 
 The 2.5-basis-point cost is charged per unit of position change. Sensitivities
 at 0 and 5 basis points were used in several feature experiments. The model
@@ -1231,10 +1231,10 @@ than definitive untouched out-of-sample performance.
 
 For a release-frequency series `x_t`, the causal z-score is
 
-$$
+```math
 z_t =
 \frac{x_t-\mu_{t-1}}{\sigma_{t-1}},
-$$
+```
 
 where the mean and standard deviation use only prior observations. The current
 observation is excluded with an explicit one-period shift.
@@ -1259,11 +1259,11 @@ Storage levels and changes have strong deterministic seasonality. For storage
 week `w`, the normal is the average of the prior five observations from
 the same ISO week, with a minimum of three:
 
-$$
+```math
 Normal_{y,w} =
 \frac{1}{K}\sum_{k=1}^{K}Storage_{y-k,w},
 \qquad 3\le K\le5.
-$$
+```
 
 The current year is excluded. Level, one-week change, and four-week change are
 each compared with their own same-week history.
@@ -1272,9 +1272,9 @@ each compared with their own same-week history.
 
 Fast weather and weekly fundamental z-scores are generally transformed as
 
-$$
+```math
 g(z)=\tanh(z/2).
-$$
+```
 
 This transformation is approximately linear near zero but limits the
 influence of extreme standardized observations. It reduces the dependence of
@@ -1290,14 +1290,14 @@ for reproducibility and is discussed as a limitation.
 Candidate weather factors were evaluated with both Pearson and Spearman
 information coefficients:
 
-$$
+```math
 IC^{Pearson} = Corr(S_t,r_{t+1}),
-$$
+```
 
-$$
+```math
 IC^{Spearman} =
 Corr(rank(S_t),rank(r_{t+1})).
-$$
+```
 
 Pearson IC measures linear directional association; Spearman IC is less
 sensitive to outliers and tests monotonic ranking. Both were reported because

@@ -478,7 +478,7 @@ The standard NYMEX Henry Hub Natural Gas futures contract has product code
 |---|---|
 | Contract quantity | 10,000 MMBtu, with a permitted delivery tolerance of 2% above or below the trading unit. |
 | Price quotation | U.S. dollars and cents per MMBtu. |
-| Minimum outright price increment | $0.001 per MMBtu, equal to $10 for one 10,000-MMBtu contract. |
+| Minimum outright price increment | <span>$</span>0.001 per MMBtu, equal to <span>$</span>10 for one 10,000-MMBtu contract. |
 | Contract months | Monthly contracts, with the number of listed months determined by the exchange. |
 | Settlement type | Physical delivery at Henry Hub. |
 | Termination of trading | The third business day before the first calendar day of the delivery month, subject to the exchange holiday rule. |
@@ -570,14 +570,14 @@ storage.
 
 A compact representation is:
 
-$$
+```math
 \begin{aligned}
 NetAvailability_t={}&DeliverableSupply_t+StorageWithdrawal_t
   +InboundTransfer_t\\
 &-HeatingDemand_t-PowerDemand_t-IndustrialDemand_t-LNGDemand_t\\
 &-StorageInjection_t-OutboundTransfer_t.
 \end{aligned}
-$$
+```
 
 The spot price adjusts to clear this balance under the operating constraints
 prevailing at the time. The futures price reflects the market's expectation
@@ -622,17 +622,17 @@ weather, infrastructure, and the futures curve.
 For power generation, the delivered variable cost of a gas unit can be written
 as
 
-$$
+```math
 MC^{gas}=HeatRate^{gas}\times P^{delivered\ gas}+VOM^{gas}.
-$$
+```
 
-If the relevant alternative has marginal cost $MC^{alternative}$, the gas
+If the relevant alternative has marginal cost $`MC^{alternative}`$, the gas
 switching level at the plant is approximately
 
-$$
+```math
 P^{switch}_{gas}
 =\frac{MC^{alternative}-VOM^{gas}}{HeatRate^{gas}}.
-$$
+```
 
 The equivalent Henry Hub level is the plant switching value less the basis,
 transport, fuel, and distribution costs between Henry Hub and the generator.
@@ -641,10 +641,10 @@ across regions and days.
 
 The LNG comparison has a similar structure:
 
-$$
+```math
 Netback^{HH}_{LNG}
 =P^{destination}_{LNG}-Liquefaction-Shipping-Losses-PipelineCost.
-$$
+```
 
 When this netback exceeds the marginal cost of acquiring Henry Hub-linked gas,
 the export channel has an economic incentive to continue pulling feedgas.
@@ -654,10 +654,10 @@ feeder capacity all move this relationship.
 Storage provides a third threshold. Ignoring risk premia for illustration,
 injection is economically attractive when
 
-$$
+```math
 P^{deferred}-P^{prompt}
->InjectionCost+WithdrawalCost+Fuel+Financing.
-$$
+\gt InjectionCost+WithdrawalCost+Fuel+Financing.
+```
 
 These three comparisons explain why a fixed Henry Hub price alone does not
 identify the marginal buyer or seller. The price must be interpreted relative
@@ -745,10 +745,10 @@ as distinct contributions to the same tightening event.
 Power burn is determined by residual electric load rather than temperature
 alone. A useful accounting approximation is
 
-$$
+```math
 ResidualLoad
 =SystemLoad-NonGasGeneration-NetImports-OtherFlexibleResources.
-$$
+```
 
 Hot weather can raise air-conditioning load; cold weather can increase
 electric heating and operating stress. Weak wind or solar raises residual
@@ -761,7 +761,7 @@ to gas generation using EIA-930 data. Daily changes in reported gas generation
 were regressed on daily changes in residual load with month fixed effects and
 HAC standard errors:
 
-| Balancing authority | Observations | Gas-generation association per 1 MWh residual-load change | HAC t | $R^2$ |
+| Balancing authority | Observations | Gas-generation association per 1 MWh residual-load change | HAC t | $`R^2`$ |
 |---|---:|---:|---:|---:|
 | ERCOT | 2,748 | 0.831 MWh | 167.5 | 0.938 |
 | MISO | 2,704 | 0.539 MWh | 106.4 | 0.878 |
@@ -775,7 +775,7 @@ These regressions are an accounting and transmission check, not an independent
 predictive or causal validation. Because residual load is constructed by
 subtracting non-gas generation and other balancing resources from system
 load, it is mechanically close to gas generation plus the remaining balancing
-items. The high $R^2$ values therefore partly reflect the electricity-balance
+items. The high $`R^2`$ values therefore partly reflect the electricity-balance
 identity.
 
 The results confirm that renewable and other non-gas generation shortfalls
@@ -873,14 +873,14 @@ with a bearish wind contribution.
 ### 2.6 Transport constraints, basis, and scarcity rent
 
 Transport determines whether a regional supply or demand change reaches Henry
-Hub or remains localized. For an upstream location $i$, the relationship can
+Hub or remains localized. For an upstream location $`i`$, the relationship can
 be written as
 
-$$
+```math
 P_{HH,t}\approx P_{i,t}+T_{i\rightarrow HH,t}+\lambda_{i,t},
-$$
+```
 
-where $T$ is tariff and fuel cost and $\lambda$ is the scarcity value of
+where $`T`$ is tariff and fuel cost and $`\lambda`$ is the scarcity value of
 the constrained path. When capacity is readily available, arbitrage keeps the
 regional price difference close to transport economics. When the path binds,
 the basis can widen and the upstream market absorbs more of the shock.
@@ -895,9 +895,9 @@ Primer](https://www.ferc.gov/sites/default/files/2024-01/24/24_Energy-Markets-Pr
 
 This gives basis a precise economic interpretation:
 
-$$
+```math
 Basis_{i,HH}=P_i-P_{HH}.
-$$
+```
 
 Basis contains transport cost, fuel, losses, local imbalance, and congestion
 rent. It shows where the market is clearing and whether a shock is being
@@ -1007,36 +1007,36 @@ The panel construction follows three rules throughout the active strategy:
 3. the completed score is delayed by one trading session before becoming a
    held futures position.
 
-For a source observation $x_k$ with model-availability date $A_k$ and a
-trading session $T_j$, the ordinary as-of join is
+For a source observation $`x_k`$ with model-availability date $`A_k`$ and a
+trading session $`T_j`$, the ordinary as-of join is
 
-$$
+```math
 k(j)=\arg\max_k\{A_k\leq T_j\},
 \qquad
 x^{panel}_{T_j}=x_{k(j)}.
-$$
+```
 
 Thus the panel uses the latest eligible observation and never the latest
 reference period merely because that period has ended. When a source has a
-maximum permissible age $\ell_s$, the more complete rule is
+maximum permissible age $`\ell_s`$, the more complete rule is
 
-$$
+```math
 x^{panel}_{T_j}=
 \begin{cases}
 x_{k(j)}, & 0\leq T_j-A_{k(j)}\leq\ell_s,\\
 NA, & \text{otherwise}.
 \end{cases}
-$$
+```
 
-For the CPC merge, $\ell_s=3$ calendar days. Wind and solar are accepted only
+For the CPC merge, $`\ell_s=3`$ calendar days. Wind and solar are accepted only
 from complete forecast initializations, while the slower storage and monthly
 series use their separate release rules below. Once the component
 scores have been formed, the date relationship used by the backtest is
 
-$$
+```math
 Position_{T_{j+1}}=
 \operatorname{clip}\left(Score_{T_j},-1,1\right).
-$$
+```
 
 This equation records only the timing link. Chapter 4 defines how the
 component scores are weighted and controlled before the lag is applied.
@@ -1085,24 +1085,24 @@ components. For example, low storage, low wind output, low solar output, lower
 production growth, higher LNG exports, and a non-gas-generation shortfall all
 receive a positive gas-direction sign.
 
-For a value $x_t$ and a rolling reference window of at most $n$ prior
+For a value $`x_t`$ and a rolling reference window of at most $`n`$ prior
 non-missing observations, the general past-only standardization is
 
-$$
+```math
 \mu_{t,n}=\frac{1}{N_{t,n}}
 \sum_{k\in H_{t,n}}x_k,
-$$
+```
 
-$$
+```math
 \sigma_{t,n}=\sqrt{
 \frac{1}{N_{t,n}-1}
 \sum_{k\in H_{t,n}}(x_k-\mu_{t,n})^2},
 \qquad
 z_t=\frac{x_t-\mu_{t,n}}{\sigma_{t,n}},
-$$
+```
 
-where $H_{t,n}$ contains only observations strictly before $t$ and
-$N_{t,n}=|H_{t,n}|$. The exact reference unit matches the native information
+where $`H_{t,n}`$ contains only observations strictly before $`t`$ and
+$`N_{t,n}=|H_{t,n}|`$. The exact reference unit matches the native information
 frequency:
 
 | Data class | Reference history | Minimum history |
@@ -1117,15 +1117,15 @@ The final transformation depends on the component class:
 
 | Component class | Final component transformation |
 |---|---|
-| CPC, wind, solar, storage, production/LNG year-over-year, net-import level, and EIA-930 | $Signal_t=\tanh(z_t/2)$ after applying the required economic sign |
-| Monthly production, LNG, and net-import-ratio changes | Signed causal z-score, $Signal_t=d\,z_t$, where $d\in\{-1,+1\}$ |
+| CPC, wind, solar, storage, production/LNG year-over-year, net-import level, and EIA-930 | $`Signal_t=\tanh(z_t/2)`$ after applying the required economic sign |
+| Monthly production, LNG, and net-import-ratio changes | Signed causal z-score, $`Signal_t=d\,z_t`$, where $`d\in\{-1,+1\}`$ |
 | Physical event state | Boolean eligibility indicator rather than a continuous z-score |
 | Futures series | Contract-consistent percentage return rather than a standardized factor |
 
 For the bounded components, `tanh` preserves sign and ordering while limiting
 the influence of an extreme standardized observation. The wind build first
-clips its z-score to $[-2,2]$; the EIA-930 build clips its raw z-score to
-$[-6,6]$. These component-specific caps are shown again with their source
+clips its z-score to $`[-2,2]`$; the EIA-930 build clips its raw z-score to
+$`[-6,6]`$. These component-specific caps are shown again with their source
 formulas below.
 
 Weekly and monthly variables are standardized before they are carried forward
@@ -1138,27 +1138,27 @@ independent observations.
 ### 3.4 CPC seasonal forecast revisions
 
 The CPC transformation measures new information about the same future demand
-window. Let $F_{i,d}$ denote the degree-day forecast in issue $i$ for
-target date $d$. The revision is constructed from the target dates shared by
+window. Let $`F_{i,d}`$ denote the degree-day forecast in issue $`i`$ for
+target date $`d`$. The revision is constructed from the target dates shared by
 successive issues:
 
-$$
+```math
 Revision_i=\sum_{d\in D_i}
 \left(F_{i,d}-F_{i-1,d}\right),
-$$
+```
 
-where $D_i$ is the common five-day target set. This prevents the natural
+where $`D_i`$ is the common five-day target set. This prevents the natural
 movement of the forecast window through the calendar from being mistaken for
 a change in expected weather.
 
 For the seasonally selected degree-day revision, the model-ready CPC value is
 
-$$
+```math
 z_i^{CPC}=\frac{Revision_i-\mu^{CPC}_{i^-,60}}
 {\sigma^{CPC}_{i^-,60}},
 \qquad
 CPC_i=\tanh\left(\frac{z_i^{CPC}}{2}\right),
-$$
+```
 
 where the reference mean and standard deviation use the previous 60 forecast
 issues, exclude the current issue, and require at least 30 observations. The
@@ -1190,31 +1190,31 @@ inventory is complete.
 
 At each location, the 80 m wind components are converted to speed:
 
-$$
+```math
 v_{80}=\sqrt{u_{80}^{2}+v_{80}^{2}}.
-$$
+```
 
-The speed is adjusted to estimated turbine hub height $h$ using
+The speed is adjusted to estimated turbine hub height $`h`$ using
 
-$$
+```math
 v_h=v_{80}\left(\frac{h}{80}\right)^{0.14}.
-$$
+```
 
 The adjusted speed is passed through two explicit functions. The low-to-rated
 power curve is
 
-$$
+```math
 P_0(v)=
 \begin{cases}
 0, & v<3,\\
 \dfrac{v^3-3^3}{12^3-3^3}, & 3\leq v<12,\\
 1, & v\geq12.
 \end{cases}
-$$
+```
 
 The fleet-level high-wind availability multiplier is
 
-$$
+```math
 A_{high}(v)=
 \begin{cases}
 1, & v\leq20,\\
@@ -1222,21 +1222,21 @@ A_{high}(v)=
 &20<v<25,\\
 0, & v\geq25.
 \end{cases}
-$$
+```
 
 Effective normalized power and gas-supporting shortfall are therefore
 
-$$
+```math
 P(v)=P_0(v)A_{high}(v),
 \qquad
 Shortfall(v)=1-P(v).
-$$
+```
 
 Capacity weighting is performed after this point-and-valid-hour power-curve
-transformation. For a lead set $H$, weather locations $i$, and the four valid
-hours $h$ in each lead day $d$, the horizon shortfall is
+transformation. For a lead set $`H`$, weather locations $`i`$, and the four valid
+hours $`h`$ in each lead day $`d`$, the horizon shortfall is
 
-$$
+```math
 Q_{t,H}=
 \frac{
 \sum_{d\in H}\sum_h\sum_i
@@ -1244,41 +1244,41 @@ C_{i,y(t)}\,Shortfall(v_{i,t,d,h})
 }{
 \sum_{d\in H}\sum_h\sum_i C_{i,y(t)}
 }.
-$$
+```
 
-For V03, $H=\{1,2,3\}$ and a complete issue therefore contains
-$28\times4\times3=336$ location-hour-lead observations. The D1--5 comparator
-uses $H=\{1,2,3,4,5\}$.
+For V03, $`H=\{1,2,3\}`$ and a complete issue therefore contains
+$`28\times4\times3=336`$ location-hour-lead observations. The D1--5 comparator
+uses $`H=\{1,2,3,4,5\}`$.
 
-Each eligible turbine $g$ is assigned to the nearest of the 28 representative
+Each eligible turbine $`g`$ is assigned to the nearest of the 28 representative
 weather locations using the same local-distance approximation as the build:
 
-$$
+```math
 loc(g)=\arg\min_i\left[
 (\phi_g-\phi_i)^2+
 \cos^2\left(\frac{\phi_g+\phi_i}{2}\right)
 (\lambda_g-\lambda_i)^2
 \right],
-$$
+```
 
-where $\phi$ and $\lambda$ are latitude and longitude and the cosine is
+where $`\phi`$ and $`\lambda`$ are latitude and longitude and the cosine is
 evaluated in radians. Only turbines with positive capacity and coordinates
 inside the configured GDEX bounding box enter this assignment.
 
-For issue year $y$, the annual USWTDB location capacity is
+For issue year $`y`$, the annual USWTDB location capacity is
 
-$$
+```math
 C_{i,y}=\sum_{g:\,loc(g)=i,\;commission(g)\leq y-1}
 \frac{t_{\mathrm{cap},g}}{1000},
-$$
+```
 
 where USWTDB `t_cap` is converted from kW to MW.
 
-For hub height, let $G^{hh}_{i,y}$ contain eligible turbines assigned to
-location $i$ with a reported height, and let $G^{hh}_{y}$ contain all eligible
+For hub height, let $`G^{hh}_{i,y}`$ contain eligible turbines assigned to
+location $`i`$ with a reported height, and let $`G^{hh}_{y}`$ contain all eligible
 turbines with a reported height. The implemented local and fleet estimates are
 
-$$
+```math
 \widetilde h^{local}_{i,y}=
 \frac{\sum_{g\in G^{hh}_{i,y}}Capacity_g\,HubHeight_g}
 {\sum_{g\in G^{hh}_{i,y}}Capacity_g},
@@ -1286,11 +1286,11 @@ $$
 \widetilde h^{fleet}_{y}=
 \frac{\sum_{g\in G^{hh}_{y}}Capacity_g\,HubHeight_g}
 {\sum_{g\in G^{hh}_{y}}Capacity_g}.
-$$
+```
 
-The value used for location $i$ is
+The value used for location $`i`$ is
 
-$$
+```math
 h_{i,y}=
 \begin{cases}
 \widetilde h^{local}_{i,y},
@@ -1300,7 +1300,7 @@ h_{i,y}=
   \text{ and }\sum_{g\in G^{hh}_{y}}Capacity_g>0,\\
 80, & \text{otherwise}.
 \end{cases}
-$$
+```
 
 Thus a location without a reported local height uses the eligible fleet-wide
 capacity-weighted height, with 80 m only as the final fallback.
@@ -1308,13 +1308,13 @@ capacity-weighted height, with 80 m only as the final fallback.
 The D1--3 horizon shortfall is standardized over the preceding 60 complete
 00Z issues, with at least 30 required:
 
-$$
+```math
 z^{wind}_t=Z^{causal}_{60}(Q_{t,\{1,2,3\}}),
 \qquad
 Wind_t=\tanh\left(
 \frac{\operatorname{clip}(z^{wind}_t,-2,2)}{2}
 \right).
-$$
+```
 
 The D1--5 value is retained as the chronological comparison used in the
 model-development record.
@@ -1329,131 +1329,131 @@ The solar build uses GFS downward shortwave radiation, two-metre temperature,
 and deterministic clear-sky geometry. Each six-hour average radiation value
 is converted into surface energy,
 
-$$
+```math
 E_{6h}=DSWRF\times\frac{6}{1000}
 \quad \text{kWh/m}^{2},
-$$
+```
 
 and four intervals form the location-level daily total:
 
-$$
+```math
 E^{surface}_{i,t,d}=\sum_{h\in\{00,06,12,18\}}
 DSWRF_{i,t,d,h}\frac{6}{1000}.
-$$
+```
 
-For day of year $J$ and latitude $\phi_i$, the implemented FAO-56
+For day of year $`J`$ and latitude $`\phi_i`$, the implemented FAO-56
 extraterrestrial-horizontal-radiation calculation is
 
-$$
+```math
 d_r=1+0.033\cos\left(\frac{2\pi J}{365}\right),
 \qquad
 \delta=0.409\sin\left(\frac{2\pi J}{365}-1.39\right),
-$$
+```
 
-$$
+```math
 \omega_s=\arccos\left[
 \operatorname{clip}(-\tan\phi_i\tan\delta,-1,1)
 \right],
-$$
+```
 
-$$
+```math
 R^a_{i,t,d}=\frac{1}{3.6}
 \frac{24\times60}{\pi}(0.0820)d_r
 \left[
 \omega_s\sin\phi_i\sin\delta+
 \cos\phi_i\cos\delta\sin\omega_s
 \right].
-$$
+```
 
-The division by 3.6 converts MJ/m$^2$/day to kWh/m$^2$/day. Monthly EIA
+The division by 3.6 converts MJ/m$`^2`$/day to kWh/m$`^2`$/day. Monthly EIA
 generator capacity is first mapped to the nearest weather location. For a
-plant $g$ and weather location $i$, the build minimizes the monotone haversine
+plant $`g`$ and weather location $`i`$, the build minimizes the monotone haversine
 quantity
 
-$$
+```math
 a_{g,i}=\sin^2\left(\frac{\phi_i-\phi_g}{2}\right)
 +\cos\phi_g\cos\phi_i
 \sin^2\left(\frac{\lambda_i-\lambda_g}{2}\right),
 \qquad
 loc(g)=\arg\min_i a_{g,i}.
-$$
+```
 
 The capacity history includes positive-capacity operating utility-scale solar
 records with coordinate-complete contiguous-U.S. locations. For issue month
-$m(t)$, the build uses the capacity month $m(t)-2$:
+$`m(t)`$, the build uses the capacity month $`m(t)-2`$:
 
-$$
+```math
 C^{solar}_{i,t}=\sum_{g:\,loc(g)=i}Capacity_{g,m(t)-2},
 \qquad
 w^{solar}_{i,t}=\frac{C^{solar}_{i,t}}
 {\sum_j C^{solar}_{j,t}}.
-$$
+```
 
-For any location-level weather variable $X$, the lead-level capacity-weighted
+For any location-level weather variable $`X`$, the lead-level capacity-weighted
 value is
 
-$$
+```math
 \overline{X}_{t,d}=
 \frac{\sum_{i\in I^{complete}_{t,d}}
 C^{solar}_{i,t}X_{i,t,d}}
 {\sum_{i\in I^{complete}_{t,d}}C^{solar}_{i,t}}.
-$$
+```
 
 Available-capacity coverage is checked as
 
-$$
+```math
 Coverage_{t,d}=
 \frac{\sum_{i\in I^{complete}_{t,d}}C^{solar}_{i,t}}
 {\sum_i C^{solar}_{i,t}},
-$$
+```
 
-and the lead values are retained only when $Coverage_{t,d}\geq0.995$.
+and the lead values are retained only when $`Coverage_{t,d}\geq0.995`$.
 Capacity-weighted surface radiation is then divided by capacity-weighted
 extraterrestrial horizontal radiation:
 
-$$
+```math
 K_{t,d}=\operatorname{clip}\left(
 \frac{\overline{E}^{surface}_{t,d}}
 {\overline{R}^{a}_{t,d}},0,1.2\right).
-$$
+```
 
 The implemented temperature adjustment is
 
-$$
+```math
 T^{cell}=T_{2m}+0.025\,DSWRF,
-$$
+```
 
-$$
+```math
 \eta_T=\operatorname{clip}
 \left[1-0.004(T^{cell}-25),0.75,1.10\right].
-$$
+```
 
 Using the capacity-weighted lead-level GFS radiation and temperature values,
 the PV-availability proxy is
 
-$$
+```math
 PVAvail_{t,d}=K_{t,d}\eta_{T,t,d},
 \qquad
 PVAvail^{1:5}_t=\frac{1}{5}\sum_{d=1}^{5}PVAvail_{t,d}.
-$$
+```
 
 The gas-direction input reverses this availability measure. Its complete
 transformation is
 
-$$
+```math
 z^{solar}_t=Z^{causal}_{60}(-PVAvail^{1:5}_t),
 \qquad
 Solar_t=\tanh\left(\frac{z^{solar}_t}{2}\right),
-$$
+```
 
 with at least 30 previous issues required. The separate deterministic
 daylight field retained for the model allocation is
 
-$$
+```math
 DaylightScale_t=\operatorname{clip}\left(
 \frac{\frac{1}{5}\sum_{d=1}^{5}\overline{R}^{a}_{t,d}}{10},
 0.25,1\right).
-$$
+```
 
 ### 3.7 Weekly storage and monthly gas fundamentals
 
@@ -1465,52 +1465,52 @@ For each ISO week, the seasonal level normal is the mean of the previous five
 observations for the same week, with at least three prior observations
 required. The level deviation is
 
-$$
+```math
 \overline{S}_{t,w}^{(5y)}=
 \frac{1}{N_{t,w}}
 \sum_{j\in Y_{t,w}}S_j,
 \qquad 3\leq N_{t,w}\leq5,
-$$
+```
 
-$$
+```math
 LevelDeviation_t=\frac{S_t}{\overline{S}_{t,w}^{(5y)}}-1,
-$$
+```
 
-where $Y_{t,w}$ contains the previous five available observations for the same
-ISO week $w$. The one-week and four-week raw changes are
+where $`Y_{t,w}`$ contains the previous five available observations for the same
+ISO week $`w`$. The one-week and four-week raw changes are
 
-$$
+```math
 \Delta_1S_t=S_t-S_{t-1},
 \qquad
 \Delta_4S_t=S_t-S_{t-4}.
-$$
+```
 
 Their same-week innovations are
 
-$$
+```math
 ChangeInnovation^{(k)}_t=
 \Delta_kS_t-
 \frac{1}{N_{t,w}}
 \sum_{j\in Y_{t,w}}\Delta_kS_j,
 \qquad k\in\{1,4\}.
-$$
+```
 
 Let
 
-$$
+```math
 x^{storage}_t\in
 \left\{LevelDeviation_t,
 ChangeInnovation^{(1)}_t,
 ChangeInnovation^{(4)}_t\right\}.
-$$
+```
 
 Each gas-direction storage component is
 
-$$
+```math
 z^{storage}_t=-Z^{causal}_{104}(x^{storage}_t),
 \qquad
 StorageSignal_t=\tanh\left(\frac{z^{storage}_t}{2}\right),
-$$
+```
 
 with at least 52 previous releases required. The negative sign makes low
 inventory, weak injection, or strong withdrawal positive for gas.
@@ -1524,20 +1524,20 @@ selected D1--3 history; those changes are preserved in a dedicated correction
 object and are recomputed together with the production clamp and storage
 guard.
 
-If $A_t^{WNGSR}$ is the audited publication date of storage observation $t$,
+If $`A_t^{WNGSR}`$ is the audited publication date of storage observation $`t`$,
 its daily panel value is
 
-$$
+```math
 StorageSignal_{T_j}^{panel}=
 StorageSignal_{\arg\max_t\{A_t^{WNGSR}\leq T_j\}}.
-$$
+```
 
 For the 23 dates affected by the holiday-calendar audit, the narrow stored
 correction is applied as
 
-$$
+```math
 Score^{calendar}_j=Score^{legacy}_j+\Delta^{WNGSR}_j,
-$$
+```
 
 The correction changes the affected pre-constraint scores and the aligned
 South Central storage state. The existing production risk constraint is then
@@ -1558,38 +1558,38 @@ gas-balance transformations:
 | LNG export monthly change | Change in LNG-export daily rate | Positive |
 | Net-import-ratio change | Monthly change in the net-import ratio | Negative |
 
-Let $P_m$, $L_m$, $I_m$, $X_m$, and $C_m$ denote monthly dry production, LNG
-exports, total imports, total exports, and consumption, and let $d_m$ be the
-number of calendar days in month $m$. The raw monthly variables are
+Let $`P_m`$, $`L_m`$, $`I_m`$, $`X_m`$, and $`C_m`$ denote monthly dry production, LNG
+exports, total imports, total exports, and consumption, and let $`d_m`$ be the
+number of calendar days in month $`m`$. The raw monthly variables are
 
-$$
+```math
 ProductionYoY_m=\frac{P_m}{P_{m-12}}-1,
 \qquad
 LNGYoY_m=\frac{L_m}{L_{m-12}}-1,
-$$
+```
 
-$$
+```math
 NetImportRatio_m=\frac{I_m-X_m}{C_m},
-$$
+```
 
-$$
+```math
 ProductionMoM_m=
 \frac{P_m/d_m}{P_{m-1}/d_{m-1}}-1,
 \qquad
 LNGMoM_m=
 \frac{L_m/d_m}{L_{m-1}/d_{m-1}}-1,
-$$
+```
 
-$$
+```math
 \Delta NetImportRatio_m=
 NetImportRatio_m-NetImportRatio_{m-1}.
-$$
+```
 
 Dividing volumes by calendar days in the two month-over-month formulas
 prevents month length from being interpreted as a change in the daily rate.
 The signed causal z-scores are
 
-$$
+```math
 \begin{aligned}
 z^{low\_prod}_m&=-Z^{causal}_{60}(ProductionYoY_m),\\
 z^{lng\_yoy}_m&=+Z^{causal}_{60}(LNGYoY_m),\\
@@ -1598,22 +1598,22 @@ z^{prod\_mom}_m&=-Z^{causal}_{60}(ProductionMoM_m),\\
 z^{lng\_mom}_m&=+Z^{causal}_{60}(LNGMoM_m),\\
 z^{net\_import\_mom}_m&=-Z^{causal}_{60}(\Delta NetImportRatio_m).
 \end{aligned}
-$$
+```
 
 Each uses up to 60 prior months with at least 36 required. The production-YoY,
 LNG-YoY, and net-import-level components are bounded before entering the
 fundamental block:
 
-$$
+```math
 s_m=\tanh\left(\frac{z_m}{2}\right).
-$$
+```
 
 The three month-over-month components enter as their signed z-scores shown
-above. Reference month $M$ becomes eligible at the beginning of $M+3$:
+above. Reference month $`M`$ becomes eligible at the beginning of $`M+3`$:
 
-$$
+```math
 A_M^{monthly}=\operatorname{FirstCalendarDay}(M+3),
-$$
+```
 
 and its completed score is then aligned by the ordinary backward as-of formula
 from Section 3.1.
@@ -1631,14 +1631,14 @@ Florida and Southeast multifuel source contains 49,518 respondent-day records
 from January 1, 2019 through July 13, 2026. The separately constructed Central
 series and its score-date lineage are retained in the selected EIA-930 overlay.
 
-For balancing authority $b$, source gas day $t$, and fuel $f$, the hourly-to-
+For balancing authority $`b`$, source gas day $`t`$, and fuel $`f`$, the hourly-to-
 daily aggregation is
 
-$$
+```math
 D_{b,t}=\sum_{h\in t}D_{b,t,h},
 \qquad
 G^f_{b,t}=\sum_{h\in t}G^f_{b,t,h}.
-$$
+```
 
 Demand is admitted only for a complete source day. A blank fuel category for
 an otherwise complete respondent-day is treated as zero because the category
@@ -1649,37 +1649,37 @@ non-gas numerator includes reported wind, solar, coal, nuclear, hydro,
 petroleum, geothermal, other-fuel, and unknown-fuel generation. The daily
 physical share is
 
-$$
+```math
 G^{Central,\text{non-gas}}_t=
 \sum_{b\in\{ERCO,MISO,SWPP\}}
 \sum_{f\in F^{Central}_{\text{non-gas}}}G^f_{b,t},
-$$
+```
 
-$$
+```math
 CentralNonGasShare_t=
 \frac{G^{Central,\text{non-gas}}_t}
 {\sum_{b\in\{ERCO,MISO,SWPP\}}D_{b,t}}.
-$$
+```
 
 The Florida signal uses nine balancing authorities: FMPP, FPC, FPL, GVL, HST,
 JEA, SEC, TAL, and TEC. Its numerator is deliberately narrower and contains
 coal, nuclear, conventional hydro, and pumped-storage generation:
 
-$$
+```math
 Water_{b,t}=Hydro_{b,t}+PumpedStorage_{b,t},
-$$
+```
 
-$$
+```math
 G^{Florida,firm}_t=
 \sum_{b\in B^{complete}_t}
 \left(Coal_{b,t}+Nuclear_{b,t}+Water_{b,t}\right),
-$$
+```
 
-$$
+```math
 FloridaFirmNonGasShare_t=
 \frac{G^{Florida,firm}_t}
 {\sum_{b\in B^{complete}_t}D_{b,t}}.
-$$
+```
 
 Only balancing authorities with a complete source day enter that day's
 Florida numerator and denominator. The resulting observation remains in one
@@ -1693,51 +1693,51 @@ deviation of the previous 252 innovations, requiring at least 126. The sign is
 reversed and the standardized value is compressed with `tanh(z/2)`, so a
 positive signal means an unusually small non-gas share of demand.
 
-Writing either regional share as $q_t$, the calculation is
+Writing either regional share as $`q_t`$, the calculation is
 
-$$
+```math
 \overline q^{weekday}_t=
 \frac{1}{N_t}\sum_{k\in H^{weekday}_{t,8}}q_k,
 \qquad 4\leq N_t\leq8,
-$$
+```
 
-$$
+```math
 Innovation_t=q_t-\overline q^{weekday}_t,
-$$
+```
 
-$$
+```math
 \sigma^{innovation}_t=
 \operatorname{SampleStd}
 \left(Innovation_{t-1},\ldots,Innovation_{t-252}\right),
-$$
+```
 
-$$
+```math
 z^{power}_t=\operatorname{clip}\left(
 -\frac{Innovation_t}{\sigma^{innovation}_t},-6,6
 \right),
 \qquad
 PowerSignal_t=\tanh\left(\frac{z^{power}_t}{2}\right).
-$$
+```
 
 Each EIA-930 source gas day maps to the first strictly later strategy score
 date. When several weekend source days map to the same Monday score date, the
 latest completed source day is retained. The mapping is
 
-$$
+```math
 ScoreDate(t)=\min\{T_j:T_j>t\},
-$$
+```
 
 and, if several source days share one score date,
 
-$$
+```math
 SourceDay(T_j)=\max\{t:ScoreDate(t)=T_j\}.
-$$
+```
 
 The selected power sleeve then uses
 
-$$
+```math
 EIA930_t=0.40\,Central_t+0.60\,Florida_t.
-$$
+```
 
 The separate Southeast audit explains the scale of the Florida system. The
 frozen 2019--2026 footprint contains Deep South respondents SOCO, TVA, and
@@ -1745,19 +1745,19 @@ SEPA; Carolinas respondents CPLE, CPLW, DUK, SC, SCEG, and YAD; and the nine
 Florida balancing authorities listed above. Within that footprint, the
 descriptive ratios are
 
-$$
+```math
 \frac{\sum FloridaDemand}{\sum SoutheastDemand}=29.2\%,
-$$
+```
 
-$$
+```math
 \frac{\sum FloridaGasGeneration}{\sum SoutheastGasGeneration}=42.6\%,
-$$
+```
 
 and
 
-$$
+```math
 \frac{\sum FloridaGasGeneration}{\sum FloridaDemand}=67.4\%.
-$$
+```
 
 These have three different denominators: total Southeast demand, total
 Southeast gas generation, and Florida demand. They are descriptive power-
@@ -1774,45 +1774,45 @@ continuous score. The exact definitions and implementation columns are:
 
 | Symbol and implementation column | Source | Formula and standardization | Strategy availability | Status in V03 |
 |---|---|---|---|---|
-| $L_t^{prod}$; `prod_freeze_local_level_score` | Open-Meteo NCEP GFS seamless forecasts for Appalachia, Permian, Haynesville, Bakken, and Eagle Ford, weighted by EIA STEO monthly marketed-gas production lagged three months | Five-day production-weighted local cold severity is transformed with `log1p` and divided by the 95th percentile of the prior 756 transformed observations, requiring 252. It is an unbounded trailing-quantile-scale score, not a z-score or a bounded signal. | Forecast nominal issue date, backward as-of for at most three calendar days; the completed score still receives the common one-session position lag. | Control-only level used by the production clamp and production-revision guard gate. |
-| $\Delta_t^{prod}$; `prod_freeze_local_revision_score` | Same weather and production-weight inputs as $L_t^{prod}$ | Same-valid-date change between the current issue's leads 1--4 and the previous issue's leads 2--5; the signed revision is transformed as $\operatorname{sign}(x)\log(1+|x|)$ and divided by the 95th percentile of the absolute transformed revision over the prior 756 observations, requiring 252. It is also an unbounded trailing-quantile-scale score. | Same as $L_t^{prod}$. | Control-only revision used by both asymmetric constraints. |
-| $h_t$; `hdd_revision_5d_z` | CPC five-day HDD forecast archive | Past-only causal z-score of the matched-target five-day HDD revision defined in Section 3.4, using 60 prior issues and requiring 30, before the CPC `tanh` transformation. Thus $h_t=1$ means a +1-standard-deviation revision on that causal reference scale. | `signal_available_date = issue_date + 1 calendar day`, backward as-of for at most three calendar days; then the common one-session position lag. | Shared weather diagnostic used by the guard; CDD is not a guard input. |
-| $L_t^{storage}$; `south_central_total_level_signal` | EIA South Central Total WNGSR working gas | $L_t^{storage}=-Z^{causal}_{104}(LevelDeviation_t)$, requiring 52 prior releases. This is the pre-`tanh` signed z-score; the continuous storage component is separately $\tanh(L_t^{storage}/2)$. | Actual audited WNGSR publication date and time, then backward as-of; holiday corrections and the common position lag apply. | Shared storage diagnostic used only as an amplifier in the wind guard. |
-| Central firm non-gas shortfall; `central_firm_nongas_shortfall` | EIA-930 complete gas-day data for ERCOT, MISO, and Southwest Power Pool | Capacity-unweighted system ratio of coal, nuclear, petroleum, hydro, geothermal, other-fuel, and unknown-fuel generation to demand. The past-eight-same-weekday innovation is divided by the prior-252-innovation standard deviation, sign-reversed, clipped to $[-6,6]$, and transformed as $\tanh(z/2)$. It excludes wind and solar and is therefore narrower than the continuous Central total-non-gas signal. | Source gas day maps to the first strictly later strategy score date; the latest source day is retained when several map to one score date. | Control-only Central firm-generation diagnostic. |
-| Florida firm non-gas shortfall; source `florida_firm_nongas_share_shortfall`, evaluated as `signal__firm__florida` | EIA-930 complete gas-day data for the nine Florida balancing authorities in Section 3.8 | Coal plus nuclear plus conventional hydro and pumped storage, divided by demand, with the same past-eight-same-weekday innovation, prior-252 scale, sign reversal, $[-6,6]$ clip, and $\tanh(z/2)$ transformation. | Same strictly-later score-date mapping as the Central diagnostic. | Shared input: the Florida branch of the continuous EIA-930 sleeve and a wind-guard trigger. |
+| $`L_t^{prod}`$; `prod_freeze_local_level_score` | Open-Meteo NCEP GFS seamless forecasts for Appalachia, Permian, Haynesville, Bakken, and Eagle Ford, weighted by EIA STEO monthly marketed-gas production lagged three months | Five-day production-weighted local cold severity is transformed with `log1p` and divided by the 95th percentile of the prior 756 transformed observations, requiring 252. It is an unbounded trailing-quantile-scale score, not a z-score or a bounded signal. | Forecast nominal issue date, backward as-of for at most three calendar days; the completed score still receives the common one-session position lag. | Control-only level used by the production clamp and production-revision guard gate. |
+| $`\Delta_t^{prod}`$; `prod_freeze_local_revision_score` | Same weather and production-weight inputs as $`L_t^{prod}`$ | Same-valid-date change between the current issue's leads 1--4 and the previous issue's leads 2--5; the signed revision is transformed as $`\operatorname{sign}(x)\log(1+\lvert x\rvert)`$ and divided by the 95th percentile of the absolute transformed revision over the prior 756 observations, requiring 252. It is also an unbounded trailing-quantile-scale score. | Same as $`L_t^{prod}`$. | Control-only revision used by both asymmetric constraints. |
+| $`h_t`$; `hdd_revision_5d_z` | CPC five-day HDD forecast archive | Past-only causal z-score of the matched-target five-day HDD revision defined in Section 3.4, using 60 prior issues and requiring 30, before the CPC `tanh` transformation. Thus $`h_t=1`$ means a +1-standard-deviation revision on that causal reference scale. | `signal_available_date = issue_date + 1 calendar day`, backward as-of for at most three calendar days; then the common one-session position lag. | Shared weather diagnostic used by the guard; CDD is not a guard input. |
+| $`L_t^{storage}`$; `south_central_total_level_signal` | EIA South Central Total WNGSR working gas | $`L_t^{storage}=-Z^{causal}_{104}(LevelDeviation_t)`$, requiring 52 prior releases. This is the pre-`tanh` signed z-score; the continuous storage component is separately $`\tanh(L_t^{storage}/2)`$. | Actual audited WNGSR publication date and time, then backward as-of; holiday corrections and the common position lag apply. | Shared storage diagnostic used only as an amplifier in the wind guard. |
+| Central firm non-gas shortfall; `central_firm_nongas_shortfall` | EIA-930 complete gas-day data for ERCOT, MISO, and Southwest Power Pool | Capacity-unweighted system ratio of coal, nuclear, petroleum, hydro, geothermal, other-fuel, and unknown-fuel generation to demand. The past-eight-same-weekday innovation is divided by the prior-252-innovation standard deviation, sign-reversed, clipped to $`[-6,6]`$, and transformed as $`\tanh(z/2)`$. It excludes wind and solar and is therefore narrower than the continuous Central total-non-gas signal. | Source gas day maps to the first strictly later strategy score date; the latest source day is retained when several map to one score date. | Control-only Central firm-generation diagnostic. |
+| Florida firm non-gas shortfall; source `florida_firm_nongas_share_shortfall`, evaluated as `signal__firm__florida` | EIA-930 complete gas-day data for the nine Florida balancing authorities in Section 3.8 | Coal plus nuclear plus conventional hydro and pumped storage, divided by demand, with the same past-eight-same-weekday innovation, prior-252 scale, sign reversal, $`[-6,6]`$ clip, and $`\tanh(z/2)`$ transformation. | Same strictly-later score-date mapping as the Central diagnostic. | Shared input: the Florida branch of the continuous EIA-930 sleeve and a wind-guard trigger. |
 
-For the production variables, let $c_{r,t,d}$ be local cold severity for
-production region $r$, issue $t$, and lead $d$:
+For the production variables, let $`c_{r,t,d}`$ be local cold severity for
+production region $`r`$, issue $`t`$, and lead $`d`$:
 
-$$
+```math
 c_{r,t,d}=\frac{1}{2}
 \left[\frac{q^{mean}_{0.10,r,t,d}-T^{mean}_{r,t,d}}
 {IQR^{mean}_{r,t,d}}\right]_+
 +\frac{1}{2}
 \left[\frac{q^{min}_{0.10,r,t,d}-T^{min}_{r,t,d}}
 {IQR^{min}_{r,t,d}}\right]_+.
-$$
+```
 
 The seasonal temperature reference uses the previous three complete years
 within plus or minus 30 calendar days, requiring 45 observations. Regional
 values are weighted by the lagged Lower-48 production shares, and forecast
-leads use weights $2^{-(d-1)/2}$. If $\Phi_t$ is the resulting complete D1--5
-level and $\Delta\Phi_t$ is its same-valid-date D1--4 revision, the two control
+leads use weights $`2^{-(d-1)/2}`$. If $`\Phi_t`$ is the resulting complete D1--5
+level and $`\Delta\Phi_t`$ is its same-valid-date D1--4 revision, the two control
 scales can be written as
 
-$$
+```math
 L_t^{prod}=
 \frac{\log(1+\Phi_t)}
 {Q_{0.95,t^-}^{756}[\log(1+\Phi)]},
-$$
+```
 
-$$
+```math
 \Delta_t^{prod}=
 \frac{\operatorname{sign}(\Delta\Phi_t)
 \log(1+|\Delta\Phi_t|)}
 {Q_{0.95,t^-}^{756}
 [|\operatorname{sign}(\Delta\Phi)\log(1+|\Delta\Phi|)|]}.
-$$
+```
 
 Both denominators exclude the current issue. The production weights use a
 three-month availability proxy from a revised STEO history rather than an
@@ -1822,9 +1822,9 @@ limitations are retained in the factor metadata and should be considered when
 interpreting the two production controls.
 
 The two firm non-gas guard inputs are already bounded. A strong threshold of
-$\tanh(1)$ corresponds to a pre-transformation standardized shortfall of +2,
-and a moderate threshold of $\tanh(0.5)$ corresponds to +1. This differs from
-$h_t$, $L_t^{storage}$, $L_t^{prod}$, and $\Delta_t^{prod}$, whose guard
+$`\tanh(1)`$ corresponds to a pre-transformation standardized shortfall of +2,
+and a moderate threshold of $`\tanh(0.5)`$ corresponds to +1. This differs from
+$`h_t`$, $`L_t^{storage}`$, $`L_t^{prod}`$, and $`\Delta_t^{prod}`$, whose guard
 thresholds are applied on their unbounded scales specified above.
 
 ### 3.10 BSEE and Sabine event records
@@ -1835,25 +1835,25 @@ calculates the change in reported shut-in volume relative to the prior
 tradable report and records whether a relevant Sabine notice occurred within
 the preceding three calendar days.
 
-For BSEE report $r$, reported shut-in quantity $Q_r$, and the previous tradable
-report $r-1$, the change is
+For BSEE report $`r`$, reported shut-in quantity $`Q_r`$, and the previous tradable
+report $`r-1`$, the change is
 
-$$
+```math
 \Delta Q_r=Q_r-Q_{r-1}.
-$$
+```
 
-Let $d_r$ be the report date and $d_n$ the date of a relevant Sabine notice.
+Let $`d_r`$ be the report date and $`d_n`$ the date of a relevant Sabine notice.
 The recent-notice and rule-eligibility indicators are
 
-$$
+```math
 RecentNotice_r=
 \mathbf{1}\left\{\exists n:0\leq d_r-d_n\leq3
 \text{ calendar days}\right\},
-$$
+```
 
-$$
+```math
 Eligible_r=\mathbf{1}\{\Delta Q_r>0\}\times RecentNotice_r.
-$$
+```
 
 An event record is eligible when the shut-in estimate worsens and the recent-
 notice condition is present. The source report is then mapped to an executable
@@ -1864,34 +1864,34 @@ return interval. The final event registry records the source-report date,
 event name, shut-in revision, related notice subjects, entry settlement, and
 controlled return date.
 
-With $\mathcal T$ denoting confirmed settlement dates, the mapping is
+With $`\mathcal T`$ denoting confirmed settlement dates, the mapping is
 
-$$
+```math
 Entry_r=
 \begin{cases}
 d_r, & d_r\in\mathcal T,\\
 \min\{T\in\mathcal T:T>d_r\}, & d_r\notin\mathcal T,
 \end{cases}
-$$
+```
 
-$$
+```math
 ControlledReturnDate_r=
 \min\{T\in\mathcal T:T>Entry_r\}.
-$$
+```
 
 If more than one eligible report maps to the same controlled return date, the
 daily event state and reported shut-in revision are
 
-$$
+```math
 Event_T=\max_r\left[
 Eligible_r\,\mathbf{1}\{ControlledReturnDate_r=T\}
 \right],
-$$
+```
 
-$$
+```math
 \Delta Q_T^{event}=\sum_{r:\,ControlledReturnDate_r=T}
 Eligible_r\,\Delta Q_r.
-$$
+```
 
 This dataset remains outside the continuous factor score. Section 4.3.3
 applies the resulting Boolean state as the event risk veto.
@@ -1905,12 +1905,12 @@ from outright NYMEX trades, normally over 2:28--2:30 p.m. New York time. The
 source, price type, contract symbol, delivery month, and extraction method are
 retained with the price history.
 
-For contract $c$ and the applicable extraction window $W_t$, the proxy is
+For contract $`c`$ and the applicable extraction window $`W_t`$, the proxy is
 
-$$
+```math
 VWAP_{c,t}=\frac{\sum_{q\in W_t}Price_q\,Volume_q}
 {\sum_{q\in W_t}Volume_q}.
-$$
+```
 
 The ordinary window is 2:28:00--2:29:59.999 p.m. Eastern. The same formula is
 used with the separately labelled expiry, early-close, fallback, or source-gap
@@ -1924,18 +1924,18 @@ the early-roll window, the return is calculated from consecutive C2 prices;
 outside that window, it follows consecutive C1 prices, with the contract
 identity carried correctly across the official rank change.
 
-Let $L_m$ be the official last trading day for delivery month $m$, defined as
-the third confirmed session before the first calendar day of $m$. Let $E_m$ be
+Let $`L_m`$ be the official last trading day for delivery month $`m`$, defined as
+the third confirmed session before the first calendar day of $`m`$. Let $`E_m`$ be
 the early switch date generated five trading sessions before the official
 switch. Define
 
-$$
+```math
 I^{early}_t=\mathbf{1}\{E_m\leq t<OfficialSwitch_m\}.
-$$
+```
 
 The contract-consistent daily return is
 
-$$
+```math
 r^{futures}_t=
 \begin{cases}
 \dfrac{C2_t}{C2_{t-1}}-1,
@@ -1945,7 +1945,7 @@ r^{futures}_t=
 \dfrac{C1_t}{C1_{t-1}}-1,
 & \text{otherwise}.
 \end{cases}
-$$
+```
 
 The middle branch links the expiring contract's prior C2 identity to the same
 delivery contract after it becomes the new C1, rather than treating the rank
@@ -2015,13 +2015,13 @@ The main notation is:
 
 | Symbol | Model object |
 |---|---|
-| $W_t$ | CPC weather block |
-| $V_t$ | Selected capacity-weighted D1--3 wind shortfall |
-| $S_t$ | Capacity-weighted D1--5 solar shortfall |
-| $F_t$ | Nine-signal gas-fundamental composite |
-| $R_t$ | Central 40% / Florida 60% EIA-930 composite |
-| $Q_t^G$ | Score after the production and wind-reversal constraints |
-| $P_t$ | Final held futures exposure after the event risk veto |
+| $`W_t`$ | CPC weather block |
+| $`V_t`$ | Selected capacity-weighted D1--3 wind shortfall |
+| $`S_t`$ | Capacity-weighted D1--5 solar shortfall |
+| $`F_t`$ | Nine-signal gas-fundamental composite |
+| $`R_t`$ | Central 40% / Florida 60% EIA-930 composite |
+| $`Q_t^G`$ | Score after the production and wind-reversal constraints |
+| $`P_t`$ | Final held futures exposure after the event risk veto |
 
 V03 is the selected research specification, but it should not be interpreted
 as a fully pre-specified out-of-sample model. Several later design choices
@@ -2048,31 +2048,31 @@ Only the CPC seasonal forecast revision remains active in the original
 three-slot weather structure. CPC forecast level and observed weather are held
 at zero so that removing them does not mechanically triple CPC exposure:
 
-$$
+```math
 W_t=\frac{CPCRevision_t+0_{level}+0_{observed}}{3}.
-$$
+```
 
 Thus a 45% nominal weather allocation corresponds to 15% effective CPC
 revision exposure; a 22.5% nominal allocation corresponds to 7.5%. The neutral
 remainder is part of the formal V03 risk budget, not an unreported signal.
 
 The fundamental composite preserves the slower state variables that remained
-useful after the broader feature review. If $f_{k,t}$ is an available
-model-ready component and $\alpha_k$ is its internal weight, then
+useful after the broader feature review. If $`f_{k,t}`$ is an available
+model-ready component and $`\alpha_k`$ is its internal weight, then
 
-$$
+```math
 F_t=
 \frac{\sum_{k\in\mathcal A_t}\alpha_k f_{k,t}}
 {\sum_{k\in\mathcal A_t}\alpha_k}.
-$$
+```
 
 | Fundamental group | Components | Combined internal weight |
 |---|---|---:|
-| South Central inventory | Storage level | $2/11$ |
-| South Central flow | One-week and four-week storage changes | $2/11$ |
-| Dry production | YoY growth and MoM rate change | $2/11$ |
-| LNG exports | YoY growth and MoM rate change | $3/11$ |
-| Net imports | Level relative to consumption and MoM ratio change | $2/11$ |
+| South Central inventory | Storage level | $`2/11`$ |
+| South Central flow | One-week and four-week storage changes | $`2/11`$ |
+| Dry production | YoY growth and MoM rate change | $`2/11`$ |
+| LNG exports | YoY growth and MoM rate change | $`3/11`$ |
+| Net imports | Level relative to consumption and MoM ratio change | $`2/11`$ |
 
 The model began with eleven equal fundamental slots. The two delayed national-
 consumption signals were removed because they were slow and overlapped with
@@ -2084,9 +2084,9 @@ described in Chapter 3.
 Wind and solar enter as the bounded physical-availability signals constructed
 in Sections 3.5 and 3.6. The selected regional power signal is
 
-$$
+```math
 R_t=0.40\,Central_t+0.60\,Florida_t.
-$$
+```
 
 Wind and solar are forward-looking. EIA-930 is backward-looking but timely: it
 shows whether the latest completed regional power balance relied unusually
@@ -2101,31 +2101,31 @@ sleeves, the nominal allocations are 45% weather, 15% wind, and 40%
 fundamentals in November--February and June--August; in the remaining months
 they are 22.5%, 22.5%, and 55%.
 
-Let $w_{W,t}$, $w_{V,t}$, and $w_{F,t}$ denote those seasonal weights. The base
+Let $`w_{W,t}`$, $`w_{V,t}`$, and $`w_{F,t}`$ denote those seasonal weights. The base
 score is
 
-$$
+```math
 B_t=w_{W,t}W_t+w_{V,t}V_t+w_{F,t}F_t.
-$$
+```
 
 Solar receives a nominal 10% allocation scaled by deterministic daylight,
 while EIA-930 receives a fixed 10% allocation:
 
-$$
+```math
 a_t=0.10d_t,
 \qquad
 e=0.10.
-$$
+```
 
 Both allocations are funded from fundamentals, so they replace part of the
 slower gas-state exposure rather than add leverage. Before applying the risk
 constraints, the score is
 
-$$
+```math
 Q_t^{linear}
 =w_{W,t}W_t+w_{V,t}V_t
 +(w_{F,t}-a_t-e)F_t+a_tS_t+eR_t.
-$$
+```
 
 The resulting effective allocation is:
 
@@ -2156,44 +2156,44 @@ position. The model therefore prevents a short when local production-
 disruption risk is already elevated and not improving. This rule only removes
 bearish exposure; it never creates a bullish position.
 
-Let $L_t^{prod}$ be the unbounded local production-risk level score and
-$\Delta_t^{prod}$ its unbounded same-valid-date revision score, both on the
+Let $`L_t^{prod}`$ be the unbounded local production-risk level score and
+$`\Delta_t^{prod}`$ its unbounded same-valid-date revision score, both on the
 trailing-95th-percentile scales defined in Section 3.9. Neither variable is a
 raw temperature, a z-score, or a `tanh`-bounded signal. The constraint is
 active when
 
-$$
+```math
 I_t^{prod}=
 \mathbf 1\{month(t)\in\{11,12,1,2,3\}\}
 \mathbf 1\{L_t^{prod}\geq1\}
 \mathbf 1\{\Delta_t^{prod}\geq0\}.
-$$
+```
 
-Its action on any intermediate score $x$ is
+Its action on any intermediate score $`x`$ is
 
-$$
+```math
 C_t(x)=
 \begin{cases}
 \max(x,0), & I_t^{prod}=1,\\
 x, & I_t^{prod}=0.
 \end{cases}
-$$
+```
 
 The restriction is reapplied after each funded sleeve because a newly added
 component could otherwise recreate the same prohibited short. The implemented
 sequence is
 
-$$
+```math
 B_t^C=C_t(B_t),
-$$
+```
 
-$$
+```math
 A_t^C=C_t\left[B_t^C+a_t(S_t-F_t)\right],
-$$
+```
 
-$$
+```math
 Q_t^C=C_t\left[A_t^C+e(R_t-F_t)\right].
-$$
+```
 
 Outside an active production-risk state, these equations reduce to the linear
 allocation in Section 4.2. The audited WNGSR timing corrections described in
@@ -2211,58 +2211,58 @@ The qualifying shocks are:
 
 | Fast-shock family | Strong condition | Moderate condition | Calendar condition |
 |---|---:|---:|---|
-| Five-day HDD revision, pre-`tanh` causal z-score | $h_t\geq1$ | $h_t\geq0.5$ | Every month except Jun--Aug |
-| Local production-risk revision, unbounded trailing-quantile-scale score | $\Delta_t^{prod}\geq1$ | $\Delta_t^{prod}\geq0.5$ | Nov--Mar and $L_t^{prod}>0$ |
-| Central or Florida firm non-gas shortfall, bounded $\tanh(z/2)$ signal | signal $\geq\tanh(1)$ | signal $\geq\tanh(0.5)$ | All year |
+| Five-day HDD revision, pre-`tanh` causal z-score | $`h_t\geq1`$ | $`h_t\geq0.5`$ | Every month except Jun--Aug |
+| Local production-risk revision, unbounded trailing-quantile-scale score | $`\Delta_t^{prod}\geq1`$ | $`\Delta_t^{prod}\geq0.5`$ | Nov--Mar and $`L_t^{prod}\gt0`$ |
+| Central or Florida firm non-gas shortfall, bounded $`\tanh(z/2)`$ signal | signal $`\geq\tanh(1)`$ | signal $`\geq\tanh(0.5)`$ | All year |
 
-Here $h_t$ is the matched-target five-day HDD revision on its pre-`tanh`
-causal z-score scale, and $\Delta_t^{prod}$ is on the production factor's
+Here $`h_t`$ is the matched-target five-day HDD revision on its pre-`tanh`
+causal z-score scale, and $`\Delta_t^{prod}`$ is on the production factor's
 unbounded trailing-quantile scale. The power thresholds correspond to
 underlying standardized shortfalls of +2 and +1 because those signals have
-already been transformed with $\tanh(z/2)$. The Central firm diagnostic
+already been transformed with $`\tanh(z/2)`$. The Central firm diagnostic
 excludes wind and solar and is distinct from the broader Central total-non-gas
 signal in the continuous EIA-930 sleeve. CDD is not used in this constraint.
 
-Let $I_t^{strong}$ and $I_t^{moderate}$ indicate that any corresponding fast
-shock is present. Let $L_t^{storage}$ denote the **pre-`tanh` signed South
-Central storage-level z-score**, $-Z^{causal}_{104}(LevelDeviation_t)$, where a
+Let $`I_t^{strong}`$ and $`I_t^{moderate}`$ indicate that any corresponding fast
+shock is present. Let $`L_t^{storage}`$ denote the **pre-`tanh` signed South
+Central storage-level z-score**, $`-Z^{causal}_{104}(LevelDeviation_t)`$, where a
 larger value means lower inventory. The bounded continuous storage component
-is $\tanh(L_t^{storage}/2)$, but the guard threshold below is applied to the
+is $`\tanh(L_t^{storage}/2)`$, but the guard threshold below is applied to the
 unbounded z-score. A shock qualifies when
 
-$$
+```math
 H_t=I_t^{strong}
 \;\lor\;
 \left(
 \mathbf 1\{L_t^{storage}\geq1\}
 \land I_t^{moderate}
 \right).
-$$
+```
 
 Low storage therefore acts only as an amplifier: it allows a moderate fast
 shock to qualify, but it cannot activate the constraint by itself.
 
-Let $Q_t^{-V}$ be the production-constrained score calculated without wind,
-and let $Q_t^{1:3}$ be the corresponding score with D1--3 wind. The reversal
+Let $`Q_t^{-V}`$ be the production-constrained score calculated without wind,
+and let $`Q_t^{1:3}`$ be the corresponding score with D1--3 wind. The reversal
 condition is
 
-$$
+```math
 G_t=
 H_t
 \land\mathbf 1\{V_t<0\}
 \land\mathbf 1\{Q_t^{-V}>0\}
 \land\mathbf 1\{Q_t^{1:3}<0\}.
-$$
+```
 
 The selected score is then
 
-$$
+```math
 Q_t^G=
 \begin{cases}
 0, & G_t=1,\\
 Q_t^{1:3}, & G_t=0.
 \end{cases}
-$$
+```
 
 The rule cannot establish or enlarge a long, and it does not alter a short
 that was already present before wind was added.
@@ -2272,15 +2272,15 @@ that was already present before wind was added.
 The BSEE/Sabine event state addresses a narrower execution risk. When a
 worsening offshore shut-in estimate coincides with the qualifying Sabine
 notice condition defined in Section 3.10, the model does not carry a conflicting
-short over the mapped return interval. For a preliminary position $p$, define
+short over the mapped return interval. For a preliminary position $`p`$, define
 
-$$
+```math
 \mathcal E_t(p)=
 \begin{cases}
 0, & E_t^{event}=1\text{ and }p<0,\\
 p, & \text{otherwise}.
 \end{cases}
-$$
+```
 
 This is an event risk veto, not a continuous alpha signal. It leaves long and
 neutral positions unchanged.
@@ -2290,15 +2290,15 @@ neutral positions unchanged.
 The completed score is delayed by one confirmed NYMEX trading session and
 bounded to a unit exposure:
 
-$$
+```math
 P_t^{pre}=\operatorname{clip}(Q_{t-1}^G,-1,1).
-$$
+```
 
 The final position applies the event risk veto to that executable exposure:
 
-$$
+```math
 P_t=\mathcal E_t(P_t^{pre}).
-$$
+```
 
 This order matters economically. The production constraint governs score
 formation, the wind constraint compares the score with and without wind, and
@@ -2308,23 +2308,23 @@ actually be held.
 The position earns the contract-consistent futures return defined in Section
 3.10. Turnover and net return are
 
-$$
+```math
 Turnover_t=|P_t-P_{t-1}|,
 \qquad P_{t_0-1}=0,
-$$
+```
 
-$$
+```math
 r_t^{gross}=P_t r_t^{futures},
-$$
+```
 
-$$
+```math
 r_t^{net}=P_t r_t^{futures}
 -0.00025|P_t-P_{t-1}|.
-$$
+```
 
 The cost is 2.5 basis points per unit change in model exposure. It does not
 separately estimate market impact or impose an additional charge for both
-mechanical legs of the monthly roll. $P_t$ is a normalized continuous exposure,
+mechanical legs of the monthly roll. $`P_t`$ is a normalized continuous exposure,
 not an integer contract count.
 
 ### 4.5 Model development and research protocol
@@ -2386,21 +2386,21 @@ The common sample runs from July 25, 2019 through July 13, 2026 and contains
 reported separately because comparing its 1.667 Sharpe directly with the
 shorter V03 sample would mix model changes with different dates.
 
-Let $r_t^{net}$ be the daily return defined in Section 4.4 and let
-$g_t=\log(1+r_t^{net})$. The reported zero-risk-free-rate Sharpe ratio is
+Let $`r_t^{net}`$ be the daily return defined in Section 4.4 and let
+$`g_t=\log(1+r_t^{net})`$. The reported zero-risk-free-rate Sharpe ratio is
 
-$$
+```math
 Sharpe=
 \frac{\overline g}{s(g)}\sqrt{252}.
-$$
+```
 
 Sortino uses the zero-target unconditional lower partial moment:
 
-$$
+```math
 Sortino=
 \frac{252\,\overline g}
 {\sqrt{252}\sqrt{\frac{1}{N}\sum_{t=1}^{N}\min(g_t,0)^2}}.
-$$
+```
 
 Log returns are retained because they are the frozen convention used to
 compare and select the formal model versions and are additive through time.
@@ -2413,16 +2413,16 @@ returns because those statistics describe compounded investable wealth.
 Positive-return days therefore enter the downside average as zeros. Wealth
 and maximum drawdown are calculated as
 
-$$
+```math
 NAV_t=\prod_{s\leq t}(1+r_s^{net}),
-$$
+```
 
-$$
+```math
 MaximumDrawdown=
 \min_t\left(
 \frac{NAV_t}{\max\left(1,\max_{u\leq t}NAV_u\right)}-1
 \right),
-$$
+```
 
 with initial wealth set to one. This convention includes a loss occurring on
 the first reported date. CAGR uses the actual first and last settlement
@@ -2431,9 +2431,9 @@ before the subperiod begins.
 
 Daily win rate is
 
-$$
+```math
 WinRate=\frac{1}{N}\sum_{t=1}^{N}\mathbf 1\{r_t^{net}>0\}.
-$$
+```
 
 Its denominator includes every reported trading session; zero-return and
 flat-position sessions are not removed. Selected V03 has 915 positive-return,
@@ -2559,7 +2559,7 @@ reduced damage rather than turning 2025 into a strongly profitable regime.
 ### 5.5 Exposure, turnover, and execution interpretation
 
 The selected position has a mean absolute value of 10.20%. This is a modest
-average normalized exposure, although it can vary daily within the $[-1,1]$
+average normalized exposure, although it can vary daily within the $`[-1,1]`$
 limit. It should not be interpreted as a contract count or as the output of a
 fixed-volatility portfolio. The reported CAGR and drawdown belong to this
 specific continuous-exposure convention.
@@ -2567,11 +2567,11 @@ specific continuous-exposure convention.
 Total turnover is 124.61 units over the common sample. At 2.5 basis points per
 unit change, the simple accumulated charge is
 
-$$
+```math
 0.00025\sum_t|P_t-P_{t-1}|
 =0.00025\times124.61
 \approx3.12\%.
-$$
+```
 
 This corresponds to a simple arithmetic average charge of approximately 0.45%
 per year over the 1,748-session sample. The charge is already deducted from the
@@ -2671,9 +2671,9 @@ Each revision is standardized using strictly earlier gas days with a minimum
 60-day history. On each eligible date, the larger absolute standardized move
 sets the direction of a temporary sleeve:
 
-$$
+```math
 \Delta P_t=0.10\tanh(z_t^*).
-$$
+```
 
 The sleeve enters using the held NG contract's trade VWAP from five to thirty
 minutes after the Intraday 3 posting and exits at the same contract's
@@ -2686,8 +2686,8 @@ Sabine's tariff labels 7:30 p.m. Central as the Intraday 3 quick response and
 10:00 p.m. Central as the time by which scheduled quantities are provided;
 the native EBB timestamps in the selected sample have a 9:25 p.m. Central
 median posting time. A typical ordinary-window trade therefore enters around
-9:30--9:55 p.m. Central on calendar date $d$ and exits at 1:28--1:30 p.m.
-Central (14:28--14:30 Eastern) on $d+1$. CME Globex trades NG from 5:00 p.m.
+9:30--9:55 p.m. Central on calendar date $`d`$ and exits at 1:28--1:30 p.m.
+Central (14:28--14:30 Eastern) on $`d+1`$. CME Globex trades NG from 5:00 p.m.
 to 4:00 p.m. Central, so both legs belong to the session labelled by the exit
 date. Actual entry uses each record's native posting timestamp rather than a
 fixed tariff time. [Sabine tariff nomination
@@ -2798,15 +2798,15 @@ The principal notation used below is:
 
 | Symbol | Model object |
 |---|---|
-| $W_t$ | Fixed three-slot CPC weather block |
-| $V_t^{1:3}$ | Selected capacity-weighted D1--3 wind signal |
-| $V_t^{1:5}$ | Earlier D1--5 wind comparator |
-| $S_t$ | Capacity-weighted D1--5 solar signal |
-| $F_t$ | Nine-signal natural-gas fundamental block |
-| $R_t$ | Selected Central 40% / Florida 60% EIA-930 signal |
-| $Q_t$ | Composite score before the V03 wind reversal constraint |
-| $Q_t^G$ | Composite score after the V03 wind reversal constraint |
-| $P_t$ | Final held futures position after the event risk veto |
+| $`W_t`$ | Fixed three-slot CPC weather block |
+| $`V_t^{1:3}`$ | Selected capacity-weighted D1--3 wind signal |
+| $`V_t^{1:5}`$ | Earlier D1--5 wind comparator |
+| $`S_t`$ | Capacity-weighted D1--5 solar signal |
+| $`F_t`$ | Nine-signal natural-gas fundamental block |
+| $`R_t`$ | Selected Central 40% / Florida 60% EIA-930 signal |
+| $`Q_t`$ | Composite score before the V03 wind reversal constraint |
+| $`Q_t^G`$ | Composite score after the V03 wind reversal constraint |
+| $`P_t`$ | Final held futures position after the event risk veto |
 
 ### A.2 Component definitions
 
@@ -2817,11 +2817,11 @@ seasonal CPC forecast revision, CPC forecast level, and observed weather. The
 research retained only the forecast revision. The other two slots were set to
 zero rather than removed from the denominator:
 
-$$
+```math
 W_t=\frac{CPCRevision_t+0_{level}+0_{observed}}{3}.
-$$
+```
 
-Here $CPCRevision_t$ is the bounded, seasonally selected signal defined in
+Here $`CPCRevision_t`$ is the bounded, seasonally selected signal defined in
 Section 3.4. Keeping the denominator at three prevents removal of two unstable
 features from mechanically tripling the remaining CPC exposure. It also means
 that the nominal top-level weather allocation is not the same as the effective
@@ -2834,18 +2834,18 @@ weather remain available as diagnostics but receive no direct position weight.
 
 #### A.2.2 Fundamental block
 
-The final fundamental block contains nine active signals. Let $f_{k,t}$ be the
-model-ready value of active component $k$ after the transformations in Chapter
-3, and let $\alpha_k$ be its internal weight. The block is
+The final fundamental block contains nine active signals. Let $`f_{k,t}`$ be the
+model-ready value of active component $`k`$ after the transformations in Chapter
+3, and let $`\alpha_k`$ be its internal weight. The block is
 
-$$
+```math
 F_t=
 \frac{\sum_{k\in\mathcal A_t}\alpha_k f_{k,t}}
 {\sum_{k\in\mathcal A_t}\alpha_k},
-$$
+```
 
-where $\mathcal A_t$ is the set of active fundamental components available on
-date $t$. The supported evaluation applies readiness checks before admitting a
+where $`\mathcal A_t`$ is the set of active fundamental components available on
+date $`t`$. The supported evaluation applies readiness checks before admitting a
 return. Within the fundamental builder, however, the denominator is explicitly
 the available internal weight. This differs from the fixed neutral-slot policy
 used for missing wind and solar observations.
@@ -2854,21 +2854,21 @@ The selected internal weights are:
 
 | Fundamental component | Internal weight | Current role |
 |---|---:|---|
-| South Central storage level | 18.18% ($2/11$) | Low inventory receives the first reassigned slot. |
-| South Central one-week change | 9.09% ($1/11$) | Measures recent weekly tightening. |
-| South Central four-week change | 9.09% ($1/11$) | Measures persistent weekly tightening. |
-| Low dry-production YoY growth | 9.09% ($1/11$) | Slow supply state. |
-| LNG-export YoY growth | 9.09% ($1/11$) | Structural export-demand state. |
-| Net-import supply | 9.09% ($1/11$) | Domestic external-supply state. |
-| Dry-production MoM | 9.09% ($1/11$) | Recent production-rate change. |
-| LNG-export MoM | 18.18% ($2/11$) | Receives the second reassigned slot. |
-| Net-import-ratio MoM change | 9.09% ($1/11$) | Recent external-supply change. |
+| South Central storage level | 18.18% ($`2/11`$) | Low inventory receives the first reassigned slot. |
+| South Central one-week change | 9.09% ($`1/11`$) | Measures recent weekly tightening. |
+| South Central four-week change | 9.09% ($`1/11`$) | Measures persistent weekly tightening. |
+| Low dry-production YoY growth | 9.09% ($`1/11`$) | Slow supply state. |
+| LNG-export YoY growth | 9.09% ($`1/11`$) | Structural export-demand state. |
+| Net-import supply | 9.09% ($`1/11`$) | Domestic external-supply state. |
+| Dry-production MoM | 9.09% ($`1/11`$) | Recent production-rate change. |
+| LNG-export MoM | 18.18% ($`2/11`$) | Receives the second reassigned slot. |
+| Net-import-ratio MoM change | 9.09% ($`1/11`$) | Recent external-supply change. |
 | National consumption YoY and MoM | 0% | Retained only as archived diagnostics. |
 
 The research began with eleven equal fundamental slots. National consumption
 YoY and MoM were removed from the direct daily position because the delayed
 national aggregates were slow and overlapped substantially with weather and
-power information. The two released $1/11$ slots were reassigned through a
+power information. The two released $`1/11`$ slots were reassigned through a
 development-only candidate comparison. Candidates within 0.01 Sharpe of the
 development maximum were shortlisted, and the lowest-turnover candidate in
 that shortlist assigned the extra slots to South Central storage level and LNG
@@ -2876,19 +2876,19 @@ export MoM.
 
 #### A.2.3 Wind, solar, and regional power blocks
 
-The selected wind input is $V_t^{1:3}$, the D1--3 bounded shortfall signal from
+The selected wind input is $`V_t^{1:3}`$, the D1--3 bounded shortfall signal from
 Section 3.5. D1--3 describes forecast leads, not a holding period. The earlier
-$V_t^{1:5}$ signal is retained only as a controlled model comparator.
+$`V_t^{1:5}`$ signal is retained only as a controlled model comparator.
 
-The active solar value $S_t$ is the bounded D1--5 PV-availability shortfall
+The active solar value $`S_t`$ is the bounded D1--5 PV-availability shortfall
 from Section 3.6. Its top-level weight varies with deterministic daylight but
 its internal signal formula does not change by season.
 
 The EIA-930 sleeve is
 
-$$
+```math
 R_t=0.40\,Central_t+0.60\,Florida_t.
-$$
+```
 
 This is one regional power-system block, not two additional top-level factors.
 It complements the forecast factors: wind and solar describe expected future
@@ -2904,46 +2904,46 @@ The base allocation changes between peak-demand and shoulder months:
 | Peak demand | Nov--Feb and Jun--Aug | 45.0% | 15.0% | 40.0% |
 | Shoulder | Mar--May and Sep--Oct | 22.5% | 22.5% | 55.0% |
 
-Let $w_{W,t}$, $w_{V,t}$, and $w_{F,t}$ denote the applicable row. Before
+Let $`w_{W,t}`$, $`w_{V,t}`$, and $`w_{F,t}`$ denote the applicable row. Before
 solar and EIA-930 funding, the score is
 
-$$
+```math
 B_t=w_{W,t}W_t+w_{V,t}V_t+w_{F,t}F_t.
-$$
+```
 
-The wind horizon in $B_t$ is D1--3 for the selected V03 score and D1--5 for
+The wind horizon in $`B_t`$ is D1--3 for the selected V03 score and D1--5 for
 the comparator. All other terms are held fixed in that comparison.
 
-The deterministic daylight scale from Chapter 3 is $d_t$. With complete solar
-context it lies in $[0.25,1]$; if that context is unavailable, the
+The deterministic daylight scale from Chapter 3 is $`d_t`$. With complete solar
+context it lies in $`[0.25,1]`$; if that context is unavailable, the
 implementation fills it with zero. The effective solar allocation is
 
-$$
+```math
 a_t=0.10\,d_t.
-$$
+```
 
 The EIA-930 allocation is fixed at
 
-$$
+```math
 e=0.10.
-$$
+```
 
 Both sleeves are funded from the fundamental allocation rather than added as
 leverage. Ignoring the one-sided production control for a moment, the linear
 allocation identity is
 
-$$
+```math
 Q_t^{linear}
 =B_t+a_t(S_t-F_t)+e(R_t-F_t),
-$$
+```
 
 or equivalently,
 
-$$
+```math
 Q_t^{linear}
 =w_{W,t}W_t+w_{V,t}V_t
 +(w_{F,t}-a_t-e)F_t+a_tS_t+eR_t.
-$$
+```
 
 This identity makes the funding mechanics explicit; it is not intended to
 replace the sequential constraint equations in Section A.4. A larger daylight
@@ -2965,28 +2965,28 @@ sample requires both Central and Florida EIA-930 inputs to be present.
 
 ### A.4 Winter production risk constraint
 
-The production control is a one-sided safety rule. Let $L_t^{prod}$ be the
-unbounded local production-freeze level score and $\Delta_t^{prod}$ its
+The production control is a one-sided safety rule. Let $`L_t^{prod}`$ be the
+unbounded local production-freeze level score and $`\Delta_t^{prod}`$ its
 unbounded same-valid-date revision score. Both use the trailing-756-observation
 95th-percentile scales in Section 3.9; they are not z-scores or bounded
 signals. The control state is
 
-$$
+```math
 I_t^{prod}=
 \mathbf 1\{month(t)\in\{11,12,1,2,3\}\}
 \mathbf 1\{L_t^{prod}\geq1\}
 \mathbf 1\{\Delta_t^{prod}\geq0\}.
-$$
+```
 
 Define the control operator
 
-$$
+```math
 C_t(x)=
 \begin{cases}
 \max(x,0), & I_t^{prod}=1,\\
 x, & I_t^{prod}=0.
 \end{cases}
-$$
+```
 
 The rule prevents a short when the estimated local production-disruption level
 is already high and is not improving. It cannot create a positive score: a
@@ -2995,27 +2995,27 @@ unchanged.
 
 Because the solar and EIA-930 sleeves were added at successive research
 stages, the implemented score reapplies the same operator after each layer.
-For wind horizon $h\in\{1{:}5,1{:}3\}$, the exact sequence is
+For wind horizon $`h\in\{1{:}5,1{:}3\}`$, the exact sequence is
 
-$$
+```math
 B_{t,h}^{C}=C_t(B_{t,h}),
-$$
+```
 
-$$
+```math
 A_{t,h}^{C}
 =C_t\left[B_{t,h}^{C}+a_t(S_t-F_t)\right],
-$$
+```
 
-$$
+```math
 Q_{t,h}^{C}
 =C_t\left[A_{t,h}^{C}+e(R_t-F_t)\right].
-$$
+```
 
 Thus the funding weights in Section A.3 still sum to one, while the safety
 operator can truncate a negative intermediate score during an active winter
-production-risk state. Outside that state, $C_t(x)=x$ and the sequence reduces
-exactly to $Q_t^{linear}$. On one of the 23 WNGSR calendar-correction dates,
-the stored score is updated as $C_t(Q_{t,h}^{C}+\Delta_t^{WNGSR})$ and the
+production-risk state. Outside that state, $`C_t(x)=x`$ and the sequence reduces
+exactly to $`Q_t^{linear}`$. On one of the 23 WNGSR calendar-correction dates,
+the stored score is updated as $`C_t(Q_{t,h}^{C}+\Delta_t^{WNGSR})`$ and the
 subsequent V03 guard is recomputed.
 
 ### A.5 V03 storage-conditioned wind reversal constraint
@@ -3028,61 +3028,61 @@ Three fast-shock families are used:
 
 | Trigger family | Strong threshold | Moderate threshold | Calendar condition |
 |---|---:|---:|---|
-| Five-day HDD forecast revision, pre-`tanh` causal z-score | $h_t\geq1$ | $h_t\geq0.5$ | Every month except Jun--Aug |
-| Local production-risk revision, unbounded trailing-quantile-scale score | $\Delta_t^{prod}\geq1$ | $\Delta_t^{prod}\geq0.5$ | Nov--Mar and $L_t^{prod}>0$ |
-| Central or Florida firm non-gas shortfall, bounded $\tanh(z/2)$ signal | signal $\geq\tanh(1)$ | signal $\geq\tanh(0.5)$ | No additional month gate |
+| Five-day HDD forecast revision, pre-`tanh` causal z-score | $`h_t\geq1`$ | $`h_t\geq0.5`$ | Every month except Jun--Aug |
+| Local production-risk revision, unbounded trailing-quantile-scale score | $`\Delta_t^{prod}\geq1`$ | $`\Delta_t^{prod}\geq0.5`$ | Nov--Mar and $`L_t^{prod}\gt0`$ |
+| Central or Florida firm non-gas shortfall, bounded $`\tanh(z/2)`$ signal | signal $`\geq\tanh(1)`$ | signal $`\geq\tanh(0.5)`$ | No additional month gate |
 
-Here $h_t$ is the pre-`tanh` HDD causal z-score, while
-$\Delta_t^{prod}$ is the production factor's unbounded trailing-quantile-scale
+Here $`h_t`$ is the pre-`tanh` HDD causal z-score, while
+$`\Delta_t^{prod}`$ is the production factor's unbounded trailing-quantile-scale
 score. The firm non-gas thresholds correspond to raw standardized shortfalls
 of +2 and +1 respectively because those power signals have already been
-transformed as $\tanh(z/2)$. The Central guard diagnostic is the retained
+transformed as $`\tanh(z/2)`$. The Central guard diagnostic is the retained
 `central_firm_nongas_shortfall` input; it is distinct from the broader Central
 total-non-gas value used inside the continuous EIA-930 sleeve. CDD is not a
 guard input.
 
-Let $I_t^{strong}$ indicate that any strong trigger is present and let
-$I_t^{moderate}$ indicate that any moderate trigger is present. Let
-$L_t^{storage}$ be the **pre-`tanh` signed South Central storage-level
-z-score**, $-Z^{causal}_{104}(LevelDeviation_t)$, for which a larger positive
+Let $`I_t^{strong}`$ indicate that any strong trigger is present and let
+$`I_t^{moderate}`$ indicate that any moderate trigger is present. Let
+$`L_t^{storage}`$ be the **pre-`tanh` signed South Central storage-level
+z-score**, $`-Z^{causal}_{104}(LevelDeviation_t)`$, for which a larger positive
 value means lower inventory. The corresponding continuous storage component
-is $\tanh(L_t^{storage}/2)$; the threshold below acts on the unbounded z-score.
+is $`\tanh(L_t^{storage}/2)`$; the threshold below acts on the unbounded z-score.
 The qualifying state is
 
-$$
+```math
 A_t=I_t^{strong}
 \;\lor\;
 \left(
 \mathbf 1\{L_t^{storage}\geq1\}
 \land I_t^{moderate}
 \right).
-$$
+```
 
 Low storage therefore cannot activate the guard alone. It only allows a
 moderate fast shock to qualify as if it were strong.
 
-Let $Q_t^{-V}$ be the production-controlled score constructed without the
-D1--3 wind contribution and let $Q_t^{1:3}=Q_{t,1:3}^{C}$ be the
+Let $`Q_t^{-V}`$ be the production-controlled score constructed without the
+D1--3 wind contribution and let $`Q_t^{1:3}=Q_{t,1:3}^{C}`$ be the
 production-controlled D1--3 score before this guard. The
 guard intervenes only when all four conditions hold:
 
-$$
+```math
 G_t=
 A_t
 \land\mathbf 1\{V_t^{1:3}<0\}
 \land\mathbf 1\{Q_t^{-V}>0\}
 \land\mathbf 1\{Q_t^{1:3}<0\}.
-$$
+```
 
 The selected score is
 
-$$
+```math
 Q_t^G=
 \begin{cases}
 0, & G_t=1,\\
 Q_t^{1:3}, & G_t=0.
 \end{cases}
-$$
+```
 
 This rule has three deliberate limits. It cannot create or enlarge a long; it
 cannot change a short that was already present without wind; and it cannot be
@@ -3093,21 +3093,21 @@ activated by low storage without a contemporaneous qualifying fast shock.
 After the selected score is complete, it is delayed by one confirmed NYMEX
 trading session and bounded:
 
-$$
+```math
 P_t^{pre}=
 \operatorname{clip}(Q_{t-1}^G,-1,1).
-$$
+```
 
 The BSEE/Sabine event state from Section 3.10 is then applied to the held-return
-date. Let $E_t^{event}$ be its Boolean value. The final position is
+date. Let $`E_t^{event}`$ be its Boolean value. The final position is
 
-$$
+```math
 P_t=
 \begin{cases}
 0, & E_t^{event}=1\text{ and }P_t^{pre}<0,\\
 P_t^{pre}, & \text{otherwise}.
 \end{cases}
-$$
+```
 
 The event controller is therefore a pure short veto. It does not enter the
 continuous score, establish a long, enlarge a long, or change a non-conflicting
@@ -3116,22 +3116,22 @@ position.
 Turnover is absolute daily position change, with the pre-sample position taken
 as zero:
 
-$$
+```math
 Turnover_t=|P_t-P_{t-1}|,
 \qquad P_{t_0-1}=0.
-$$
+```
 
 Using the contract-consistent futures return from Section 3.11, daily gross and
 net strategy returns are
 
-$$
+```math
 r_t^{gross}=P_t r_t^{futures},
-$$
+```
 
-$$
+```math
 r_t^{net}=P_t r_t^{futures}
 -0.00025|P_t-P_{t-1}|.
-$$
+```
 
 The 2.5 basis-point rule charges changes in model exposure. It does not
 separately estimate bid/ask spread, market impact, or both mechanical legs of
@@ -3148,7 +3148,7 @@ as follows:
 | 1 | Construct seasonal CPC, wind, and fundamental base | Yes, through signed information | Yes |
 | 2 | Apply the production clamp to the base and again after each funded sleeve | No | Yes, by setting a negative intermediate score to zero |
 | 3 | Apply V03 storage-conditioned wind guard | No | Yes, only for a qualifying wind-driven sign reversal |
-| 4 | Lag one session and clip to $[-1,1]$ | No new information | Preserves the score direction subject to bounds |
+| 4 | Lag one session and clip to $`[-1,1]`$ | No new information | Preserves the score direction subject to bounds |
 | 5 | Apply BSEE/Sabine event veto | No | Yes, for a conflicting held short |
 
 Moving the event veto before the lag would assign the event to a different
