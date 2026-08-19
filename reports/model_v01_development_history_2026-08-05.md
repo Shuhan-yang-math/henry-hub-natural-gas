@@ -670,7 +670,7 @@ T^{cell}=T_{2m}+0.025DSWRF,
 
 ```math
 \eta_T =
-\operatorname{clip}\left(1-0.004(T^{cell}-25),0.75,1.10\right),
+\mathop{\text{clip}}\left(1-0.004(T^{cell}-25),0.75,1.10\right),
 ```
 
 ```math
@@ -709,7 +709,7 @@ The effective solar weight is further scaled by daylight:
 ```math
 w^{solar}_{t}
 =0.10\times
-\operatorname{clip}
+\mathop{\text{clip}}
 \left(
 \frac{SW^{extra,5d}_t}{10},
 0.25,1
@@ -1180,7 +1180,7 @@ evidence that the full position can be executed at that price.
 The complete score is delayed by one trading session:
 
 ```math
-P_t = \operatorname{clip}(\widetilde S_{t-1},-1,1).
+P_t = \mathop{\text{clip}}(\widetilde S_{t-1},-1,1).
 ```
 
 This conservative lag avoids using information labeled with date `t` to
@@ -1448,7 +1448,7 @@ The active score is passed through the freeze constraint described below,
 lagged by one trading day, and bounded:
 
 \[
-P_t = \operatorname{clip}(\widetilde A_{t-1},-1,1).
+P_t = \mathop{\text{clip}}(\widetilde A_{t-1},-1,1).
 \]
 
 The gross daily strategy return is

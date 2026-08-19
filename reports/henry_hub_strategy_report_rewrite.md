@@ -1035,7 +1035,7 @@ scores have been formed, the date relationship used by the backtest is
 
 ```math
 Position_{T_{j+1}}=
-\operatorname{clip}\left(Score_{T_j},-1,1\right).
+\mathop{\text{clip}}\left(Score_{T_j},-1,1\right).
 ```
 
 This equation records only the timing link. Chapter 4 defines how the
@@ -1312,7 +1312,7 @@ The D1--3 horizon shortfall is standardized over the preceding 60 complete
 z^{wind}_t=Z^{causal}_{60}(Q_{t,\{1,2,3\}}),
 \qquad
 Wind_t=\tanh\left(
-\frac{\operatorname{clip}(z^{wind}_t,-2,2)}{2}
+\frac{\mathop{\text{clip}}(z^{wind}_t,-2,2)}{2}
 \right).
 ```
 
@@ -1352,7 +1352,7 @@ d_r=1+0.033\cos\left(\frac{2\pi J}{365}\right),
 
 ```math
 \omega_s=\arccos\left[
-\operatorname{clip}(-\tan\phi_i\tan\delta,-1,1)
+\mathop{\text{clip}}(-\tan\phi_i\tan\delta,-1,1)
 \right],
 ```
 
@@ -1412,7 +1412,7 @@ Capacity-weighted surface radiation is then divided by capacity-weighted
 extraterrestrial horizontal radiation:
 
 ```math
-K_{t,d}=\operatorname{clip}\left(
+K_{t,d}=\mathop{\text{clip}}\left(
 \frac{\overline{E}^{surface}_{t,d}}
 {\overline{R}^{a}_{t,d}},0,1.2\right).
 ```
@@ -1424,7 +1424,7 @@ T^{cell}=T_{2m}+0.025\,DSWRF,
 ```
 
 ```math
-\eta_T=\operatorname{clip}
+\eta_T=\mathop{\text{clip}}
 \left[1-0.004(T^{cell}-25),0.75,1.10\right].
 ```
 
@@ -1450,7 +1450,7 @@ with at least 30 previous issues required. The separate deterministic
 daylight field retained for the model allocation is
 
 ```math
-DaylightScale_t=\operatorname{clip}\left(
+DaylightScale_t=\mathop{\text{clip}}\left(
 \frac{\frac{1}{5}\sum_{d=1}^{5}\overline{R}^{a}_{t,d}}{10},
 0.25,1\right).
 ```
@@ -1612,7 +1612,7 @@ The three month-over-month components enter as their signed z-scores shown
 above. Reference month $`M`$ becomes eligible at the beginning of $`M+3`$:
 
 ```math
-A_M^{monthly}=\operatorname{FirstCalendarDay}(M+3),
+A_M^{monthly}=\mathop{\text{FirstCalendarDay}}(M+3),
 ```
 
 and its completed score is then aligned by the ordinary backward as-of formula
@@ -1707,12 +1707,12 @@ Innovation_t=q_t-\overline q^{weekday}_t,
 
 ```math
 \sigma^{innovation}_t=
-\operatorname{SampleStd}
+\mathop{\text{SampleStd}}
 \left(Innovation_{t-1},\ldots,Innovation_{t-252}\right),
 ```
 
 ```math
-z^{power}_t=\operatorname{clip}\left(
+z^{power}_t=\mathop{\text{clip}}\left(
 -\frac{Innovation_t}{\sigma^{innovation}_t},-6,6
 \right),
 \qquad
@@ -1775,7 +1775,7 @@ continuous score. The exact definitions and implementation columns are:
 | Symbol and implementation column | Source | Formula and standardization | Strategy availability | Status in V03 |
 |---|---|---|---|---|
 | $`L_t^{prod}`$; `prod_freeze_local_level_score` | Open-Meteo NCEP GFS seamless forecasts for Appalachia, Permian, Haynesville, Bakken, and Eagle Ford, weighted by EIA STEO monthly marketed-gas production lagged three months | Five-day production-weighted local cold severity is transformed with `log1p` and divided by the 95th percentile of the prior 756 transformed observations, requiring 252. It is an unbounded trailing-quantile-scale score, not a z-score or a bounded signal. | Forecast nominal issue date, backward as-of for at most three calendar days; the completed score still receives the common one-session position lag. | Control-only level used by the production clamp and production-revision guard gate. |
-| $`\Delta_t^{prod}`$; `prod_freeze_local_revision_score` | Same weather and production-weight inputs as $`L_t^{prod}`$ | Same-valid-date change between the current issue's leads 1--4 and the previous issue's leads 2--5; the signed revision is transformed as $`\operatorname{sign}(x)\log(1+\lvert x\rvert)`$ and divided by the 95th percentile of the absolute transformed revision over the prior 756 observations, requiring 252. It is also an unbounded trailing-quantile-scale score. | Same as $`L_t^{prod}`$. | Control-only revision used by both asymmetric constraints. |
+| $`\Delta_t^{prod}`$; `prod_freeze_local_revision_score` | Same weather and production-weight inputs as $`L_t^{prod}`$ | Same-valid-date change between the current issue's leads 1--4 and the previous issue's leads 2--5; the signed revision is transformed as $`\mathop{\text{sign}}(x)\log(1+\lvert x\rvert)`$ and divided by the 95th percentile of the absolute transformed revision over the prior 756 observations, requiring 252. It is also an unbounded trailing-quantile-scale score. | Same as $`L_t^{prod}`$. | Control-only revision used by both asymmetric constraints. |
 | $`h_t`$; `hdd_revision_5d_z` | CPC five-day HDD forecast archive | Past-only causal z-score of the matched-target five-day HDD revision defined in Section 3.4, using 60 prior issues and requiring 30, before the CPC `tanh` transformation. Thus $`h_t=1`$ means a +1-standard-deviation revision on that causal reference scale. | `signal_available_date = issue_date + 1 calendar day`, backward as-of for at most three calendar days; then the common one-session position lag. | Shared weather diagnostic used by the guard; CDD is not a guard input. |
 | $`L_t^{storage}`$; `south_central_total_level_signal` | EIA South Central Total WNGSR working gas | $`L_t^{storage}=-Z^{causal}_{104}(LevelDeviation_t)`$, requiring 52 prior releases. This is the pre-`tanh` signed z-score; the continuous storage component is separately $`\tanh(L_t^{storage}/2)`$. | Actual audited WNGSR publication date and time, then backward as-of; holiday corrections and the common position lag apply. | Shared storage diagnostic used only as an amplifier in the wind guard. |
 | Central firm non-gas shortfall; `central_firm_nongas_shortfall` | EIA-930 complete gas-day data for ERCOT, MISO, and Southwest Power Pool | Capacity-unweighted system ratio of coal, nuclear, petroleum, hydro, geothermal, other-fuel, and unknown-fuel generation to demand. The past-eight-same-weekday innovation is divided by the prior-252-innovation standard deviation, sign-reversed, clipped to $`[-6,6]`$, and transformed as $`\tanh(z/2)`$. It excludes wind and solar and is therefore narrower than the continuous Central total-non-gas signal. | Source gas day maps to the first strictly later strategy score date; the latest source day is retained when several map to one score date. | Control-only Central firm-generation diagnostic. |
@@ -1808,10 +1808,10 @@ L_t^{prod}=
 
 ```math
 \Delta_t^{prod}=
-\frac{\operatorname{sign}(\Delta\Phi_t)
+\frac{\mathop{\text{sign}}(\Delta\Phi_t)
 \log(1+|\Delta\Phi_t|)}
 {Q_{0.95,t^-}^{756}
-[|\operatorname{sign}(\Delta\Phi)\log(1+|\Delta\Phi|)|]}.
+[|\mathop{\text{sign}}(\Delta\Phi)\log(1+|\Delta\Phi|)|]}.
 ```
 
 Both denominators exclude the current issue. The production weights use a
@@ -2291,7 +2291,7 @@ The completed score is delayed by one confirmed NYMEX trading session and
 bounded to a unit exposure:
 
 ```math
-P_t^{pre}=\operatorname{clip}(Q_{t-1}^G,-1,1).
+P_t^{pre}=\mathop{\text{clip}}(Q_{t-1}^G,-1,1).
 ```
 
 The final position applies the event risk veto to that executable exposure:
@@ -3095,7 +3095,7 @@ trading session and bounded:
 
 ```math
 P_t^{pre}=
-\operatorname{clip}(Q_{t-1}^G,-1,1).
+\mathop{\text{clip}}(Q_{t-1}^G,-1,1).
 ```
 
 The BSEE/Sabine event state from Section 3.10 is then applied to the held-return

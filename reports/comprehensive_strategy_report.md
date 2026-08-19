@@ -228,7 +228,7 @@ S_t = w_{W,t}W_t + w_{wind,t}Wind_t
 After the freeze control produces $`\widetilde S_t`$, the traded position is
 
 ```math
-P_t = \operatorname{clip}(\widetilde S_{t-1},-1,1).
+P_t = \mathop{\text{clip}}(\widetilde S_{t-1},-1,1).
 ```
 
 Net daily return is
@@ -409,7 +409,7 @@ T^{cell}=T_{2m}+0.025\,DSWRF,
 ```
 
 ```math
-\eta_T=\operatorname{clip}\left[1-0.004(T^{cell}-25),0.75,1.10\right].
+\eta_T=\mathop{\text{clip}}\left[1-0.004(T^{cell}-25),0.75,1.10\right].
 ```
 
 The PV-availability proxy is $`K_t\eta_T`$.
@@ -425,7 +425,7 @@ The nominal 10% solar allocation is multiplied by deterministic daylight:
 
 ```math
 w^{effective}_{solar,t}=0.10\times
-\operatorname{clip}\left(\frac{SW^{extra,5d}_t}{10},0.25,1\right).
+\mathop{\text{clip}}\left(\frac{SW^{extra,5d}_t}{10},0.25,1\right).
 ```
 
 The average effective weight is approximately 7.93%, with lower winter and

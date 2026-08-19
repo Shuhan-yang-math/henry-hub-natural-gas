@@ -43,7 +43,7 @@ z_{j,t}=\frac{Revision_{j,t}-\overline{Revision}_{j,<t}}
 The signal retains the revision with the larger absolute standardized value:
 
 ```math
-z_t^*=\operatorname*{arg\,max}_{z\in\{z_t^{LNG},z_t^{Storage}\}}|z|,
+z_t^*=\mathop{\text{arg max}}\limits_{z\in\{z_t^{LNG},z_t^{Storage}\}}|z|,
 ```
 
 and the temporary incremental position is
