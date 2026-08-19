@@ -572,8 +572,7 @@ A compact representation is:
 
 ```math
 \begin{aligned}
-NetAvailability_t={}&DeliverableSupply_t+StorageWithdrawal_t
-  +InboundTransfer_t\\
+NetAvailability_t={}&DeliverableSupply_t+StorageWithdrawal_t+InboundTransfer_t\\
 &-HeatingDemand_t-PowerDemand_t-IndustrialDemand_t-LNGDemand_t\\
 &-StorageInjection_t-OutboundTransfer_t.
 \end{aligned}
@@ -1218,8 +1217,7 @@ The fleet-level high-wind availability multiplier is
 A_{high}(v)=
 \begin{cases}
 1, & v\leq20,\\
-\dfrac{1+\cos\!\left(\pi\dfrac{v-20}{5}\right)}{2},
-&20<v<25,\\
+\dfrac{1+\cos\left(\pi(v-20)/5\right)}{2}, & 20\lt v\lt25,\\
 0, & v\geq25.
 \end{cases}
 ```
@@ -1293,11 +1291,8 @@ The value used for location $`i`$ is
 ```math
 h_{i,y}=
 \begin{cases}
-\widetilde h^{local}_{i,y},
-& \sum_{g\in G^{hh}_{i,y}}Capacity_g>0,\\
-\widetilde h^{fleet}_{y},
-& \sum_{g\in G^{hh}_{i,y}}Capacity_g=0
-  \text{ and }\sum_{g\in G^{hh}_{y}}Capacity_g>0,\\
+\widetilde h^{local}_{i,y}, & \sum_{g\in G^{hh}_{i,y}}Capacity_g\gt0,\\
+\widetilde h^{fleet}_{y}, & \sum_{g\in G^{hh}_{i,y}}Capacity_g=0\text{ and }\sum_{g\in G^{hh}_{y}}Capacity_g\gt0,\\
 80, & \text{otherwise}.
 \end{cases}
 ```
@@ -1938,12 +1933,9 @@ The contract-consistent daily return is
 ```math
 r^{futures}_t=
 \begin{cases}
-\dfrac{C2_t}{C2_{t-1}}-1,
-& I^{early}_t=1,\\[6pt]
-\dfrac{C1_t}{C2_{t-1}}-1,
-& \text{official rank switch on }t,\\[6pt]
-\dfrac{C1_t}{C1_{t-1}}-1,
-& \text{otherwise}.
+\dfrac{C2_t}{C2_{t-1}}-1, & I^{early}_t=1,\\
+\dfrac{C1_t}{C2_{t-1}}-1, & \text{official rank switch on }t,\\
+\dfrac{C1_t}{C1_{t-1}}-1, & \text{otherwise}.
 \end{cases}
 ```
 

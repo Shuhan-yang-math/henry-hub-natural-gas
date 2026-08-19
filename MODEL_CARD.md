@@ -190,9 +190,9 @@ unusually abundant firm non-gas supply.
 
 The selected signal is:
 
-\[
+```math
 S_t^{selected}=0.40S_t^{Central}+0.60S_t^{Florida}.
-\]
+```
 
 Both components are bounded continuous `tanh(z/2)` signals.  Their blend
 receives one fixed 10% top-level allocation funded from fundamentals.  It

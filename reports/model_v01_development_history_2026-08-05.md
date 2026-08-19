@@ -239,7 +239,7 @@ A historical observation can have at least three relevant dates:
 For example, an EIA value describing January production has a January
 reference month, may be published substantially later, and is assigned a
 still more conservative model-availability date at the start of April
-\((M+3)\). The observation must be joined to the trading calendar by the
+$`(M+3)`$. The observation must be joined to the trading calendar by the
 third date, not by the first.
 
 The “simulated availability” column records the operational rule used by the
@@ -255,7 +255,7 @@ Two different forms of look-ahead must therefore be distinguished:
   form in the database available at the time.
 
 The implementation controls date look-ahead more strongly than version
-look-ahead. A one-session lag, \(M+3\) monthly timing, and weekly-release
+look-ahead. A one-session lag, $`M+3`$ monthly timing, and weekly-release
 timing cannot remove future information embedded in a later revised snapshot.
 
 ### 4.2 CPC and GFS weather archives
@@ -309,13 +309,13 @@ location, commissioning year, capacity, hub height, and related equipment
 fields. It then reconstructs a historical fleet by filtering the current
 records according to commissioning year.
 
-For a forecast issued in year \(y\), the current policy permits only turbines
-whose recorded commissioning year is no later than \(y-1\):
+For a forecast issued in year $`y`$, the current policy permits only turbines
+whose recorded commissioning year is no later than $`y-1`$:
 
-\[
+```math
 EligibleWindFleet_y =
 \{i: CommissioningYear_i \le y-1\}.
-\]
+```
 
 This rule is conservative with respect to physical commissioning. It prevents
 a wind farm recorded as entering service in 2024 from affecting a 2022 wind
@@ -392,7 +392,7 @@ not identical:
 
 | Capacity history | Reconstruction unit | Timing control | Residual problem |
 |---|---|---|---|
-| Wind / USWTDB | Turbine or project by commissioning year | Only commission year \(\le y-1\) | Current turbine snapshot may contain later backfills or revisions |
+| Wind / USWTDB | Turbine or project by commissioning year | Only commission year $`\le y-1`$ | Current turbine snapshot may contain later backfills or revisions |
 | Solar / EIA | Generator capacity by operating month | Two-month capacity lag | Monthly history may be revised; distributed PV is incomplete |
 
 Neither issue automatically invalidates the weather signal. It means that
@@ -412,11 +412,11 @@ the actual release date. Without a complete first-release archive, the backtest
 can enforce the correct release day while still using a later revision.
 
 Production, LNG, imports, and exports are treated even more conservatively.
-Reference month \(M\) becomes usable only at the beginning of \(M+3\). This
+Reference month $`M`$ becomes usable only at the beginning of $`M+3`$. This
 avoids assigning the final monthly balance to the month in which it occurred.
 It also makes the signals deliberately slow.
 
-The \(M+3\) convention is a proxy rather than a reconstruction of every
+The $`M+3`$ convention is a proxy rather than a reconstruction of every
 historical EIA release calendar. Different tables may have different
 publication days, and later EIA revisions can change the reported history.
 The policy therefore trades some timeliness for a lower risk of direct date
@@ -580,16 +580,16 @@ The complete IC record for the selected capacity-factor specification is:
 | 2,620 | 0.06360 | 0.07843 | 0.002184 | 3.264 |
 
 These statistics use the causally standardized capacity-weighted wind
-shortfall at forecast date \(t\) and the roll-adjusted C1/C2 natural-gas
-futures return on the next trading day, \(r_{t+1}\). Pearson IC is their
+shortfall at forecast date $`t`$ and the roll-adjusted C1/C2 natural-gas
+futures return on the next trading day, $`r_{t+1}`$. Pearson IC is their
 linear correlation; Spearman IC is the correlation of their ranks. The beta
 comes from the regression
 
-\[
+```math
 r_{t+1}=\alpha+\beta\,WindSignal_t+\varepsilon_{t+1}.
-\]
+```
 
-HAC t is \(\hat\beta\) divided by a Newey-West heteroskedasticity- and
+HAC t is $`\hat\beta`$ divided by a Newey-West heteroskedasticity- and
 autocorrelation-consistent standard error with five lags, used because the
 wind factor contains overlapping one-to-five-day forecasts. The 2,620
 observations are the non-missing signal/next-return pairs. These IC statistics
@@ -957,8 +957,8 @@ The final monthly family contains:
 - net-import change.
 
 Consumption YoY and MoM remain in the schema at zero weight for auditability
-but do not affect the position. Monthly observation \(M\) is made available no
-earlier than \(M+3\), a deliberately conservative convention that prevents
+but do not affect the position. Monthly observation $`M`$ is made available no
+earlier than $`M+3`$, a deliberately conservative convention that prevents
 publication look-ahead.
 
 Unlike the storage and weather series, these monthly variables retain their
@@ -1112,7 +1112,7 @@ to 1.732, and a netted variant reached 1.754. The improvement was not stable:
 
 - development Sharpe fell from 1.721 to 1.464;
 - calendar-2020 contribution was approximately -6.15%;
-- the full-sample incremental-return test had \(p=0.134\).
+- the full-sample incremental-return test had $`p=0.134`$.
 
 The overlay was rejected because a higher full-sample ratio did not outweigh
 weaker development behavior and low statistical confidence.
@@ -1120,7 +1120,7 @@ weaker development behavior and low statistical confidence.
 An EBB nomination-cycle revision signal produced approximately 30 events in
 2026. Standalone event Sharpe was 2.529 and the hybrid event Sharpe was 2.469,
 but the average incremental return was only 1.43 basis points per event with
-\(p=0.437\). It moved the full formal Sharpe only from 1.673 to 1.678. This was
+$`p=0.437`$. It moved the full formal Sharpe only from 1.673 to 1.678. This was
 insufficient evidence for production.
 
 ### 7.10 Market-price overlays
@@ -1365,13 +1365,13 @@ Walk-forward is the more realistic selection test.
 
 ### 10.1 Fundamental subportfolio
 
-Let \(f_{j,t}\) be the signed, causally standardized, and compressed score for
-fundamental feature \(j\). The final fundamental score is
+Let $`f_{j,t}`$ be the signed, causally standardized, and compressed score for
+fundamental feature $`j`$. The final fundamental score is
 
-\[
+```math
 F_t = \sum_j \omega_j f_{j,t},
 \qquad \sum_j \omega_j = 1.
-\]
+```
 
 The production weights are:
 
@@ -1415,28 +1415,28 @@ Wind receives a larger shoulder allocation because renewable displacement can
 be a larger fraction of marginal power-sector gas demand in moderate-load
 conditions.
 
-Let \(W_t\) be the legacy CPC weather block and \(G_t\) the wind signal. The
+Let $`W_t`$ be the legacy CPC weather block and $`G_t`$ the wind signal. The
 pre-solar baseline is
 
-\[
+```math
 B_t = a_{s(t)}W_t + b_{s(t)}G_t + c_{s(t)}F_t,
-\]
+```
 
-where the coefficients depend only on the predeclared season \(s(t)\).
+where the coefficients depend only on the predeclared season $`s(t)`$.
 
 ### 10.3 Solar funding rule
 
-Let \(S_t\) be the solar signal and let \(e_t\) be its effective weight:
+Let $`S_t`$ be the solar signal and let $`e_t`$ be its effective weight:
 
-\[
+```math
 e_t = 0.10 \times \text{daylight-scale}_t.
-\]
+```
 
 Solar is funded from the fundamental sleeve:
 
-\[
+```math
 A_t = B_t + e_t(S_t-F_t).
-\]
+```
 
 This form makes the risk transfer explicit. Adding solar does not increase
 gross top-level exposure; it replaces part of the fundamental score on days
@@ -1447,24 +1447,24 @@ when solar information is physically relevant.
 The active score is passed through the freeze constraint described below,
 lagged by one trading day, and bounded:
 
-\[
+```math
 P_t = \mathop{\text{clip}}(\widetilde A_{t-1},-1,1).
-\]
+```
 
 The gross daily strategy return is
 
-\[
+```math
 r^{gross}_t = P_t r^{NG}_t,
-\]
+```
 
-where \(r^{NG}_t\) is the return of the causal continuous natural-gas futures
+where $`r^{NG}_t`$ is the return of the causal continuous natural-gas futures
 series. Net return applies 2.5 basis points to absolute position change:
 
-\[
+```math
 r^{net}_t =
 r^{gross}_t
 -0.00025\,|P_t-P_{t-1}|.
-\]
+```
 
 The one-day lag is part of the production definition. It prevents a forecast
 or report timestamp from being treated as if it were known before the modeled
@@ -1852,7 +1852,7 @@ live implementation should be evaluated with timestamped executable prices.
 
 ### 14.5 Risk is bounded but not fully budgeted
 
-The final total position is clipped to \([-1,1]\), seasonal top-level weights
+The final total position is clipped to $`[-1,1]`$, seasonal top-level weights
 limit nominal concentration, and the freeze rule controls one winter short
 tail. However, the production model has no explicit ex-ante marginal risk
 contribution limit for the wind sleeve. The concentrated 2025 wind losses show
@@ -1861,7 +1861,7 @@ that this remains a material limitation.
 ### 14.6 Monthly staleness is only partially measurable
 
 Age since publication is observable, but economic age begins at the reference
-month, not the publication date. A value first used at \(M+3\) is already
+month, not the publication date. A value first used at $`M+3`$ is already
 stale before the post-release decay clock starts. This makes a simple
 half-life parameter an incomplete solution to monthly latency.
 
@@ -1976,24 +1976,23 @@ For every decision date:
    from the fundamental sleeve.
 9. Apply the winter freeze short-control.
 10. Apply the BSEE/Sabine pure short veto when its event state is active.
-11. Lag the complete score by one trading session and clip to \([-1,1]\).
+11. Lag the complete score by one trading session and clip to $`[-1,1]`$.
 12. Apply the position to the causal rolled C1/C2 futures return.
 13. Deduct 2.5 basis points per unit of absolute position change.
 14. Store inputs, component scores, controls, position, return, and costs.
 
 In compact notation:
 
-\[
+```math
 \begin{aligned}
 F_t &= \sum_j \omega_j f_{j,t},\\
 B_t &= a_{s(t)}W_t+b_{s(t)}G_t+c_{s(t)}F_t,\\
 A_t &= B_t+e_t(S_t-F_t),\\
 \widetilde A_t &= FreezeControl(A_t + 0.10EIA930_t),\\
 P_t &= EventVeto\!\left(clip(\widetilde A_{t-1},-1,1)\right),\\
-r^{net}_t &= P_t r^{NG}_t
-            -0.00025|P_t-P_{t-1}|.
+r^{net}_t &= P_t r^{NG}_t-0.00025|P_t-P_{t-1}|.
 \end{aligned}
-\]
+```
 
 ---
 

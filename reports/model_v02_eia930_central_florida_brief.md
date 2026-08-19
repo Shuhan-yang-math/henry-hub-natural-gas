@@ -38,14 +38,14 @@ The Central signal uses total non-gas generation relative to demand across
 ERCOT, MISO, and SPP.  The Florida signal uses firm non-gas generation relative
 to demand:
 
-\[
+```math
 S^{FL}_t =
 -\tanh\left[
 \frac{1}{2}z_t\left(
 \frac{Coal_t+Nuclear_t+Water_t}{Demand_t}
 \right)
 \right].
-\]
+```
 
 A positive Florida signal indicates that coal, nuclear, and water generation
 supply an unusually small share of Florida demand, increasing the probability
