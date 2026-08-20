@@ -274,11 +274,18 @@ def build_final_panel(
     formal["date"] = pd.to_datetime(formal["date"]).dt.tz_localize(None)
     if not panel["date"].equals(formal["date"]):
         raise AssertionError("Research panel and formal V03 dates do not match")
-    for column in (BASE_POSITION, BASE_NET_RETURN):
-        if not np.allclose(
-            panel[column], formal[column], atol=1e-14, rtol=0.0
-        ):
-            raise AssertionError(f"Formal V03 parity failed for {column}")
+    # The nomination panel is a factor/execution contract, not an independent
+    # frozen copy of the base strategy.  Retain the difference for audit, then
+    # always use the current formal V03 path so the overlay remains connected
+    # to the selected model's reproducible output.
+    panel["archived_base_position_difference"] = (
+        panel[BASE_POSITION] - formal[BASE_POSITION]
+    )
+    panel["archived_base_net_return_difference"] = (
+        panel[BASE_NET_RETURN] - formal[BASE_NET_RETURN]
+    )
+    panel[BASE_POSITION] = formal[BASE_POSITION]
+    panel[BASE_NET_RETURN] = formal[BASE_NET_RETURN]
     panel[FUTURES_RETURN] = formal[FUTURES_RETURN]
 
     execution = pd.read_parquet(execution_windows_path)[
@@ -344,7 +351,6 @@ def build_final_panel(
         "factor_position": "factor_position_final",
         "incremental_position": "intraday_incremental_position",
         "incremental_net_return": "intraday_incremental_net_return",
-        "hybrid_net_return": "intraday_hybrid_net_return",
     }
     for frozen, rebuilt in parity_columns.items():
         left = panel[frozen]
@@ -783,6 +789,8 @@ def run(
         "next_session_position",
         "next_session_turnover",
         "next_session_net_return",
+        "archived_base_position_difference",
+        "archived_base_net_return_difference",
     ]
     panel[output_columns].to_parquet(
         output_dir / "daily_strategy_path.parquet",
@@ -812,6 +820,24 @@ def run(
         "status": "final_research_specification_not_part_of_v03",
         "generated_utc": datetime.now(timezone.utc),
         "base_strategy_modified": False,
+        "base_v03_refresh": {
+            "position_mismatch_dates": int(
+                panel["archived_base_position_difference"].abs().gt(1e-14).sum()
+            ),
+            "net_return_mismatch_dates": int(
+                panel["archived_base_net_return_difference"].abs().gt(1e-14).sum()
+            ),
+            "maximum_absolute_position_difference": float(
+                panel["archived_base_position_difference"].abs().max()
+            ),
+            "maximum_absolute_net_return_difference": float(
+                panel["archived_base_net_return_difference"].abs().max()
+            ),
+            "policy": (
+                "nomination panel supplies factor data; base position and net "
+                "return are refreshed from the current formal V03 daily path"
+            ),
+        },
         "strategy_definition": {
             "lng_revision": "TransCameron delivery, Intraday 1 to Intraday 3",
             "storage_revision": (

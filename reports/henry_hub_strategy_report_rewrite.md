@@ -1044,10 +1044,10 @@ The build also separates source reconstruction from model evaluation. Raw and
 processed inputs are identified by immutable Google Cloud Storage object
 generations and SHA-256 hashes. The master-panel build validates 72 direct
 inputs; the weather build validates 254 monthly GFS partitions and two frozen
-capacity snapshots; and the selected-strategy manifest validates 13 compact
-score, EIA-930, event, storage-calendar, and capacity objects. The resulting
-objects can therefore be traced from a source generation to a daily model
-column without re-querying a mutable public endpoint.
+capacity snapshots; and the selected-strategy manifest validates 14 upstream
+and parity EIA-930, event, storage-calendar, score, and capacity objects. The
+resulting objects can therefore be traced from a source generation to a daily
+model column without re-querying a mutable public endpoint.
 
 ### 3.2 Active data inventory
 
@@ -3225,7 +3225,8 @@ The model layer is represented by the following checked-in objects:
 | [`results/models/v03_d1_3_storage_guard/`](../results/models/v03_d1_3_storage_guard/) | Selected V03 daily positions, intervention flags, metrics, and dashboard. |
 | [`naturalgas/evaluate_chapter5_performance.py`](../naturalgas/evaluate_chapter5_performance.py) | Reproduces the Chapter 5 annual intervention attribution, cumulative-NAV figure, and drawdown figure from the frozen V03 daily path. |
 | [`chapter5_intervention_attribution.csv`](../results/models/v03_d1_3_storage_guard/chapter5_intervention_attribution.csv) | Annual guard and event-veto counts and paired net-return contributions. |
-| [`selected_strategy_inputs_2026-08-14.json`](../manifests/selected_strategy_inputs_2026-08-14.json) | Immutable compact score, EIA-930, event, storage-calendar, and capacity inputs used by V03. |
+| [`naturalgas/build_model_v03_score_inputs.py`](../naturalgas/build_model_v03_score_inputs.py) | Rebuilds EIA-930 signals, fundamentals, controls, pre-guard scores, and WNGSR corrections from pinned upstream inputs. |
+| [`selected_strategy_inputs_2026-08-14.json`](../manifests/selected_strategy_inputs_2026-08-14.json) | Immutable V03 upstream inputs and frozen parity targets; the compact score is not a strict-build calculation input. |
 
 The Chapter 5 comparisons use these frozen daily paths while keeping the
 longer V01 history separate from the shorter V03 common sample. The reported

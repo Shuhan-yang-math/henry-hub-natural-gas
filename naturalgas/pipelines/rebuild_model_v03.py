@@ -1,12 +1,13 @@
-"""Rebuild model V03 from generation-pinned GCS inputs.
+"""Rebuild model V03 from generation-pinned upstream inputs.
 
-The large NCAR/GDEX point archive remains in Google Cloud Storage.  This
-pipeline reads the exact object generations declared in the checked-in weather
-manifest, rebuilds the causal D1/D1--3/D1--5 wind signals, proves that the wind
-columns consumed by the compact selected-strategy audit input are identical,
-downloads and validates every selected-strategy audit object declared in the
-selected-input manifest, and then runs the selected evaluator. It has no GCS
-write capability.
+This standalone path downloads the approved processed master-panel and EIA
+inputs, rebuilds wind and solar from the pinned raw weather/capacity archive,
+reconstructs the Central/Florida power signals, fundamentals, production
+controls, pre-guard scores, storage-calendar correction, and final guard, then
+runs the selected evaluator.  The frozen compact score is used only as a
+parity target.  Use :mod:`naturalgas.pipelines.rebuild_all` when the master
+panel itself must also be rebuilt from its 72 direct inputs.  Neither command
+can write to Google Cloud Storage.
 """
 
 from __future__ import annotations
@@ -19,20 +20,28 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from naturalgas.build_model_v03_score_inputs import (
+    build_score_inputs,
+    write_score_input_build,
+)
 from naturalgas.evaluate_model_v03_d1_3_storage_guard import (
-    DEFAULT_EVENT_REPORTS_PATH,
     DEFAULT_OUTPUT_DIR as SHIPPED_OUTPUT_DIR,
-    MODEL_V01_DAILY,
-    SCORE_INPUTS,
-    STORAGE_CALENDAR_CORRECTIONS,
     run as run_model_v03_evaluator,
+)
+from naturalgas.pipelines.rebuild_model_v01 import (
+    artifact_paths,
+    local_filesystem,
+    rebuild_model_v01,
 )
 from naturalgas.pipelines.rebuild_weather_factors import (
     WIND_HORIZON_OUTPUT_NAME,
     load_factor_inputs,
+    rebuild_selected_wind,
+    rebuild_solar,
     rebuild_wind_horizons,
 )
 from naturalgas.reproducibility import (
+    DEFAULT_MANIFEST as DEFAULT_FORMAL_MANIFEST,
     PROJECT_ROOT,
     create_staging_directory,
     discard_staging_directory,
@@ -54,6 +63,10 @@ WIND_SIGNAL_COLUMNS = ("wind_signal__d1_3", "wind_signal__d1_5")
 SCORE_INPUT_ARTIFACT_ID = "selected_d1_3_storage_amplifier_inputs"
 STORAGE_CORRECTION_ARTIFACT_ID = "selected_wngsr_d1_3_score_corrections"
 EVENT_REPORT_ARTIFACT_ID = "selected_event_reports_aligned"
+CENTRAL_EIA930_SOURCE_ARTIFACT_ID = "selected_eia930_central_daily_multifuel"
+SOUTHEAST_EIA930_SOURCE_ARTIFACT_ID = (
+    "selected_eia930_southeast_daily_multifuel"
+)
 
 
 def fetch_selected_strategy_inputs(
@@ -68,6 +81,8 @@ def fetch_selected_strategy_inputs(
         SCORE_INPUT_ARTIFACT_ID,
         STORAGE_CORRECTION_ARTIFACT_ID,
         EVENT_REPORT_ARTIFACT_ID,
+        CENTRAL_EIA930_SOURCE_ARTIFACT_ID,
+        SOUTHEAST_EIA930_SOURCE_ARTIFACT_ID,
     }
     missing = required.difference(paths)
     if missing:
@@ -267,82 +282,158 @@ def evaluate_model_v03_with_horizon(
 def rebuild_model_v03(
     *,
     weather_manifest: Path = DEFAULT_WEATHER_MANIFEST,
-    selected_input_manifest: Path | None = DEFAULT_SELECTED_INPUT_MANIFEST,
-    model_v01_daily_path: Path = MODEL_V01_DAILY,
-    score_inputs_path: Path = SCORE_INPUTS,
-    storage_calendar_corrections_path: Path = STORAGE_CALENDAR_CORRECTIONS,
-    event_reports_path: Path = DEFAULT_EVENT_REPORTS_PATH,
+    formal_manifest: Path = DEFAULT_FORMAL_MANIFEST,
+    selected_input_manifest: Path = DEFAULT_SELECTED_INPUT_MANIFEST,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
     overwrite: bool = False,
 ) -> dict[str, Any]:
-    """Run the standalone pinned-GCS-wind-to-selected-strategy rebuild."""
+    """Run the processed-upstream-to-selected-strategy V03 rebuild."""
 
     staging, resolved_output = create_staging_directory(
         output_dir,
         overwrite=overwrite,
     )
     try:
-        selected_paths: dict[str, Path] | None = None
-        logical_selected_paths: dict[str, Path] = {}
-        if selected_input_manifest is not None:
-            selected_paths = fetch_selected_strategy_inputs(
-                selected_input_manifest,
-                root=staging,
-            )
-            logical_selected_paths = {
-                artifact_id: resolved_output / path.relative_to(staging)
-                for artifact_id, path in selected_paths.items()
-            }
-            score_inputs_path = selected_paths[SCORE_INPUT_ARTIFACT_ID]
-            storage_calendar_corrections_path = selected_paths[
-                STORAGE_CORRECTION_ARTIFACT_ID
-            ]
-            event_reports_path = selected_paths[EVENT_REPORT_ARTIFACT_ID]
-        wind = rebuild_wind_horizons(
-            inputs=load_factor_inputs(weather_manifest, "wind"),
-            output_dir=staging / "wind",
+        fetch_manifest(formal_manifest, root=staging)
+        formal_paths = artifact_paths(formal_manifest, root=staging)
+        selected_paths = fetch_selected_strategy_inputs(
+            selected_input_manifest,
+            root=staging,
         )
-        horizon_path = Path(wind["output"])
+        logical_selected_paths = {
+            artifact_id: resolved_output / path.relative_to(staging)
+            for artifact_id, path in selected_paths.items()
+        }
+
+        weather_dir = staging / "weather"
+        wind_inputs = load_factor_inputs(weather_manifest, "wind")
+        selected_wind = rebuild_selected_wind(
+            inputs=wind_inputs,
+            output_dir=weather_dir,
+        )
+        wind_horizons = rebuild_wind_horizons(
+            inputs=wind_inputs,
+            output_dir=weather_dir,
+        )
+        solar = rebuild_solar(
+            inputs=load_factor_inputs(weather_manifest, "solar"),
+            output_dir=weather_dir,
+        )
+        horizon_path = Path(wind_horizons["output"])
+        logical_weather_dir = resolved_output / "weather"
+        logical_weather_paths = {
+            "capacity_weighted_wind_features_daily": (
+                logical_weather_dir / Path(selected_wind["output"]).name
+            ),
+            "capacity_weighted_solar_signals": (
+                logical_weather_dir / Path(solar["signal_output"]).name
+            ),
+            "capacity_weighted_location_leads": (
+                logical_weather_dir / Path(solar["lead_output"]).name
+            ),
+        }
+
+        model_v01 = rebuild_model_v01(
+            manifest_path=formal_manifest,
+            root=staging,
+            output_dir=staging / "model_v01",
+            fetch=False,
+            overwrite=False,
+            artifact_overrides={
+                "capacity_weighted_wind_features_daily": Path(
+                    selected_wind["output"]
+                ),
+                "capacity_weighted_solar_signals": Path(
+                    solar["signal_output"]
+                ),
+                "capacity_weighted_location_leads": Path(
+                    solar["lead_output"]
+                ),
+            },
+            receipt_output_dir=resolved_output / "model_v01",
+            receipt_override_paths=logical_weather_paths,
+        )
+
+        score_dir = staging / "score_inputs"
+        score_build = build_score_inputs(
+            panel_path=formal_paths["ng_multisignal_panel"],
+            wind_path=Path(selected_wind["output"]),
+            wind_horizon_path=horizon_path,
+            solar_signal_path=Path(solar["signal_output"]),
+            solar_lead_path=Path(solar["lead_output"]),
+            central_eia930_path=selected_paths[
+                CENTRAL_EIA930_SOURCE_ARTIFACT_ID
+            ],
+            southeast_eia930_path=selected_paths[
+                SOUTHEAST_EIA930_SOURCE_ARTIFACT_ID
+            ],
+            filesystem=local_filesystem(formal_manifest, root=staging),
+            frozen_score_inputs_path=selected_paths[SCORE_INPUT_ARTIFACT_ID],
+            frozen_storage_corrections_path=selected_paths[
+                STORAGE_CORRECTION_ARTIFACT_ID
+            ],
+        )
+        score_receipt = write_score_input_build(
+            score_build,
+            output_dir=score_dir,
+            receipt_output_dir=resolved_output / "score_inputs",
+        )
         strategy = evaluate_model_v03_with_horizon(
             horizon_path=horizon_path,
-            model_v01_daily_path=model_v01_daily_path,
-            score_inputs_path=score_inputs_path,
-            storage_calendar_corrections_path=storage_calendar_corrections_path,
-            event_reports_path=event_reports_path,
+            model_v01_daily_path=staging / "model_v01/strategy_daily.parquet",
+            score_inputs_path=score_dir / "model_v03_score_inputs.parquet",
+            storage_calendar_corrections_path=(
+                score_dir / "wngsr_score_corrections.parquet"
+            ),
+            event_reports_path=selected_paths[EVENT_REPORT_ARTIFACT_ID],
             output_dir=staging / "strategy",
             logical_output_dir=resolved_output / "strategy",
-            logical_score_inputs_path=logical_selected_paths.get(
-                SCORE_INPUT_ARTIFACT_ID
+            logical_model_v01_daily_path=(
+                resolved_output / "model_v01/strategy_daily.parquet"
+            ),
+            logical_score_inputs_path=(
+                resolved_output / "score_inputs/model_v03_score_inputs.parquet"
             ),
             logical_storage_calendar_corrections_path=(
-                logical_selected_paths.get(STORAGE_CORRECTION_ARTIFACT_ID)
+                resolved_output / "score_inputs/wngsr_score_corrections.parquet"
             ),
             logical_event_reports_path=logical_selected_paths.get(
                 EVENT_REPORT_ARTIFACT_ID
             ),
         )
-        wind_receipt = dict(wind)
+        wind_receipt = dict(wind_horizons)
         wind_receipt["output"] = str(
-            resolved_output / "wind" / WIND_HORIZON_OUTPUT_NAME
+            resolved_output / "weather" / WIND_HORIZON_OUTPUT_NAME
+        )
+        selected_wind_receipt = dict(selected_wind)
+        selected_wind_receipt["output"] = str(
+            logical_weather_paths["capacity_weighted_wind_features_daily"]
+        )
+        solar_receipt = dict(solar)
+        solar_receipt["signal_output"] = str(
+            logical_weather_paths["capacity_weighted_solar_signals"]
+        )
+        solar_receipt["lead_output"] = str(
+            logical_weather_paths["capacity_weighted_location_leads"]
         )
         receipt = {
             "status": "verified",
+            "rebuild_boundary": "processed upstream inputs through V03 result",
+            "cpc_data_issue_changed": False,
             "weather_manifest": str(weather_manifest),
             "weather_manifest_sha256": sha256_file(weather_manifest),
-            "selected_input_manifest": (
-                None
-                if selected_input_manifest is None
-                else str(selected_input_manifest)
+            "formal_manifest": str(formal_manifest),
+            "formal_manifest_sha256": sha256_file(formal_manifest),
+            "selected_input_manifest": str(selected_input_manifest),
+            "selected_input_manifest_sha256": sha256_file(
+                selected_input_manifest
             ),
-            "selected_input_manifest_sha256": (
-                None
-                if selected_input_manifest is None
-                else sha256_file(selected_input_manifest)
-            ),
-            "selected_input_artifacts_validated": (
-                0 if selected_paths is None else len(selected_paths)
-            ),
+            "selected_input_artifacts_validated": len(selected_paths),
+            "selected_wind_rebuild": selected_wind_receipt,
+            "solar_rebuild": solar_receipt,
             "wind_horizon_rebuild": wind_receipt,
+            "model_v01_rebuild": model_v01,
+            "source_to_score_rebuild": score_receipt,
             "model_v03_rebuild": strategy,
         }
         (staging / "reproduction_receipt.json").write_text(
@@ -364,23 +455,14 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_WEATHER_MANIFEST,
     )
     parser.add_argument(
+        "--formal-manifest",
+        type=Path,
+        default=DEFAULT_FORMAL_MANIFEST,
+    )
+    parser.add_argument(
         "--selected-input-manifest",
         type=Path,
         default=DEFAULT_SELECTED_INPUT_MANIFEST,
-    )
-    parser.add_argument(
-        "--model-v01-daily", type=Path, default=MODEL_V01_DAILY
-    )
-    parser.add_argument("--score-inputs", type=Path, default=SCORE_INPUTS)
-    parser.add_argument(
-        "--storage-calendar-corrections",
-        type=Path,
-        default=STORAGE_CALENDAR_CORRECTIONS,
-    )
-    parser.add_argument(
-        "--event-reports",
-        type=Path,
-        default=DEFAULT_EVENT_REPORTS_PATH,
     )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--overwrite", action="store_true")
@@ -391,11 +473,8 @@ def main() -> None:
     args = parse_args()
     receipt = rebuild_model_v03(
         weather_manifest=args.weather_manifest,
+        formal_manifest=args.formal_manifest,
         selected_input_manifest=args.selected_input_manifest,
-        model_v01_daily_path=args.model_v01_daily,
-        score_inputs_path=args.score_inputs,
-        storage_calendar_corrections_path=args.storage_calendar_corrections,
-        event_reports_path=args.event_reports,
         output_dir=args.output_dir,
         overwrite=args.overwrite,
     )

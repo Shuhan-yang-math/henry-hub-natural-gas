@@ -5,9 +5,10 @@ panel plus 254 weather partitions, two raw capacity snapshots, and the complete
 selected-strategy input archive.
 It rebuilds the panel after applying the audited NYMEX session filter and
 rebuilds the selected wind/solar artifacts plus the D1--3 horizon lineage
-byte-for-byte, then uses the pinned EIA inputs to recompute the formal and
-selected D1--3 strategies. All outputs are local; this entry point has no GCS
-write capability.
+byte-for-byte, reconstructs the V03 Central/Florida signals and every
+pre-guard score from independent upstream inputs, and then recomputes the
+formal and selected D1--3 strategies. All outputs are local; this entry point
+has no GCS write capability.
 """
 
 from __future__ import annotations
@@ -16,17 +17,26 @@ import argparse
 import json
 from pathlib import Path
 
+from naturalgas.build_model_v03_score_inputs import (
+    build_score_inputs,
+    write_score_input_build,
+)
 from naturalgas.build_multisignal_panel import (
     DEFAULT_INPUT_MANIFEST as DEFAULT_PANEL_MANIFEST,
     build_from_manifest,
     load_input_manifest,
     write_panel,
 )
-from naturalgas.pipelines.rebuild_model_v01 import rebuild_model_v01
+from naturalgas.pipelines.rebuild_model_v01 import (
+    local_filesystem,
+    rebuild_model_v01,
+)
 from naturalgas.pipelines.rebuild_model_v03 import (
+    CENTRAL_EIA930_SOURCE_ARTIFACT_ID,
     DEFAULT_SELECTED_INPUT_MANIFEST,
     EVENT_REPORT_ARTIFACT_ID,
     SCORE_INPUT_ARTIFACT_ID,
+    SOUTHEAST_EIA930_SOURCE_ARTIFACT_ID,
     STORAGE_CORRECTION_ARTIFACT_ID,
     evaluate_model_v03_with_horizon,
     fetch_selected_strategy_inputs,
@@ -191,15 +201,51 @@ def rebuild_all(
                 for artifact_id, path in selected_paths.items()
             }
             selected_input_artifact_count = len(selected_paths)
+            score_input_dir = staging / "models/v03_score_inputs"
+            score_build = build_score_inputs(
+                panel_path=panel_path,
+                wind_path=artifact_overrides[
+                    "capacity_weighted_wind_features_daily"
+                ],
+                wind_horizon_path=Path(horizon_result["output"]),
+                solar_signal_path=artifact_overrides[
+                    "capacity_weighted_solar_signals"
+                ],
+                solar_lead_path=artifact_overrides[
+                    "capacity_weighted_location_leads"
+                ],
+                central_eia930_path=selected_paths[
+                    CENTRAL_EIA930_SOURCE_ARTIFACT_ID
+                ],
+                southeast_eia930_path=selected_paths[
+                    SOUTHEAST_EIA930_SOURCE_ARTIFACT_ID
+                ],
+                filesystem=local_filesystem(formal_manifest, root=root),
+                frozen_score_inputs_path=selected_paths[
+                    SCORE_INPUT_ARTIFACT_ID
+                ],
+                frozen_storage_corrections_path=selected_paths[
+                    STORAGE_CORRECTION_ARTIFACT_ID
+                ],
+            )
+            score_input_receipt = write_score_input_build(
+                score_build,
+                output_dir=score_input_dir,
+                receipt_output_dir=(
+                    resolved_output / "models/v03_score_inputs"
+                ),
+            )
             model_v03 = evaluate_model_v03_with_horizon(
                 horizon_path=Path(horizon_result["output"]),
                 model_v01_daily_path=(
                     staging
                     / "models/v01_south_central_storage/strategy_daily.parquet"
                 ),
-                score_inputs_path=selected_paths[SCORE_INPUT_ARTIFACT_ID],
+                score_inputs_path=(
+                    score_input_dir / "model_v03_score_inputs.parquet"
+                ),
                 storage_calendar_corrections_path=(
-                    selected_paths[STORAGE_CORRECTION_ARTIFACT_ID]
+                    score_input_dir / "wngsr_score_corrections.parquet"
                 ),
                 event_reports_path=selected_paths[EVENT_REPORT_ARTIFACT_ID],
                 output_dir=staging / "models/v03_d1_3_storage_guard",
@@ -210,16 +256,19 @@ def rebuild_all(
                     resolved_output
                     / "models/v01_south_central_storage/strategy_daily.parquet"
                 ),
-                logical_score_inputs_path=logical_selected_paths[
-                    SCORE_INPUT_ARTIFACT_ID
-                ],
+                logical_score_inputs_path=(
+                    resolved_output
+                    / "models/v03_score_inputs/model_v03_score_inputs.parquet"
+                ),
                 logical_storage_calendar_corrections_path=(
-                    logical_selected_paths[STORAGE_CORRECTION_ARTIFACT_ID]
+                    resolved_output
+                    / "models/v03_score_inputs/wngsr_score_corrections.parquet"
                 ),
                 logical_event_reports_path=logical_selected_paths[
                     EVENT_REPORT_ARTIFACT_ID
                 ],
             )
+            model_v03["source_to_score_rebuild"] = score_input_receipt
         receipt = {
             "status": "verified",
             "panel_manifest": str(panel_manifest),

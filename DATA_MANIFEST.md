@@ -33,10 +33,10 @@ The default command performs six steps:
    mutable live GCS keys; and
 5. rebuilds V01 from the corrected panel and verifies its headline metrics and
    complete summary-file SHA-256 against the shipped summary; and
-6. downloads and validates all 13 objects in the selected-strategy archive,
-   requires the raw-rebuilt D1--3 and D1--5 wind signals to equal its compact
-   score contract on every score date, then rebuilds and verifies the selected
-   D1--3 result.
+6. downloads and validates all 14 objects in the selected-strategy archive,
+   rebuilds Central/Florida EIA-930 signals, fundamentals, production controls,
+   no-wind/D1--3/D1--5 scores, the WNGSR correction, and the guard, then verifies
+   the selected result. The frozen compact contract is comparison evidence only.
 
 For a quicker formal-only audit that rebuilds the master panel but downloads
 the three approved wind/solar artifacts and skips the selected D1--3 raw-wind
@@ -114,15 +114,15 @@ inputs.
 ## Selected strategy enhancement inputs
 
 The selected enhancement keeps intermediate audit data out of Git. Compact
-score inputs, EIA-930 source/rolling tables, event inputs, and capacity
-snapshots are archived under the immutable GCS prefix
-`gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/`.
+parity targets, EIA-930 source/rolling tables, event inputs, and capacity
+snapshots are archived at immutable GCS generations.
 [`manifests/selected_strategy_inputs_2026-08-14.json`](manifests/selected_strategy_inputs_2026-08-14.json)
-pins all 13 objects by generation, SHA-256, size, dimensions, and required
+pins all 14 objects by generation, SHA-256, size, dimensions, and required
 columns. They remain separate from the seven formal processed inputs.
 
 | Manifest artifact id | Rows | Coverage | SHA-256 | Use |
 |---|---:|---|---|---|
+| `selected_eia930_central_daily_multifuel` | 8,253 | revised respondent-days | `e275a32768822d152a369f9e5b42730fdc67bda7ba5e39a2282d072acc81987a` | Rebuild Central total- and firm-non-gas signals from ERCO/MISO/SWPP source rows |
 | `selected_eia930_southeast_daily_multifuel` | 49,518 | 2019-01-01–2026-07-13 respondent-days | `332bbf025b5f9536adf5148aa40be09cd80f596d49a39f058f1d7eea132542e4` | Frozen revised EIA-930 daily BA demand and generation source |
 | `selected_florida_available_ba_signal_history` | 1,752 | 2019-07-24–2026-07-14 score dates | `c34597ae140a9251c07e670649f2f8d5a1fd6d8ea8a80d4c8dc7e4b84616189b` | Deterministic daily-available-BA Florida signal and rolling lineage |
 | `selected_eia930_overlay_inputs` | 1,751 | 2019-07-24–2026-07-13 score dates | `80118666e3c63062c87441435c78f729676560b08b77cfcee1c9afe8b969f155` | Central total non-gas and daily-available-BA Florida shortfalls, production short-block state, and lineage |
@@ -160,11 +160,11 @@ Rebuild those artifacts with:
 python naturalgas/evaluate_model_v02_eia930_central_florida.py
 ```
 
-The current selected D1--3 strategy reads the compact wind/guard input with
-embedded Florida BA coverage and the narrow WNGSR correction overlay above.
-Its wind columns are no longer accepted as an unaudited frozen boundary: the
-strict pipeline rebuilds them from the generation-pinned GCS GFS archive and
-requires exact equality before the evaluator runs. The strategy writes:
+The fast downstream evaluator can still read the compact wind/guard contract.
+The supported strict pipelines do not: they rebuild wind, solar, fundamentals,
+Central/Florida EIA-930 signals, production controls, all pre-guard scores, the
+WNGSR correction, and the final guard. The compact object is retained only for
+explicit parity reporting. The strategy writes:
 
 ```text
 results/models/v03_d1_3_storage_guard/strategy_daily.parquet
@@ -183,17 +183,24 @@ python naturalgas/evaluate_model_v03_d1_3_storage_guard.py
 ```
 
 That is the fast downstream path: missing audit inputs are downloaded from
-their exact GCS generations. The strict raw-wind-to-result path is:
+their exact GCS generations. The strict processed-upstream-to-result path is:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_model_v03 --overwrite
 ```
 
-It writes the raw-rebuilt `wind_horizon_signals.parquet`, selected-strategy
-artifacts, and a lineage receipt under
+It writes rebuilt wind/solar artifacts, `model_v03_score_inputs.parquet`, both
+regional EIA-930 histories, the WNGSR correction, selected-strategy artifacts,
+and a lineage receipt under
 `reproduced/models/v03_d1_3_storage_guard/`. For the
 formal master panel and selected strategy in one transaction, use
 `python -m naturalgas.pipelines.rebuild_all --overwrite`.
+
+The source-built score contract has 1,750 rows. The frozen compact parity
+target has two additional legacy rows, September 2 and December 25, 2019,
+which are not confirmed NYMEX sessions in the corrected master panel. All
+1,750 shared dates match exactly for the rebuilt upstream fields and all three
+pre-guard scores; the receipt lists the two frozen-only dates explicitly.
 
 The byte-exact weather rebuild starts from generation-pinned raw USWTDB and
 EIA-860M snapshots in GCS. The builder has been checked to regenerate the wind
@@ -266,7 +273,7 @@ The five inventories have different roles:
 - [`manifests/weather_factor_inputs_2026-07-28.json`](manifests/weather_factor_inputs_2026-07-28.json)
   pins 254 weather partitions and raw USWTDB/EIA-860M capacity snapshots;
 - [`manifests/selected_strategy_inputs_2026-08-14.json`](manifests/selected_strategy_inputs_2026-08-14.json)
-  pins 13 exact selected-strategy, EIA-930/event audit, storage-correction, and
+  pins 14 exact selected-strategy, EIA-930/event audit, storage-correction, and
   raw/derived capacity objects; and
 - [`manifests/input_artifacts_2026-07-13.json`](manifests/input_artifacts_2026-07-13.json)
   pins the seven approved processed artifacts used by the narrow rebuild and

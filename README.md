@@ -383,14 +383,13 @@ python -m naturalgas.pipelines.rebuild_all --overwrite
 ```
 
 This validates 72 master-panel input objects, 254 NCAR/GDEX weather
-partitions, two raw capacity snapshots, and all 13 objects in the selected
-strategy archive. It then rebuilds the
-155-column master panel, the selected wind/solar artifacts, the causal
-D1/D1--3/D1--5 wind-horizon lineage, the formal strategy, and the selected
-D1--3 strategy. The panel and all four weather-factor parquets are checked
-against their approved SHA-256 values. The formal and selected strategies are
-then checked against their shipped metrics before the verified output
-directory is published. The command only reads GCS and writes local outputs.
+partitions, two raw capacity snapshots, and all 14 objects in the selected
+strategy archive. It then rebuilds the 155-column master panel, wind and solar
+factors, Central and Florida EIA-930 histories, weekly/monthly fundamentals,
+production controls, all three pre-guard scores, the WNGSR correction, and the
+final V03 guard. The compact V03 parquet is checked only as a parity target; it
+is not used to calculate the selected result. The command only reads GCS and
+writes local outputs plus a source-to-score receipt.
 
 For a quicker formal panel-to-strategy audit that downloads the
 already-approved weather factors and skips the selected D1--3 raw-lineage
@@ -477,23 +476,23 @@ The first command renders from the D1--3 `strategy_metrics.csv`, the EIA-930
 guard used to detect documentation drift. GitHub Actions runs this guard and
 the source-driven documentation tests on every relevant push and pull request.
 
-To audit the selected D1--3 chain from immutable GCS inputs, use:
+To audit the selected D1--3 chain from immutable processed master-panel/EIA
+inputs and raw generation-pinned wind/solar inputs, use:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_model_v03 --overwrite
 ```
 
-This command reads the exact 127 NCAR/GDEX GFS object generations and raw
-USWTDB snapshot pinned in `manifests/weather_factor_inputs_2026-07-28.json`,
-selects same-day 00Z issues and D1--3 leads, rebuilds the annual capacity
-weights, constructs the past-only 60-initialization z-score, and requires exact
-daily equality with both wind columns consumed by the selected strategy. It
-also downloads and validates every exact EIA-930/event/storage/score object in
-`manifests/selected_strategy_inputs_2026-08-14.json`, then runs the evaluator
-and writes a reproduction receipt under
-`reproduced/models/v03_d1_3_storage_guard/`.
-Use `rebuild_all` above when the formal baseline must also be rebuilt from its
-generation-pinned GCS inputs in the same run.
+This command rebuilds both wind and solar, reconstructs the Central/Florida
+power signals, fundamentals, production controls, no-wind/D1--3/D1--5 scores,
+WNGSR correction, and guard, then runs V03. It writes the rebuilt score inputs,
+signal histories, strategy, and parity receipt under
+`reproduced/models/v03_d1_3_storage_guard/`. The frozen compact score remains
+in the manifest solely as a parity target. The receipt reports exact equality
+on 1,750 shared score dates and identifies its two legacy non-session-only
+rows. Use
+`rebuild_all` above when the 155-column master panel and V01 must also be
+rebuilt from their direct inputs in the same transaction.
 
 Networked integration tests are opt-in because ordinary CI may not have access
 to the private bucket:

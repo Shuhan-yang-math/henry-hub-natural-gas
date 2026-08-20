@@ -8,10 +8,12 @@ import pandas as pd
 import pytest
 
 from naturalgas.pipelines.rebuild_model_v03 import (
+    CENTRAL_EIA930_SOURCE_ARTIFACT_ID,
     DEFAULT_SELECTED_INPUT_MANIFEST,
     DEFAULT_WEATHER_MANIFEST,
     EVENT_REPORT_ARTIFACT_ID,
     SCORE_INPUT_ARTIFACT_ID,
+    SOUTHEAST_EIA930_SOURCE_ARTIFACT_ID,
     STORAGE_CORRECTION_ARTIFACT_ID,
     rebuild_model_v03,
     verify_score_input_wind_lineage,
@@ -23,17 +25,16 @@ from naturalgas.reproducibility import load_manifest
 def test_selected_input_manifest_pins_complete_gcs_archive() -> None:
     artifacts = load_manifest(DEFAULT_SELECTED_INPUT_MANIFEST)
     by_id = {artifact.artifact_id: artifact for artifact in artifacts}
-    assert len(artifacts) == 13
+    assert len(artifacts) == 14
     assert {
+        CENTRAL_EIA930_SOURCE_ARTIFACT_ID,
+        SOUTHEAST_EIA930_SOURCE_ARTIFACT_ID,
         SCORE_INPUT_ARTIFACT_ID,
         STORAGE_CORRECTION_ARTIFACT_ID,
         EVENT_REPORT_ARTIFACT_ID,
     }.issubset(by_id)
     assert all(
-        artifact.uri.startswith(
-            "gs://bcli-natgas-data-497807/research/henry_hub_strategy/"
-            "v2/inputs/"
-        )
+        artifact.uri.startswith("gs://bcli-natgas-data-497807/")
         and artifact.generation > 0
         and len(artifact.sha256) == 64
         and artifact.size_bytes
@@ -146,8 +147,16 @@ def test_pinned_gcs_wind_through_selected_d1_3_strategy(
         "34fb31802a41144e5ed842d2433a1b67db8d93810cf900835c875913f62db94c"
     )
     selected = receipt["model_v03_rebuild"]
-    assert receipt["selected_input_artifacts_validated"] == 13
-    assert selected["wind_lineage"]["matched_non_null_d1_3_dates"] == 1750
+    assert receipt["selected_input_artifacts_validated"] == 14
+    source = receipt["source_to_score_rebuild"]
+    assert source["status"] == "rebuilt_from_independent_upstream_inputs"
+    assert source["parity"]["frozen_compact_used_for_calculation"] is False
+    assert all(
+        details["mismatch_dates"] == 0
+        for details in source["parity"]["upstream_inputs"]["columns"].values()
+    )
+    assert source["score_dates"] == 1750
+    assert selected["wind_lineage"]["matched_non_null_d1_3_dates"] == 1748
     assert selected["wind_lineage"]["missing_initialization_dates"] == [
         "2019-10-10",
         "2022-12-01",

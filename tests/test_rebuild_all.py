@@ -53,8 +53,14 @@ def test_pinned_gcs_inputs_through_formal_and_selected_backtests(
         "34fb31802a41144e5ed842d2433a1b67db8d93810cf900835c875913f62db94c"
     )
     selected = receipt["model_v03_rebuild"]
-    assert receipt["selected_input_artifacts_validated"] == 13
+    assert receipt["selected_input_artifacts_validated"] == 14
     assert selected["wind_lineage"]["status"] == "exact"
+    source = selected["source_to_score_rebuild"]
+    assert source["parity"]["frozen_compact_used_for_calculation"] is False
+    assert all(
+        details["mismatch_dates"] == 0
+        for details in source["parity"]["upstream_inputs"]["columns"].values()
+    )
     assert selected["summary"]["trading_days"] == 1748
     assert selected["summary"]["selected_metrics"]["sharpe"] == (
         2.2280397376832175

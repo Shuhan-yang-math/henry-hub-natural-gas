@@ -19,6 +19,13 @@
     "trading_days": 682
   },
   "base_strategy_modified": false,
+  "base_v03_refresh": {
+    "maximum_absolute_net_return_difference": 0.0,
+    "maximum_absolute_position_difference": 0.0,
+    "net_return_mismatch_dates": 0,
+    "policy": "nomination panel supplies factor data; base position and net return are refreshed from the current formal V03 daily path",
+    "position_mismatch_dates": 0
+  },
   "bootstrap": {
     "block_length": 20,
     "delta_sharpe_bootstrap_median": 0.4897513511564451,
@@ -63,7 +70,7 @@
       "trading_days": 1748
     }
   },
-  "generated_utc": "2026-08-19T22:14:06.702103+00:00",
+  "generated_utc": "2026-08-19T23:43:11.575321+00:00",
   "input_lineage": {
     "all_cycle_source": {
       "path": "inputs/gcs/sabine_nomination_overlay/all_cycle/sabine_oac_all_locations.parquet",
