@@ -539,16 +539,16 @@ are defined once in Section 1.8.
 ### 1.11 Work product from the Henry Hub mapping
 
 The complete 35-file research archive is stored at
-[gs://bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1/](https://console.cloud.google.com/storage/browser/bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1).
+[gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1/](https://console.cloud.google.com/storage/browser/datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1).
 The principal physical-market artifacts are:
 
 | Artifact | Completed content |
 |---|---|
-| [physical_network_map.md](https://storage.cloud.google.com/bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1/agent_a_pipeline/physical_network_map.md) | Evidence-tiered direct-header, mainline, storage, pressure-leg, and one-hop topology. |
-| [pipeline_inventory.csv](https://storage.cloud.google.com/bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1/agent_a_pipeline/pipeline_inventory.csv) | Sixteen point or corridor records with operator, location ID, direction, capacity snapshot, market role, and source. |
-| [pipeline_data_sources.csv](https://storage.cloud.google.com/bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1/agent_a_pipeline/pipeline_data_sources.csv) | Twenty-six pipeline and topology source records with frequency, history, publication method, and timing fields. |
-| [pipeline_hypotheses.csv](https://storage.cloud.google.com/bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1/agent_a_pipeline/pipeline_hypotheses.csv) | Twenty-four signed, state-conditioned pipeline and congestion hypotheses used in the Wave 1 research design. |
-| [10_wave1_integrated_report.md](https://storage.cloud.google.com/bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1/10_wave1_integrated_report.md) | Reconciled interpretation of the pipeline work with supply, LNG, storage, power, and prior empirical evidence. |
+| [physical_network_map.md](https://storage.cloud.google.com/datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1/agent_a_pipeline/physical_network_map.md) | Evidence-tiered direct-header, mainline, storage, pressure-leg, and one-hop topology. |
+| [pipeline_inventory.csv](https://storage.cloud.google.com/datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1/agent_a_pipeline/pipeline_inventory.csv) | Sixteen point or corridor records with operator, location ID, direction, capacity snapshot, market role, and source. |
+| [pipeline_data_sources.csv](https://storage.cloud.google.com/datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1/agent_a_pipeline/pipeline_data_sources.csv) | Twenty-six pipeline and topology source records with frequency, history, publication method, and timing fields. |
+| [pipeline_hypotheses.csv](https://storage.cloud.google.com/datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1/agent_a_pipeline/pipeline_hypotheses.csv) | Twenty-four signed, state-conditioned pipeline and congestion hypotheses used in the Wave 1 research design. |
+| [10_wave1_integrated_report.md](https://storage.cloud.google.com/datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1/10_wave1_integrated_report.md) | Reconciled interpretation of the pipeline work with supply, LNG, storage, power, and prior empirical evidence. |
 
 These completed outputs provide the physical vocabulary for the following
 chapters. Chapter 2 explains how supply, demand, storage, transport, LNG, and
@@ -767,7 +767,7 @@ HAC standard errors:
 | Southwest Power Pool | 2,750 | 0.451 MWh | 91.5 | 0.881 |
 
 Source: [Wave 1 integrated fundamentals
-report](https://storage.cloud.google.com/bcli-natgas-data-497807/research/henry_hub_fundamentals/wave1/10_wave1_integrated_report.md),
+report](https://storage.cloud.google.com/datafinancial0/henry-hub-natural-gas/research/henry_hub_fundamentals/wave1/10_wave1_integrated_report.md),
 using EIA-930 daily data through July 13, 2026.
 
 These regressions are an accounting and transmission check, not an independent

@@ -20,6 +20,7 @@ from naturalgas.pipelines.rebuild_sabine_nomination_overlay import (
     verify_overlay_summary,
 )
 from naturalgas.reproducibility import load_manifest
+from naturalgas.storage_config import PERSONAL_GCS_URI_ROOT
 
 
 def test_nomination_manifest_pins_complete_gcs_handoff() -> None:
@@ -32,7 +33,7 @@ def test_nomination_manifest_pins_complete_gcs_handoff() -> None:
     }
     assert all(
         artifact.uri.startswith(
-            "gs://bcli-natgas-data-497807/research/henry_hub_strategy/"
+            f"{PERSONAL_GCS_URI_ROOT}/research/henry_hub_strategy/"
             "v2/inputs/sabine_nomination_overlay_final/2026-08-19/"
         )
         and artifact.generation > 0

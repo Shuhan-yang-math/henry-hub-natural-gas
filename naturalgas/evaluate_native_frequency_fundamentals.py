@@ -59,7 +59,10 @@ from naturalgas.execution import (  # noqa: E402
 )
 
 
-BUCKET = "bcli-natgas-data-497807"
+from naturalgas.storage_config import PERSONAL_GCS_ROOT
+
+
+BUCKET = PERSONAL_GCS_ROOT
 STORAGE_WEEKLY_KEY = f"{BUCKET}/processed/storage_weekly.parquet"
 FUNDAMENTALS_MONTHLY_KEY = f"{BUCKET}/processed/fundamentals_monthly.parquet"
 LNG_TRADE_KEY = f"{BUCKET}/raw/eia/trade_detail/country_monthly.parquet"

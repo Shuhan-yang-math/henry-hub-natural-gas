@@ -43,6 +43,7 @@ from naturalgas.pipelines.rebuild_weather_factors import (
 from naturalgas.reproducibility import (
     DEFAULT_MANIFEST as DEFAULT_FORMAL_MANIFEST,
     PROJECT_ROOT,
+    assert_reproduction_values_match,
     create_staging_directory,
     discard_staging_directory,
     fetch_manifest,
@@ -195,10 +196,17 @@ def verify_model_v03_summary(
 
     actual = json.loads(actual_path.read_text(encoding="utf-8"))
     expected = json.loads(expected_path.read_text(encoding="utf-8"))
-    if _without_dashboard(actual) != _without_dashboard(expected):
-        raise AssertionError(
-            "GCS-lineage rebuild does not reproduce the shipped selected summary"
+    try:
+        assert_reproduction_values_match(
+            _without_dashboard(actual),
+            _without_dashboard(expected),
+            path="summary",
         )
+    except AssertionError as exc:
+        raise AssertionError(
+            "GCS-lineage rebuild does not reproduce the shipped selected "
+            f"summary: {exc}"
+        ) from exc
 
 
 def evaluate_model_v03_with_horizon(

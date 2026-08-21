@@ -200,8 +200,10 @@ ignored `inputs/gcs` cache and writes the canonical experiment directory:
 python naturalgas/evaluate_sabine_nomination_revision_intraday_overlay_final.py
 ```
 
-All three paths require read access to the private
-`bcli-natgas-data-497807` bucket. Raw NYMEX ticks are controlled data and are
+All three paths read only from the private personal archive under
+`gs://datafinancial0/henry-hub-natural-gas/`. The checked-in manifests pin the
+new generations assigned by GCS when the byte-identical objects were copied
+from the original company bucket. Raw NYMEX ticks are controlled data and are
 not redistributed. The pinned `execution_windows.parquet` is the exact
 processed trade-price contract: it preserves posting timestamps, held
 contracts, entry and settlement VWAPs, volumes, trade counts, and settlement
@@ -376,7 +378,8 @@ python -m pip install -r requirements-build.lock
 `requirements.txt` contains wider compatibility ranges for development, but it
 is not the approved byte-reproduction environment.
 
-With Braeswood GCS read credentials available, run the supported full build:
+With read access to the personal GCS archive available, run the supported full
+build:
 
 ```bash
 python -m naturalgas.pipelines.rebuild_all --overwrite
@@ -514,7 +517,7 @@ RUN_HENRY_HUB_FULL_CHAIN=1 pytest -q tests/test_rebuild_all.py
 | `02_capacity_weighted_wind.ipynb` | Needs the manifest panel and 00Z wind parquet; its two audit CSVs are materialized from generation-pinned GCS objects. The nonlinear power-curve helper is source code in `naturalgas/`. |
 | `03_capacity_weighted_solar.ipynb` | Reads its summary, IC, annual, and cost tables from tracked `results/experiments/solar/`. Weight-grid and daily-equity cells are optional and report a clear skip unless generated with `python naturalgas/evaluate_ncar_gdex_complete_solar_factor.py`. |
 | `04_native_frequency_fundamentals.ipynb` | Recomputes immediately and needs the four model parquets plus access to the three EIA inputs. It is a research notebook, not the strict final-rebuild entry point. |
-| `05_fundamental_weight_selection.ipynb` | Has `RUN_BACKTEST=True` and later perfect-information cells that access EIA data. It requires all model inputs and Braeswood GCS read credentials and is not part of the strict formal reproduction guarantee. |
+| `05_fundamental_weight_selection.ipynb` | Has `RUN_BACKTEST=True` and later perfect-information cells that access EIA data. It requires all model inputs and personal-bucket read access and is not part of the strict formal reproduction guarantee. |
 | `06_model_v02_eia930_central_florida.ipynb` | Rebuilds superseded research model V02 from the checked-in V01 daily result and generation-pinned GCS Central/Florida overlay and event registry. The first clean run requires private-bucket read access. |
 | `07_model_v03_d1_3_storage_guard.ipynb` | Rebuilds current selected research model V03 from the checked-in V01 daily result and generation-pinned GCS score, WNGSR-correction, and event inputs. The first clean run requires private-bucket read access. |
 | `08_sabine_nomination_revision_intraday_overlay_final.ipynb` | Materializes the generation-pinned nomination panel, all-cycle OAC archive, and audited I3 execution windows from GCS, then reproduces the isolated final overlay against the checked-in V03 path. Use the command-line rebuild pipeline for the independent raw-OAC parity receipt and atomic `reproduced/` output. |

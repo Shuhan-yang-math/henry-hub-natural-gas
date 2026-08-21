@@ -16,6 +16,8 @@ import argparse
 from dataclasses import dataclass
 import hashlib
 import json
+import math
+import numbers
 import os
 from pathlib import Path
 import shutil
@@ -30,6 +32,62 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = (
     PROJECT_ROOT / "manifests/input_artifacts_2026-07-13.json"
 )
+
+
+def assert_reproduction_values_match(
+    actual: Any,
+    expected: Any,
+    *,
+    path: str = "value",
+    absolute_tolerance: float = 1e-12,
+) -> None:
+    """Recursively compare records while tolerating only float roundoff."""
+
+    if isinstance(actual, dict) and isinstance(expected, dict):
+        if actual.keys() != expected.keys():
+            raise AssertionError(
+                f"{path} keys differ: {sorted(actual)} != {sorted(expected)}"
+            )
+        for key in actual:
+            assert_reproduction_values_match(
+                actual[key],
+                expected[key],
+                path=f"{path}.{key}",
+                absolute_tolerance=absolute_tolerance,
+            )
+        return
+    if isinstance(actual, list) and isinstance(expected, list):
+        if len(actual) != len(expected):
+            raise AssertionError(
+                f"{path} lengths differ: {len(actual)} != {len(expected)}"
+            )
+        for index, (actual_item, expected_item) in enumerate(
+            zip(actual, expected, strict=True)
+        ):
+            assert_reproduction_values_match(
+                actual_item,
+                expected_item,
+                path=f"{path}[{index}]",
+                absolute_tolerance=absolute_tolerance,
+            )
+        return
+    numeric = (
+        isinstance(actual, numbers.Real)
+        and not isinstance(actual, bool)
+        and isinstance(expected, numbers.Real)
+        and not isinstance(expected, bool)
+    )
+    if numeric:
+        if not math.isclose(
+            float(actual),
+            float(expected),
+            rel_tol=0.0,
+            abs_tol=absolute_tolerance,
+        ):
+            raise AssertionError(f"{path} differs: {actual!r} != {expected!r}")
+        return
+    if actual != expected:
+        raise AssertionError(f"{path} differs: {actual!r} != {expected!r}")
 
 
 def normalize_gcs_key(uri: str) -> str:

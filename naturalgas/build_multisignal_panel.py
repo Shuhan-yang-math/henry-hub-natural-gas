@@ -57,7 +57,10 @@ except ModuleNotFoundError:
     )
 
 
-BUCKET = "bcli-natgas-data-497807"
+from naturalgas.storage_config import PERSONAL_GCS_ROOT
+
+
+BUCKET = PERSONAL_GCS_ROOT
 DEFAULT_INPUTS = {
     "daily_features": f"gs://{BUCKET}/features/daily_features.parquet",
     "fundamentals_monthly": (

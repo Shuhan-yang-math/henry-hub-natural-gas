@@ -20,6 +20,7 @@ from naturalgas.pipelines.rebuild_model_v03 import (
     verify_model_v03_summary,
 )
 from naturalgas.reproducibility import load_manifest
+from naturalgas.storage_config import PERSONAL_GCS_URI_ROOT
 
 
 def test_selected_input_manifest_pins_complete_gcs_archive() -> None:
@@ -34,7 +35,7 @@ def test_selected_input_manifest_pins_complete_gcs_archive() -> None:
         EVENT_REPORT_ARTIFACT_ID,
     }.issubset(by_id)
     assert all(
-        artifact.uri.startswith("gs://bcli-natgas-data-497807/")
+        artifact.uri.startswith(f"{PERSONAL_GCS_URI_ROOT}/")
         and artifact.generation > 0
         and len(artifact.sha256) == 64
         and artifact.size_bytes
@@ -117,6 +118,17 @@ def test_selected_summary_verification_ignores_only_dashboard_location(
     )
     actual.write_text(
         json.dumps({"dashboard": "/tmp/a.png", "trading_days": 10}) + "\n",
+        encoding="utf-8",
+    )
+    verify_model_v03_summary(actual, expected)
+
+    actual.write_text(
+        json.dumps({"dashboard": "/tmp/a.png", "metric": 2.0 + 4e-16})
+        + "\n",
+        encoding="utf-8",
+    )
+    expected.write_text(
+        json.dumps({"dashboard": "results/a.png", "metric": 2.0}) + "\n",
         encoding="utf-8",
     )
     verify_model_v03_summary(actual, expected)

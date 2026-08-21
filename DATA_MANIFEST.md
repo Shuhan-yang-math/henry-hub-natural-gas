@@ -1,7 +1,7 @@
 # Data manifest
 
-Large model inputs are intentionally excluded from Git. Access requires
-Braeswood read credentials for bucket `bcli-natgas-data-497807`.
+Large model inputs are intentionally excluded from Git. This personal copy
+requires read access to `gs://datafinancial0/henry-hub-natural-gas/`.
 
 The authoritative machine-readable inventories are listed under
 [Reproduction boundary](#reproduction-boundary). They pin every object by GCS
@@ -70,13 +70,13 @@ canonical V01 summary to match byte-for-byte.
 
 | Artifact id | GCS generation | Rows × columns | Formal use |
 |---|---:|---:|---|
-| `ng_multisignal_panel` | `1785435608499104` | 8,149 × 155 | futures, legacy weather, and precomputed signal panel |
-| `capacity_weighted_wind_features_daily` | `1785904479037568` | 3,857 × 43 | selected nonlinear capacity-weighted **00Z-only** wind signal |
-| `capacity_weighted_solar_signals` | `1785904479034390` | 15,448 × 17 | four-cycle solar signals; evaluator selects 00Z |
-| `capacity_weighted_location_leads` | `1785904479072012` | 77,225 × 14 | solar issue × lead daylight/capacity context |
-| `storage_weekly` | `1784674812651746` | 862 × 9 | Lower 48 and regional weekly storage snapshots |
-| `fundamentals_monthly` | `1784674813059617` | 640 × 5 | dry production, consumption, exports, and imports |
-| `eia_country_monthly` | `1784765115754980` | 21,735 × 20 | U.S. aggregate LNG export history |
+| `ng_multisignal_panel` | `1787352799687042` | 8,149 × 155 | futures, legacy weather, and precomputed signal panel |
+| `capacity_weighted_wind_features_daily` | `1787352825195621` | 3,857 × 43 | selected nonlinear capacity-weighted **00Z-only** wind signal |
+| `capacity_weighted_solar_signals` | `1787352825094816` | 15,448 × 17 | four-cycle solar signals; evaluator selects 00Z |
+| `capacity_weighted_location_leads` | `1787352825260940` | 77,225 × 14 | solar issue × lead daylight/capacity context |
+| `storage_weekly` | `1787352801947831` | 862 × 9 | Lower 48 and regional weekly storage snapshots |
+| `fundamentals_monthly` | `1787352810160713` | 640 × 5 | dry production, consumption, exports, and imports |
+| `eia_country_monthly` | `1787352811273483` | 21,735 × 20 | U.S. aggregate LNG export history |
 
 Do not replace these with unqualified `gs://` downloads when reproducing the
 2026-07-13 result. A bucket key can be overwritten while retaining the same
@@ -101,8 +101,8 @@ object is modified.
 Notebook 02 also uses two small audit tables archived in GCS:
 
 ```text
-gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/annual_location_weights.csv
-gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/annual_fleet_diagnostics.csv
+gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/annual_location_weights.csv
+gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/annual_fleet_diagnostics.csv
 ```
 
 Their generations and hashes are pinned in
@@ -217,7 +217,7 @@ complete factor builder filters `forecast_cycle_hour_utc == 0` before writing
 The direct source for this capacity-weighted build is:
 
 ```text
-gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/
+gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/
   wind_points/model=ncep_gfs_0p25/cycle=all/year=*/month=*/data.parquet
 ```
 

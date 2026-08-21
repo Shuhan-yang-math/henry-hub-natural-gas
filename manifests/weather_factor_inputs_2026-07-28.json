@@ -5,1016 +5,1016 @@
   "wind": {
     "weather_partitions": [
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=01/data.parquet",
-        "generation": "1785455764871834",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=01/data.parquet",
+        "generation": "1787352818572746",
         "size_bytes": 1309631,
         "crc32c": "W+E7Ag==",
         "md5_base64": "Cdmi6Te51v59XHwpYbOn2g==",
         "sha256": "32224cdf1b25163c61f51a27e3768648762a611de0e98d1448e934ccf9f9c9a8"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=02/data.parquet",
-        "generation": "1785455939432178",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=02/data.parquet",
+        "generation": "1787352818689728",
         "size_bytes": 1207610,
         "crc32c": "f9khVg==",
         "md5_base64": "Bc/NNpyx6JFXQ9N6UDI9jw==",
         "sha256": "9f8bd1b5592f6b75fc369e194c3509a1beeb9df0c53ea6ff9387c249d54f0b36"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=03/data.parquet",
-        "generation": "1785456315644713",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=03/data.parquet",
+        "generation": "1787352825608355",
         "size_bytes": 1319545,
         "crc32c": "4UltIw==",
         "md5_base64": "BitXHjjv+160ihUUVqV4DQ==",
         "sha256": "b4522e7e39f6c233c4fd5fccf60a99dce7dcdf1a76c1f8268d35fe925f1e5525"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=04/data.parquet",
-        "generation": "1785456249122462",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=04/data.parquet",
+        "generation": "1787352818621604",
         "size_bytes": 1238731,
         "crc32c": "Wzov+Q==",
         "md5_base64": "WM3Xo9gvX0o4HJwKrRnW1w==",
         "sha256": "e8f2e01e9bd370f263ef57bc9bb8e294d5c375aa20c56180ab1923af045d9b87"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=05/data.parquet",
-        "generation": "1785456327769387",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=05/data.parquet",
+        "generation": "1787352825526683",
         "size_bytes": 1279760,
         "crc32c": "Bs/RNw==",
         "md5_base64": "BxGFzlqQl/c6IXFfaf+7yw==",
         "sha256": "13324fe9657a2bc7028d6d7ed1d95060ca9e5d31ae5e2f29e7af8aff3d85fb53"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=06/data.parquet",
-        "generation": "1785456341245694",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=06/data.parquet",
+        "generation": "1787352825480620",
         "size_bytes": 1227018,
         "crc32c": "JZUg4g==",
         "md5_base64": "04/ozNJ9goTaBU1lfxwUOw==",
         "sha256": "4266e6bf224a9ff3e949443305092103429d77128eb6a4976f39c643e59f132a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=07/data.parquet",
-        "generation": "1785456757729194",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=07/data.parquet",
+        "generation": "1787352818788455",
         "size_bytes": 1241947,
         "crc32c": "dynTsA==",
         "md5_base64": "KqailqSaFpcQvmXDyAVMIA==",
         "sha256": "0980d2e5a831c59cac7f75914a1dcd6601c6b4943ca291205caff3dc1e337947"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=08/data.parquet",
-        "generation": "1785457037952353",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=08/data.parquet",
+        "generation": "1787352825431216",
         "size_bytes": 1203778,
         "crc32c": "0jOSzg==",
         "md5_base64": "H00Y5ZRxB5/uAP7zl05xzA==",
         "sha256": "e4650b1aacf2612cc69bd0b642ded84d5cfe696c7db8684f537b500c8bb21a1a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=09/data.parquet",
-        "generation": "1785457220535176",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=09/data.parquet",
+        "generation": "1787352825499331",
         "size_bytes": 1211136,
         "crc32c": "OuZ6vg==",
         "md5_base64": "xYeJJgKndvVBAHffzvxtfw==",
         "sha256": "759d0c2b675c8fbcf623c087b14ed7f4c2e48f411375625c71785f8e70e91451"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=10/data.parquet",
-        "generation": "1785458358007602",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=10/data.parquet",
+        "generation": "1787352818823954",
         "size_bytes": 1266305,
         "crc32c": "bpkHiA==",
         "md5_base64": "gDcGYaoSH2K8tvtqFb8FNw==",
         "sha256": "a5d3d5ca0c228cf65b9b33dabcf71b5633322bc61d289308d746a36ee93da140"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=11/data.parquet",
-        "generation": "1785458371721441",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=11/data.parquet",
+        "generation": "1787352825399168",
         "size_bytes": 1255211,
         "crc32c": "csaIpA==",
         "md5_base64": "P/yO1Mgji9bNwpbqVOBjgA==",
         "sha256": "21f8b6a3b362b140e9f8e4dde991e45371457e46f74eeea001a35f46ed6495c2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=12/data.parquet",
-        "generation": "1785458381701065",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2016/month=12/data.parquet",
+        "generation": "1787352818799315",
         "size_bytes": 1308001,
         "crc32c": "BPpxOg==",
         "md5_base64": "wWmgeUTnHTGOD0AIOOsP7Q==",
         "sha256": "5aab36908733990c1f55334d881ba7aa6f2fc0ecba13ebafba2ed697476a1c1d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=01/data.parquet",
-        "generation": "1785472346891414",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=01/data.parquet",
+        "generation": "1787352818807145",
         "size_bytes": 1308822,
         "crc32c": "6qdgTQ==",
         "md5_base64": "AlsLaaB7S8VTFmhnpyiB8g==",
         "sha256": "18895f268f5b689f53f6c20205dd2229bd64c9c83960e97bf83973c5d9984be1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=02/data.parquet",
-        "generation": "1785478334512096",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=02/data.parquet",
+        "generation": "1787352825039026",
         "size_bytes": 1193888,
         "crc32c": "nn4UKg==",
         "md5_base64": "DOOZGoQrM6+s6x6T1BTKpw==",
         "sha256": "19d29f8b681f7fe6d53970859d5e82838025dd750dddfa94e2b3895e08aeb46f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=03/data.parquet",
-        "generation": "1785479423355196",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=03/data.parquet",
+        "generation": "1787352824796848",
         "size_bytes": 1303200,
         "crc32c": "9xEiEg==",
         "md5_base64": "scNnYv5vJdTSIBrh+Bb4bA==",
         "sha256": "ce5a8b0e105d5d641035c05b052876a3250fec5539f01f9f27d7f81744101c47"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=04/data.parquet",
-        "generation": "1785478491348764",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=04/data.parquet",
+        "generation": "1787352825027494",
         "size_bytes": 1276543,
         "crc32c": "zs5Bhg==",
         "md5_base64": "A4+2eHcDQ8/hal8QAYOJSA==",
         "sha256": "686b957bba6d026d57d9f7fe057415f3cdce193f567f4d420f80996e4a070a50"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=05/data.parquet",
-        "generation": "1785479433488402",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=05/data.parquet",
+        "generation": "1787352824780922",
         "size_bytes": 1295781,
         "crc32c": "/NnvLw==",
         "md5_base64": "tUuEL9Do566pNyz0FXVY8w==",
         "sha256": "47392b9dae2f8cfdfb1d80ba82a215ce256e6bcbfd927b7d420c46e5de1752e1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=06/data.parquet",
-        "generation": "1785479444261358",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=06/data.parquet",
+        "generation": "1787352824904332",
         "size_bytes": 1237097,
         "crc32c": "kWhzVw==",
         "md5_base64": "BSWVdwCEFhBU5HhESM4Qzg==",
         "sha256": "9b93ec1220eb760bec9613b5004e5602b7b56fa9c93887bff7cc1439fe8fa3b4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=07/data.parquet",
-        "generation": "1785479454919151",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=07/data.parquet",
+        "generation": "1787352818918984",
         "size_bytes": 1525681,
         "crc32c": "qWDiBw==",
         "md5_base64": "xkktlgjz2Y3jIJrUDeZ3AQ==",
         "sha256": "dbef4aa918f102c54dff6878fa844dede6eb11a577650bcfd2f0ba39ed742465"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=08/data.parquet",
-        "generation": "1785479465169305",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=08/data.parquet",
+        "generation": "1787352819251872",
         "size_bytes": 1919349,
         "crc32c": "KWdZcQ==",
         "md5_base64": "0agJOg5RQMxL1Qjbra61QQ==",
         "sha256": "2fda9ed005e3e5f01ec3daa066f27ed6d28d5f8a952171dabf35f2a2dc8c6edf"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=09/data.parquet",
-        "generation": "1785478480640396",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=09/data.parquet",
+        "generation": "1787352818732658",
         "size_bytes": 1836165,
         "crc32c": "jA+fqA==",
         "md5_base64": "Dsa+b84FBsExcyRaFEI3vg==",
         "sha256": "5de822eeeb03a6ea0f6701f90786299d8aa8790a561b4f5f46140f830a6fdc00"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=10/data.parquet",
-        "generation": "1785478783052448",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=10/data.parquet",
+        "generation": "1787352818811424",
         "size_bytes": 1926980,
         "crc32c": "V3VdAQ==",
         "md5_base64": "zDux9XoWYwDks73xhyhKWQ==",
         "sha256": "ba57143bb5531db7ca1c80fda518138dcd18ce196ad1ab1c484845cd38995384"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=11/data.parquet",
-        "generation": "1785479103918567",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=11/data.parquet",
+        "generation": "1787352818918533",
         "size_bytes": 1867432,
         "crc32c": "I8rS9g==",
         "md5_base64": "RaYDtaYEUKEysg82aYHDLQ==",
         "sha256": "b82ef71531e054ab3a0f929c58f49a926b142144123d61a72403cd52c4c2dc6e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=12/data.parquet",
-        "generation": "1785479113513971",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2017/month=12/data.parquet",
+        "generation": "1787352818940562",
         "size_bytes": 1926451,
         "crc32c": "M6bUXw==",
         "md5_base64": "ElnAddBHWXuhHfPPyOlSXw==",
         "sha256": "2d03ac55ccc53ecc85979167c4e5e4ba52202caec1d62da7de4522309364c2b2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=01/data.parquet",
-        "generation": "1785479122749833",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=01/data.parquet",
+        "generation": "1787352819001324",
         "size_bytes": 1924087,
         "crc32c": "O/UQsA==",
         "md5_base64": "5PmmACOO32rYa+V3ERhrmg==",
         "sha256": "aba6cf793ffe9738432d7c8f38ab9e59769e03a76610d41ad8aad942b51b6d4e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=02/data.parquet",
-        "generation": "1785479132016842",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=02/data.parquet",
+        "generation": "1787352818903385",
         "size_bytes": 1730402,
         "crc32c": "T5wXXA==",
         "md5_base64": "vgtE0OXybThx4jAKGEYYgQ==",
         "sha256": "525a562d2672a856cf830a0cb067170a922309f9bc4b2ae90e53211bf10ae799"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=03/data.parquet",
-        "generation": "1785479144342075",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=03/data.parquet",
+        "generation": "1787352818927697",
         "size_bytes": 1924512,
         "crc32c": "/Itwrg==",
         "md5_base64": "J/ZUOM7Fb5m7+zsUgNIiIg==",
         "sha256": "3e738abdaaba83fb26bf1acd9eb970a68538040bac6fd41e14b8a5099123fedc"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=04/data.parquet",
-        "generation": "1785479156023607",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=04/data.parquet",
+        "generation": "1787352818797944",
         "size_bytes": 1867032,
         "crc32c": "oPOwJQ==",
         "md5_base64": "EwhxFv/DhzL0GNbkZ48npA==",
         "sha256": "21f68de3fcc2e6e1759e291ce5a41cd3b8374aef1125909759bf77bab0aa4d56"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=05/data.parquet",
-        "generation": "1785521684454748",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=05/data.parquet",
+        "generation": "1787352819025138",
         "size_bytes": 1919623,
         "crc32c": "PtuybA==",
         "md5_base64": "mC58WZMnm9OEkcvJacOUHg==",
         "sha256": "2567a395cd235d10e3b25fd0de079af8ab0e0610daeacc1aac2ac46964cc81ef"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=06/data.parquet",
-        "generation": "1785522017869361",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=06/data.parquet",
+        "generation": "1787352819108173",
         "size_bytes": 1857859,
         "crc32c": "R9+6vQ==",
         "md5_base64": "oioxtyjEVley+VTEvFwpNg==",
         "sha256": "b907d75da62c789af24242df78ea5609a07016a2750afb78b10b197b2409a603"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=07/data.parquet",
-        "generation": "1785522028830198",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=07/data.parquet",
+        "generation": "1787352819209775",
         "size_bytes": 1912531,
         "crc32c": "mfxxLg==",
         "md5_base64": "aWAAWqp6q/c51db6N6nzSw==",
         "sha256": "9699817ed907004a30fc94d76d5c6481243ece219de033de2811087ab7f3211f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=08/data.parquet",
-        "generation": "1785521445730660",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=08/data.parquet",
+        "generation": "1787352819258246",
         "size_bytes": 1906152,
         "crc32c": "RPaVqw==",
         "md5_base64": "k902vFian06Mz3+172n48Q==",
         "sha256": "44559759c9256ffd9be5baa4fb66428b02fe7ad15fc1a201cf7c5c45328be613"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=09/data.parquet",
-        "generation": "1785521417639084",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=09/data.parquet",
+        "generation": "1787352819325131",
         "size_bytes": 1831768,
         "crc32c": "55OtOQ==",
         "md5_base64": "v6XCadMZ+Sz4tCEErOZY6w==",
         "sha256": "3927a6c454ebdfa8386314a2436938a5de815d2754a4e92a875b57948b86458e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=10/data.parquet",
-        "generation": "1785521456423567",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=10/data.parquet",
+        "generation": "1787352819338107",
         "size_bytes": 1911676,
         "crc32c": "FqzMGw==",
         "md5_base64": "ZP1CN/XqPhjNoBIusN7nyQ==",
         "sha256": "97444afe94b889ff313963ed54500b9cc515e4e75f559321f0273cd55969b64d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=11/data.parquet",
-        "generation": "1785521432553133",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=11/data.parquet",
+        "generation": "1787352819312450",
         "size_bytes": 1866986,
         "crc32c": "uEW2Zw==",
         "md5_base64": "hfzqnkx27n7iCHG0BB5BMQ==",
         "sha256": "eedb3b9b40bb86140c6aa26bd5a92831981fc0de117d4b82476900b7f408d8b0"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=12/data.parquet",
-        "generation": "1785521536307933",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2018/month=12/data.parquet",
+        "generation": "1787352819161758",
         "size_bytes": 1929428,
         "crc32c": "6F74qA==",
         "md5_base64": "AhxKLqP8xs+klE56vJR6AQ==",
         "sha256": "d96885024612e799b19f6e94da396215dff74f94fb5f4a5ab6630766356feaf2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=01/data.parquet",
-        "generation": "1785521695474626",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=01/data.parquet",
+        "generation": "1787352819334457",
         "size_bytes": 1932750,
         "crc32c": "mIJ3cw==",
         "md5_base64": "jD6rALpZ9kRIzNrueMt+YA==",
         "sha256": "52063f7cf63701109d2ff39c4df18c8e9ce56cb80ddf185d7ebbac8050dcff55"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=02/data.parquet",
-        "generation": "1785521546074228",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=02/data.parquet",
+        "generation": "1787352819586167",
         "size_bytes": 1724236,
         "crc32c": "69jYZA==",
         "md5_base64": "P2ZE1a2xpTBRJI8/Evysjg==",
         "sha256": "c4754ae93506da43a0eebce42679e3fbae48f07a3514b66b8d287af9d416b4d6"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=03/data.parquet",
-        "generation": "1785522042355394",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=03/data.parquet",
+        "generation": "1787352819322000",
         "size_bytes": 1914983,
         "crc32c": "r/fdug==",
         "md5_base64": "jWEgJ55UxWvDJ/7bKDXuDA==",
         "sha256": "5b9b62558b85643fdb15b6c802cefac89b834995e1006a474845e16eee4e3cf8"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=04/data.parquet",
-        "generation": "1785522052754751",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=04/data.parquet",
+        "generation": "1787352819412279",
         "size_bytes": 1866204,
         "crc32c": "hbHd2A==",
         "md5_base64": "UjDlw3aeq/tDHFTBx88vSg==",
         "sha256": "221b4db51c2d0cf623dabcc98548cfcb737d578aba5b19416f779d918fbd2311"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=05/data.parquet",
-        "generation": "1785522064944038",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=05/data.parquet",
+        "generation": "1787352819464919",
         "size_bytes": 1927102,
         "crc32c": "fHtoQA==",
         "md5_base64": "KHYQwwYW8G205FBK7twleQ==",
         "sha256": "72153f31c83832ea87f94222eeed585578b1dcdadccb639f10cf84ab992f94e3"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=06/data.parquet",
-        "generation": "1785522075057520",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=06/data.parquet",
+        "generation": "1787352819430083",
         "size_bytes": 1858447,
         "crc32c": "BDG/ew==",
         "md5_base64": "eBSn18ZRt4rbu4lxhP2uog==",
         "sha256": "50d1dfe0053e41cb274b3de4e00b6ec601588686dcd2a31761e3a460bb5be9fd"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=07/data.parquet",
-        "generation": "1785522087661345",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=07/data.parquet",
+        "generation": "1787352819520865",
         "size_bytes": 1920541,
         "crc32c": "AlJ0tg==",
         "md5_base64": "rh85TE7r+/tZyJLDBXDnNA==",
         "sha256": "e4b1fa93efaa0958964584e8b5faf0b75bf53920dc4c5129f656011e724c4e6a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=08/data.parquet",
-        "generation": "1785522098759738",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=08/data.parquet",
+        "generation": "1787352819526569",
         "size_bytes": 1918750,
         "crc32c": "2czdcQ==",
         "md5_base64": "tBTiy35twLtxx35PCAzS2g==",
         "sha256": "7569b29a2c8acc23a26026fe547b6f29091e37d101ea5130bf65b40040d29213"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=09/data.parquet",
-        "generation": "1785522109993450",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=09/data.parquet",
+        "generation": "1787352819601739",
         "size_bytes": 1856985,
         "crc32c": "5MnXcg==",
         "md5_base64": "tb0cBQM0YI6NDpeG0UYVHA==",
         "sha256": "614ccc637a8769eca4ee1f3bdcdaf9934bbb48bb3cd413988c3c66a9f9e9d53a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=10/data.parquet",
-        "generation": "1785523167213853",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=10/data.parquet",
+        "generation": "1787352819601013",
         "size_bytes": 1925967,
         "crc32c": "hMlLXw==",
         "md5_base64": "NWUk6Cx4TZRvBs4zxpfX7Q==",
         "sha256": "1c552559d56a9872fe0d84035e008928dc316b80c2d794adba9af7e806bb7825"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=11/data.parquet",
-        "generation": "1785522728221895",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=11/data.parquet",
+        "generation": "1787352819723461",
         "size_bytes": 1866447,
         "crc32c": "L7Ni3Q==",
         "md5_base64": "ETwHpQzi8J8XyX/KIYLZlg==",
         "sha256": "7e08964f6ec50b1a72a6ceef3ce9787c199fce97648a8ae312d32c04d4538460"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=12/data.parquet",
-        "generation": "1785522121346847",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2019/month=12/data.parquet",
+        "generation": "1787352819730445",
         "size_bytes": 1933797,
         "crc32c": "+k9xtg==",
         "md5_base64": "4haH6uLrJPoHMBZn2LtQAg==",
         "sha256": "e677318423dc5aaddf0b6226fa67dbe88917c494bb13dc8b51aef2eefb761a12"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=01/data.parquet",
-        "generation": "1785522134503335",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=01/data.parquet",
+        "generation": "1787352819707974",
         "size_bytes": 1932673,
         "crc32c": "b9pnsw==",
         "md5_base64": "stw6vAkiKNBr0jV+4dKkPw==",
         "sha256": "020ad066c27ed58fee1c7660f36829603911d5ba4265eb1c95201cd2e0d59b40"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=02/data.parquet",
-        "generation": "1785522149882615",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=02/data.parquet",
+        "generation": "1787352819718796",
         "size_bytes": 1794609,
         "crc32c": "DBqutg==",
         "md5_base64": "IcnG0/JfZUIfCgtzgdtFiw==",
         "sha256": "47258ef2d053c6eb68294a4f6f0fedacf6366f17dd5c3b1ef9308a707a67c230"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=03/data.parquet",
-        "generation": "1785522738172726",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=03/data.parquet",
+        "generation": "1787352819833312",
         "size_bytes": 1932401,
         "crc32c": "rv63Wg==",
         "md5_base64": "OIrOvWeQFKbwUikMWrjz3w==",
         "sha256": "4254f2ba7735343e656005a7f9452c98c96e807c47041535b858dd7d0784d3c0"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=04/data.parquet",
-        "generation": "1785523312599293",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=04/data.parquet",
+        "generation": "1787352819842578",
         "size_bytes": 1865857,
         "crc32c": "D6fMfQ==",
         "md5_base64": "M425fLGCCvkEVE2F6KphgQ==",
         "sha256": "19272b3bc4ccfc446a9e52b10201eb374170d99048a4aa3909c27f0d8db88606"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=05/data.parquet",
-        "generation": "1785522751326623",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=05/data.parquet",
+        "generation": "1787352819776985",
         "size_bytes": 1927369,
         "crc32c": "d2DFmA==",
         "md5_base64": "AuUG7hTZ30geX1wj5ZtEdQ==",
         "sha256": "8ccd1d292a4fa1d4f164190aecb9444e4ad38d494d2d6a9d0eb90d22a3faf31e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=06/data.parquet",
-        "generation": "1785523177936362",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=06/data.parquet",
+        "generation": "1787352819803613",
         "size_bytes": 1860188,
         "crc32c": "iMJRNw==",
         "md5_base64": "U62NGP9BOT8idmzRPMt80g==",
         "sha256": "388430b85c30f2871d9babf87be6accc29dcf8799e9ed1ee81c23eb935e7a99d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=07/data.parquet",
-        "generation": "1785523227821888",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=07/data.parquet",
+        "generation": "1787352819916791",
         "size_bytes": 1919997,
         "crc32c": "38wfPg==",
         "md5_base64": "bo9RsIypyo+zclcj3jayiQ==",
         "sha256": "ab457ce72c8b7891464e0eea010f7b6898fe5f72b74744a50db678a06683d89e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=08/data.parquet",
-        "generation": "1785522633783358",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=08/data.parquet",
+        "generation": "1787352819902817",
         "size_bytes": 1915361,
         "crc32c": "ggkXAg==",
         "md5_base64": "NQT5JPHW5gSsn1r9a2bCiA==",
         "sha256": "e29d7d02e6b50031b74dda35df1e920f66db1618c0d497558cef9dec11c59cc2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=09/data.parquet",
-        "generation": "1785522617128482",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=09/data.parquet",
+        "generation": "1787352819907783",
         "size_bytes": 1852521,
         "crc32c": "s8PTJw==",
         "md5_base64": "Hc8FidAMdMR6Jg5OwkvO4Q==",
         "sha256": "d93f0279b3fbaf537de171c584cbe5618678e1af4c5ec14bb6e6bdf980591dc9"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=10/data.parquet",
-        "generation": "1785523188220895",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=10/data.parquet",
+        "generation": "1787352820016529",
         "size_bytes": 1932300,
         "crc32c": "mgAJIQ==",
         "md5_base64": "p7CG4bpmt2PnRj/gRj+9TQ==",
         "sha256": "f311b0c794cc527744514bc8dc797377ce015fcc14a851ce11885ed01600e59b"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=11/data.parquet",
-        "generation": "1785522761366039",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=11/data.parquet",
+        "generation": "1787352819840017",
         "size_bytes": 1868789,
         "crc32c": "X1pS4g==",
         "md5_base64": "c29awDgcr9GG32qWIlTJeQ==",
         "sha256": "8d4c64a082f12330be5ffa49b0cecbc300cc38d69f8a9ea283780bfae8dad68a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=12/data.parquet",
-        "generation": "1785522814354436",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2020/month=12/data.parquet",
+        "generation": "1787352820032494",
         "size_bytes": 1928002,
         "crc32c": "9Nb5lw==",
         "md5_base64": "Nv4tzibO2A9nCG2ON86h2Q==",
         "sha256": "55974aedc7ec85f6eb579a2f983f668c0135611e21d301851709c9f22f1627c6"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=01/data.parquet",
-        "generation": "1785522839307949",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=01/data.parquet",
+        "generation": "1787352820086740",
         "size_bytes": 1930166,
         "crc32c": "UQRU5w==",
         "md5_base64": "nHvn8ipIUhTxTRh2BG+14w==",
         "sha256": "309c5e475e63f468e5d93dc9fd7759ef4fa711d6958aa7789d35c001316a6577"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=02/data.parquet",
-        "generation": "1785522772243366",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=02/data.parquet",
+        "generation": "1787352819983851",
         "size_bytes": 1732493,
         "crc32c": "vhUicQ==",
         "md5_base64": "GAdd7ZLf1j7TWOPe59Wqaw==",
         "sha256": "38cf2100f996e116787e40ef24cf08e4f91ef93b5e43989ae9e79d2fc5fdb3e1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=03/data.parquet",
-        "generation": "1785523214204648",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=03/data.parquet",
+        "generation": "1787352820216429",
         "size_bytes": 1933959,
         "crc32c": "KRKsAA==",
         "md5_base64": "EzePO+0pHwFP28awhm6OIg==",
         "sha256": "80ebb55b433bb3ee93115266f79966705afd0c83ad41d72b07d17fabc33e9567"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=04/data.parquet",
-        "generation": "1785522825184242",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=04/data.parquet",
+        "generation": "1787352820028799",
         "size_bytes": 1851871,
         "crc32c": "YGN3Jg==",
         "md5_base64": "YO5BjuQgS2NqdSj0Lrsomw==",
         "sha256": "59d52b8043eea9985b275c6610b52bd13730f284f2917c9108502cd2ab54f3cf"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=05/data.parquet",
-        "generation": "1785522786109420",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=05/data.parquet",
+        "generation": "1787352820340955",
         "size_bytes": 1925490,
         "crc32c": "USQgxw==",
         "md5_base64": "nkWEb3ZhqnIdnsNaa7vAog==",
         "sha256": "2dff7111acef8c7923754d63e4f5a4f6d9a55994878f58ccaa6332096bb6df0c"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=06/data.parquet",
-        "generation": "1785523630597817",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=06/data.parquet",
+        "generation": "1787352820310369",
         "size_bytes": 1858412,
         "crc32c": "ybXJMw==",
         "md5_base64": "nOMSILVpMy6dGzkJzgzMSA==",
         "sha256": "caea7015292a0d7e2502453c38af9fd471abd01218a0b63de3e91af1e9ebcb62"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=07/data.parquet",
-        "generation": "1785522918602612",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=07/data.parquet",
+        "generation": "1787352820349050",
         "size_bytes": 1916150,
         "crc32c": "i+aeGQ==",
         "md5_base64": "FTFkR6a51KAnMMCnfDdSAg==",
         "sha256": "ffc1376d51b4cd7c154fdee9a7160e34a7ebc65b91a8ecbb6df7ca50bd4e2347"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=08/data.parquet",
-        "generation": "1785523644575307",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=08/data.parquet",
+        "generation": "1787352820325904",
         "size_bytes": 1921025,
         "crc32c": "+XrfIw==",
         "md5_base64": "v/ptOSHJ+9ixZGV99gzCKQ==",
         "sha256": "b78ffb5074a468c7589923547d29dd1cc4be15b41a2760b312400536866188db"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=09/data.parquet",
-        "generation": "1785522796212785",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=09/data.parquet",
+        "generation": "1787352820436355",
         "size_bytes": 1844902,
         "crc32c": "upfaRw==",
         "md5_base64": "JmFaQzn/go/e7AsVJdqiLQ==",
         "sha256": "779b8003c214646316fdc0c3e2cfdbe4b5f5aad46eccd054aa9fec6c441cad68"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=10/data.parquet",
-        "generation": "1785523199752702",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=10/data.parquet",
+        "generation": "1787352820327896",
         "size_bytes": 1930385,
         "crc32c": "MV/PLQ==",
         "md5_base64": "HCmNWHEQ/rB7lC7GY+fwuQ==",
         "sha256": "fd4b1377a568fb6f711a281741d96f486911bc241485c4d5bd0929d795011a2f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=11/data.parquet",
-        "generation": "1785523329462240",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=11/data.parquet",
+        "generation": "1787352820212915",
         "size_bytes": 1867659,
         "crc32c": "T2MkBA==",
         "md5_base64": "/yQFfGtlBoqWP/kiXx9HEw==",
         "sha256": "636c86b4e5207ae6309a304ba47ba9650f1f2ec7c6d4767cc01202d1bee6d57e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=12/data.parquet",
-        "generation": "1785523964938187",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2021/month=12/data.parquet",
+        "generation": "1787352820524440",
         "size_bytes": 1931194,
         "crc32c": "GFaEqg==",
         "md5_base64": "KLs0YbtgtRftz3i0gTid7w==",
         "sha256": "242fa7bd1512da42e4184ac18ca4d087731fdb25ec7cbfc62857a56809ee8fc8"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=01/data.parquet",
-        "generation": "1785524181955066",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=01/data.parquet",
+        "generation": "1787352820272069",
         "size_bytes": 1933553,
         "crc32c": "Pc0Gdw==",
         "md5_base64": "AakcGu8LGF+JmWP/5s9g+A==",
         "sha256": "d6fddf8c65f80f4d0535ab99bec1e8891250ec69bad24fdb44d2110398cc50d9"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=02/data.parquet",
-        "generation": "1785524046664054",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=02/data.parquet",
+        "generation": "1787352820292915",
         "size_bytes": 1733462,
         "crc32c": "bEYzTw==",
         "md5_base64": "EIBQ4LmvrBBO6bNqsVen3A==",
         "sha256": "5c7095bdb2b9f3d46bac0122d7a2ca8432c8a494c15ac92dd613d425098db6b1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=03/data.parquet",
-        "generation": "1785523675649872",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=03/data.parquet",
+        "generation": "1787352820514696",
         "size_bytes": 1931707,
         "crc32c": "SCVGEA==",
         "md5_base64": "KZ6v2eMEeGUh06j4kCMzLQ==",
         "sha256": "912f58f3e6f67f45e810eb0f7ba7f167a5a40d180727a7f58a68f4810f200050"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=04/data.parquet",
-        "generation": "1785523551098515",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=04/data.parquet",
+        "generation": "1787352820486345",
         "size_bytes": 1853361,
         "crc32c": "zxcpWg==",
         "md5_base64": "tAWr1/NNhKAPSfpMrUpOVg==",
         "sha256": "b919e1f32677359fbb70e11e959e06384fff257b0a819d1f2648e3c9f64546e0"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=05/data.parquet",
-        "generation": "1785523563658409",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=05/data.parquet",
+        "generation": "1787352820596138",
         "size_bytes": 1928275,
         "crc32c": "250tBw==",
         "md5_base64": "6Fuf6xzei3+/rya6xM57/g==",
         "sha256": "34a5981a520b355313773a5bc13328b4ccc8c3daada2768ce0db62190a0614e2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=06/data.parquet",
-        "generation": "1785523573686179",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=06/data.parquet",
+        "generation": "1787352820599444",
         "size_bytes": 1862702,
         "crc32c": "WVGFBw==",
         "md5_base64": "vmAG4RHm273SdwzAvAoKig==",
         "sha256": "73292ae4c853f5b7c1dc09f3395f65ca984d05ca80fea4ec32f2c31f4fd95ecc"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=07/data.parquet",
-        "generation": "1785523600549909",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=07/data.parquet",
+        "generation": "1787352820605710",
         "size_bytes": 1918727,
         "crc32c": "Wq3ePg==",
         "md5_base64": "4ZoqZBAahHopNX2jyAXq0g==",
         "sha256": "7a473d7e009847052d75de937d2bc999078da462878c6a042f67ed4a648fe2b5"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=08/data.parquet",
-        "generation": "1785523610448481",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=08/data.parquet",
+        "generation": "1787352820702064",
         "size_bytes": 1918470,
         "crc32c": "MkMntQ==",
         "md5_base64": "dk/xxE+PKjV4345aYx2NHQ==",
         "sha256": "17c304f65ea3707a3e07e3e7ff65ea4d90a44a18e18c826e6f914769592e1116"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=09/data.parquet",
-        "generation": "1785524059368594",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=09/data.parquet",
+        "generation": "1787352820742425",
         "size_bytes": 1845401,
         "crc32c": "V9Bjgg==",
         "md5_base64": "pt4kaCBMklOFVfXjfTK33g==",
         "sha256": "20ab8a3a5090e1d826e5fc4f0a6725a8380f4762d705b72d69b9fe8362fb6810"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=10/data.parquet",
-        "generation": "1785523841442564",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=10/data.parquet",
+        "generation": "1787352820722922",
         "size_bytes": 1927688,
         "crc32c": "ntTZAA==",
         "md5_base64": "cagbHBmFQyuspaVOfMiAyg==",
         "sha256": "3c7ed7fd145b839af29e2454a1f268172991198a5de54881c557bda60b19f0ae"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=11/data.parquet",
-        "generation": "1785523695026025",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=11/data.parquet",
+        "generation": "1787352820642763",
         "size_bytes": 1871277,
         "crc32c": "Bo7M+w==",
         "md5_base64": "ub5Zi4W6pvDYT2b+v3ac1w==",
         "sha256": "edb9b8f357f0c3cd2cc4f6d7991e3df9d90e4019dd8129ba56867e776f0adc8e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=12/data.parquet",
-        "generation": "1785523803944626",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2022/month=12/data.parquet",
+        "generation": "1787352820949577",
         "size_bytes": 1932639,
         "crc32c": "UhAaJQ==",
         "md5_base64": "2a930+xiTVAI82ZyG6viqA==",
         "sha256": "655d9e10501dc4751fe222fa347d41efb81728ecf2bc5bd7a448a97fcdbf3875"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=01/data.parquet",
-        "generation": "1785523851841429",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=01/data.parquet",
+        "generation": "1787352820976879",
         "size_bytes": 1930552,
         "crc32c": "7iCsJg==",
         "md5_base64": "tAwYw4HC8oijCrrsOrCLXA==",
         "sha256": "68c7f176e28fe5ce689363021f5dd909d195c65ae23f8d7774e5c5558e7e7cb6"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=02/data.parquet",
-        "generation": "1785523815304512",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=02/data.parquet",
+        "generation": "1787352820859719",
         "size_bytes": 1733602,
         "crc32c": "pQo9mA==",
         "md5_base64": "vKCh2Ww7LIXu37999+fJ6A==",
         "sha256": "e36c0475c337e0096acf7e08c038d75f31545fbf9259cf581ce432d43c4f5da5"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=03/data.parquet",
-        "generation": "1785523950299703",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=03/data.parquet",
+        "generation": "1787352820917291",
         "size_bytes": 1933724,
         "crc32c": "xu6++A==",
         "md5_base64": "S5532wo8Vm5lB/Y640uvKQ==",
         "sha256": "e33c4f45bdb42aceb534a31d218e780d773e4ab2ac133f8e1aae10b7b754055f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=04/data.parquet",
-        "generation": "1785523825660754",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=04/data.parquet",
+        "generation": "1787352821021861",
         "size_bytes": 1866930,
         "crc32c": "wB+Iew==",
         "md5_base64": "7UP0xeVo9eT0MKrSR48FLA==",
         "sha256": "c68d98ef191e4d9cb320cb81f2bc5ef4f244d8429f60abb5ee6d16df3a6d2628"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=05/data.parquet",
-        "generation": "1785524088500406",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=05/data.parquet",
+        "generation": "1787352820807646",
         "size_bytes": 1912731,
         "crc32c": "Yw50eg==",
         "md5_base64": "GheRDIfUAAov1v17lIOf6Q==",
         "sha256": "1bb3b6f77885e4acd78d2e5a0913ff2176ea0a93d14fca7c25244226ecfec8f6"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=06/data.parquet",
-        "generation": "1785524074787166",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=06/data.parquet",
+        "generation": "1787352820778748",
         "size_bytes": 1857028,
         "crc32c": "sx+aSg==",
         "md5_base64": "96aconH0NE9inz58raEZ3A==",
         "sha256": "ee82a66762c6eead2145ece76bb91e0f5a116d56adc5ae6f9efa4f883b0aa816"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=07/data.parquet",
-        "generation": "1785524191802847",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=07/data.parquet",
+        "generation": "1787352820825378",
         "size_bytes": 1914717,
         "crc32c": "V+wrYg==",
         "md5_base64": "1rEkwafO9hDag/AkfUYUqA==",
         "sha256": "3971df33a676efbe2fadef6efd09e61c152c119b963360c2033ff5a854fa212e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=08/data.parquet",
-        "generation": "1785525386140451",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=08/data.parquet",
+        "generation": "1787352821014525",
         "size_bytes": 1914613,
         "crc32c": "9CsIeA==",
         "md5_base64": "sVmGuxhTzemVSTDne2iT8g==",
         "sha256": "4da6416a31c47cdd77b4e695e792fcbafaa130db9115912c32553852c85a6473"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=09/data.parquet",
-        "generation": "1785524201773777",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=09/data.parquet",
+        "generation": "1787352820936346",
         "size_bytes": 1847645,
         "crc32c": "FOlhMg==",
         "md5_base64": "B//Bbu8jNtObXoGWf7Hy9A==",
         "sha256": "7c84142863be12b6c60bd5ec805281d45e78531074fb0b4dfad115f91b4102e7"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=10/data.parquet",
-        "generation": "1785524298481495",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=10/data.parquet",
+        "generation": "1787352821004000",
         "size_bytes": 1924692,
         "crc32c": "CS2kQQ==",
         "md5_base64": "IrRvW25NoA/U8Gpgp0yLFA==",
         "sha256": "b0819cda883d2bd554d637bfaeedbc4d0e3d5e8b3c7d8de3e85c46af02470253"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=11/data.parquet",
-        "generation": "1785524215852196",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=11/data.parquet",
+        "generation": "1787352821124689",
         "size_bytes": 1867527,
         "crc32c": "XXjcvw==",
         "md5_base64": "PR4VO/tXCFhMnezoOOE4Nw==",
         "sha256": "d615f4cd4b448d09620f5e1f170a835993fef0f20c1c6cafe447747ba8ebb0ec"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=12/data.parquet",
-        "generation": "1785525400449016",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2023/month=12/data.parquet",
+        "generation": "1787352821177098",
         "size_bytes": 1929356,
         "crc32c": "Y976/Q==",
         "md5_base64": "tvU0L6+zdkhw9C7kY1EcaQ==",
         "sha256": "3de58e3bebb49c9f9b4a9c494976c4deeeb3453782662caef394b9d9ab6f5528"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=01/data.parquet",
-        "generation": "1785524393291927",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=01/data.parquet",
+        "generation": "1787352821129943",
         "size_bytes": 1932610,
         "crc32c": "P4a0KQ==",
         "md5_base64": "g9uvqKmoPTKIhTM531coaw==",
         "sha256": "fcb0539714d6b7f1d4d1224b40f36a568045170ac8d39f98b24bcb36020f8b50"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=02/data.parquet",
-        "generation": "1785525411154933",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=02/data.parquet",
+        "generation": "1787352821189184",
         "size_bytes": 1795034,
         "crc32c": "gypfRQ==",
         "md5_base64": "pJG37UHHEXR3kT1d44OfiA==",
         "sha256": "235de3d781e6784ad71b2717684273af0ca409766b6ed1785182271973a7a0aa"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=03/data.parquet",
-        "generation": "1785524310479405",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=03/data.parquet",
+        "generation": "1787352821208935",
         "size_bytes": 1933015,
         "crc32c": "KfFCEw==",
         "md5_base64": "C6nO7EYoO2TW7eONU/7oxg==",
         "sha256": "a0fff361f9aeffd657e87cb0bc4a36df1f79122898dd92b03c19fb2eb4a67d15"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=04/data.parquet",
-        "generation": "1785524403688683",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=04/data.parquet",
+        "generation": "1787352821191844",
         "size_bytes": 1868292,
         "crc32c": "sLn4WA==",
         "md5_base64": "fqO3jRbgI+OKWWzVqFU2lg==",
         "sha256": "6b2189c440d4720d26fa0ddf92b2d37ad5093f9adb0bfcf491b0d99507a709bb"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=05/data.parquet",
-        "generation": "1785524753284563",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=05/data.parquet",
+        "generation": "1787352821371456",
         "size_bytes": 1907045,
         "crc32c": "gG7u8w==",
         "md5_base64": "sCCDjxKLjLy70rnEROp4WA==",
         "sha256": "82f4d2ab647424558cfd2d048661d61a3e4988d299238db86436b043aacea7cf"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=06/data.parquet",
-        "generation": "1785524767555462",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=06/data.parquet",
+        "generation": "1787352821405221",
         "size_bytes": 1861429,
         "crc32c": "Lsk7IQ==",
         "md5_base64": "gnkNuhfcuopF/ndAI/8QPg==",
         "sha256": "b7b28c3bbed392d0e8fd6a19fec9062cd0191a948203f7c14619f29b72d257ec"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=07/data.parquet",
-        "generation": "1785525425201804",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=07/data.parquet",
+        "generation": "1787352821450175",
         "size_bytes": 1919888,
         "crc32c": "naiUSw==",
         "md5_base64": "1XWkfCKL8AotPj/TjjUCvQ==",
         "sha256": "990097f96270631c64dd9887c3baecb32cbfdc06daa3bd5ad99b4447cd69a719"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=08/data.parquet",
-        "generation": "1785524780145106",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=08/data.parquet",
+        "generation": "1787352821298186",
         "size_bytes": 1921827,
         "crc32c": "CYbqgA==",
         "md5_base64": "4VknWnebPhZd5m4+a1ssHQ==",
         "sha256": "6843270c7d1bcb029f8aef432b660c0083867e9208c24c1dc82fc4d9ba718315"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=09/data.parquet",
-        "generation": "1785524790493266",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=09/data.parquet",
+        "generation": "1787352821418058",
         "size_bytes": 1856651,
         "crc32c": "Z6WQJQ==",
         "md5_base64": "OnvQWthxC/Sqmaikn6NvvQ==",
         "sha256": "06157ac21a07f83bfcb9ed6e1a060302ca302c685173ef0c26ee46498a5d53f2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=10/data.parquet",
-        "generation": "1785524942706492",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=10/data.parquet",
+        "generation": "1787352821418161",
         "size_bytes": 1914694,
         "crc32c": "mLD1EQ==",
         "md5_base64": "hPq9u5QEkw5jCCUuuKqfMw==",
         "sha256": "bf08a5b33032a8130f9201f525a649ede2c0061373ae029b7de09d98d41a57c7"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=11/data.parquet",
-        "generation": "1785525224418581",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=11/data.parquet",
+        "generation": "1787352821431530",
         "size_bytes": 1839790,
         "crc32c": "XM2zmg==",
         "md5_base64": "A4onWTUFcCqJIYLy2MiarA==",
         "sha256": "7d97dee44ca3c4c448bdb809a2f89a12690d0019616af5304881c3b8e975aa3a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=12/data.parquet",
-        "generation": "1785525236982652",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2024/month=12/data.parquet",
+        "generation": "1787352821504323",
         "size_bytes": 1933396,
         "crc32c": "SkEM3g==",
         "md5_base64": "hCatzZ4Bhn5dcjmVy2l0+Q==",
         "sha256": "8674b8f481c39b5a09d103d3b8780f5b4770b7a81524dd9780d582f5042399b4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=01/data.parquet",
-        "generation": "1785525251848548",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=01/data.parquet",
+        "generation": "1787352821504110",
         "size_bytes": 1931607,
         "crc32c": "kfw+Bw==",
         "md5_base64": "U1xCdEiY7DfJAi1LBNbQ5w==",
         "sha256": "2b43602d16382e224f0e81f22ea2d78b86432896c2d7c181dc166735ea7fdf7e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=02/data.parquet",
-        "generation": "1785525262396043",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=02/data.parquet",
+        "generation": "1787352821676710",
         "size_bytes": 1731382,
         "crc32c": "JHujhw==",
         "md5_base64": "/PfanXcDXxn3jrtMvLHGew==",
         "sha256": "f90379db8a191c73e9f72bc322095f2d83de6ae17dc4e6c846436b2838d498bd"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=03/data.parquet",
-        "generation": "1785527103416695",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=03/data.parquet",
+        "generation": "1787352821466284",
         "size_bytes": 1931945,
         "crc32c": "9rWRiQ==",
         "md5_base64": "bNce6hDa/5o2HEAIFoy+8w==",
         "sha256": "f739406228e1adb4feea9dac6e93a280738b11c5def5d3b61f9fd055ba095e13"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=04/data.parquet",
-        "generation": "1785525273957101",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=04/data.parquet",
+        "generation": "1787352821797038",
         "size_bytes": 1866743,
         "crc32c": "GFlStA==",
         "md5_base64": "XvOpIqrQrLtht6DvR6+fdg==",
         "sha256": "82bc548db63eb56932088e3726a4f45067981e09b2ca88575809ed32e6ef09fe"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=05/data.parquet",
-        "generation": "1785525285476716",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=05/data.parquet",
+        "generation": "1787352821760887",
         "size_bytes": 1928579,
         "crc32c": "wbJp+g==",
         "md5_base64": "wEWpPg73O0vedLxGJtUsaA==",
         "sha256": "b012e8bed2af4a101496619fefe6a3ca5403a34780ddba57b9a7d4517af32726"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=06/data.parquet",
-        "generation": "1785525295813860",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=06/data.parquet",
+        "generation": "1787352821715711",
         "size_bytes": 1856679,
         "crc32c": "Ra6+kQ==",
         "md5_base64": "gzP5gd5KVcqvzWfFuh2agA==",
         "sha256": "880d76875a2bc14bf9873af73e8164dd4737c42f392ee91a21c854a2baccf23d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=07/data.parquet",
-        "generation": "1785525306616062",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=07/data.parquet",
+        "generation": "1787352821596086",
         "size_bytes": 1919547,
         "crc32c": "MDsFLg==",
         "md5_base64": "+CG/mpgpgaFqZblv9TV1nA==",
         "sha256": "d433d3585f95ae78840f63d7165628100be38966215b98c6a1536f9fe7cdcf16"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=08/data.parquet",
-        "generation": "1785525317320147",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=08/data.parquet",
+        "generation": "1787352821745706",
         "size_bytes": 1916919,
         "crc32c": "9sAO6A==",
         "md5_base64": "Bkz0laOo4uiOSHeCX+UmKw==",
         "sha256": "e8f84482869a45aa6cb6f2c48f069a7c1d68ec4309170c65794592a3d24c30aa"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=09/data.parquet",
-        "generation": "1785525568991012",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=09/data.parquet",
+        "generation": "1787352821702024",
         "size_bytes": 1849830,
         "crc32c": "S5xy9g==",
         "md5_base64": "9H4e2p0dnfpm7A2L0yBpaQ==",
         "sha256": "9484dbc8028a13ff17b161d76877c3fa5ac9dc140cda79cc1553457a6ef8cbb2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=10/data.parquet",
-        "generation": "1785525327861986",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=10/data.parquet",
+        "generation": "1787352821595692",
         "size_bytes": 1928432,
         "crc32c": "3Cp82w==",
         "md5_base64": "aDD/ckp9sKb1K4bRbHf4HA==",
         "sha256": "d8325d3d11ed08e9c7ccf8fbf73b24b9696665b9087261e1278cee897bf40870"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=11/data.parquet",
-        "generation": "1785527116474866",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=11/data.parquet",
+        "generation": "1787352821812133",
         "size_bytes": 1863195,
         "crc32c": "9KAGBw==",
         "md5_base64": "Tfrx7VLTOT9gfvSE1e9tRQ==",
         "sha256": "e3e5b2df1b359cae78d045b26321570f164afdae3cf4ed133643fcf23e73b48c"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=12/data.parquet",
-        "generation": "1785527128273642",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2025/month=12/data.parquet",
+        "generation": "1787352821906335",
         "size_bytes": 1932379,
         "crc32c": "CN0naw==",
         "md5_base64": "IemQeqiWivYKVWaIwB9fnw==",
         "sha256": "9219966ac987b45f26053eecb6e853f75ec3428202e871ba385701f7dd94f321"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=01/data.parquet",
-        "generation": "1785526837293133",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=01/data.parquet",
+        "generation": "1787352821882173",
         "size_bytes": 1931839,
         "crc32c": "nRd3ug==",
         "md5_base64": "eINoQ0yfo7udBhmj+wWJvw==",
         "sha256": "aae17db4c664e80e110ee37e818e8d5875073b723d0516a58dec07e9476b1622"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=02/data.parquet",
-        "generation": "1785526848098950",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=02/data.parquet",
+        "generation": "1787352821905312",
         "size_bytes": 1732405,
         "crc32c": "rKdWKw==",
         "md5_base64": "szSv1sdAF/jRRmDZrP76Ow==",
         "sha256": "487b3467ad94f61ebc4c022aaf68fb5e0711563ae60f3b2f08c6f8137fdac0cf"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=03/data.parquet",
-        "generation": "1785526878602082",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=03/data.parquet",
+        "generation": "1787352821915868",
         "size_bytes": 1928282,
         "crc32c": "LHNgIQ==",
         "md5_base64": "YobtQkaYogofpvCPaaCfSg==",
         "sha256": "4eb00a5d1934fe70ea159d0418639fda86c0a205361360d68c04ddd7c2c03587"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=04/data.parquet",
-        "generation": "1785527047766007",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=04/data.parquet",
+        "generation": "1787352821836788",
         "size_bytes": 1854976,
         "crc32c": "TQZhXA==",
         "md5_base64": "1YSg5mkf3xcmk2mnr5Z6FQ==",
         "sha256": "96bfbc3c9525eda250c9c3c0d458f5d25677a6e1efa7e74dcd7a568acb9650c8"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=05/data.parquet",
-        "generation": "1785527061676382",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=05/data.parquet",
+        "generation": "1787352822005459",
         "size_bytes": 1925997,
         "crc32c": "20c63g==",
         "md5_base64": "QNpnERFgEZYwBmRqVGkRGQ==",
         "sha256": "b61a51595310aae27693df0e60c8926f4e626c3d38e5b5f2971a821937b6b403"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=06/data.parquet",
-        "generation": "1785527075295323",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=06/data.parquet",
+        "generation": "1787352822010177",
         "size_bytes": 1858691,
         "crc32c": "9tHwag==",
         "md5_base64": "8ovcKRWaCBn6oxu8qZMa6w==",
         "sha256": "14f98f1c2d1c12ed651d39e2e7ff192366b80b559ef07dc9f43bb82f2cfaf189"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=07/data.parquet",
-        "generation": "1785527090995613",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=2026/month=07/data.parquet",
+        "generation": "1787352822138717",
         "size_bytes": 1708090,
         "crc32c": "kFBumw==",
         "md5_base64": "7LrkuJXr0CsOSiJseNHrEw==",
@@ -1022,8 +1022,8 @@
       }
     ],
     "capacity_snapshot": {
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/uswtdb_turbines.parquet",
-      "generation": "1786672137418013",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/uswtdb_turbines.parquet",
+      "generation": "1787352825193518",
       "size_bytes": 1819747,
       "sha256": "26a4509b090252b4bf54aa09445e8db8a55a68280f6b7b4608481ba8df5bcfc2"
     },
@@ -1044,1016 +1044,1016 @@
   "solar": {
     "weather_partitions": [
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=01/data.parquet",
-        "generation": "1785534312344949",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=01/data.parquet",
+        "generation": "1787352801865432",
         "size_bytes": 227231,
         "crc32c": "e9cc+w==",
         "md5_base64": "LLvwyCXw3HDzHE+tQo9YIA==",
         "sha256": "f574ed7a5ab008973e751db347484d9e21990a3bc9175b311f09e56018492269"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=02/data.parquet",
-        "generation": "1785534345159980",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=02/data.parquet",
+        "generation": "1787352801872067",
         "size_bytes": 223342,
         "crc32c": "51Nznw==",
         "md5_base64": "xRk5OyXxCJfXh1pLJLCVgA==",
         "sha256": "ce5bfe1cce84b9d0276f338a353219735dee4a3bf3624cb9a5073db436e88fd4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=03/data.parquet",
-        "generation": "1785534377314198",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=03/data.parquet",
+        "generation": "1787352802053094",
         "size_bytes": 218842,
         "crc32c": "tI5k2A==",
         "md5_base64": "atCe/XhJOGJNKjHDc1rINg==",
         "sha256": "f37136d58cb0f7ec825936fbb07a1ca2885c3e60de1266523137ae803a6600b1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=04/data.parquet",
-        "generation": "1785533448397469",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=04/data.parquet",
+        "generation": "1787352802003191",
         "size_bytes": 187129,
         "crc32c": "Z7NiGg==",
         "md5_base64": "+03kJHSyf2zX95x6SgBAdA==",
         "sha256": "f6afa52c4369305dd8673696a28afd1d6827158d5ba535bf755cf27c9543570a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=05/data.parquet",
-        "generation": "1785534395636212",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=05/data.parquet",
+        "generation": "1787352801980542",
         "size_bytes": 193452,
         "crc32c": "Q+Su2Q==",
         "md5_base64": "RlYc2tOnLypmcsvpmfkZxA==",
         "sha256": "1bf70686f396e5b78a9d22c201989ff850f2f590a92263f15c5685051f68b284"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=06/data.parquet",
-        "generation": "1785534418805545",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=06/data.parquet",
+        "generation": "1787352801983300",
         "size_bytes": 167935,
         "crc32c": "IjoByA==",
         "md5_base64": "UGXI5LbN8M8izxVfiSiM5A==",
         "sha256": "27415fea7e2c362767c08d8af55d99ab70cff5b72844a66dba0ccd5dc65179fd"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=07/data.parquet",
-        "generation": "1785534442662463",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=07/data.parquet",
+        "generation": "1787352801968753",
         "size_bytes": 172366,
         "crc32c": "pu9K/g==",
         "md5_base64": "WFfGPX2Vkqa9NjfBsc5v8Q==",
         "sha256": "487bd668828def3bf47542a33e48a23bef5facda8d4fafb012bf957ab3013b4e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=08/data.parquet",
-        "generation": "1785534462809288",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=08/data.parquet",
+        "generation": "1787352802059383",
         "size_bytes": 173467,
         "crc32c": "mf/CSA==",
         "md5_base64": "EHu0E/AFV7y92t5eyPqbZw==",
         "sha256": "35b9788c5e13703ab1374f97d68b7824bfa414c74ff2043bbaa6a2372cc3e560"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=09/data.parquet",
-        "generation": "1785534494759738",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=09/data.parquet",
+        "generation": "1787352802094203",
         "size_bytes": 180096,
         "crc32c": "CuwSbA==",
         "md5_base64": "NqbirbnwfG9VDnDOBwAi2A==",
         "sha256": "e544b9fc07b097951d81b62d3138978bef19d222d47bda77d46754f81e9b8772"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=10/data.parquet",
-        "generation": "1785534528680164",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=10/data.parquet",
+        "generation": "1787352801992363",
         "size_bytes": 215678,
         "crc32c": "VXvKnQ==",
         "md5_base64": "kFgnMwe5KmyjRf3Qq9XkCA==",
         "sha256": "2ba5635c602bc707fad2183fc5ff1d55e8b401b6aca43802723481900f3cbe98"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=11/data.parquet",
-        "generation": "1785534550769042",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=11/data.parquet",
+        "generation": "1787352801999750",
         "size_bytes": 211827,
         "crc32c": "jwpjoA==",
         "md5_base64": "c9TtJvKe/vOeB5Bowj4Stw==",
         "sha256": "de688d0acf830277d9dfb31152c2c688a25b922e2909fed20968f432c3f206c1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=12/data.parquet",
-        "generation": "1785534572790967",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2016/month=12/data.parquet",
+        "generation": "1787352802074054",
         "size_bytes": 220056,
         "crc32c": "bR7aAA==",
         "md5_base64": "2LowKfibfmN3VYraxJIaCw==",
         "sha256": "207e7c8f985bf32d7c96dfe74f9d40f3fb78f1aca1774d93f9a318fb6de069f0"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=01/data.parquet",
-        "generation": "1785534596442641",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=01/data.parquet",
+        "generation": "1787352802075185",
         "size_bytes": 228411,
         "crc32c": "pNOVVg==",
         "md5_base64": "VwyUev9xXiwfyxhjfh9TAQ==",
         "sha256": "54774b40f2456d026c314fea15d071658bcaf3bbf1521cd48a22d15a063828ff"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=02/data.parquet",
-        "generation": "1785534611516791",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=02/data.parquet",
+        "generation": "1787352802051924",
         "size_bytes": 213169,
         "crc32c": "bA2I8Q==",
         "md5_base64": "F3ku89seziqlrN7S7YBK7w==",
         "sha256": "68df9edd592425a49e4f7878ef2c31c7b9efd2e46fa600c3ee15f2c0a25576f5"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=03/data.parquet",
-        "generation": "1785534646517713",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=03/data.parquet",
+        "generation": "1787352802059834",
         "size_bytes": 221376,
         "crc32c": "SZi1WQ==",
         "md5_base64": "J6hF3Sem3zIdLFH/l2BXNw==",
         "sha256": "4995b9141678575a794255b73f5bf2b5667d80001fdec7d7dbb047c25fe8e6ef"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=04/data.parquet",
-        "generation": "1785534681548288",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=04/data.parquet",
+        "generation": "1787352802146749",
         "size_bytes": 180710,
         "crc32c": "YScm6g==",
         "md5_base64": "NH9DNrKy5KcioHmqfh5fsQ==",
         "sha256": "504e898e3a64a83e3ef3e69a934845582f8c3c30bc9aa8eb7a7875be1338b78f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=05/data.parquet",
-        "generation": "1785534702804028",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=05/data.parquet",
+        "generation": "1787352802053990",
         "size_bytes": 196890,
         "crc32c": "hFwXCg==",
         "md5_base64": "XMSZHJ3QoNuVW9RmeTvaKQ==",
         "sha256": "04a75feba8ca8597e938add41b2a6637e9d2c9c24c4e7ccb23fd54b0373dab66"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=06/data.parquet",
-        "generation": "1785534724507884",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=06/data.parquet",
+        "generation": "1787352802083640",
         "size_bytes": 169012,
         "crc32c": "J37/5Q==",
         "md5_base64": "bsu62jzy+mIznOOL0MrnLw==",
         "sha256": "707005b164be8a20d55511e5cfb7ef954fc795d6d134fb4c3b9b2cfe3115b8a4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=07/data.parquet",
-        "generation": "1785534743846782",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=07/data.parquet",
+        "generation": "1787352802290479",
         "size_bytes": 214606,
         "crc32c": "jIrWZg==",
         "md5_base64": "Wo4GFxtDVPEEePyA+x+KxQ==",
         "sha256": "73c757b00e98c9ccad98f1fbd2c4f7ee3854eab777dad8c22ab5d6cebdba2959"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=08/data.parquet",
-        "generation": "1785534766222172",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=08/data.parquet",
+        "generation": "1787352802193026",
         "size_bytes": 265036,
         "crc32c": "qr2hPQ==",
         "md5_base64": "g7D3+8iye4VckpXuoTQRRw==",
         "sha256": "792f128e9d425f72f89d4894f563bcc97d850dc0f74baf4bcdfc17e456f56b42"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=09/data.parquet",
-        "generation": "1785534786832375",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=09/data.parquet",
+        "generation": "1787352802184745",
         "size_bytes": 265966,
         "crc32c": "sr3Wkw==",
         "md5_base64": "X3LJqyG5WAS56iei5Gh0MA==",
         "sha256": "00b595d42f6166258062ec215e613ce0fc694addf86fb038b23cfb0601d20536"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=10/data.parquet",
-        "generation": "1785535057973068",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=10/data.parquet",
+        "generation": "1787352802178856",
         "size_bytes": 288327,
         "crc32c": "W/S1Qw==",
         "md5_base64": "EqoQJgMtnMS64JWmVc8JTg==",
         "sha256": "b887507263ca4b2c8f48e8f0172b96c33b9b0fe5164c033d94f4417b047186e3"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=11/data.parquet",
-        "generation": "1785535886899152",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=11/data.parquet",
+        "generation": "1787352802308784",
         "size_bytes": 286204,
         "crc32c": "iRFwSA==",
         "md5_base64": "3Bp9KqyAQVkCBUGnFM0niQ==",
         "sha256": "380c4ef3a88abce1f5384a02fe06abb57f4f7f625c108113e85fd9d709dd8fcb"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=12/data.parquet",
-        "generation": "1785535911055152",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2017/month=12/data.parquet",
+        "generation": "1787352802169961",
         "size_bytes": 293490,
         "crc32c": "1bzpOA==",
         "md5_base64": "m9QxEkpCUXzypT5CE9WLrQ==",
         "sha256": "7f2e18e96df3bad8eab4c28633a2f93e1f455bfb5cb89700d8adcb04604e3273"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=01/data.parquet",
-        "generation": "1785536595924505",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=01/data.parquet",
+        "generation": "1787352802085916",
         "size_bytes": 299157,
         "crc32c": "cL/UDg==",
         "md5_base64": "UH2I0J5STqniIahWfezMVg==",
         "sha256": "2ed4a3daee64f70af72c927082b7c80922427f3e5e70f59e70a2e8515e8ae321"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=02/data.parquet",
-        "generation": "1785535932052791",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=02/data.parquet",
+        "generation": "1787352802156862",
         "size_bytes": 273459,
         "crc32c": "uImfYQ==",
         "md5_base64": "DP8xKU6R5pi7WS9tXDrNeQ==",
         "sha256": "967497abf92939cd510fa112e30eaf39b81dc33d6f0b3443f7ebe7bcf1cfbfda"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=03/data.parquet",
-        "generation": "1785537220000096",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=03/data.parquet",
+        "generation": "1787352802310885",
         "size_bytes": 298382,
         "crc32c": "Gi4Q3A==",
         "md5_base64": "EFrrv9k+kntUxVFmT3kqmw==",
         "sha256": "9b42a61601636bc9735e825803734336dcec303502feb9d9b25b5292f129589f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=04/data.parquet",
-        "generation": "1785535949086752",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=04/data.parquet",
+        "generation": "1787352802332099",
         "size_bytes": 282900,
         "crc32c": "yZoeSA==",
         "md5_base64": "3Gzmji9eCskpks/Ja38F2g==",
         "sha256": "39e6b5b2e519d3dc534de1135fc5f3598c205f97f19831efe52defc30ac7a90b"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=05/data.parquet",
-        "generation": "1785535993285875",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=05/data.parquet",
+        "generation": "1787352802375808",
         "size_bytes": 285650,
         "crc32c": "OM66HQ==",
         "md5_base64": "GgybKwZkGKW5Gztqz09osw==",
         "sha256": "05eefed5d154bafdd2c82fa29621243929bf535b6c05055c0457add12c700ec2"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=06/data.parquet",
-        "generation": "1785536038719025",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=06/data.parquet",
+        "generation": "1787352802248679",
         "size_bytes": 262488,
         "crc32c": "npP1Pg==",
         "md5_base64": "B+haFw49kTrhE4tw1eMHrg==",
         "sha256": "2603a1c21edc81f6d972c9f8ad32fd9ea22f016b7360f8103181f141656a256a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=07/data.parquet",
-        "generation": "1785536056720074",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=07/data.parquet",
+        "generation": "1787352802358915",
         "size_bytes": 274300,
         "crc32c": "9HhtjQ==",
         "md5_base64": "idZj+KLoGXV4C8Trbfio7A==",
         "sha256": "02933ff78dbe98ba6d02e33ffd737e856c9eabff484fab2067afe077e21041b9"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=08/data.parquet",
-        "generation": "1785536077177926",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=08/data.parquet",
+        "generation": "1787352802198348",
         "size_bytes": 268679,
         "crc32c": "rk1GnA==",
         "md5_base64": "1h3I7Bd4ZIpcmq4YAzAYmA==",
         "sha256": "897b652636611fa03ead93b9505696eaaf1e63549b1828b9fa1ce01cc2719772"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=09/data.parquet",
-        "generation": "1785536095681352",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=09/data.parquet",
+        "generation": "1787352802263540",
         "size_bytes": 264258,
         "crc32c": "jM9nhg==",
         "md5_base64": "Ykd2EIHVdjhpCFOnoKGoZA==",
         "sha256": "988f472de242c140b72bca859dbf7e880c5e8b5c0f5782a24d659cd90abe54f6"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=10/data.parquet",
-        "generation": "1785536509659547",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=10/data.parquet",
+        "generation": "1787352802175764",
         "size_bytes": 288827,
         "crc32c": "+QLa8w==",
         "md5_base64": "Ksr9QfD0Nt+jayJrSpXpYA==",
         "sha256": "1402d675669dd8a325e41b9da548bdc971d4904d89a7b0f76b411cef9448aa67"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=11/data.parquet",
-        "generation": "1785537200833915",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=11/data.parquet",
+        "generation": "1787352802275703",
         "size_bytes": 288484,
         "crc32c": "X4q/KA==",
         "md5_base64": "0L1+guZdMsPa61YwzQGsTg==",
         "sha256": "1ed548c69260a292c75daea2d18af9ab454007a04cd15b2382ca591f7ddead0e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=12/data.parquet",
-        "generation": "1785536111882423",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2018/month=12/data.parquet",
+        "generation": "1787352802456098",
         "size_bytes": 293213,
         "crc32c": "UZIVZg==",
         "md5_base64": "ttzhiugA55BKgmd91kv9Ng==",
         "sha256": "c1f6d556eafa9260a0b07295c7c24354eb8b6cc944901ebe0141f18107a2cf96"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=01/data.parquet",
-        "generation": "1785537012740815",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=01/data.parquet",
+        "generation": "1787352802193077",
         "size_bytes": 300967,
         "crc32c": "Y4bQ4g==",
         "md5_base64": "lS0u+r3GDFVZAS064ZIusw==",
         "sha256": "22061cedcc5e736a13cfdb75bce5ae804eff2b3458b592100c50b6f655645b4e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=02/data.parquet",
-        "generation": "1785536424310303",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=02/data.parquet",
+        "generation": "1787352802267614",
         "size_bytes": 272955,
         "crc32c": "sI/Wbw==",
         "md5_base64": "9ZCWmY5ZpPHHNMyxBtFMGw==",
         "sha256": "f67908a25c63121badac1190bd530968965a681ec7ec4d1ed764ec7f0acaeda1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=03/data.parquet",
-        "generation": "1785536617923236",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=03/data.parquet",
+        "generation": "1787352802393149",
         "size_bytes": 295412,
         "crc32c": "JI1vyA==",
         "md5_base64": "Zk69QD3Z74jPQx0rWkTnmg==",
         "sha256": "f91e87c9ba3568598ff59c38fb9b6a73e6dddf7cd0d0960137e8b26f57ce352d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=04/data.parquet",
-        "generation": "1785536127801124",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=04/data.parquet",
+        "generation": "1787352802391840",
         "size_bytes": 274601,
         "crc32c": "0QgMgA==",
         "md5_base64": "64J0CzpzGF74Nl8OdABXqQ==",
         "sha256": "bff98bec97afbf77f42391f56a21788cbe3fe9eed0728cd5314caded5a66a784"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=05/data.parquet",
-        "generation": "1785536549846157",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=05/data.parquet",
+        "generation": "1787352802498267",
         "size_bytes": 276791,
         "crc32c": "jKKz8A==",
         "md5_base64": "wv/4AzIfF4KyzZe++O0hvw==",
         "sha256": "661315bc6f2c1d5133943e6d65f1a7abccf3bed240ef01ca19ff729d3ada06e7"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=06/data.parquet",
-        "generation": "1785536530015549",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=06/data.parquet",
+        "generation": "1787352802308340",
         "size_bytes": 262076,
         "crc32c": "9ytnaA==",
         "md5_base64": "Z6kucoC6KxuF6zz62yRg5A==",
         "sha256": "5fe9d37eddd27e7db5983e20ebd74e39482447ca909944cfa1934b379a586453"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=07/data.parquet",
-        "generation": "1785536637956911",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=07/data.parquet",
+        "generation": "1787352802274116",
         "size_bytes": 273024,
         "crc32c": "3PqD8A==",
         "md5_base64": "TaIRbsj4QCXo0uC0wt0IoQ==",
         "sha256": "ed690527c290b06005fc1742b64da23c8ad6e20c03c3afe8fa3d4546418e573d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=08/data.parquet",
-        "generation": "1785536571599089",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=08/data.parquet",
+        "generation": "1787352802390157",
         "size_bytes": 269513,
         "crc32c": "hyuDjA==",
         "md5_base64": "QBMuPjZUjsidt7ZNZtNUkQ==",
         "sha256": "0a2ef449775b4150634da3257bb55e70895e30127df1c2ec84014c2eee8a9da6"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=09/data.parquet",
-        "generation": "1785536728244096",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=09/data.parquet",
+        "generation": "1787352802459874",
         "size_bytes": 262873,
         "crc32c": "Dc4t6Q==",
         "md5_base64": "4CitDxZf/Do46i+t58F8jQ==",
         "sha256": "ac02227b0a16c64445a75a21ab9fefac4cbfc2c69ebb7db5d4b154a4b1287cdf"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=10/data.parquet",
-        "generation": "1785537049319767",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=10/data.parquet",
+        "generation": "1787352802361918",
         "size_bytes": 290270,
         "crc32c": "HMVXAg==",
         "md5_base64": "qGK6fiX6jDY7XCXhJEFTfw==",
         "sha256": "ab4e9620b803d363f6952d2eebf6123b623f5dcdb704f4dd707b7dedfb6f3bd7"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=11/data.parquet",
-        "generation": "1785537686702674",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=11/data.parquet",
+        "generation": "1787352802464126",
         "size_bytes": 288428,
         "crc32c": "fb3jzw==",
         "md5_base64": "LVN28cRjje8L7uQTkxib6Q==",
         "sha256": "3702423bbfe1b4714f72afd8a40fb135b661e968ac2da7c07c12a084c851fc49"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=12/data.parquet",
-        "generation": "1785537139469959",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2019/month=12/data.parquet",
+        "generation": "1787352802465691",
         "size_bytes": 285164,
         "crc32c": "2ZnX1w==",
         "md5_base64": "8qaeBTkM6X6hVCM1I34LNA==",
         "sha256": "55e00571b7d5e3a471b88788992d8bfecf8e2b7c0d99874165d2236b908d61bd"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=01/data.parquet",
-        "generation": "1785537156613413",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=01/data.parquet",
+        "generation": "1787352802502488",
         "size_bytes": 298434,
         "crc32c": "QmNuVA==",
         "md5_base64": "Os36S6cw8YTzzv9H/zRRTw==",
         "sha256": "bae8cc384f808b7fada637a1a521da780284041857b0f59da7a7df9211834c5a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=02/data.parquet",
-        "generation": "1785537180143326",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=02/data.parquet",
+        "generation": "1787352803837863",
         "size_bytes": 282690,
         "crc32c": "UwULwQ==",
         "md5_base64": "vDJJs+FYdkjzUT9X9uw7VQ==",
         "sha256": "7de6110cde7a5b0552b84a6731542fb375227d6e9062534fcf16cdc8eef7123c"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=03/data.parquet",
-        "generation": "1785537289886470",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=03/data.parquet",
+        "generation": "1787352802664460",
         "size_bytes": 285548,
         "crc32c": "qgKSqg==",
         "md5_base64": "sY56QoZi4PLgDnHgORDuLA==",
         "sha256": "5b1d9a4b71e59c33c1371106fe503b00645be630756c433cff7aba9b4816e414"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=04/data.parquet",
-        "generation": "1785537706113880",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=04/data.parquet",
+        "generation": "1787352802471432",
         "size_bytes": 283855,
         "crc32c": "ClppNg==",
         "md5_base64": "zYFRm6GOmGLHbIAt6f+iTg==",
         "sha256": "eb9a5d8fbe4d115f9c03061dc4f57bcf970a8ceab57e492a0bb94cba8c0f1b98"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=05/data.parquet",
-        "generation": "1785537722954001",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=05/data.parquet",
+        "generation": "1787352802474544",
         "size_bytes": 283404,
         "crc32c": "OiZuzQ==",
         "md5_base64": "nbNJE63vmRDQ35dIdW4Mpw==",
         "sha256": "87e1c54e5bd02e1686f22a1b2d4be8d94df51c6214cdfb5864f7c398c303b3dd"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=06/data.parquet",
-        "generation": "1785537241539563",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=06/data.parquet",
+        "generation": "1787352802480539",
         "size_bytes": 266139,
         "crc32c": "wzdQEA==",
         "md5_base64": "gzSZSrJnVu36oSqMiMEzRw==",
         "sha256": "aae93382bb8fdcd45a368319fe0f9a6aa7793ee3625505da3d7f1112162818e8"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=07/data.parquet",
-        "generation": "1785537451494306",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=07/data.parquet",
+        "generation": "1787352802377012",
         "size_bytes": 268215,
         "crc32c": "20xg9A==",
         "md5_base64": "9v8nQbEaUWyGYwLdN04wSg==",
         "sha256": "2eba283a14548905cefc20d872df86a5288945e11d42d38f392793255ba3f635"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=08/data.parquet",
-        "generation": "1785537266745704",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=08/data.parquet",
+        "generation": "1787352802476892",
         "size_bytes": 270531,
         "crc32c": "kZs9Hw==",
         "md5_base64": "pGWAeS79OMAx+KX0kMLwlw==",
         "sha256": "a70bf50eb90bdf87036c0161866df2a6fdf63b25ebb9eef47890e4fbe8d396e3"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=09/data.parquet",
-        "generation": "1785537747871615",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=09/data.parquet",
+        "generation": "1787352802461134",
         "size_bytes": 264688,
         "crc32c": "LllQQg==",
         "md5_base64": "PN7Sly/HcllwRAp5E0i2+Q==",
         "sha256": "442b4714d5ba84a79f0b3681de938b49eb3d1d21413b8a6910093c04ea918d09"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=10/data.parquet",
-        "generation": "1785538036397816",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=10/data.parquet",
+        "generation": "1787352802528860",
         "size_bytes": 284441,
         "crc32c": "K5k2bA==",
         "md5_base64": "Y//kkRQXwpJDEmYl+XFF4Q==",
         "sha256": "b62e697b719cef2cbd234d639a3f6e892dad8f9fb9644020dcd80b6a4881fc66"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=11/data.parquet",
-        "generation": "1785537836937534",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=11/data.parquet",
+        "generation": "1787352802570166",
         "size_bytes": 284904,
         "crc32c": "BA0Zrg==",
         "md5_base64": "YwUJI23IDeEp1RKdQCYUnQ==",
         "sha256": "10be85c4d9a4786b9153d648eef2300d2482363171d60af1a83faf3c0a53945c"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=12/data.parquet",
-        "generation": "1785539505760747",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2020/month=12/data.parquet",
+        "generation": "1787352802692360",
         "size_bytes": 293702,
         "crc32c": "OWAgqw==",
         "md5_base64": "nLkEP9SwPzuc0676nIZNRg==",
         "sha256": "ba2921f189056a4536d0a2599574030fbcf742fe9c272d97da354e2ce0039830"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=01/data.parquet",
-        "generation": "1785537947869766",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=01/data.parquet",
+        "generation": "1787352802451874",
         "size_bytes": 297616,
         "crc32c": "HgZ5vw==",
         "md5_base64": "s0/pE2ZjnKTX4083iHgfDA==",
         "sha256": "bd7b18ca85e3abe5e54d3c78420e71446d3a90f24abaee2d4580c556472f5735"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=02/data.parquet",
-        "generation": "1785537852326077",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=02/data.parquet",
+        "generation": "1787352802559725",
         "size_bytes": 273287,
         "crc32c": "1Srhbw==",
         "md5_base64": "8SRZbGSlLyBIBTTBMi1xMQ==",
         "sha256": "9b2ff09faed8c55aae3c713b0ed5186332e23e037bb61791cc3eb8401782fba5"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=03/data.parquet",
-        "generation": "1785539523974340",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=03/data.parquet",
+        "generation": "1787352802474706",
         "size_bytes": 372998,
         "crc32c": "MiOl+A==",
         "md5_base64": "m9JeJ2aKxmdE50Lei7c9eA==",
         "sha256": "8ff908adb8c80d8c2b31b6536bd5bfc06c4b3e599df2ba29fb09b847ca25b267"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=04/data.parquet",
-        "generation": "1785539546784883",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=04/data.parquet",
+        "generation": "1787352802572793",
         "size_bytes": 471153,
         "crc32c": "E3z2VA==",
         "md5_base64": "Luaykscp1qAGg+iOcQnq4w==",
         "sha256": "098672e49343abe87b8cc6127a08746d7dd0cb26a8b139d394f8cccccc167f01"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=05/data.parquet",
-        "generation": "1785539918067483",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=05/data.parquet",
+        "generation": "1787352802618449",
         "size_bytes": 481424,
         "crc32c": "tvCl/Q==",
         "md5_base64": "dethl60xzRGj3yVDrATC6A==",
         "sha256": "ab89dd8809503a280db9e96cfcb1ec2ff55828432c7c9950fcc0d04793bf5335"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=06/data.parquet",
-        "generation": "1785539570197441",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=06/data.parquet",
+        "generation": "1787352802581139",
         "size_bytes": 463811,
         "crc32c": "ZTmfYA==",
         "md5_base64": "0tdqWXTorNYtRhmvFiu0AQ==",
         "sha256": "af735c9f8924cafa79516510b600c02e2419c82dacaee34cffd5cba0b5c45b0d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=07/data.parquet",
-        "generation": "1785542296531179",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=07/data.parquet",
+        "generation": "1787352802488666",
         "size_bytes": 470448,
         "crc32c": "C0b45g==",
         "md5_base64": "R0l4q0FrPA0K9EJlY9f2YQ==",
         "sha256": "5268929eb7fd9c591565561e709019178bffbb1ce1c74c8a913bf6a8ddebbaaa"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=08/data.parquet",
-        "generation": "1785541195840456",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=08/data.parquet",
+        "generation": "1787352802596773",
         "size_bytes": 469879,
         "crc32c": "XCC1JQ==",
         "md5_base64": "gV9XQ1buWarf/oj3raYuIw==",
         "sha256": "7fa2ba99d0c4d1f49836446e914ad6a68e51cae3af0b65f70112ea8bb3c6bd60"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=09/data.parquet",
-        "generation": "1785539601116756",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=09/data.parquet",
+        "generation": "1787352802811718",
         "size_bytes": 458385,
         "crc32c": "yYEdhg==",
         "md5_base64": "2T0prLYIQUxWOtdEApewDw==",
         "sha256": "9399b3163b001ad55f529422602541d2a02badc79cf0990e0d8b562664bb7795"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=10/data.parquet",
-        "generation": "1785539942269408",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=10/data.parquet",
+        "generation": "1787352802585201",
         "size_bytes": 494082,
         "crc32c": "JtEijA==",
         "md5_base64": "OxJLsIRkIfxjv88hL0ln2g==",
         "sha256": "3e3c1529a2b054041fc9a31efce1ad29e50d8c19ca5e2284f40818f7c2517079"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=11/data.parquet",
-        "generation": "1785539820929332",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=11/data.parquet",
+        "generation": "1787352802786460",
         "size_bytes": 482567,
         "crc32c": "ElxK8A==",
         "md5_base64": "ADumj43RHPVdjvjTX8EDRQ==",
         "sha256": "bbb2a0fec085e7c34d67fa2f4ee7efdeb22c991dc65a60c69bef2f63fc0fa91f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=12/data.parquet",
-        "generation": "1785539625884122",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2021/month=12/data.parquet",
+        "generation": "1787352802494113",
         "size_bytes": 488114,
         "crc32c": "pjLnnA==",
         "md5_base64": "5ffgzzsCuZj6geRp1aBAoQ==",
         "sha256": "5e52cc441adc325b8d707a46f3ea7ef03770119dd46780a790ef16e49cff8a0e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=01/data.parquet",
-        "generation": "1785540590260067",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=01/data.parquet",
+        "generation": "1787352802743974",
         "size_bytes": 509150,
         "crc32c": "3KtrBQ==",
         "md5_base64": "ER/GROhcvwPBVH94/P+Jvg==",
         "sha256": "f38aa72bbb03e8c11f3183860a70e394751b13e2e572e44c04fcd9e64dc499a4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=02/data.parquet",
-        "generation": "1785540771497398",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=02/data.parquet",
+        "generation": "1787352802678935",
         "size_bytes": 455223,
         "crc32c": "iop03g==",
         "md5_base64": "hQ4PKFDXVOKhj3Pdao1p8A==",
         "sha256": "da3eeb52304701ff78b8a8c899f5ca42fe7163176d5c0a0be2774d6c2b6b722d"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=03/data.parquet",
-        "generation": "1785540913077953",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=03/data.parquet",
+        "generation": "1787352802466397",
         "size_bytes": 494961,
         "crc32c": "8gbgGw==",
         "md5_base64": "tlmEZ7/yg6o51LWAG8Qcow==",
         "sha256": "b536048a3397b0759a061b48d6dd4dd9fc0fd09dd7b9d3e99750280efe6f9d31"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=04/data.parquet",
-        "generation": "1785539784032497",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=04/data.parquet",
+        "generation": "1787352802756495",
         "size_bytes": 468235,
         "crc32c": "BAzfxQ==",
         "md5_base64": "05DbLu4qRm+xfcI1npI3TQ==",
         "sha256": "ab96c8ca78e1989c6b3129f5b7a7151649b9bf9f170a5b6be4273920abc3b345"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=05/data.parquet",
-        "generation": "1785542530108990",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=05/data.parquet",
+        "generation": "1787352802655229",
         "size_bytes": 477493,
         "crc32c": "IcAUFg==",
         "md5_base64": "Q5syRcBOBon4UnlOG5Fpgw==",
         "sha256": "7ce860129457bdbccb165cffb3e455ec5cdc59320da90ef9e7f2ecb3785f3ccc"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=06/data.parquet",
-        "generation": "1785540281612179",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=06/data.parquet",
+        "generation": "1787352802467297",
         "size_bytes": 461419,
         "crc32c": "RqquNA==",
         "md5_base64": "isBlfQiUQccwwbIgmu7ung==",
         "sha256": "575966201f6806ca20c31f617cfd5506eaea8863b7f0d4a45a1e46675085c838"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=07/data.parquet",
-        "generation": "1785540050932878",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=07/data.parquet",
+        "generation": "1787352802712817",
         "size_bytes": 472491,
         "crc32c": "D5tn1w==",
         "md5_base64": "qH8zW3OcqxVWs2d2QLaZZA==",
         "sha256": "326719e0197cef5b09385654e277c5d42a211ae51d62ee545fb7bede02b2c8b4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=08/data.parquet",
-        "generation": "1785540680764503",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=08/data.parquet",
+        "generation": "1787352803656506",
         "size_bytes": 470393,
         "crc32c": "xFtyiw==",
         "md5_base64": "jTO5b68NjZODBj9ZeT6i2Q==",
         "sha256": "7627b09e292560c1d768ed419bd9d79eb1d7d2c20decb83f4f9586aab40d2921"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=09/data.parquet",
-        "generation": "1785540796276030",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=09/data.parquet",
+        "generation": "1787352802557945",
         "size_bytes": 456855,
         "crc32c": "7ESuvQ==",
         "md5_base64": "Ux1b8xz7H5DptVUI6whq2g==",
         "sha256": "5ca2f279ee6e5f7f099b731a96736876eb87e59f006f7901d9cad0b9fdf95a36"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=10/data.parquet",
-        "generation": "1785542231922423",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=10/data.parquet",
+        "generation": "1787352802682806",
         "size_bytes": 492441,
         "crc32c": "Az+b6w==",
         "md5_base64": "Sf7LR1xgqxNEdxxcx2cVAQ==",
         "sha256": "0af7b6b2f8a0928c1c5860417dc7f919a8292f698ead1529c32466b6b27dbcaf"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=11/data.parquet",
-        "generation": "1785541328603613",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=11/data.parquet",
+        "generation": "1787352802812035",
         "size_bytes": 482522,
         "crc32c": "q7JfRQ==",
         "md5_base64": "pFonERdt+fpkmmnyYOz8rw==",
         "sha256": "3a8b891569301fefe0038664b9bddd791f26003e5a36033d028a3888598aa3bc"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=12/data.parquet",
-        "generation": "1785540935052889",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2022/month=12/data.parquet",
+        "generation": "1787352802856002",
         "size_bytes": 489246,
         "crc32c": "DV5L+A==",
         "md5_base64": "Sv7d78hMsfvxsWhTQWElEg==",
         "sha256": "ecd95309846fb4c96663197bf57c2fa2964c38dea2e4ba48b324307ef0757894"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=01/data.parquet",
-        "generation": "1785543951226989",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=01/data.parquet",
+        "generation": "1787352802747020",
         "size_bytes": 506987,
         "crc32c": "k+FTBg==",
         "md5_base64": "GuLJoiPtFR8c+QeFerlpdw==",
         "sha256": "d78c3b039a5c84948104567d416a44bc6d3283cb198989e87546b999dba962e4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=02/data.parquet",
-        "generation": "1785541103351809",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=02/data.parquet",
+        "generation": "1787352802776158",
         "size_bytes": 451708,
         "crc32c": "Wmwykg==",
         "md5_base64": "3HXRH6DIzTsKSRkzcM77gQ==",
         "sha256": "91cfb5f2a36f5daa48dd42ef3ec6042fc70f45f1999c92db191b777a553044f4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=03/data.parquet",
-        "generation": "1785543833895262",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=03/data.parquet",
+        "generation": "1787352802728470",
         "size_bytes": 488693,
         "crc32c": "Xk6q4A==",
         "md5_base64": "x8a6SiJTWVqQi0MJBGIIFg==",
         "sha256": "b63ce491e02b920268da4ea26e274dc788fc6c91c7c7f82f284b27a3827ef411"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=04/data.parquet",
-        "generation": "1785542252368367",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=04/data.parquet",
+        "generation": "1787352802793873",
         "size_bytes": 469014,
         "crc32c": "AEnIoQ==",
         "md5_base64": "3KcYINxTFQ2awyUAyRnjXQ==",
         "sha256": "c554bb5b7b37359196bbb4d7833a16ae690e6795743485435b9a16eea766d073"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=05/data.parquet",
-        "generation": "1785542428701418",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=05/data.parquet",
+        "generation": "1787352802814037",
         "size_bytes": 472974,
         "crc32c": "nC2BZw==",
         "md5_base64": "VUBJ6BiEtmwH6m2OTAXNFw==",
         "sha256": "4f3ab8215a88dab9019990523f0d16ec0cf82322ff632c4fb9142d9f60b8b084"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=06/data.parquet",
-        "generation": "1785542272137240",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=06/data.parquet",
+        "generation": "1787352802669476",
         "size_bytes": 462747,
         "crc32c": "uPlz/w==",
         "md5_base64": "pVDn6xCYEpPEZ1NPgXGZdg==",
         "sha256": "f7f5880c5d7b86d01ffc89c5a434f891825dec227ea5b56570d3a6aef0a41163"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=07/data.parquet",
-        "generation": "1785547535147660",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=07/data.parquet",
+        "generation": "1787352802795161",
         "size_bytes": 469907,
         "crc32c": "5+AyMg==",
         "md5_base64": "suxyJ1pJ+K3kx1O2vfhB1w==",
         "sha256": "5cf29e3c10973b7e27a5f038976c176d28090830d0a29f45fd68019e3f075c2c"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=08/data.parquet",
-        "generation": "1785542335288963",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=08/data.parquet",
+        "generation": "1787352802765404",
         "size_bytes": 469936,
         "crc32c": "ESw4sg==",
         "md5_base64": "4q+C3onkkBsrUm4CVMYXXA==",
         "sha256": "24e1091af575c6fbe4c2eaf196b90ca304af284abd5bbab94cc3de8993ec0f46"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=09/data.parquet",
-        "generation": "1785542681539909",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=09/data.parquet",
+        "generation": "1787352802764325",
         "size_bytes": 459449,
         "crc32c": "Q4eKeA==",
         "md5_base64": "BdS53qWJDsGevn11z54dWQ==",
         "sha256": "4ab4f8f66da72668eafba5aa1e5bac6234a129642beefca3e34c5ffa5cbe17f3"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=10/data.parquet",
-        "generation": "1785542965626371",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=10/data.parquet",
+        "generation": "1787352802768436",
         "size_bytes": 494165,
         "crc32c": "vn0xGw==",
         "md5_base64": "RPUf4JKaL0zJ6b6jJqxQbA==",
         "sha256": "e83f403d14ee7d8a62788b2e070e80cea90aa040a513dd78a694f3c1564aec2b"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=11/data.parquet",
-        "generation": "1785544448109982",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=11/data.parquet",
+        "generation": "1787352802866183",
         "size_bytes": 475037,
         "crc32c": "YYo6mg==",
         "md5_base64": "10iPS3tMSOEMR+AoZXnQiA==",
         "sha256": "b8f99b7e16de62f49ca76752b65d7f9f623387a07be5dfc0a557809257d8481f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=12/data.parquet",
-        "generation": "1785546642386947",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2023/month=12/data.parquet",
+        "generation": "1787352802767977",
         "size_bytes": 473470,
         "crc32c": "OXVMpg==",
         "md5_base64": "kdu8giG9GCc9w1O7UCQyjQ==",
         "sha256": "76b61603533fb8c88eb117e60f5a3b4684a0d4d934182ed536c8ecea4a6a743e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=01/data.parquet",
-        "generation": "1785544605728322",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=01/data.parquet",
+        "generation": "1787352802893827",
         "size_bytes": 508104,
         "crc32c": "DFX8Lg==",
         "md5_base64": "OxFOJKLbmc2kbhqz4C8sDw==",
         "sha256": "d2ff3cfb212fe1739cea8d591d69da2e287354b23fff2ebcfdd99016848f187a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=02/data.parquet",
-        "generation": "1785543858083843",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=02/data.parquet",
+        "generation": "1787352802867721",
         "size_bytes": 460787,
         "crc32c": "4slVvQ==",
         "md5_base64": "r1qfqCX1dEjBOB3Ebt+Xtw==",
         "sha256": "a44d3b1a2a6a4f95581ce9d0ffbfafed71660e95bdb1ac6b5ce8a05d8b96f114"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=03/data.parquet",
-        "generation": "1785546663166030",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=03/data.parquet",
+        "generation": "1787352802774406",
         "size_bytes": 487142,
         "crc32c": "cqqdmA==",
         "md5_base64": "HzDjO/0iYQ4H3q3e8L9ibw==",
         "sha256": "0d80448443cab79b7f5b741eab7cb1aa59f43eec68340ef794fcc281f8b248ae"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=04/data.parquet",
-        "generation": "1785543975154282",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=04/data.parquet",
+        "generation": "1787352802891717",
         "size_bytes": 467047,
         "crc32c": "vRyCAQ==",
         "md5_base64": "lpazOOWJJraGnlxHCxT6Ew==",
         "sha256": "7bdc6ffc53e26697d2f1df80a56722175eca8d01cc6d3134735921aa9a3da8ac"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=05/data.parquet",
-        "generation": "1785546900766612",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=05/data.parquet",
+        "generation": "1787352802969612",
         "size_bytes": 477507,
         "crc32c": "p2/OGw==",
         "md5_base64": "bDrPYHnPzzw6P4PAHZDSQA==",
         "sha256": "7e33226340f8d0f610d56e67a2115344b3e2d657ce5af23c7a95a2b96787c60b"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=06/data.parquet",
-        "generation": "1785546922264890",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=06/data.parquet",
+        "generation": "1787352802870675",
         "size_bytes": 459818,
         "crc32c": "0f+KIQ==",
         "md5_base64": "iQ6umGnr7jMfsTal+AmDvw==",
         "sha256": "1145ef8532c6ed57da067b7b6b4f820e39fa4b33cbb86b0b9101e16ca63a9833"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=07/data.parquet",
-        "generation": "1785546945188614",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=07/data.parquet",
+        "generation": "1787352802978172",
         "size_bytes": 473650,
         "crc32c": "xp0uOQ==",
         "md5_base64": "RymqQ1OBwB1CIJB1gwcEXA==",
         "sha256": "dd290e7b3f62ae09ba107cefb65a7df5232a25941741cac4412bd603c57b8c48"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=08/data.parquet",
-        "generation": "1785546967953594",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=08/data.parquet",
+        "generation": "1787352802865289",
         "size_bytes": 471854,
         "crc32c": "6wVuvg==",
         "md5_base64": "b/coZssEAr7Gh38UHaH3JA==",
         "sha256": "81d9cf537efcf0bb919777ee54e4db97dab208cdb3567f7cfde841ef519f93c0"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=09/data.parquet",
-        "generation": "1785546991439579",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=09/data.parquet",
+        "generation": "1787352802962602",
         "size_bytes": 461485,
         "crc32c": "exVC9w==",
         "md5_base64": "n7nj06G4TdVHFkf7gr5k8Q==",
         "sha256": "35ea5acef732f519628953cbae64b570023b50a685e76c807df584c9c28118c5"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=10/data.parquet",
-        "generation": "1785547141296502",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=10/data.parquet",
+        "generation": "1787352802990685",
         "size_bytes": 486357,
         "crc32c": "l7Bgsg==",
         "md5_base64": "vE/8QUmnwKBYTKgn9KbwmA==",
         "sha256": "f99a21d2ddb9181f0c0108adb6248b028b5edcafde925594487e33c1224286ca"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=11/data.parquet",
-        "generation": "1785547391205159",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=11/data.parquet",
+        "generation": "1787352803173165",
         "size_bytes": 479388,
         "crc32c": "I9DeNg==",
         "md5_base64": "3JCDLRnXddj8cIoKu1xwpg==",
         "sha256": "efa42d778e1440febf3616f09172aa454ae223449667405858d3de84d329baa3"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=12/data.parquet",
-        "generation": "1785547480618546",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2024/month=12/data.parquet",
+        "generation": "1787352803120958",
         "size_bytes": 487370,
         "crc32c": "+oPWuA==",
         "md5_base64": "QRGvj9fUwgKzA/YA08SA6g==",
         "sha256": "a95751545e785b3885b17ce45005c28fb013447744d27991bbf85e5392ebc26a"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=01/data.parquet",
-        "generation": "1785547502311640",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=01/data.parquet",
+        "generation": "1787352802979126",
         "size_bytes": 507330,
         "crc32c": "27I/oQ==",
         "md5_base64": "8lQIvo94ptQIkyiUUMf8Fg==",
         "sha256": "10343ad7fe4278aae393730d3255894e5677fc96cf6021cf529afa911e23b3b8"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=02/data.parquet",
-        "generation": "1785566195514927",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=02/data.parquet",
+        "generation": "1787352802977943",
         "size_bytes": 452142,
         "crc32c": "gVTe3w==",
         "md5_base64": "fxSNo0YPiEtyl+y6muB7kA==",
         "sha256": "1c8a00a88247c79c97171eac8500825fbb86ff06be39418c1de8e510737606c1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=03/data.parquet",
-        "generation": "1785567267604655",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=03/data.parquet",
+        "generation": "1787352802853829",
         "size_bytes": 484251,
         "crc32c": "JQ/Yqg==",
         "md5_base64": "cmDM6p0rjUhJGhQLGBDaxg==",
         "sha256": "05f77ac72f8874c57299891d5ca83d5c67496d145b253a803b42ad914ba5dc2b"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=04/data.parquet",
-        "generation": "1785567294785584",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=04/data.parquet",
+        "generation": "1787352802927097",
         "size_bytes": 468039,
         "crc32c": "Iso48A==",
         "md5_base64": "boFLFOsJjevJYTRHH+xQ1A==",
         "sha256": "08ab8a9e875a55d2482ebd476922ded4566e91c2b130bb53b3792b4c64cb77c8"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=05/data.parquet",
-        "generation": "1785567638593501",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=05/data.parquet",
+        "generation": "1787352802968827",
         "size_bytes": 482000,
         "crc32c": "yJK/tA==",
         "md5_base64": "uhlGvP66AkCU8SEAWeqFlw==",
         "sha256": "bf8cf91bf9fb9ff8114c9cf3cc67499aa6d52e4280fb596005fc79b1d99553a5"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=06/data.parquet",
-        "generation": "1785568681680792",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=06/data.parquet",
+        "generation": "1787352802993139",
         "size_bytes": 460770,
         "crc32c": "JhtVIA==",
         "md5_base64": "5WygLWPhhXZYeDFZMNWH4w==",
         "sha256": "2560595aecde148b51492a2eca683cbada2f15bbddb4db0dfa18256c4eba2512"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=07/data.parquet",
-        "generation": "1785566218288105",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=07/data.parquet",
+        "generation": "1787352803096171",
         "size_bytes": 467105,
         "crc32c": "fu4S6g==",
         "md5_base64": "Ue/symLQHFhkAYoN62TJvA==",
         "sha256": "b1717bc95c726d1dada5f4f48656c81c24743a01c440933b14f8b11689bd1705"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=08/data.parquet",
-        "generation": "1785567993581506",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=08/data.parquet",
+        "generation": "1787352802958287",
         "size_bytes": 469453,
         "crc32c": "ErYrfQ==",
         "md5_base64": "VPutb6kBIcYInOSERIKpXQ==",
         "sha256": "11882892b41648072d39533bfd2aaba06d4a5928d3a848742a0d9aaa8b62ddea"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=09/data.parquet",
-        "generation": "1785567849806414",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=09/data.parquet",
+        "generation": "1787352802967832",
         "size_bytes": 456938,
         "crc32c": "7Mst+g==",
         "md5_base64": "EvxnJFyzUf2B50TRYT0BJw==",
         "sha256": "fb3c7b896780f5d940dc86e84bc611e7a9d527b33a8ff9bc60d953f39274e07e"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=10/data.parquet",
-        "generation": "1785567876144466",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=10/data.parquet",
+        "generation": "1787352802987956",
         "size_bytes": 495193,
         "crc32c": "dcljnQ==",
         "md5_base64": "tKK7ZGZkFJNn8n0xPOLVXA==",
         "sha256": "0bd1136f04d57d7f443efe682c63ea0ebdcd74dd8293ac18744e60993f523382"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=11/data.parquet",
-        "generation": "1785567614842800",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=11/data.parquet",
+        "generation": "1787352803068806",
         "size_bytes": 481115,
         "crc32c": "wro/WQ==",
         "md5_base64": "EodHU4lblEO42cPUvs1V5Q==",
         "sha256": "52aaa96a88891bd13fdf77f8c0b3d3c807699a800f949254c640dc3b56d14dbc"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=12/data.parquet",
-        "generation": "1785567898250865",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2025/month=12/data.parquet",
+        "generation": "1787352803089531",
         "size_bytes": 481574,
         "crc32c": "a5Hinw==",
         "md5_base64": "ZKU7p/IyUzd7UB0+4PnvMQ==",
         "sha256": "bfff0af1ff4e6d8d574f93b46ef8fc74da492b1dfc9f1f9723892f96314dead1"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=01/data.parquet",
-        "generation": "1785567186823178",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=01/data.parquet",
+        "generation": "1787352802980985",
         "size_bytes": 508655,
         "crc32c": "nnOqCA==",
         "md5_base64": "doW7VQTwXMcdjPbVD4GQSw==",
         "sha256": "f8fdab0b5738de6e34a6a5fe1fa288d723cf21b3e2044f08471d0e41da015b76"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=02/data.parquet",
-        "generation": "1785567215950688",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=02/data.parquet",
+        "generation": "1787352803087864",
         "size_bytes": 451522,
         "crc32c": "34i8dg==",
         "md5_base64": "cXzwYsUeNRQSSAWMhD1UJA==",
         "sha256": "47e31d83be3ef21219ae7ec5fa4806c50dc441e5e0db710fd970108739ec5220"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=03/data.parquet",
-        "generation": "1785569326246904",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=03/data.parquet",
+        "generation": "1787352802979108",
         "size_bytes": 486878,
         "crc32c": "26v5Qg==",
         "md5_base64": "Vnh7mTXjLC5fQLyJvCyeLg==",
         "sha256": "edcdfe2fb3287d56bf0dcc421dc977f99ace03fcdca0069190ca2886c5139466"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=04/data.parquet",
-        "generation": "1785567521443017",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=04/data.parquet",
+        "generation": "1787352803478986",
         "size_bytes": 465940,
         "crc32c": "O03XhA==",
         "md5_base64": "5lcpqDyKubw1PdcuFsuTuA==",
         "sha256": "4d28c3e9abd3fb50fa1f6c8ab7aa81e61ebb247de59efd80c9ab8b4b485df0c4"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=05/data.parquet",
-        "generation": "1785567921264276",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=05/data.parquet",
+        "generation": "1787352803156201",
         "size_bytes": 479310,
         "crc32c": "+O+26w==",
         "md5_base64": "ho8wIhwlpl1QtQ64470wpQ==",
         "sha256": "0c3e98f27a490302180375b265ff62b1f3fbf43900259ffffbc125af8d51b35f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=06/data.parquet",
-        "generation": "1785567947650496",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=06/data.parquet",
+        "generation": "1787352803061701",
         "size_bytes": 463744,
         "crc32c": "QBgmuA==",
         "md5_base64": "q32a8gWMRq7Fir8kFtk0Xg==",
         "sha256": "72a68a0d9167f3ebb03cd69e4cf5e1b7885b951f4db17c11bb098990f5c71b5f"
       },
       {
-        "uri": "gs://bcli-natgas-data-497807/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=07/data.parquet",
-        "generation": "1785567239640436",
+        "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/weather/ncar_gdex/d084001/model=ncep_gfs_0p25/cycle=all/solar/solar_daily/year=2026/month=07/data.parquet",
+        "generation": "1787352803071037",
         "size_bytes": 426814,
         "crc32c": "AX2lQQ==",
         "md5_base64": "2/3hMQl338NHdf/9MbbZ5g==",
@@ -2061,8 +2061,8 @@
       }
     ],
     "capacity_snapshot": {
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/solar/eia860m_operating_solar_generators.parquet",
-      "generation": "1786672143203040",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/solar/eia860m_operating_solar_generators.parquet",
+      "generation": "1787352825352176",
       "size_bytes": 6838745,
       "sha256": "0d64be7f7573d25e0bbe859016c02f988c6733f43ec67d7c7a58977746f1ab32"
     },

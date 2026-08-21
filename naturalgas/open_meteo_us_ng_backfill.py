@@ -30,7 +30,10 @@ import requests
 
 ENDPOINT = "https://previous-runs-api.open-meteo.com/v1/forecast"
 MODEL = "ncep_gfs_seamless"
-BUCKET = "bcli-natgas-data-497807"
+from naturalgas.storage_config import PERSONAL_GCS_ROOT
+
+
+BUCKET = PERSONAL_GCS_ROOT
 RAW_PREFIX = (
     "raw/weather/open_meteo/previous_runs/"
     "model=ncep_gfs_seamless"

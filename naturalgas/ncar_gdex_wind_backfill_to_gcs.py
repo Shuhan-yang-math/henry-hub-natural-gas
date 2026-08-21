@@ -49,7 +49,10 @@ from naturalgas.open_meteo_us_ng_backfill import LOCATIONS  # noqa: E402
 DATASET_ID = "d084001"
 MODEL = "ncep_gfs_0p25"
 TDS_BASE = "https://tds.gdex.ucar.edu/thredds"
-BUCKET = "bcli-natgas-data-497807"
+from naturalgas.storage_config import PERSONAL_GCS_ROOT
+
+
+BUCKET = PERSONAL_GCS_ROOT
 RAW_PREFIX = (
     "raw/weather/ncar_gdex/d084001/wind_points/"
     "model=ncep_gfs_0p25/cycle=00"

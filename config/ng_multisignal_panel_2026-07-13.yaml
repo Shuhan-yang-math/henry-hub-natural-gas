@@ -41,7 +41,7 @@ wind:
     additional cycles are not rows in the selected daily wind artifact.
   raw_weather_source:
     dataset: "NCAR GDEX d084001 / NCEP GFS 0.25 degree"
-    uri_glob: "gs://bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=*/month=*/data.parquet"
+    uri_glob: "gs://datafinancial0/henry-hub-natural-gas/raw/weather/ncar_gdex/d084001/wind_points/model=ncep_gfs_0p25/cycle=all/year=*/month=*/data.parquet"
     layer: raw_point_weather
     representative_locations: 28
     lead_days:

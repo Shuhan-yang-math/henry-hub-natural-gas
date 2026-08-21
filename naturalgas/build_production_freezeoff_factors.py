@@ -35,7 +35,10 @@ import pandas as pd
 import requests
 
 
-BUCKET = "bcli-natgas-data-497807"
+from naturalgas.storage_config import PERSONAL_GCS_ROOT
+
+
+BUCKET = PERSONAL_GCS_ROOT
 EIA_SOURCE_URL = "https://www.eia.gov/outlooks/steo/xls/Fig44.xlsx"
 EIA_SOURCE_RELEASE_DATE = date(2026, 7, 7)
 EIA_DIRECT_REGIONS = (

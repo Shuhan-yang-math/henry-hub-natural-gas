@@ -9,8 +9,8 @@
   "artifacts": [
     {
       "id": "ng_multisignal_panel",
-      "uri": "gs://bcli-natgas-data-497807/processed/ng_multisignal_score/ng_multisignal_panel.parquet",
-      "generation": "1785435608499104",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/ng_multisignal_score/ng_multisignal_panel.parquet",
+      "generation": "1787352799687042",
       "sha256": "9231ba79695fb0551e2d2dc6e60067332d05da202a13d86d3c6fc1cfc7c60fab",
       "local_path": "naturalgas/processed/ng_multisignal_score/ng_multisignal_panel.parquet",
       "size_bytes": 3504429,
@@ -25,8 +25,8 @@
     },
     {
       "id": "capacity_weighted_wind_features_daily",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v1/inputs/capacity_weighted_wind_features_daily.parquet",
-      "generation": "1785904479037568",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v1/inputs/capacity_weighted_wind_features_daily.parquet",
+      "generation": "1787352825195621",
       "sha256": "95f21e375f0b18eed4cb748cb764957778773e9630e445c325184520f5d55081",
       "local_path": "naturalgas/processed/ncar_gdex_complete_wind_factor/capacity_weighted_wind_features_daily.parquet",
       "size_bytes": 1107227,
@@ -41,8 +41,8 @@
     },
     {
       "id": "capacity_weighted_solar_signals",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v1/inputs/capacity_weighted_solar_signals.parquet",
-      "generation": "1785904479034390",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v1/inputs/capacity_weighted_solar_signals.parquet",
+      "generation": "1787352825094816",
       "sha256": "38a13027ab4a937e7a13caadc13af627d558a147773255d528d56779a41061c0",
       "local_path": "naturalgas/processed/ncar_gdex_capacity_weighted_solar/capacity_weighted_solar_signals.parquet",
       "size_bytes": 1419003,
@@ -57,8 +57,8 @@
     },
     {
       "id": "capacity_weighted_location_leads",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v1/inputs/capacity_weighted_location_leads.parquet",
-      "generation": "1785904479072012",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v1/inputs/capacity_weighted_location_leads.parquet",
+      "generation": "1787352825260940",
       "sha256": "27b7a7cfdfe4af525b65da9e208099eca2c035d5d3e9bedcd625fbbe2d5b46e9",
       "local_path": "naturalgas/processed/ncar_gdex_capacity_weighted_solar/capacity_weighted_location_leads.parquet",
       "size_bytes": 3553329,
@@ -73,8 +73,8 @@
     },
     {
       "id": "storage_weekly",
-      "uri": "gs://bcli-natgas-data-497807/processed/storage_weekly.parquet",
-      "generation": "1784674812651746",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/storage_weekly.parquet",
+      "generation": "1787352801947831",
       "sha256": "05e1374211246577a175a58179cf05fe53b7ade8817140d598e0f2e7a9d3cd60",
       "local_path": "inputs/gcs/processed/storage_weekly.parquet",
       "consumer_mode": "generation-pinned local snapshot used by the formal rebuild; legacy CLI may read the same pinned GCS generation",
@@ -90,8 +90,8 @@
     },
     {
       "id": "fundamentals_monthly",
-      "uri": "gs://bcli-natgas-data-497807/processed/fundamentals_monthly.parquet",
-      "generation": "1784674813059617",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/fundamentals_monthly.parquet",
+      "generation": "1787352810160713",
       "sha256": "72eff5123d9fcf0d48b8af52621b01d31323b3b00c5982bcec34cd430c645e4b",
       "local_path": "inputs/gcs/processed/fundamentals_monthly.parquet",
       "consumer_mode": "generation-pinned local snapshot used by the formal rebuild; legacy CLI may read the same pinned GCS generation",
@@ -107,8 +107,8 @@
     },
     {
       "id": "eia_country_monthly",
-      "uri": "gs://bcli-natgas-data-497807/raw/eia/trade_detail/country_monthly.parquet",
-      "generation": "1784765115754980",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/raw/eia/trade_detail/country_monthly.parquet",
+      "generation": "1787352811273483",
       "sha256": "7329fba8573d4e1c706e8737a3562b298d543c2ff7b921f36e7b6f591624fe3c",
       "local_path": "inputs/gcs/raw/eia/trade_detail/country_monthly.parquet",
       "consumer_mode": "generation-pinned local snapshot used by the formal rebuild; legacy CLI may read the same pinned GCS generation",

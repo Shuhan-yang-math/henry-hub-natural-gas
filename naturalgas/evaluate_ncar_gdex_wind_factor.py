@@ -41,9 +41,12 @@ from naturalgas.weather_feature_policy import (  # noqa: E402
 )
 
 
-PROJECT = "bcli-natgas-data-497807"
+from naturalgas.storage_config import PERSONAL_GCS_ROOT
+
+
+PROJECT = None
 RAW_GLOB = (
-    "bcli-natgas-data-497807/raw/weather/ncar_gdex/d084001/"
+    f"{PERSONAL_GCS_ROOT}/raw/weather/ncar_gdex/d084001/"
     "wind_points/model=ncep_gfs_0p25/cycle=all/"
     "year=*/month=*/data.parquet"
 )

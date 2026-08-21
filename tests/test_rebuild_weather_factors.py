@@ -79,10 +79,11 @@ def test_approved_weather_manifest_is_complete_and_matches_formal_inputs() -> No
             "capacity_kind": "uswtdb_turbines",
             "artifact": {
                 "uri": (
-                    "gs://bcli-natgas-data-497807/research/henry_hub_strategy/"
+                    "gs://datafinancial0/henry-hub-natural-gas/"
+                    "research/henry_hub_strategy/"
                     "v2/inputs/wind/uswtdb_turbines.parquet"
                 ),
-                "generation": "1786672137418013",
+                "generation": "1787352825193518",
                 "size_bytes": 1819747,
                 "sha256": (
                     "26a4509b090252b4bf54aa09445e8db8a55a68280f6b7b4608481ba8df5bcfc2"
@@ -93,10 +94,11 @@ def test_approved_weather_manifest_is_complete_and_matches_formal_inputs() -> No
             "capacity_kind": "eia_generators",
             "artifact": {
                 "uri": (
-                    "gs://bcli-natgas-data-497807/research/henry_hub_strategy/"
+                    "gs://datafinancial0/henry-hub-natural-gas/"
+                    "research/henry_hub_strategy/"
                     "v2/inputs/solar/eia860m_operating_solar_generators.parquet"
                 ),
-                "generation": "1786672143203040",
+                "generation": "1787352825352176",
                 "size_bytes": 6838745,
                 "sha256": (
                     "0d64be7f7573d25e0bbe859016c02f988c6733f43ec67d7c7a58977746f1ab32"

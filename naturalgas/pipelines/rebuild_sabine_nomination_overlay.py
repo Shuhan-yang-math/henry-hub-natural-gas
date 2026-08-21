@@ -36,6 +36,7 @@ from naturalgas.evaluate_sabine_nomination_revision_intraday_overlay_final impor
 )
 from naturalgas.reproducibility import (
     PROJECT_ROOT,
+    assert_reproduction_values_match,
     create_staging_directory,
     discard_staging_directory,
     fetch_manifest,
@@ -307,34 +308,66 @@ def verify_overlay_summary(
 
     actual = json.loads(actual_path.read_text(encoding="utf-8"))
     expected = json.loads(expected_path.read_text(encoding="utf-8"))
-    if _comparable_summary(actual) != _comparable_summary(expected):
-        raise AssertionError(
-            "Pinned-input rebuild does not reproduce the shipped overlay summary"
+    try:
+        assert_reproduction_values_match(
+            _comparable_summary(actual),
+            _comparable_summary(expected),
+            path="summary",
         )
+    except AssertionError as exc:
+        raise AssertionError(
+            "Pinned-input rebuild does not reproduce the shipped overlay "
+            f"summary: {exc}"
+        ) from exc
 
 
 def verify_output_parity(
     actual_dir: Path,
     expected_dir: Path = EXPECTED_OUTPUT_DIR,
 ) -> dict[str, Any]:
-    """Require exact table and daily-path parity with the shipped artifacts."""
+    """Require table and daily-path parity apart from float roundoff."""
 
     table_hashes: dict[str, str] = {}
+    all_exact = True
     for name in PARITY_TABLES:
         actual_path = actual_dir / name
         expected_path = expected_dir / name
         actual = pd.read_csv(actual_path)
         expected = pd.read_csv(expected_path)
-        pd.testing.assert_frame_equal(actual, expected, check_exact=True)
+        try:
+            pd.testing.assert_frame_equal(actual, expected, check_exact=True)
+        except AssertionError:
+            all_exact = False
+        pd.testing.assert_frame_equal(
+            actual,
+            expected,
+            check_exact=False,
+            rtol=0.0,
+            atol=1e-12,
+        )
         table_hashes[name] = sha256_file(actual_path)
 
     actual_daily = pd.read_parquet(actual_dir / "daily_strategy_path.parquet")
     expected_daily = pd.read_parquet(
         expected_dir / "daily_strategy_path.parquet"
     )
-    pd.testing.assert_frame_equal(actual_daily, expected_daily, check_exact=True)
+    try:
+        pd.testing.assert_frame_equal(
+            actual_daily,
+            expected_daily,
+            check_exact=True,
+        )
+    except AssertionError:
+        all_exact = False
+    pd.testing.assert_frame_equal(
+        actual_daily,
+        expected_daily,
+        check_exact=False,
+        rtol=0.0,
+        atol=1e-12,
+    )
     return {
-        "status": "exact",
+        "status": "exact" if all_exact else "within_float_roundoff",
         "tables": table_hashes,
         "daily_rows": int(len(actual_daily)),
         "daily_columns": int(len(actual_daily.columns)),

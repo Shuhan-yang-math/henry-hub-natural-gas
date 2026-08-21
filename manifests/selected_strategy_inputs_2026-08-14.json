@@ -11,8 +11,8 @@
   "artifacts": [
     {
       "id": "selected_eia930_central_daily_multifuel",
-      "uri": "gs://bcli-natgas-data-497807/processed/eia930/generation_replacement/retrieval_date=2026-08-10/run_id=20260811T030919Z/eia930_corridor_daily_multifuel.parquet",
-      "generation": "1786417833335699",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/eia930/generation_replacement/retrieval_date=2026-08-10/run_id=20260811T030919Z/eia930_corridor_daily_multifuel.parquet",
+      "generation": "1787352810050079",
       "sha256": "e275a32768822d152a369f9e5b42730fdc67bda7ba5e39a2282d072acc81987a",
       "size_bytes": 313861,
       "rows": 8253,
@@ -34,8 +34,8 @@
     },
     {
       "id": "selected_eia930_southeast_daily_multifuel",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/eia930/eia930_southeast_daily_multifuel.parquet",
-      "generation": "1786672128188456",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/eia930/eia930_southeast_daily_multifuel.parquet",
+      "generation": "1787352824975159",
       "sha256": "332bbf025b5f9536adf5148aa40be09cd80f596d49a39f058f1d7eea132542e4",
       "size_bytes": 937545,
       "rows": 49518,
@@ -55,8 +55,8 @@
     },
     {
       "id": "selected_florida_available_ba_signal_history",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/eia930/florida_available_ba_signal_history.parquet",
-      "generation": "1786672129982238",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/eia930/florida_available_ba_signal_history.parquet",
+      "generation": "1787352825061594",
       "sha256": "c34597ae140a9251c07e670649f2f8d5a1fd6d8ea8a80d4c8dc7e4b84616189b",
       "size_bytes": 128078,
       "rows": 1752,
@@ -75,8 +75,8 @@
     },
     {
       "id": "selected_eia930_overlay_inputs",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/eia930/selected_overlay_inputs.parquet",
-      "generation": "1786672131815199",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/eia930/selected_overlay_inputs.parquet",
+      "generation": "1787352825169896",
       "sha256": "80118666e3c63062c87441435c78f729676560b08b77cfcee1c9afe8b969f155",
       "size_bytes": 87364,
       "rows": 1751,
@@ -95,8 +95,8 @@
     },
     {
       "id": "selected_event_reports_aligned",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/events/event_reports_aligned.parquet",
-      "generation": "1786672133689920",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/events/event_reports_aligned.parquet",
+      "generation": "1787352825263117",
       "sha256": "f1a99a286c1a2a5b7b03990edfec08786aa9a56e0b7f5ad88417450fb984fb1b",
       "size_bytes": 23315,
       "rows": 101,
@@ -115,8 +115,8 @@
     },
     {
       "id": "selected_uswtdb_turbines",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/uswtdb_turbines.parquet",
-      "generation": "1786672137418013",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/uswtdb_turbines.parquet",
+      "generation": "1787352825193518",
       "sha256": "26a4509b090252b4bf54aa09445e8db8a55a68280f6b7b4608481ba8df5bcfc2",
       "size_bytes": 1819747,
       "rows": 75727,
@@ -135,8 +135,8 @@
     },
     {
       "id": "selected_uswtdb_metadata",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/uswtdb_metadata.json",
-      "generation": "1786672139190248",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/uswtdb_metadata.json",
+      "generation": "1787352825155076",
       "sha256": "10f7ac3598157c5efa0331588adf4e6f0fa8d74547deea65417c13755e5fd863",
       "size_bytes": 446,
       "local_path": "selected_inputs/wind/uswtdb_metadata.json",
@@ -144,8 +144,8 @@
     },
     {
       "id": "selected_annual_location_weights",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/annual_location_weights.parquet",
-      "generation": "1786672135524245",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/annual_location_weights.parquet",
+      "generation": "1787352825172985",
       "sha256": "f7ea18d461edbea3386046e528859294e8346393f80f215131451189373dee60",
       "size_bytes": 14974,
       "rows": 308,
@@ -162,8 +162,8 @@
     },
     {
       "id": "selected_eia860m_operating_solar_generators",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/solar/eia860m_operating_solar_generators.parquet",
-      "generation": "1786672143203040",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/solar/eia860m_operating_solar_generators.parquet",
+      "generation": "1787352825352176",
       "sha256": "0d64be7f7573d25e0bbe859016c02f988c6733f43ec67d7c7a58977746f1ab32",
       "size_bytes": 6838745,
       "rows": 599340,
@@ -181,8 +181,8 @@
     },
     {
       "id": "selected_eia860m_metadata",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/solar/eia860m_metadata.json",
-      "generation": "1786672144912826",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/solar/eia860m_metadata.json",
+      "generation": "1787352825003959",
       "sha256": "10e4e6b7e8b4112ccdcb660cf92e1cc9b167d02ffc9b725fb3f79e57142deb41",
       "size_bytes": 331,
       "local_path": "selected_inputs/solar/eia860m_metadata.json",
@@ -190,8 +190,8 @@
     },
     {
       "id": "selected_monthly_location_weights",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/solar/monthly_location_weights.parquet",
-      "generation": "1786672141020181",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/solar/monthly_location_weights.parquet",
+      "generation": "1787352825064883",
       "sha256": "f415446ae98a8233318f7f812066f5ebafb77f1c3af15b478fdaf79239f16002",
       "size_bytes": 68095,
       "rows": 3532,
@@ -207,8 +207,8 @@
     },
     {
       "id": "selected_legacy_wngsr_formal_scores",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/storage/legacy_week_ending_plus_six_formal_scores.parquet",
-      "generation": "1786672146743831",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/storage/legacy_week_ending_plus_six_formal_scores.parquet",
+      "generation": "1787352825003167",
       "sha256": "ba0e107f9380075931cbf29d84ac6d2d135f77e4c2a7a373f049f0fbae2c8a0b",
       "size_bytes": 48660,
       "rows": 2264,
@@ -223,8 +223,8 @@
     },
     {
       "id": "selected_wngsr_d1_3_score_corrections",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/storage/wngsr_d1_3_score_corrections.parquet",
-      "generation": "1786672148588205",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/storage/wngsr_d1_3_score_corrections.parquet",
+      "generation": "1787352825019257",
       "sha256": "b68fe58589f8337be69e57a14011eefa83436fdd32a0b0b1d5c58e5af76b8a4a",
       "size_bytes": 11755,
       "rows": 23,
@@ -240,8 +240,8 @@
     },
     {
       "id": "selected_d1_3_storage_amplifier_inputs",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/strategy/d1_3_storage_amplifier_inputs.parquet",
-      "generation": "1786672150419168",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/strategy/d1_3_storage_amplifier_inputs.parquet",
+      "generation": "1787352825186433",
       "sha256": "d4807aae8bc5401a9bfb533ec64820cedcc6f38352af9a13f460ae1e50befe04",
       "size_bytes": 213787,
       "rows": 1752,
@@ -265,20 +265,20 @@
   "existing_upstream_gcs_objects": [
     {
       "role": "Processed BSEE storm shut-in history used by the event-overlay builder.",
-      "uri": "gs://bcli-natgas-data-497807/processed/bsee/storm_shut_in/retrieval_date=2026-08-07/run_id=20260807T210944Z/bsee_storm_shut_in_events.parquet",
-      "generation": "1786137109017147",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/bsee/storm_shut_in/retrieval_date=2026-08-07/run_id=20260807T210944Z/bsee_storm_shut_in_events.parquet",
+      "generation": "1787352810101182",
       "sha256": "4501c21cd788421ac1ef195cdccd2062253ff33c9a9eafe453e86bbece04eedb"
     },
     {
       "role": "Processed Sabine notice history used by the event-overlay builder.",
-      "uri": "gs://bcli-natgas-data-497807/processed/pipeline_ebb/sabine/notices/retrieval_date=2026-08-07/run_id=20260807T200245Z/notices.parquet",
-      "generation": "1786133556387179",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/pipeline_ebb/sabine/notices/retrieval_date=2026-08-07/run_id=20260807T200245Z/notices.parquet",
+      "generation": "1787352799296414",
       "sha256": "306cdb5418f74471f1084c5022bb2e2340c7681adc80266d2660e30fb1c01006"
     },
     {
       "role": "Generation-pinned weekly storage input used by the formal and WNGSR correction builders.",
-      "uri": "gs://bcli-natgas-data-497807/processed/storage_weekly.parquet",
-      "generation": "1784674812651746",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/processed/storage_weekly.parquet",
+      "generation": "1787352801947831",
       "sha256": "05e1374211246577a175a58179cf05fe53b7ade8817140d598e0f2e7a9d3cd60"
     }
   ]

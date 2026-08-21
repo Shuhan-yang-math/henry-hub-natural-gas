@@ -26,7 +26,10 @@ import pyarrow.parquet as pq
 
 
 SOURCE_BUCKET = "level-array-501205-r2-futures-prices-v2"
-TARGET_BUCKET = "bcli-natgas-data-497807"
+from naturalgas.storage_config import PERSONAL_GCS_ROOT
+
+
+TARGET_BUCKET = PERSONAL_GCS_ROOT
 EIA_KEY = f"{TARGET_BUCKET}/raw/eia/prices/nymex_futures_front4_daily.csv"
 TRADES_PREFIX = f"{SOURCE_BUCKET}/exchange=NYMEX/trades"
 OUTPUT_PREFIX = f"{TARGET_BUCKET}/processed/ng_hh_futures"

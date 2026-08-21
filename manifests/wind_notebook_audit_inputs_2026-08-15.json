@@ -5,8 +5,8 @@
   "artifacts": [
     {
       "id": "wind_annual_location_weights_csv",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/annual_location_weights.csv",
-      "generation": "1786756384404034",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/annual_location_weights.csv",
+      "generation": "1787352825171050",
       "sha256": "677cdabc8f3f051514f3ad3ed29e24332c6755dc9902bd8361b35dddd8ff23db",
       "size_bytes": 27164,
       "local_path": "audit/wind/annual_location_weights.csv",
@@ -14,8 +14,8 @@
     },
     {
       "id": "wind_annual_fleet_diagnostics_csv",
-      "uri": "gs://bcli-natgas-data-497807/research/henry_hub_strategy/v2/inputs/wind/annual_fleet_diagnostics.csv",
-      "generation": "1786756386280091",
+      "uri": "gs://datafinancial0/henry-hub-natural-gas/research/henry_hub_strategy/v2/inputs/wind/annual_fleet_diagnostics.csv",
+      "generation": "1787352825185796",
       "sha256": "57fdd655c5b2e5c21c060d71e6ceb6d1884ad803f15ed484308e48c8920f596e",
       "size_bytes": 919,
       "local_path": "audit/wind/annual_fleet_diagnostics.csv",
